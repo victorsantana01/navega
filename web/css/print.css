@@ -1,0 +1,134 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/01/2019, 13:43:14
+    Author     : VictorSantana
+*/
+
+* {
+background:transparent !important;
+color:#000 !important;
+text-shadow:none !important;
+filter:none !important;
+-ms-filter:none !important;
+}
+
+body {
+margin:6;
+padding:6;
+line-height: 1.4em;
+}
+@page {
+margin: 3.5cm;
+}
+nav, footer, video, audio, object, embed { 
+display:none; 
+}
+
+.print {
+display:block;
+}
+
+.no-print { 
+display:none; 
+}
+
+#rpmBtn{
+    display:none;
+}
+
+#btnMenosConsumo{
+    display:none;
+}
+#btnMenosConsumo2{
+    display:none;
+}
+.print {
+display:none;
+}
+
+.no-print { 
+display:block; 
+}
+
+img {
+max-width: 100%;
+}
+aside {
+display:block;
+page-break-before: always;
+}
+
+.wrap { 
+width: 50%; 
+margin: 0; 
+float: none !important; 
+}
+
+body {
+font: 9pt Georgia, "Arial", Times, serif;
+color: #000;
+}
+
+h1 {
+font-size: 24pt;
+}
+
+h2 {
+font-size: 18pt;
+}
+
+span {
+font-size: pt;
+}
+th {
+font-size: 14pt;
+}
+b{
+  font-size: 10pt;  
+}
+
+td {
+height: 1%;
+font-size: 14pt;
+      border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #3A3A3A;
+            background-color: #ffffff;
+
+}
+table.table-style-one td {
+      
+        }
+q:after {
+content: " (" attr(cite) ")";
+}
+
+a, a:visited {
+text-decoration: underline;
+}
+
+a:link:after, a:visited:after {
+content: " (" attr(href) ") ";
+}
+a:after, a[href^="javascript:"]:after, a[href^="#"]:after { 
+content: ""; 
+}
+
+p a {
+word-wrap: break-word;
+}
+p {
+widows: 3;
+}
+p {
+orphans: 3;
+}
+
+.page-break { 
+page-break-before: always; 
+}
