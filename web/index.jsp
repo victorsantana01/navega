@@ -33,14 +33,11 @@
     <body class="background #eeeeee grey lighten-3">
     -->
     <body>
-        
-       
-        
         <%
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
-         Statement stmt = con.createStatement();
+        Statement stmt = con.createStatement();
         %>
       <!-- INICIO Botão de Add -->
       <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
