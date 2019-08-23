@@ -33,6 +33,9 @@
     <body class="background #eeeeee grey lighten-3">
     -->
     <body>
+        
+       
+        
         <%
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
@@ -50,9 +53,11 @@
           </ul>
       </div>
         <!-- FIM Botão de Add -->
-         <!--Materialize NavBar -->    
-       <div class="navbar-fixed z-depth-5">
-
+        
+    <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed">
          <nav class="#00838f cyan darken-3">
              
                  <div class="nav-wrapper" >
@@ -69,6 +74,51 @@
           
          </nav>
        </div>
+    </header>
+         
+         
+    <div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav">
+            <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                <li class="user-details cyan darken-2">
+                    <div class="row">
+                        <div class="col col s4 m4 l4">
+                            <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                        </div>
+                        <div class="col col s8 m8 l8">
+
+                            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">Victor Santana<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                            <p class="user-roal">Gerente Executivo</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Vistas</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="css-typography.html">Cadastrar</a>
+                                    </li>                                        
+                                    <li><a href="css-icons.html">Atendimento</a>
+                                    </li>
+                                    <li><a href="css-shadow.html">Incluir Cliente</a>
+                                    </li>
+                                    <li><a href="css-media.html">Relatórios</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+                    </aside>
+    </div>
+    </div>
+    
+         
         <!--INICIO do Corpo do App -->
         
         <script type="text/javascript">
