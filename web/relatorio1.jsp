@@ -59,6 +59,10 @@ function abreLink(url){
 }
 </script>
 <script type="text/javascript">
+    
+    $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
  
     var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
 
@@ -239,6 +243,7 @@ function trocaClasse(elemento, antiga, nova) {
                    <div class="container">
                    <label for="exampleInputName">Fim</label>
                    <input name="dataFim" class="form-control"  type="date" >
+                      <input type="text" class="datepicker">
                    </div>
                    
                    <div class="container">
@@ -858,6 +863,8 @@ console.log(rpm);
             
         </script>
          <script type="text/javascript">
+                                                  
+                                                    
              function confirma (form){
              
               form.submit();
