@@ -173,7 +173,7 @@
 
             <%
                 BarcoDao barco = new BarcoDao();
-                String[][] barcos = barco.pesquisaMotores().clone();
+                String[][] barcos = barco.pesquisaBarcos().clone();
                 for (int i = 0; i < 50; i++) {
                     if (barcos[i][0] == null) {
                         i = 50;
