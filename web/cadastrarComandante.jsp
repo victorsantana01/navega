@@ -38,7 +38,7 @@
               ComandanteDao cons = new ComandanteDao();
               cons.incluirComandante(nomeComandante, matricula, contato);
 
-    String redirectURL = "/NavegaGestor/index.jsp";
+    String redirectURL = "/NavegaGestor/cadComandante.jsp";
     response.sendRedirect(redirectURL);
           %>
          

@@ -40,7 +40,7 @@
               BarcoDao cons = new BarcoDao();
               cons.incluirBarco(codBarco, nome, motor, modelo, base);
 
-    String redirectURL = "/NavegaGestor/index.jsp";
+    String redirectURL = "/NavegaGestor/cadBarco.jsp";
     response.sendRedirect(redirectURL);
           %>
          

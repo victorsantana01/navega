@@ -43,7 +43,7 @@
               ViagemDao cons = new ViagemDao();
               cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
 
-    String redirectURL = "/NavegaGestor/index.jsp";
+    String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);
           %>
          <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
