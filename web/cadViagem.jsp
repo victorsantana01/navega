@@ -149,7 +149,7 @@ response.sendRedirect( "login.jsp" );
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">
-                                                     <span class="card-title">Embarcação</span>
+                                                     <span class="card-title center">Embarcação</span>
                                                     
                                                      <div class="input-field col s6">
                                                         <select class="browser-default black-text" name="barco" required > 
@@ -162,7 +162,7 @@ response.sendRedirect( "login.jsp" );
                                                                         i = 50;
                                                                     } else {
                                                             %>
-                                                           <option class="black-text" value="<%=barcos[i][0]%>"><%=barcos[i][1]%></option>
+                                                           <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[1][i]%></option>
 
                                                             <%
                                                                     }

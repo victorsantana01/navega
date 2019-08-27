@@ -32,7 +32,7 @@ public class ComandanteDao {
     }
     public String[][] pesquisarComandantes() {
        
-       String[][] comandantes = new String[20][3];
+       String[][] comandantes = new String[5][100];
        
        try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -47,10 +47,11 @@ public class ComandanteDao {
 //        String[][] comandantes = new String[size][3];
         while (rs.next()) {
         
-        comandantes[0][i]=rs.getString("nome");
-        comandantes[1][i]=rs.getString("matricula");
-        comandantes[2][i]=rs.getString("ultimaViagem");
-        comandantes[3][i]=rs.getString("contato");
+        comandantes[0][i]=rs.getString("idcomandante");
+        comandantes[1][i]=rs.getString("nome");
+        comandantes[2][i]=rs.getString("matricula");
+        comandantes[3][i]=rs.getString("ultimaViagem");
+        comandantes[4][i]=rs.getString("contato");
         i++;
         }
         System.out.println("TUDO NICE NO METODO PESQUISACOMANDANTES ........... ");
