@@ -1,5 +1,5 @@
 <%@page import="logic.Format"%>
-<%--<%@page import="dao.Barco"%>--%>
+<%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
@@ -82,7 +82,7 @@
                 <div class="col s12">
                     <div class="card blue-grey darken-1 offset-s5">
                         <div class="card-content white-text ">
-                            <span class="card-title">Cadastro de Comandante</span>
+                            <span class="card-title">Cadastro de Barco</span>
                             <div class="row">
                                 <div class="container col s12">
                                     <div class="row ">
@@ -92,16 +92,38 @@
                                             <div class="form-group col s12">
                                                 <div class="form-row col s6 center-align">
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input nome="nomeComandante" class="validate white-text" id="nomeComandante" type="text" placeholder="Nome" >
-                                                        <label for="nomeComandate">Nome do Comandante</label>
+                                                        <input name="codBarco" class="validate white-text" id="codBarco" type="text" required>
+                                                        <label for="codBarco">Codigo da Embarcação</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input nome="matricula" class="validate white-text" id="matricula" type="text" placeholder="Matricula" >
-                                                        <label for="matricula">Matricula</label>
+                                                        <input name="nomeBarco" class="validate white-text" id="nomeBarco" type="text" required>
+                                                        <label for="nomeBarco">Nome da Embarcação</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="contato" class="validate white-text" id="contato" type="date"  placeholder="Contato">
-                                                        <label for="matricula">Contato</label>
+                                                        <select class="browser-default" name="motor" id="motor" required>
+                                                            <option value="" disabled selected>Motores</option>
+                                                                                                                    <%
+                                                                BarcoDao com = new BarcoDao();
+                                                                String[][] motores = com.pesquisaMotores().clone();
+                                                                for (int i = 0; i < 10; i++) {
+                                                                    if (motores[i][0] == null) {
+                                                                        i = 50;
+                                                                    } else {
+                                                            %>
+                                                           <option value="<%=motores[i][0]%>"><%=motores[i][1]%></option>
+
+                                                            <%
+                                                                    }
+                                                                }%>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="modelo" class="validate white-text" id="modelo" type="text" required>
+                                                        <label for="modelo">modelo</label>
+                                                    </div>
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="base" class="validate white-text" id="base" type="text" required>
+                                                        <label for="base">base</label>
                                                     </div>
                                                 </div>
                                                 
@@ -109,7 +131,7 @@
                                                 
                                             </div>
                                             <div class="card-action col s12">
-                                                <a  class="btn col s4 center-align push-s4 z-depth-5  " onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5  " >Salvar<i class="material-icons right"> send</i> />
                                             </div>
 
 
@@ -132,12 +154,10 @@
    
     <script type="text/javascript">
              function confirma (form){
-              form.submit();
-              return false;   
-             }
-             
+            form.submit();
+            return false;  
             $(".dropdown-trigger").dropdown();
-             
+            
           </script>
    
           <!--FIM do Corpo do App -->

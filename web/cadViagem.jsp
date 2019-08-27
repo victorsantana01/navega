@@ -1,7 +1,11 @@
 <%@page import="logic.Format"%>
-<%@page import="dao.Rpm"%>  
-<%@page import="dao.ConsumoDao"%>
+<%@page import="dao.ComandanteDao"%>
+<%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Connection"%>
  
 <!DOCTYPE html>
 <html>
@@ -25,6 +29,8 @@
         <!--FIM Cabeçalho Para Materialize-->
         <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
+    
+    
     </head>
     <%
    
@@ -37,6 +43,13 @@ response.sendRedirect( "login.jsp" );
   }%>
     <body class="background #eeeeee grey lighten-3"> 
          
+    <script type="text/javascript">
+     $(".dropdown-trigger").dropdown();
+        $(document).ready(function(){
+            $('.datepicker').datepicker();
+        });
+     
+     </script>
          <!--Materialize INICIALIZA o menu para Mobile -->
       <!-- INICIO Botão de Add -->
       <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
@@ -61,6 +74,17 @@ response.sendRedirect( "login.jsp" );
                          <li class="left-align"><a href="relatorio2.jsp"><b class=" waves-effect">Relatorio Consolidado</b></a></li>
                          <li class="left-align"><a href="tables.jsp"><b class="center-align  waves-effect">Tabela de Consumo</b></a></li>
                          <li class="left-align"><a href="motores.jsp"><b class=" waves-effect">Motores</b></a></li>
+                         <li class="left-align">
+                             <a class="dropdown-trigger" href="#!" data-target="dropdown1">
+                                 <b class="center-align  waves-effect">Cadastros</b>
+                             <i class="material-icons right">arrow_drop_down</i>
+                             </a>
+                             <ul id="dropdown1" class="dropdown-content">
+                                <li class="left-align"><a href="cadViagem.jsp"><b class=" waves-effect">Cadastrar Viagem</b></a></li>
+                                <li class="left-align"><a href="cadComandante.jsp"><b class=" waves-effect">Cadastrar Comandante</b></a></li>
+                                <li class="left-align"><a href="cadBarco.jsp"><b class=" waves-effect">Cadastrar Barco</b></a></li>
+                             </ul>
+                         </li>
                          <li class="left-align"><a href="login.jsp"><b class=" waves-effect">Sair</b></a></li>
                      </ul>
                  </div>
@@ -71,10 +95,10 @@ response.sendRedirect( "login.jsp" );
           
       
        
-        <div class=" container "><br>
+        <div class=" container"><br>
             <div class="row ">
                 <div class="col s12">
-                    <div class="card blue-grey darken-1 offset-s5">
+                    <div class="card blue-grey darken-1 offset-s5 z-depth-5">
                         <div class="card-content white-text ">
                             <span class="card-title">Cadastro de Viagem</span>
                             <div class="row">
@@ -86,78 +110,83 @@ response.sendRedirect( "login.jsp" );
                                             <div class="form-group col s12">
                                                 <div class="form-row col s6 ">
                                                     <div class="input-field col s12">
-                                                        <input nome="nomeViagem" class="validate white-text" id="nomeViagem" type="text" placeholder="Viagem" >
+                                                        <input name="nomeViagem" class="validate white-text" id="nomeViagem" type="text" required>
                                                         <label for="nomeViagem">Nome da Viagem</label>
                                                     </div>
                                                 </div>
+                                                <div class="input-field col s6">
+                                                        <select class="browser-default" name="status" required >
+                                                            <option value="" disabled selected>Status de Viagem</option>
+                                                           <option value="0">Agendado</option>
+                                                           <option value="1">Em Progresso</option>
+                                                           <option value="2">Finalizado</option>
+                                                        </select>
+                                                </div>
                                                 <div class="form-group col s12">
                                                     <div class="input-field col s6">
-                                                        <input nome="origem" class="validate white-text" id="origem" type="text" placeholder="Origem" >
+                                                        <input name="origem" class="validate white-text" id="origem" type="text" required>
                                                         <label for="origem">Origem</label>
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataInicio" class="form-control col s8" id="dataInicio" type="date"  aria-describedby="nameHelp">
+                                                        <input name="dataInicio" class="form-control col s8" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
+                                                        <label for="dataInicio">Data de Inicio </label> 
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input nome="destino" class="validate white-text" id="destino" type="text" placeholder="Destino" >
+                                                        <input name="destino" class="validate white-text" id="destino" type="text" required> 
                                                         <label for="destino">Destino</label>
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataFim" class="form-control col s8" id="dataFim" type="date"  aria-describedby="nameHelp">
-                                                    </div>
+                                                        <input name="dataFim" class="form-control col s8" id="dataFim" type="date"  aria-describedby="nameHelp" required>
+                                                        <label for="dataFim">Data de Termino </label>
+                                                    </div> 
                                                 </div>
                                                 <div class="form-group col s12">
-                                                     <span class="card-title col s12 center-align">Embarcação</span>
-                                                    <div class="input-field col s6">
-                                                        <input nome="nomeBarco" class="validate white-text" id="nomeBarco" type="text" placeholder="Nome da Embarcação" >
-                                                        <label for="nomeBarco">Nome da Embarcação</label>
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <input nome="motor" class="validate white-text" id="motor" type="text" placeholder="Motor" >
-                                                        <label for="motor">Motor</label>
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <input nome="modelo" class="validate white-text" id="modelo" type="text" placeholder="Modelo" >
-                                                        <label for="modelo">Modelo</label>
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <input nome="base" class="validate white-text" id="base" type="text" placeholder="Base" >
-                                                        <label for="base">Base</label>
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <input nome="idComandante" class="validate white-text" id="base" type="text" placeholder="Id do Comandante" >
-                                                        <select class="browser-default" name="mct" >
-                                                            <option value="" disabled selected>Empurrador</option>
-                                                            <%
-                                                                Rpm rpm = new Rpm();
-                                                                String[][] veiculo = rpm.painelAtualizado(conta,con,stmt).clone();
-                                                                for (int i = 0; i < 100; i++) {
-                                                                    if (veiculo[1][i] == null) {
-                                                                        i = 100;
+                                                     <span class="card-title">Embarcação</span>
+                                                    
+                                                     <div class="input-field col s6">
+                                                        <select class="browser-default" name="barco" required > 
+                                                            <option value="" disabled selected>Barco</option>
+                                                                                                                    <%
+                                                                BarcoDao bar = new BarcoDao();
+                                                                String[][] barcos = bar.pesquisaBarcos().clone();
+                                                                for (int i = 0; i < 10; i++) {
+                                                                    if (barcos[i][0] == null) {
+                                                                        i = 50;
                                                                     } else {
                                                             %>
-                                                            <option value="<%=veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
-                                                            <%}
-                                                            }%>
+                                                           <option value="<%=barcos[i][0]%>"><%=barcos[i][1]%></option>
+
+                                                            <%
+                                                                    }
+                                                                }%>
                                                         </select>
                                                     </div>
-                                                     <div class="col s6">
-                                                        <label>Status de Viagem</label>
-                                                        <select class="browser-default" name="mct" >
-                                                          <option value="" disabled selected>Escolha um Status</option>
-                                                          <option value="1">Agendado</option>
-                                                          <option value="2">Em Pregresso</option>
-                                                          <option value="3">Finalizado</option>
+                                                    <div class="input-field col s6"> 
+                                                        <select class="browser-default" name="comandante" id="comandante" required>
+                                                            <option value="" disabled selected>Comandante</option>
+                                                                                                                    <%
+                                                                ComandanteDao com = new ComandanteDao();
+                                                                String[][] comandantes = com.pesquisaComandantes().clone();
+                                                                for (int i = 0; i < 10; i++) {
+                                                                    if (comandantes[i][0] == null) {
+                                                                        i = 50;
+                                                                    } else {
+                                                            %>
+                                                           <option value="<%=comandantes[i][0]%>"><%=comandantes[i][1]%></option>
+
+                                                            <%
+                                                                    }
+                                                                }%>
                                                         </select>
-                                                        
-                                                      </div>
+                                                    </div>
+
                                                 </div>
                                                 
                                                 
                                                 
                                             </div>
                                             <div class="card-action col s12">
-                                                <a  class="btn col s4 center-align push-s4 z-depth-5  " onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5  " >Salvar<i class="material-icons right">send</i>/>
                                             </div>
 
 
@@ -180,11 +209,11 @@ response.sendRedirect( "login.jsp" );
    
     <script type="text/javascript">
              function confirma (form){
-              form.submit();
-              return false;   
+            form.submit();
+            return false;
              }
-
-             
+            $(".dropdown-trigger").dropdown(); 
+            
           </script>
    
           <!--FIM do Corpo do App -->

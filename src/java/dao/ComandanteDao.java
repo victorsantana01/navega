@@ -8,6 +8,7 @@ package dao;
 import fabricaConexao.ConexaoMySQL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -15,13 +16,23 @@ import java.sql.Statement;
  * @author Luiz Lacerda
  */
 public class ComandanteDao {
-    private String idComandante, nome, matricula, ultimaViagem, contato;
     
-    public void adicionaComandante(){
+    public void incluirComandante(String nome, String matricula, String contato){
+        try{
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
         
+        String sql = ("INSERT INTO `exporta`.`comandante` (`nome`, `matricula`, `contato`) VALUES ('"+nome+"', '"+matricula+"', '"+contato+"');");
+        
+        stmt.executeUpdate(sql);
+        System.out.println("Tabela salva com sucesso!!!!!");
+        } catch (SQLException e) {
+             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!");
+             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
+        }
     }
     public String[][] pesquisaComandantes() {
-        System.out.println("ENTROU NO PESQUISAcOMANTES!!!");
+       
        String[][] comandantes = new String[20][3];
        
        try{

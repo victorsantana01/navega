@@ -93,16 +93,16 @@
                                             <div class="form-group col s12">
                                                 <div class="form-row col s6 center-align">
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input nome="nomeComandante" class="validate white-text" id="nomeComandante" type="text" placeholder="Nome" >
+                                                        <input name="nome" class="validate white-text" id="nomeComandante" type="text" placeholder="Nome" required >
                                                         <label for="nomeComandate">Nome do Comandante</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input nome="matricula" class="validate white-text" id="matricula" type="text" placeholder="Matricula" >
+                                                        <input name="matricula" class="validate white-text" id="matricula" type="text" placeholder="Matricula" required >
                                                         <label for="matricula">Matricula</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="contato" class="validate white-text" id="contato" type="date"  placeholder="Contato">
-                                                        <label for="matricula">Contato</label>
+                                                        <input name="contato" class="validate white-text" id="contato" type="text"  placeholder="Contato" required>
+                                                        <label for="contato">Contato</label>
                                                     </div>
                                                 </div>
                                                 
@@ -110,7 +110,7 @@
                                                 
                                             </div>
                                             <div class="card-action col s12">
-                                                <a  class="btn col s4 center-align push-s4 z-depth-5  " onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5  " >Salvar<i class="material-icons right">send</i>/>
                                             </div>
 
 
@@ -132,12 +132,12 @@
     </div>
    
     <script type="text/javascript">
-             function confirma (form){
-              form.submit();
-              return false;   
-             }
-
-              $(".dropdown-trigger").dropdown();
+            function confirma (form){
+            form.submit();
+            return false;   
+          
+            $(".dropdown-trigger").dropdown();
+            
           </script>
    
           <!--FIM do Corpo do App -->
