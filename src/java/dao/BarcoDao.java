@@ -51,6 +51,9 @@ public class BarcoDao {
         
         barcos[i][0]=rs.getString("codBarco");
         barcos[i][1]=rs.getString("nome");
+        barcos[i][1]=rs.getString("motor");
+        barcos[i][1]=rs.getString("modelo");
+        barcos[i][1]=rs.getString("base");
         i++;
         }
         System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
