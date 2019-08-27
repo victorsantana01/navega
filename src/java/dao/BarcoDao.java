@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author AllforOne
+ * @author Luiz Lacerda
  */
 public class BarcoDao {
     

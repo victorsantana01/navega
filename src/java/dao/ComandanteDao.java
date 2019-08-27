@@ -27,7 +27,6 @@ public class ComandanteDao {
         stmt.executeUpdate(sql);
         System.out.println("Tabela salva com sucesso!!!!!");
         } catch (SQLException e) {
-             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!");
              System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
         }
     }
