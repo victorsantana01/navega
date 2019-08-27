@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -22,11 +24,12 @@ public class BarcoDao {
         try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         
         String sql = ("INSERT INTO `exporta`.`barco` \n" +
-        "(`codBarco`, `nome`, `motor`,`modelo`,`base`)\n" +
+        "(`codBarco`, `nome`, `motor`,`modelo`,`base`,`dataCad`)\n" +
         " VALUES\n" +
-        " ('"+codBarco+"', '"+nome+"', '"+motor+"', '"+modelo+"', '"+base+"');");
+        " ('"+codBarco+"', '"+nome+"', '"+motor+"', '"+modelo+"', '"+base+"','"+dtf.format(LocalDateTime.now())+"');");
         
         stmt.executeUpdate(sql);
         System.out.println("Tabela salva com sucesso!!!!!");
@@ -37,23 +40,25 @@ public class BarcoDao {
     }
     public String[][] pesquisaBarcos(){
         
-        String[][] barcos = new String[20][2];
+        String[][] barcos = new String[6][100];
        
        try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
-        String sql = ("SELECT * FROM exporta.barco");
+        String sql = ("SELECT codBarco, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
+                +"join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab order by motor DESC;");
         
         ResultSet rs = stmt.executeQuery(sql);
         
         int i =0;
         while (rs.next()) {
         
-        barcos[i][0]=rs.getString("codBarco");
-        barcos[i][1]=rs.getString("nome");
-        barcos[i][1]=rs.getString("motor");
-        barcos[i][1]=rs.getString("modelo");
-        barcos[i][1]=rs.getString("base");
+        barcos[0][i]=rs.getString("codBarco");
+        barcos[1][i]=rs.getString("nome");
+        barcos[2][i]=rs.getString("motor");
+        barcos[3][i]=rs.getString("modelo");
+        barcos[4][i]=rs.getString("base");
+        barcos[5][i]=rs.getString("dataCad");
         i++;
         }
         System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
