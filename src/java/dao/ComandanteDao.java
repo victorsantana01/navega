@@ -30,7 +30,7 @@ public class ComandanteDao {
              System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
         }
     }
-    public String[][] pesquisaComandantes() {
+    public String[][] pesquisarComandantes() {
        
        String[][] comandantes = new String[20][3];
        
@@ -47,9 +47,10 @@ public class ComandanteDao {
 //        String[][] comandantes = new String[size][3];
         while (rs.next()) {
         
-        comandantes[i][0]=rs.getString("idcomandante");
-        comandantes[i][1]=rs.getString("nome");
-        comandantes[i][2]=rs.getString("matricula");
+        comandantes[0][i]=rs.getString("nome");
+        comandantes[1][i]=rs.getString("matricula");
+        comandantes[2][i]=rs.getString("ultimaViagem");
+        comandantes[3][i]=rs.getString("contato");
         i++;
         }
         System.out.println("TUDO NICE NO METODO PESQUISACOMANDANTES ........... ");
