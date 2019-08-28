@@ -122,7 +122,7 @@
                                                         <label for="nomeViagem">Nome da Viagem</label>
                                                     </div>
                                                 </div>
-                                                <div class="input-field col s6">
+                                                <div class="col s6">
                                                     <select class="browser-default" name="status" required >
                                                         <option value="" disabled selected>Status de Viagem</option>
                                                         <option value="0">Agendado</option>
@@ -151,7 +151,7 @@
                                                 <div class="form-group col s12">
                                                     <span class="card-title center">Embarcação</span>
 
-                                                    <div class="input-field col s6">
+                                                    <div class="col s6">
                                                         <select class="browser-default black-text" name="barco" required > 
                                                             <option class="black-text" value="" disabled selected>Barco</option>
                                                             <%
@@ -169,7 +169,7 @@
                                                                 }%>
                                                         </select>
                                                     </div>
-                                                    <div class="input-field col s6"> 
+                                                    <div class="col s6"> 
                                                         <select class="browser-default black-text" name="comandante" id="comandante" required>
                                                             <option class="black-text" value="" disabled selected>Comandante</option>
                                                             <%
@@ -193,7 +193,7 @@
 
                                             </div>
                                             <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5  " >Salvar<i class="material-icons right">send</i>/>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Salvar<i class="material-icons right">send</i>/>
                                             </div>
 
                                         </form>
@@ -218,6 +218,7 @@
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;fim Viagem</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;nome Embarcacao</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;comandante</th>
+                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data de Cadastro</th>
                             </tr></b>
                         </thead>
 
@@ -239,6 +240,7 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[6][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[9][i]%></th>
                         </tr>
                         <%  }
                             }

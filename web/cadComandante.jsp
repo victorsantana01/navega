@@ -118,7 +118,7 @@
 
                                             </div>
                                             <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5  " >Salvar<i class="material-icons right">send</i>/>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Salvar<i class="material-icons right">send</i>/>
                                             </div>
 
 
@@ -155,7 +155,7 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[0][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[1][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[2][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[3][i]%></th>
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[4][i]%></th>
                         </tr>
                         <%  }
                             }

@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -25,10 +27,10 @@ public class ViagemDao {
         try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         
-        
-        String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "+
-                "VALUES ('"+nomeV+"', '"+status+"', '"+usuario+"', '"+origem+"', '"+inicioV+"', '"+destino+"', '"+fimV+"', '"+idBarco+"', '"+comandante+"');");
+        String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`,`dataCad`) "+
+                "VALUES ('"+nomeV+"', '"+status+"', '"+usuario+"', '"+origem+"', '"+inicioV+"', '"+destino+"', '"+fimV+"', '"+idBarco+"', '"+comandante+",'"+dtf.format(LocalDateTime.now())+"');");
         
         stmt.executeUpdate(sql);
   System.out.println("Tabela salva com sucesso!!!!!");
@@ -46,9 +48,9 @@ public class ViagemDao {
        try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
-        String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, origem, inicioViagem, destino, fimViagem, barco.nome as nomeEmbarcacao, comandante.nome as comandante FROM exporta.viagem"
+        String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, origem, inicioViagem, destino, fimViagem, barco.nome as nomeEmbarcacao, comandante.nome as comandante, viagem.dataCad FROM exporta.viagem"
                 +" left join exporta.barco on exporta.viagem.nomeEmbarcacao = exporta.barco.codBarco "
-                +" left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante;");
+                +" left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante order by viagem.dataCad DESC;");
         
         ResultSet rs = stmt.executeQuery(sql);
         
@@ -64,6 +66,7 @@ public class ViagemDao {
         viagens[6][i]=rs.getString("fimViagem");
         viagens[7][i]=rs.getString("nomeEmbarcacao");
         viagens[8][i]=rs.getString("comandante");
+        viagens[9][i]=rs.getString("viagem.dataCad");
         i++;
         }
         System.out.println("TUDO NICE NO METODO PESQUISAVIAGEM ........... ");
