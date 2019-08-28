@@ -82,12 +82,12 @@ Class.forName(driverName);
  
             }
  
-  
+            System.out.println("CONEXÃO ABERTA COM SUCESSO!!!!!!");
  
             return connection;
  
   
- 
+            
         } catch (ClassNotFoundException e) {  //Driver não encontrado
  
             System.out.println("O driver expecificado nao foi encontrado.");
