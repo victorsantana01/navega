@@ -31,6 +31,7 @@ public class BarcoDao {
         " VALUES\n" +
         " ('"+codBarco+"', '"+nome+"', '"+motor+"', '"+modelo+"', '"+base+"','"+dtf.format(LocalDateTime.now())+"');");
         
+        
         stmt.executeUpdate(sql);
         System.out.println("Tabela salva com sucesso!!!!!");
         } catch (SQLException e) {
