@@ -78,7 +78,7 @@
             
             
             
-        </div><!--INCIO DO CORPO DA PAGINA-->
+        </div><!--FIM DO CORPO DA PAGINA-->
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
