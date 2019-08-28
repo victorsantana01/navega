@@ -193,7 +193,7 @@
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
             </tr>
-            <%  //}
+            <% }
            }
             %>
 
