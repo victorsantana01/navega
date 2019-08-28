@@ -39,38 +39,38 @@ public class ViagemDao {
         
     }
     
-    public String[][] pesquisaViagens(){
+    public String[][] pesquisarViagens(){
         
-        String[][] viagens = new String[50][11];
+        String[][] viagens = new String[10][100];
        
        try{
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
-        String sql = ("SELECT * FROM exporta.viagem");
+        String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, origem, inicioViagem, destino, fimViagem, barco.nome as nomeEmbarcacao, comandante.nome as comandante FROM exporta.viagem"
+                +" left join exporta.barco on exporta.viagem.nomeEmbarcacao = exporta.barco.codBarco "
+                +" left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante;");
         
         ResultSet rs = stmt.executeQuery(sql);
         
         int i =0;
         while (rs.next()) {
         
-        viagens[i][0]=rs.getString("idViagem");
-        viagens[i][1]=rs.getString("nomeViagem");
-        viagens[i][2]=rs.getString("destino");
-        viagens[i][3]=rs.getString("origem");
-        viagens[i][4]=rs.getString("nomeEmbarcacao");
-        viagens[i][5]=rs.getString("usuario");
-        viagens[i][6]=rs.getString("inicioViagem");
-        viagens[i][7]=rs.getString("fimViagem");
-        viagens[i][8]=rs.getString("regViagem");
-        viagens[i][9]=rs.getString("comandante");
-        viagens[i][10]=rs.getString("comboio");
+        viagens[0][i]=rs.getString("idViagem");
+        viagens[1][i]=rs.getString("nomeViagem");
+        viagens[2][i]=rs.getString("status");
+        viagens[3][i]=rs.getString("origem");
+        viagens[4][i]=rs.getString("inicioViagem");
+        viagens[5][i]=rs.getString("destino");
+        viagens[6][i]=rs.getString("fimViagem");
+        viagens[7][i]=rs.getString("nomeEmbarcacao");
+        viagens[8][i]=rs.getString("comandante");
         i++;
         }
-        System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
+        System.out.println("TUDO NICE NO METODO PESQUISAVIAGEM ........... ");
         rs.close();
        } catch (Exception e) {
 
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.err.println("ViagemDao :"+e.getClass().getName() + ": " + e.getMessage());
               System.err.println("Erro!!!");
         } 
     

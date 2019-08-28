@@ -39,7 +39,7 @@ public class ComandanteDao {
         Statement stmt = con.createStatement();
 //        String sql = ("SELECT (*) FROM exporta.comandante");
 //        int size = Integer.parseInt(sql);
-        String sql = ("SELECT * FROM exporta.comandante");
+        String sql = ("SELECT * FROM exporta.comandante ");
         
         ResultSet rs = stmt.executeQuery(sql);
         
