@@ -10,21 +10,24 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import logic.Format;
 /**
  *
  * @author Luiz Lacerda
  */
 public class ViagemDao {
 
-    public void incluirViagem(String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String idBarco, String comandante, String inicioH, String fimH) {
+    public void incluirViagem(String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String idBarco, String comandante) {
         System.out.println("METODO ---> INCLUIR VIAGEM INICIADO.........");
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
+            Format format = new Format();
+            fimV = format.DataFormat2(fimV);
+            inicioV = format.DataFormat2(inicioV);
 
             String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "
-                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV +" "+ inicioH+":00', '" + destino + "', '" + fimV +" "+ fimH+":00', '" + idBarco + "', '" + comandante + "');");
+                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV +"', '" + destino + "', '" + fimV +"', '" + idBarco + "', '" + comandante + "');");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> INCLUIR VIAGEM REALIZADO COM SUCESSO.........");
@@ -62,7 +65,7 @@ public class ViagemDao {
                 viagens[9][i] = rs.getString("dataCad");
                 i++;
             }
-            System.out.println("TUDO NICE NO METODO PESQUISAVIAGEM ........... ");
+            System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
             rs.close();
         } catch (Exception e) {
 

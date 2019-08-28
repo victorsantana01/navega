@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 public class Format {
 
     public String DataFormat(String data) {
-        System.out.println("ENTROU NO DATAFORMAT!");
         if (data.indexOf(" ") > 0) {
             String dataReturn = "";
             String vetData[] = data.split(" ");
@@ -23,17 +22,25 @@ public class Format {
             String vetAno[] = ano.split("-");
             ano = vetAno[2] + "/" + vetAno[1] + "/" + vetAno[0];
             dataReturn = ano + " " + hora;
-            System.out.println("SAIU DO METODO DATAFORMAT1");
             return dataReturn;
         } else {
             String dataReturn = "";
             String vetAno[] = data.split("-");
             String ano = vetAno[2] + "/" + vetAno[1] + "/" + vetAno[0];
             dataReturn = ano;
-            System.out.println("SAIU DO METODO DATAFORMAT2");
             return dataReturn;
         }
 
+    }
+    public String DataFormat2(String data){
+       String dataReturn = "";
+            String vetData[] = data.split(" ");
+            String hora = vetData[1];
+            String ano = vetData[0];
+            String vetAno[] = ano.split("-");
+            ano = vetAno[0] + "-" + vetAno[1] + "-" + vetAno[2] ;
+            dataReturn = ano + " " + hora;
+            return dataReturn;
     }
 
     public String DiaFormat(String data) {

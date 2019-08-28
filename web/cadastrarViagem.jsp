@@ -33,18 +33,22 @@
               String nomeViagem= request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
-              String dataInicio = request.getParameter("dataInicio");
+//              String dataInicio = request.getParameter("dataInicio");
               String destino = request.getParameter("destino");
-              String dataFim = request.getParameter("dataFim");
+//              String dataFim = request.getParameter("dataFim");
               String idBarco = request.getParameter("barco");
               String idcomandante = request.getParameter("comandante");
-              String horaInicio = request.getParameter("horaInicio");
-              String horaFim = request.getParameter("horaFim");
               String usuario = session.getAttribute("conta").toString();
+              String date = request.getParameter("datetimes").replace("/", "-");
+              String data[] = date.split(" - ");
+              System.out.println("dateTimes - INICIO: "+data[0]);
+              System.out.println("dateTimes - FIM: "+data[1]);
+              String dataInicio = data[0];
+              String dataFim =data[1];
               
               
               ViagemDao cons = new ViagemDao();
-              cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante, horaInicio,horaFim );
+              cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
               System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
     String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);

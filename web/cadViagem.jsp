@@ -30,7 +30,10 @@
         <!--FIM Cabeçalho Para Materialize-->
         <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     </head>
     <%
@@ -41,6 +44,8 @@
         } else {
             response.sendRedirect("login.jsp");
         }%>
+
+
     <body> 
 
         <script type="text/javascript">
@@ -49,8 +54,18 @@
                 $('.datepicker').datepicker();
             });
 
-
-
+        </script>
+        <script>
+            $(function () {
+                $('input[name="datetimes"]').daterangepicker({
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(16, 'hour'),
+                    locale: {
+                        format: 'DD/MM/YYYY hh:mm'
+                    }
+                });
+            });
         </script>
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -138,18 +153,19 @@
                                                         <label for="origem">Origem</label>
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataInicio" class="form-control col s6" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
+<!--                                                        <input name="dataInicio" class="form-control col s6" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
                                                         <input name="horaInicio" class="form-control col s2 push-s1" id="horaInicio" type="time"  aria-describedby="nameHelp" value="00:00" required>
-
+                                                        <input name="destino" class="validate black-text" id="destino" type="text" required>
+                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>-->
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="destino" class="validate black-text" id="destino" type="text" required> 
-                                                        <label for="destino">Destino</label>
+                                                        <!--
+                                                        <input name="destino" class="validate black-text" id="destino" type="text" required>
+                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>-->
+                                                        <!--<label for="destino">Destino</label>-->
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataFim" class="form-control col s6" id="dataFim" type="date"  aria-describedby="nameHelp" required>
-                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>
-                                                        
+                                                        <input type="text" name="datetimes" id="datetimes" />
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">
@@ -211,7 +227,7 @@
 
                         </div>
                     </div>
-                    
+
                     <table class="highlight striped responsive-table z-depth-4" id="dataTable">
                         <thead class=" background #0277bd light-blue darken-1">
                         <b><tr>
@@ -227,7 +243,7 @@
                             </tr></b>
                         </thead>
 
-                        <%  
+                        <%
                             Format format = new Format();
                             String inicio = "";
                             String fim = "";
@@ -244,7 +260,6 @@
                                 inicio = format.DataFormat(viagens[4][i]);
                                 fim = format.DataFormat(viagens[6][i]);
                                 cadastro = format.DataFormat(viagens[9][i]);
-                                System.out.println("inicio: "+inicio+" , fim: "+fim+" , cadastro: "+cadastro+"-----------------------");
                             %>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th>
@@ -254,7 +269,7 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= fim%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro %></th>
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>
                         </tr>
                         <%  }
                             }
