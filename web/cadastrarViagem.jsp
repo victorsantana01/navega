@@ -29,6 +29,7 @@
         </div>
           
           <%
+              
               String nomeViagem= request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
@@ -42,7 +43,7 @@
               
               ViagemDao cons = new ViagemDao();
               cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
-
+              System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
     String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);
           %>
