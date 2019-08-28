@@ -59,7 +59,6 @@
                     <div class="center">
                         <b class="white-text">Gestão à bordo</b>
                     </div>
-                    
                 </div>
             </li>   
             

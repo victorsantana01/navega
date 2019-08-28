@@ -176,10 +176,11 @@
                 String data;
                 BarcoDao barco = new BarcoDao();
                 String[][] barcos = barco.pesquisaBarcos().clone();
-                for (int i = 0; i < 1000; i++) {
-                    if (barcos[0][i] == null) {
-                        i = 2000;
-                    } else {
+                System.out.println("--------------------------->>>>>>>>>>>> "+barcos[1][1]);
+                for (int i = 0; i < 50; i++) {
+                    //if (barcos[i][0] == null) {
+                        //i = 50;
+                   // } else {
             %>
             <tr>
                 <%
@@ -192,8 +193,8 @@
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
             </tr>
-            <%  }
-            }
+            <%  //}
+           }
             %>
 
             </table>
