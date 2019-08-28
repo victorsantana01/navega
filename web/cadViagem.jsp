@@ -138,7 +138,8 @@
                                                         <label for="origem">Origem</label>
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataInicio" class="form-control col s8" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
+                                                        <input name="dataInicio" class="form-control col s6" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
+                                                        <input name="horaInicio" class="form-control col s2 push-s1" id="horaInicio" type="time"  aria-describedby="nameHelp" value="00:00" required>
 
                                                     </div>
                                                     <div class="input-field col s6">
@@ -146,8 +147,9 @@
                                                         <label for="destino">Destino</label>
                                                     </div>
                                                     <div class="input-field col s6">
-                                                        <input name="dataFim" class="form-control col s8" id="dataFim" type="date"  aria-describedby="nameHelp" required>
-
+                                                        <input name="dataFim" class="form-control col s6" id="dataFim" type="date"  aria-describedby="nameHelp" required>
+                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>
+                                                        
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">

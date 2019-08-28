@@ -10,12 +10,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  *
@@ -23,14 +17,14 @@ import java.util.Date;
  */
 public class ViagemDao {
 
-    public void incluirViagem(String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String idBarco, String comandante) {
+    public void incluirViagem(String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String idBarco, String comandante, String inicioH, String fimH) {
         System.out.println("METODO ---> INCLUIR VIAGEM INICIADO.........");
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
 
             String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "
-                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV + "', '" + destino + "', '" + fimV + "', '" + idBarco + "', '" + comandante + "');");
+                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV +" "+ inicioH+":00', '" + destino + "', '" + fimV +" "+ fimH+":00', '" + idBarco + "', '" + comandante + "');");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> INCLUIR VIAGEM REALIZADO COM SUCESSO.........");
