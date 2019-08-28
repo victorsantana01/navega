@@ -174,20 +174,21 @@
             <%
                 BarcoDao barco = new BarcoDao();
                 String[][] barcos = barco.pesquisaBarcos().clone();
+                System.out.println("--------------------------->>>>>>>>>>>> "+barcos[1][1]);
                 for (int i = 0; i < 50; i++) {
-                    if (barcos[i][0] == null) {
-                        i = 50;
-                    } else {
+                    //if (barcos[i][0] == null) {
+                        //i = 50;
+                   // } else {
             %>
             <tr>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[i][0]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[i][1]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[i][2]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[i][3]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[i][4]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[0][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
             </tr>
-            <%  }
-            }
+            <%  //}
+           }
             %>
 
 
