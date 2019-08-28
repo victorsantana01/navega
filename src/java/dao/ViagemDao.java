@@ -47,9 +47,9 @@ public class ViagemDao {
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
-            String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, origem, inicioViagem, destino, fimViagem, barco.nome as nomeEmbarcacao, comandante.nome as comandante, regViagem FROM exporta.viagem"
+            String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, origem, inicioViagem, destino, fimViagem, barco.nome as nomeEmbarcacao, comandante.nome as comandante, viagem.dataCad FROM exporta.viagem"
                     + " left join exporta.barco on exporta.viagem.nomeEmbarcacao = exporta.barco.codBarco "
-                    + " left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante order by regViagem DESC;");
+                    + " left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -65,7 +65,7 @@ public class ViagemDao {
                 viagens[6][i] = rs.getString("fimViagem");
                 viagens[7][i] = rs.getString("nomeEmbarcacao");
                 viagens[8][i] = rs.getString("comandante");
-                viagens[9][i] = rs.getString("regViagem");
+                viagens[9][i] = rs.getString("dataCad");
                 i++;
             }
             System.out.println("TUDO NICE NO METODO PESQUISAVIAGEM ........... ");
