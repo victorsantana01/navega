@@ -71,10 +71,10 @@
                         <img src="img/mar.jpg" alt=""/>
                     </div>
                     <div class="center">
-                        <b><h4 class="black-text">Navega Gestor</h4></b> 
+                        <b><h4 class="white-text">Navega Gestor</h4></b> 
                     </div>
                     <div class="center">
-                        <b class="black-text">Gestão à bordo</b>
+                        <b class="white-text">Gestão à bordo</b>
                     </div>
 
                 </div>
@@ -195,7 +195,7 @@
 
                                             </div>
                                             <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Salvar<i class="material-icons right">send</i>/>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Salvar />
                                             </div>
 
                                         </form>
@@ -232,7 +232,6 @@
                             String cadastro = "";
                             ViagemDao viagem = new ViagemDao();
                             String[][] viagens = viagem.pesquisarViagens().clone();
-                            System.out.println("---------------  viagens size " + viagens.length);
                             for (int i = 0; i < 1000; i++) {
                                 if (viagens[0][i] == null) {
                                     i = 2000;
@@ -243,18 +242,16 @@
                                 inicio = format.DataFormat(viagens[4][i]);
                                 fim = format.DataFormat(viagens[6][i]);
                                 cadastro = format.DataFormat(viagens[9][i]);
+                                System.out.println("inicio: "+inicio+" , fim: "+fim+" , cadastro: "+cadastro+"-----------------------");
                             %>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[3][i]%></th>
-                            <!--<th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[4][i]%></th>-->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= inicio%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[5][i]%></th>
-                            <!--<th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[6][i]%></th>-->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= fim%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
-                            <!--<th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[9][i]%></th>-->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro %></th>
                         </tr>
                         <%  }

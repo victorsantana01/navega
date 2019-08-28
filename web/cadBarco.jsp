@@ -172,6 +172,8 @@
                 </thead>
 
                 <%
+                Format format = new Format();
+                String data;
                 BarcoDao barco = new BarcoDao();
                 String[][] barcos = barco.pesquisaBarcos().clone();
                 System.out.println("--------------------------->>>>>>>>>>>> "+barcos[1][1]);
@@ -181,11 +183,15 @@
                    // } else {
             %>
             <tr>
+                <%
+                    data = format.DataFormat(barcos[5][i]);
+                %>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[0][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[1][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[2][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[3][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
             </tr>
             <%  //}
            }
