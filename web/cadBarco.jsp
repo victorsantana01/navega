@@ -178,7 +178,7 @@
                 String[][] barcos = barco.pesquisaBarcos().clone();
                 System.out.println("--------------------------->>>>>>>>>>>> "+barcos[1][1]);
                 for (int i = 0; i < 50; i++) {
-                    if (barcos[i][0] == null) {
+                    if (barcos[0][i] == null) {
                         i = 50;
                     } else {
             %>
