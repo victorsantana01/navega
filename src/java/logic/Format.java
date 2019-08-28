@@ -23,14 +23,14 @@ public class Format {
             String vetAno[] = ano.split("-");
             ano = vetAno[2] + "/" + vetAno[1] + "/" + vetAno[0];
             dataReturn = ano + " " + hora;
-            System.out.println("SAIU DO METODO DATAFORMAT");
+            System.out.println("SAIU DO METODO DATAFORMAT1");
             return dataReturn;
         } else {
             String dataReturn = "";
             String vetAno[] = data.split("-");
             String ano = vetAno[2] + "/" + vetAno[1] + "/" + vetAno[0];
             dataReturn = ano;
-            System.out.println("SAIU DO METODO DATAFORMAT");
+            System.out.println("SAIU DO METODO DATAFORMAT2");
             return dataReturn;
         }
 

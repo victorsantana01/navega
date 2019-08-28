@@ -46,7 +46,7 @@ public class BarcoDao {
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
         String sql = ("SELECT codBarco, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
-                +"join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab order by motor DESC;");
+                +"join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab order by dataCad DESC;");
         
         ResultSet rs = stmt.executeQuery(sql);
         

@@ -239,9 +239,7 @@
                         %>
                         <tr>
                             <%
-                                System.out.println("jesus ----------------------------------");
                                 inicio = format.DataFormat(viagens[4][i]);
-                                System.out.println("kkkkk");
                                 fim = format.DataFormat(viagens[6][i]);
                                 cadastro = format.DataFormat(viagens[9][i]);
                                 System.out.println("inicio: "+inicio+" , fim: "+fim+" , cadastro: "+cadastro+"-----------------------");
