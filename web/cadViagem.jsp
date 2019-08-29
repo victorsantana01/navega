@@ -127,7 +127,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-content black-text ">
-                            <span class="card-title center">Cadastro de Viagem</span>
+                            <span class="card-title center"><b>Cadastro de Viagem</b></span>
                             <div class="row">
                                 <div class="container col s12">
                                     <div class="row ">
@@ -166,7 +166,7 @@
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">
-                                                    <span class="card-title center">Embarcação</span>
+                                                    <span class="card-title center"><b>Embarcação</b></span>
 
                                                     <div class="col s6">
                                                         <select class="browser-default black-text" name="barco" required > 

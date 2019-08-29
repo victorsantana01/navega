@@ -90,7 +90,7 @@
             <div class="col s12">
                 <div class="card offset-s5">
                     <div class="card-content white-text ">
-                        <span class="card-title black-text center">Cadastro Embarcação</span>
+                        <span class="card-title black-text center"><b>Cadastro Embarcação</b></span>
                         <div class="row">
                             <div class="container col s12">
                                 <div class="row ">
