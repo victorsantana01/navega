@@ -38,6 +38,19 @@ public class ViagemDao {
         }
 
     }
+    
+    public void excluirViagem(String id){
+        System.out.println("ENTROU NO METODO EXCLUIRVIAGEM");
+        try{
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
+            String sql = ("DELETE FROM `exporta`.`viagem` WHERE `idViagem`='"+id+"';");
+            stmt.executeUpdate(sql);
+            System.out.println("METODO ---> EXCLUIR VIAGEM REALIZADO COM SUCESSO.........");
+        }catch(SQLException e){
+            System.out.println(" FALHA NO METODO ---> EXCLUIR VIAGEM .......... "+ e);
+        }
+    }
 
     public String[][] pesquisarViagens() {
 

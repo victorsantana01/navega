@@ -33,16 +33,12 @@
               String nomeViagem= request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
-//              String dataInicio = request.getParameter("dataInicio");
               String destino = request.getParameter("destino");
-//              String dataFim = request.getParameter("dataFim");
               String idBarco = request.getParameter("barco");
               String idcomandante = request.getParameter("comandante");
               String usuario = session.getAttribute("conta").toString();
               String date = request.getParameter("datetimes22").replace("/", "-");
               String data[] = date.split(" - ");
-              System.out.println("dateTimes - INICIO: "+data[0]);
-              System.out.println("dateTimes - FIM: "+data[1]);
               String dataInicio = data[0];
               String dataFim =data[1];
               
