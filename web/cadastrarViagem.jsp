@@ -39,7 +39,7 @@
               String idBarco = request.getParameter("barco");
               String idcomandante = request.getParameter("comandante");
               String usuario = session.getAttribute("conta").toString();
-              String date = request.getParameter("datetimes").replace("/", "-");
+              String date = request.getParameter("datetimes22").replace("/", "-");
               String data[] = date.split(" - ");
               System.out.println("dateTimes - INICIO: "+data[0]);
               System.out.println("dateTimes - FIM: "+data[1]);

@@ -23,8 +23,10 @@ public class ViagemDao {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
             Format format = new Format();
-            fimV = format.DataFormat2(fimV);
-            inicioV = format.DataFormat2(inicioV);
+            fimV = format.DataFormat(fimV);
+            inicioV = format.DataFormat(inicioV);
+            System.out.println("inicioV: "+inicioV);
+            System.out.println("fimV: "+fimV);
 
             String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "
                     + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV +"', '" + destino + "', '" + fimV +"', '" + idBarco + "', '" + comandante + "');");

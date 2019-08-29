@@ -32,16 +32,6 @@ public class Format {
         }
 
     }
-    public String DataFormat2(String data){
-       String dataReturn = "";
-            String vetData[] = data.split(" ");
-            String hora = vetData[1];
-            String ano = vetData[0];
-            String vetAno[] = ano.split("-");
-            ano = vetAno[0] + "-" + vetAno[1] + "-" + vetAno[2] ;
-            dataReturn = ano + " " + hora;
-            return dataReturn;
-    }
 
     public String DiaFormat(String data) {
         String dataReturn = "";

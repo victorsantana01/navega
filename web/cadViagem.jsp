@@ -47,20 +47,21 @@
 
 
     <body> 
-
+        <style>
+            .daterangepicker .drp-calendar .calendar-time select{
+                display:inline !important;
+            }
+        </style>
         <script type="text/javascript">
-            $(".dropdown-trigger").dropdown();
-            $(document).ready(function () {
-                $('.datepicker').datepicker();
-            });
 
         </script>
         <script>
             $(function () {
-                $('input[name="datetimes"]').daterangepicker({
+                $('input[name="datetimes22"]').daterangepicker({
                     timePicker: true,
                     startDate: moment().startOf('hour'),
-                    endDate: moment().startOf('hour').add(16, 'hour'),
+                    endDate: moment().startOf('hour').add(24, 'hour'),
+                    "timePicker24Hour": true,
                     locale: {
                         format: 'DD/MM/YYYY hh:mm'
                     }
@@ -82,16 +83,17 @@
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
-                    <div class="background">
-                        <img src="img/mar.jpg" alt=""/>
-                    </div>
-                    <div class="center">
-                        <b><h4 class="white-text">Navega Gestor</h4></b> 
-                    </div>
-                    <div class="center">
-                        <b class="white-text">Gestão à bordo</b>
-                    </div>
-
+                    <a href="index.jsp" >
+                        <div class="background">
+                            <img src="img/mar.jpg" alt=""/>
+                        </div>
+                        <div class="center">
+                            <b><h4 class="white-text">Navega Gestor</h4></b> 
+                        </div>
+                        <div class="center">
+                            <b class="white-text">Gestão à bordo</b>
+                        </div>
+                    </a>
                 </div>
             </li>   
 
@@ -149,23 +151,18 @@
                                                 </div>
                                                 <div class="form-group col s12">
                                                     <div class="input-field col s6">
-                                                        <input name="origem" class="validate black-text" id="origem" type="text" required>
-                                                        <label for="origem">Origem</label>
+                                                        <div class="input-field col s12">
+                                                            <input name="origem" class="validate black-text" id="origem" type="text" required>
+                                                            <label for="origem">Origem</label>
+                                                        </div>
+                                                        <div class="input-field col s12">
+                                                            <input name="destino" class="validate black-text" id="destino" type="text" required>
+                                                            <label for="destino">Destino</label>
+                                                        </div>
                                                     </div>
                                                     <div class="input-field col s6">
-<!--                                                        <input name="dataInicio" class="form-control col s6" id="dataInicio" type="date"  aria-describedby="nameHelp" required>
-                                                        <input name="horaInicio" class="form-control col s2 push-s1" id="horaInicio" type="time"  aria-describedby="nameHelp" value="00:00" required>
-                                                        <input name="destino" class="validate black-text" id="destino" type="text" required>
-                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>-->
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <!--
-                                                        <input name="destino" class="validate black-text" id="destino" type="text" required>
-                                                        <input name="horaFim" class="form-control col s2 push-s1" id="horaFim" type="time"  aria-describedby="nameHelp" value="00:00" required>-->
-                                                        <!--<label for="destino">Destino</label>-->
-                                                    </div>
-                                                    <div class="input-field col s6">
-                                                        <input type="text" name="datetimes" id="datetimes" />
+                                                        <input type="text" name="datetimes22" id="datetimes22" />
+                                                        <label for="datetimes22">Datas e Horarios</label>
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">

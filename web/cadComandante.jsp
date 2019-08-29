@@ -48,16 +48,17 @@
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
-                    <div class="background">
-                        <img src="img/mar.jpg" alt=""/>
-                    </div>
-                    <div class="center">
-                        <b><h4 class="white-text">Navega Gestor</h4></b> 
-                    </div>
-                    <div class="center">
-                        <b class="white-text">Gestão à bordo</b>
-                    </div>
-
+                    <a href="index.jsp" >
+                        <div class="background">
+                            <img src="img/mar.jpg" alt=""/>
+                        </div>
+                        <div class="center">
+                            <b><h4 class="white-text">Navega Gestor</h4></b> 
+                        </div>
+                        <div class="center">
+                            <b class="white-text">Gestão à bordo</b>
+                        </div>
+                    </a>
                 </div>
             </li>   
 
@@ -183,11 +184,11 @@
     <!--Materialize JS -->
     <script src="js/materialize.js">
 
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, options);
-            }
-            );
+                document.addEventListener('DOMContentLoaded', function () {
+                    var elems = document.querySelectorAll('select');
+                    var instances = M.FormSelect.init(elems, options);
+                }
+                );
 
     </script>
     <!--Materialize NavBar -->    
