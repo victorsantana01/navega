@@ -287,8 +287,8 @@
                                             request.setAttribute("idViagem", viagens[0][i]);
                                         %>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
-                                        <a class="dropdown-item" href="editViagem.jsp"  id="<%= viagens[0][i]%>">Editar</a>
-                                        <a class="dropdown-item" href="excluirViagem.jsp">Deletar</a>
+                                        <a class="dropdown-item" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"  id="<%= viagens[0][i]%>">Editar</a>
+                                        <a class="dropdown-item" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>">Deletar</a>
                                     </div>
                                 </div>
                             </th>

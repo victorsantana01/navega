@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import logic.Format;
+
 /**
  *
  * @author Luiz Lacerda
@@ -25,11 +26,11 @@ public class ViagemDao {
             Format format = new Format();
             fimV = format.DataFormat(fimV);
             inicioV = format.DataFormat(inicioV);
-            System.out.println("inicioV: "+inicioV);
-            System.out.println("fimV: "+fimV);
+            System.out.println("inicioV: " + inicioV);
+            System.out.println("fimV: " + fimV);
 
             String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "
-                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV +"', '" + destino + "', '" + fimV +"', '" + idBarco + "', '" + comandante + "');");
+                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV + "', '" + destino + "', '" + fimV + "', '" + idBarco + "', '" + comandante + "');");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> INCLUIR VIAGEM REALIZADO COM SUCESSO.........");
@@ -38,18 +39,68 @@ public class ViagemDao {
         }
 
     }
-    
-    public void excluirViagem(String id){
+
+    public void excluirViagem(String id) {
         System.out.println("ENTROU NO METODO EXCLUIRVIAGEM");
-        try{
+        try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
-            String sql = ("DELETE FROM `exporta`.`viagem` WHERE `idViagem`='"+id+"';");
+            String sql = ("DELETE FROM `exporta`.`viagem` WHERE `idViagem`='" + id + "';");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EXCLUIR VIAGEM REALIZADO COM SUCESSO.........");
-        }catch(SQLException e){
-            System.out.println(" FALHA NO METODO ---> EXCLUIR VIAGEM .......... "+ e);
+        } catch (SQLException e) {
+            System.out.println(" FALHA NO METODO ---> EXCLUIR VIAGEM .......... " + e);
         }
+    }
+
+    public void editarViagem(String id,String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String idBarco, String comandante) {
+        System.out.println("METODO ---> EDITAR VIAGEM INICIADO.........");
+        try {
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
+            Format format = new Format();
+            fimV = format.DataFormat(fimV);
+            inicioV = format.DataFormat(inicioV);
+            System.out.println("inicioV: " + inicioV);
+            System.out.println("fimV: " + fimV);
+
+            String sql = ("UPDATE `exporta`.`viagem` SET `nomeViagem`='" + nomeV + "', `status`='" + status + "', `origem`='" + origem + "', `inicioViagem`='" + inicioV + "', `destino`='" + destino + "', `fimViagem`='" + fimV + "', `nomeEmbarcacao`='" + idBarco + "', `comandante`='" + comandante + "' WHERE `idViagem`='"+id+"'");
+
+            stmt.executeUpdate(sql);
+            System.out.println("METODO ---> EDITAR VIAGEM REALIZADO COM SUCESSO.........");
+        } catch (SQLException e) {
+            System.out.println(" FALHA NO METODO ---> EDITAR VIAGEM ......... " + e);
+        }
+
+    }
+
+    public String[] pesquisarViagens(String id) {
+
+        String[] viagem = new String[9];
+
+        try {
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
+            String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem ='" + id + "';");
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println("CONSULTA REALIZADA COM SUCESSO");
+            viagem[0] = rs.getString("idViagem");
+            viagem[1] = rs.getString("nomeViagem");
+            viagem[2] = rs.getString("status");
+            viagem[3] = rs.getString("origem");
+            viagem[4] = rs.getString("inicioViagem");
+            viagem[5] = rs.getString("destino");
+            viagem[6] = rs.getString("fimViagem");
+            viagem[7] = rs.getString("nomeEmbarcacao");
+            viagem[8] = rs.getString("comandante");
+
+            System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("ERROR - PESQUISAR POR ID --- " + e);
+        }
+        return viagem;
     }
 
     public String[][] pesquisarViagens() {
@@ -90,7 +141,5 @@ public class ViagemDao {
 
         return viagens;
     }
-
-    
 
 }

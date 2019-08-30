@@ -27,11 +27,12 @@
                         <h4>Feito!</h4>
                         <p>viagem excluida com sucesso!</p>
                     </div>
+                    
 
                     <%
 
-                        String idViagem = request.getParameter("nomeViagem");
-
+                        String idViagem = request.getParameter("idViagem");
+                        System.out.println("************************************************************* "+idViagem);
                         ViagemDao cons = new ViagemDao();
                         cons.excluirViagem(idViagem);
                         System.out.println("VIAGEM EXCLUIDA COM SUCESSO!!!!!!!");
