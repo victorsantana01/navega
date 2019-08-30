@@ -283,8 +283,12 @@
                                         <span class="sr-only">Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo">Editar</a>
-                                        <a class="dropdown-item" href="#">Deletar</a>
+                                        <%
+                                            request.setAttribute("idViagem", viagens[0][i]);
+                                        %>
+                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
+                                        <a class="dropdown-item" href="editViagem.jsp"  id="<%= viagens[0][i]%>">Editar</a>
+                                        <a class="dropdown-item" href="excluirViagem.jsp">Deletar</a>
                                     </div>
                                 </div>
                             </th>
@@ -313,44 +317,44 @@
                 <!-- CORPO DA MODAL DE EDIÇÃO -->
                 <div class="modal-body">
 
-                    <form id="mod" name="tab" action="cadastrarViagem.jsp" method="get">
+                    <form id="mod2" name="tab" action="cadastrarViagem.jsp" method="get">
 
                         <div class="form-group col-12">
                             <div class="col-12 ">
                                 <div class="input-field col-6">
-                                    <input name="nomeViagem" class="validate black-text" id="nomeViagem" type="text" required>
-                                    <label for="nomeViagem">Nome da Viagem</label>
+                                    <input name="nomeViagem" class="validate black-text" id="nomeViagemEdit" type="text" required>
+                                    <label for="nomeViagem" id="nomeLabel">Nome da Viagem</label>
                                 </div>
                                 <div class="col-6">
-                                <select class="browser-default col" name="status" required >
-                                    <option value="" disabled selected>Status de Viagem</option>
-                                    <option value="0">Agendado</option>
-                                    <option value="1">Em Progresso</option>
-                                    <option value="2">Finalizado</option>
-                                </select>
-                            </div>
+                                    <select class="browser-default col" name="status" id="statusEdit" required >
+                                        <option value="" disabled selected>Status de Viagem</option>
+                                        <option value="0">Agendado</option>
+                                        <option value="1">Em Progresso</option>
+                                        <option value="2">Finalizado</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group col-12">
                                 <div class="input-field col s6">
                                     <div class="input-field col-6">
-                                        <input name="origem" class="validate black-text" id="origem" type="text" required>
-                                        <label for="origem">Origem</label>
+                                        <input name="origem" class="validate black-text" id="origemEdit" type="text" required>
+                                        <label id="origemLabel" for="origem">Origem</label>
                                     </div>
                                     <div class="input-field col-6">
-                                        <input name="destino" class="validate black-text" id="destino" type="text" required>
-                                        <label for="destino">Destino</label>
+                                        <input name="destino" class="validate black-text" id="destinoEdit" type="text" required>
+                                        <label id="destinoLabel" for="destino">Destino</label>
                                     </div>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input type="text" name="datetimes22" id="datetimes22" />
-                                    <label for="datetimes22">Datas e Horarios</label>
+                                    <input type="text" name="datetimes22" id="datetimes22Edit" />
+                                    <label id="datetimeLabel" for="datetimes22">Datas e Horarios</label>
                                 </div> 
                             </div>
                             <div class="form-group col s12">
                                 <span class="card-title center"><b>Embarcação</b></span>
 
                                 <div class="col s6">
-                                    <select class="browser-default black-text" name="barco" required > 
+                                    <select class="browser-default black-text" name="barco" id="barcoEdit" required > 
                                         <option class="black-text" value="" disabled selected>Barco</option>
                                         <%
                                             BarcoDao bar2 = new BarcoDao();
@@ -368,7 +372,7 @@
                                     </select>
                                 </div>
                                 <div class="col s6"> 
-                                    <select class="browser-default black-text" name="comandante" id="comandante" required>
+                                    <select class="browser-default black-text" name="comandante" id="comandanteEdit" required>
                                         <option class="black-text" value="" disabled selected>Comandante</option>
                                         <%
                                             ComandanteDao com2 = new ComandanteDao();
@@ -407,28 +411,10 @@
             form.submit();
             return false;
         }
-        
-        $('[data-toggle="modal"]').on('click', function (e) {
-        var $target = $(e.target);
-        // modal targeted by the button
-        var i = $target.data('id');
 
-    <%
-        ViagemDao viagem2 = new ViagemDao();
-        String[][] viagens2 = viagem2.pesquisarViagens();
-        int x = 1;
-    %>
-            $(".modal-body .mod2 #nomeViagem").val(<%= viagens2[1][x]%>);
-            $(".modal-body .mod2 #stautsE").val(<%= viagens2[2][x]%>);
-            $(".modal-body .mod2 #origem").val(<%= viagens2[3][x]%>);
-            $(".modal-body .mod2 #destino").val(<%= viagens2[4][x]%>);
-            $(".modal-body .mod2 #datetimes22").val(<%= viagens2[5][x] + " " + viagens[6][x]%>);
-            $(".modal-body .mod2 #barcoE").val(<%= viagens2[4][x]%>);
-            $(".modal-body .mod2 #comandanteE").val(<%= viagens2[4][x]%>);
-        });
+        
         
     </script>
-
     <!--FIM do Corpo do App -->
 
     <!--Materialize JS -->
