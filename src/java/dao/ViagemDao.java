@@ -74,26 +74,31 @@ public class ViagemDao {
 
     }
 
-    public String[] pesquisarViagens(String id) {
+    public String[][] pesquisarViagens(String id) {
 
-        String[] viagem = new String[9];
+        String[][] viagem = new String[9][10];
 
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
-            String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem ='" + id + "';");
+            String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");
-            viagem[0] = rs.getString("idViagem");
-            viagem[1] = rs.getString("nomeViagem");
-            viagem[2] = rs.getString("status");
-            viagem[3] = rs.getString("origem");
-            viagem[4] = rs.getString("inicioViagem");
-            viagem[5] = rs.getString("destino");
-            viagem[6] = rs.getString("fimViagem");
-            viagem[7] = rs.getString("nomeEmbarcacao");
-            viagem[8] = rs.getString("comandante");
+            int i = 0;
+            while (rs.next()) {
+
+                viagem[0][i] = rs.getString("idViagem");
+                viagem[1][i] = rs.getString("nomeViagem");
+                viagem[2][i] = rs.getString("status");
+                viagem[3][i] = rs.getString("origem");
+                viagem[4][i] = rs.getString("inicioViagem");
+                viagem[5][i] = rs.getString("destino");
+                viagem[6][i] = rs.getString("fimViagem");
+                viagem[7][i] = rs.getString("nomeEmbarcacao");
+                viagem[8][i] = rs.getString("comandante");
+                i++;
+            }
 
             System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
             rs.close();

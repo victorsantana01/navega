@@ -91,18 +91,18 @@
                                         
                                         ViagemDao viagem = new ViagemDao();
                                         
-                                        String[] viagemE = viagem.pesquisarViagens(idViagem);
+                                        String[][] viagemE = viagem.pesquisarViagens(idViagem);
 
                                     %>
                                     <div class="form-group col s12">
                                         <div class="form-row col s6 ">
                                             <div class="input-field col s12">
-                                                <input name="nomeViagem" class="validate black-text" id="nomeViagem" value="<%=viagemE[0]%>" type="text" required>
+                                                <input name="nomeViagem" class="validate black-text" id="nomeViagem" value="<%=viagemE[1][0]%>" type="text" required>
                                                 <label for="nomeViagem" class="active">Nome da Viagem</label>
                                             </div>
                                         </div>
                                         <div class="col s6">
-                                            <select class="browser-default" name="status" required >
+                                            <select class="browser-default" name="status" value="<%= viagemE[2][0]%>" required >
                                                 <option value="" disabled selected>Status de Viagem</option>
                                                 <option value="0">Agendado</option>
                                                 <option value="1">Em Progresso</option>
@@ -112,16 +112,16 @@
                                         <div class="form-group col s12">
                                             <div class="input-field col s6">
                                                 <div class="input-field col s12">
-                                                    <input name="origem" class="validate black-text" id="origem" type="text" required>
+                                                    <input name="origem" class="validate black-text" id="origem" type="text" value="<%=viagemE[3][0]%>" required>
                                                     <label for="origem">Origem</label>
                                                 </div>
                                                 <div class="input-field col s12">
-                                                    <input name="destino" class="validate black-text" id="destino" type="text" required>
+                                                    <input name="destino" class="validate black-text" id="destino" type="text" value="<%=viagemE[5][0]%>" required>
                                                     <label for="destino">Destino</label>
                                                 </div>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input type="text" name="datetimes22" id="datetimes22" />
+                                                <input type="text" name="datetimes22" value="<%=viagemE[4][0]+" "+ viagemE[6][0]%>" id="datetimes22" />
                                                 <label for="datetimes22">Datas e Horarios</label>
                                             </div> 
                                         </div>
@@ -129,7 +129,7 @@
                                             <span class="card-title center"><b>Embarcação</b></span>
 
                                             <div class="col s6">
-                                                <select class="browser-default black-text" name="barco" required > 
+                                                <select class="browser-default black-text" name="barco" value="<%=viagemE[7][0]%>" required > 
                                                     <option class="black-text" value="" disabled selected>Barco</option>
                                                     <%                                                            BarcoDao bar = new BarcoDao();
                                                         String[][] barcos = bar.pesquisaBarcos().clone();
@@ -146,7 +146,7 @@
                                                 </select>
                                             </div>
                                             <div class="col s6"> 
-                                                <select class="browser-default black-text" name="comandante" id="comandante" required>
+                                                <select class="browser-default black-text" name="comandante" id="comandante" value="<%=viagemE[8][0]%>" required>
                                                     <option class="black-text" value="" disabled selected>Comandante</option>
                                                     <%
                                                         ComandanteDao com = new ComandanteDao();
