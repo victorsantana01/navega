@@ -248,8 +248,9 @@
             </div>
         </div>
         <%
-            con.close();
-            stmt.close();
+            //con.close();
+            //stmt.close();
+            
         %>
         <!--FIM do Corpo do App -->
 

@@ -14,29 +14,5 @@ import dao.Rpm;
  */
 public class Teste3 {
 
-    public static void main(String[] args) {
-        Rpm rpm = new Rpm();
-        String[][] painel;
-        painel = rpm.getRpm("2019-04-01", "2019-04-04", "334323").clone();
-        int cont = Integer.parseUnsignedInt(painel[5][0]);
-        System.out.println("Numero de registros: "+cont);
-        if (cont>0) {
-         int r = 0;   
-         int maior = 0;   
-         System.out.println("Hà registro!!");   
-            for (int i = 0; i < cont; i++) {
-                //System.out.println("--->>" + painel[0][i]);
-                r = Integer.parseInt(painel[0][i]);
-                if (r > maior) {
-                    maior = r;
-                }
-            }
-             System.out.println("Maior = "+maior);
-
-        
-        }else{
-            System.out.println("Sem registro!!");
-        }
-
-    }
+   
 }

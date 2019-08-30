@@ -1,3 +1,6 @@
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="logic.Format"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="teste.Teste"%>
@@ -141,8 +144,10 @@ window.location.href = link ;
                      <select class="browser-default" name="mct" >
                          <option value="" disabled selected>Empurrador</option>
                          <%
+                             Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
                              Rpm rpm = new Rpm();
-                             String[][] veiculo = rpm.painelAtualizado(conta).clone();
+                             String[][] veiculo = rpm.painelAtualizado(conta,con,stmt).clone();
                              for (int i = 0; i < 100; i++) {
                                  if (veiculo[1][i] == null) {
                                      i = 100;
@@ -299,7 +304,7 @@ window.location.href = link ;
                         <%
 
                             String[][] painel1;
-                            painel1 = rpm.getPrincipalRpm(request.getParameter("dataInicio"), request.getParameter("dataFim"), request.getParameter("mct")).clone();
+                            painel1 = rpm.getPrincipalRpm(request.getParameter("dataInicio"), request.getParameter("dataFim"), request.getParameter("mct"),con,stmt).clone();
                             String consumo = "";
                             String rpmArrendon = "";
                             String entrada = null;
