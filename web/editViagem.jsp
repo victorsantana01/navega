@@ -167,6 +167,7 @@
                                             <div class="col s6">
                                                 <select class="browser-default black-text" name="barco" value="<%=viagemE[7][0]%>" required > 
                                                     <option class="black-text" value="" disabled>Barco</option>
+                                                    <!--PESQUISA OS BARCOS E PREENCHE O MENU SELECT E SELECIONA A OPCAO  GRAVADA.-->
                                                     <%
                                                         BarcoDao bar = new BarcoDao();
                                                         String[][] barcos = bar.pesquisaBarcos().clone();
@@ -174,13 +175,10 @@
                                                             if (barcos[0][i] == null) {
                                                                 i = 50;
                                                             } else {
-                                                                if (barcos[0][i].equals(viagemE[7][0])) {
-                                                                    %>
+                                                                if (barcos[0][i].equals(viagemE[7][0])) { %>
                                                     <option class="black-text" value="<%=barcos[0][i]%>" selected><%=barcos[1][i]%></option>
                                                     <%
-                                                    } else {
-                                                        System.out.println("barco: " + barcos[1][i] + "  +++++++++++++++++++++++++++++");
-                                                    %>
+                                                    } else { %>
                                                     <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[1][i]%></option>
 
                                                     <%
