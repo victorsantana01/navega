@@ -25,6 +25,10 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
@@ -51,6 +55,9 @@
             .daterangepicker .drp-calendar .calendar-time select{
                 display:inline !important;
             }
+            .modal-dialog{
+                margin: 0px !important;
+            }
         </style>
         <script type="text/javascript">
 
@@ -67,6 +74,8 @@
                     }
                 });
             });
+
+            $(".dropdown-trigger").dropdown('toggle');
         </script>
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -237,6 +246,7 @@
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;nome Embarcacao</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;comandante</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data de Cadastro</th>
+                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                             </tr></b>
                         </thead>
 
@@ -252,7 +262,7 @@
                                     i = 2000;
                                 } else {
                         %>
-                        <tr>
+                        <tr id="<%= viagens[0][i]%>">
                             <%
                                 inicio = format.DataFormat(viagens[4][i]);
                                 fim = format.DataFormat(viagens[6][i]);
@@ -267,6 +277,21 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <%
+                                            request.setAttribute("idViagem", viagens[0][i]);
+                                        %>
+                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
+                                        <a class="dropdown-item" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"  id="<%= viagens[0][i]%>">Editar</a>
+                                        <a class="dropdown-item" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>">Deletar</a>
+                                    </div>
+                                </div>
+                            </th>
                         </tr>
                         <%  }
                             }
@@ -279,24 +304,121 @@
             </div>
         </div>
     </div>
+    <!-- Modal EDIÇÃO -->
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content col-12">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Viagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- CORPO DA MODAL DE EDIÇÃO -->
+                <div class="modal-body">
+
+                    <form id="mod2" name="tab" action="cadastrarViagem.jsp" method="get">
+
+                        <div class="form-group col-12">
+                            <div class="col-12 ">
+                                <div class="input-field col-6">
+                                    <input name="nomeViagem" class="validate black-text" id="nomeViagemEdit" type="text" required>
+                                    <label for="nomeViagem" id="nomeLabel">Nome da Viagem</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="browser-default col" name="status" id="statusEdit" required >
+                                        <option value="" disabled selected>Status de Viagem</option>
+                                        <option value="0">Agendado</option>
+                                        <option value="1">Em Progresso</option>
+                                        <option value="2">Finalizado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
+                                <div class="input-field col s6">
+                                    <div class="input-field col-6">
+                                        <input name="origem" class="validate black-text" id="origemEdit" type="text" required>
+                                        <label id="origemLabel" for="origem">Origem</label>
+                                    </div>
+                                    <div class="input-field col-6">
+                                        <input name="destino" class="validate black-text" id="destinoEdit" type="text" required>
+                                        <label id="destinoLabel" for="destino">Destino</label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input type="text" name="datetimes22" id="datetimes22Edit" />
+                                    <label id="datetimeLabel" for="datetimes22">Datas e Horarios</label>
+                                </div> 
+                            </div>
+                            <div class="form-group col s12">
+                                <span class="card-title center"><b>Embarcação</b></span>
+
+                                <div class="col s6">
+                                    <select class="browser-default black-text" name="barco" id="barcoEdit" required > 
+                                        <option class="black-text" value="" disabled selected>Barco</option>
+                                        <%
+                                            BarcoDao bar2 = new BarcoDao();
+                                            String[][] barcos2 = bar2.pesquisaBarcos().clone();
+                                            for (int i = 0; i < 10; i++) {
+                                                if (barcos2[0][i] == null) {
+                                                    i = 50;
+                                                } else {
+                                        %>
+                                        <option class="black-text" value="<%=barcos2[0][i]%>"><%=barcos2[1][i]%></option>
+
+                                        <%
+                                                }
+                                            }%>
+                                    </select>
+                                </div>
+                                <div class="col s6"> 
+                                    <select class="browser-default black-text" name="comandante" id="comandanteEdit" required>
+                                        <option class="black-text" value="" disabled selected>Comandante</option>
+                                        <%
+                                            ComandanteDao com2 = new ComandanteDao();
+                                            String[][] comandantes2 = com2.pesquisarComandantes().clone();
+                                            for (int i = 0; i < 200; i++) {
+                                                if (comandantes2[0][i] == null) {
+                                                    i = 500;
+                                                } else {
+                                        %>
+                                        <option class="black-text" value="<%=comandantes2[0][i]%>"><%=comandantes2[1][i]%></option>
+
+                                        <%
+                                                }
+                                            }%>
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript">
         function confirma(form) {
             form.submit();
             return false;
         }
-        $(".dropdown-trigger").dropdown();
-    </script>
 
+        
+        
+    </script>
     <!--FIM do Corpo do App -->
 
     <!--Materialize JS -->
     <script src="js/materialize.js">
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
-        });
 
     </script>
     <!--Materialize NavBar -->    

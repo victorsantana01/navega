@@ -25,11 +25,11 @@
       <div class="card-body">
         <div class="text-center mt-4 mb-5">
           <h4>Feito!</h4>
-          <p>viagem salvo com sucesso!</p>
+          <p>viagem editada com sucesso!</p>
         </div>
           
           <%
-              
+              String idViagem = request.getParameter("id");
               String nomeViagem= request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
@@ -42,10 +42,18 @@
               String dataInicio = data[0];
               String dataFim =data[1];
               
+              System.out.println("idViagem: "+idViagem);
+              System.out.println("nomeViagem "+nomeViagem);
+              System.out.println("status "+status);
+              System.out.println("origem "+origem);
+              System.out.println("destino "+destino);
+              System.out.println("idBarco "+idBarco);
+              System.out.println("idcomandante "+idcomandante);
+              System.out.println("date "+date);
               
               ViagemDao cons = new ViagemDao();
-              cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
-              System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
+              cons.editarViagem(idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
+              System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!");
     String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);
           %>
