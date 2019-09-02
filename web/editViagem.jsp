@@ -40,6 +40,14 @@
     </head>
 
     <body>
+        <style>
+            .daterangepicker .drp-calendar .calendar-time select{
+                display:inline !important;
+            }
+            .modal-dialog{
+                margin: 0px !important;
+            }
+        </style>
         <%
             /* Inicio de Sessão */
             String conta = session.getAttribute("conta").toString();

@@ -23,22 +23,15 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
+        <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
 
 
     </head>
-    <body >
-        <script>
-
-            $(".dropdown-trigger").dropdown('toggle');
-        </script>
+    <body > 
 
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -104,30 +97,35 @@
                                 <div class="container col s12">
                                     <div class="row ">
 
-                                        <form id="mod" name="tab" action="cadastrarComandante.jsp" method="get">
-
+                                        <form id="mod" name="tab" action="editarComandante.jsp" method="get">
+                                            <!--FAZ UMA PESQUISA APARTI DE UM ID, E SALVA O RESULTADO EM UM ARRAY-->
+                                            <%
+                                                String idComandante = request.getParameter("idComandante");
+                                                ComandanteDao comandante = new ComandanteDao();
+                                                String[] comandanteE = comandante.pesquisarComandante(idComandante);
+                                            %>
                                             <div class="form-group col s12">
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
-                                                        <input name="nome" class="validate black-text" id="nomeComandante" type="text" required >
+                                                <div class="form-row col s6 center-align">
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="idC" class="validate black-text" type=hidden id="idC" value="<%=comandanteE[0] %>" type="text" >
+                                                        <input name="nome" class="validate black-text" id="nome" value="<%=comandanteE[1] %>" type="text" required >
                                                         <label for="nomeComandate">Nome do Comandante</label>
                                                     </div>
-                                                </div>
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
-                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" required >
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" value="<%=comandanteE[2] %>" required >
                                                         <label for="matricula">Matricula</label>
                                                     </div>
-                                                </div>
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
-                                                        <input name="contato" class="validate black-text" id="contato" type="text" required>
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="contato" class="validate black-text" id="contato" type="text" value="<%=comandanteE[4] %>"required>
                                                         <label for="contato">Contato</label>
                                                     </div>
                                                 </div>
+
+
+
                                             </div>
                                             <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Salvar<i class="material-icons right">send</i>/>
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Editar<i class="material-icons right">send</i>/>
                                             </div>
 
 
@@ -142,52 +140,7 @@
 
 
                     </div>
-                    <table class="highlight striped responsive-table z-depth-4" id="dataTable">
-                        <thead class=" background #0277bd light-blue darken-1">
-                        <b><tr>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Nome</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Matricula</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Ultima Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Contato</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                            </tr></b>
-                        </thead>
 
-                        <%
-                            ComandanteDao coman = new ComandanteDao();
-                            String[][] comandantes = coman.pesquisarComandantes().clone();
-                            for (int i = 0; i < 1000; i++) {
-                                if (comandantes[0][i] == null) {
-                                    i = 2000;
-                                } else {
-                        %>
-                        <tr>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[0][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[1][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[2][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[4][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <%
-                                            request.setAttribute("idComandante", comandantes[0][i]);
-                                        %>
-                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
-                                        <a class="dropdown-item" href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"  id="<%= comandantes[0][i]%>">Editar</a>
-                                        <a class="dropdown-item" href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>">Deletar</a>
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                        <%  }
-                            }
-                        %>
-
-
-                    </table>
 
                 </div>
             </div>
@@ -195,11 +148,11 @@
     </div>
 
     <script type="text/javascript">
-        function confirma(form) {
-            form.submit();
-            return false;
+            function confirma(form) {
+                form.submit();
+                return false;
 
-            $(".dropdown-trigger").dropdown();
+                $(".dropdown-trigger").dropdown();
 
     </script>
 
@@ -208,11 +161,11 @@
     <!--Materialize JS -->
     <script src="js/materialize.js">
 
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, options);
-            }
-            );
+                document.addEventListener('DOMContentLoaded', function () {
+                    var elems = document.querySelectorAll('select');
+                    var instances = M.FormSelect.init(elems, options);
+                }
+                );
 
     </script>
     <!--Materialize NavBar -->    
