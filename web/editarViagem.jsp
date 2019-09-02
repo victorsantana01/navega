@@ -29,7 +29,7 @@
         </div>
           
           <%
-              String idViagem = request.getParameter("idViagem");
+              String idViagem = request.getParameter("id");
               String nomeViagem= request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
@@ -42,6 +42,14 @@
               String dataInicio = data[0];
               String dataFim =data[1];
               
+              System.out.println("idViagem: "+idViagem);
+              System.out.println("nomeViagem "+nomeViagem);
+              System.out.println("status "+status);
+              System.out.println("origem "+origem);
+              System.out.println("destino "+destino);
+              System.out.println("idBarco "+idBarco);
+              System.out.println("idcomandante "+idcomandante);
+              System.out.println("date "+date);
               
               ViagemDao cons = new ViagemDao();
               cons.editarViagem(idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
