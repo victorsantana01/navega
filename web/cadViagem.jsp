@@ -220,7 +220,7 @@
 
                                             </div>
                                             <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " onclick="pegaNome()">Salvar />
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar />
                                             </div>
 
                                         </form>
