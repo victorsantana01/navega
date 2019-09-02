@@ -102,21 +102,22 @@
                                             <%
                                                 String idComandante = request.getParameter("idComandante");
                                                 ComandanteDao comandante = new ComandanteDao();
-                                                String[] comandanteE = comandante.pesquisarComandante(idComandante);
+                                                String[][] comandanteE = comandante.pesquisarComandante(idComandante);
+                                                System.out.println("id: "+comandanteE[0][0]);
                                             %>
                                             <div class="form-group col s12">
                                                 <div class="form-row col s6 center-align">
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="idC" class="validate black-text" type=hidden id="idC" value="<%=comandanteE[0] %>" type="text" >
-                                                        <input name="nome" class="validate black-text" id="nome" value="<%=comandanteE[1] %>" type="text" required >
+                                                        <input name="idC" class="validate black-text" type=hidden id="idC" value="<%=comandanteE[0][0] %>" type="text" >
+                                                        <input name="nome" class="validate black-text" id="nome" value="<%=comandanteE[1][0] %>" type="text" required >
                                                         <label for="nomeComandate">Nome do Comandante</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" value="<%=comandanteE[2] %>" required >
+                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" value="<%=comandanteE[2][0] %>" required >
                                                         <label for="matricula">Matricula</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="contato" class="validate black-text" id="contato" type="text" value="<%=comandanteE[4] %>"required>
+                                                        <input name="contato" class="validate black-text" id="contato" type="text" value="<%=comandanteE[3][0] %>"required>
                                                         <label for="contato">Contato</label>
                                                     </div>
                                                 </div>
@@ -151,8 +152,7 @@
             function confirma(form) {
                 form.submit();
                 return false;
-
-                $(".dropdown-trigger").dropdown();
+                }
 
     </script>
 

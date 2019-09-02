@@ -22,16 +22,20 @@
         <!--Materialize Icones -->  
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Materialize CSS -->
+        <!--Materialize Icones -->  
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
+        <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     </head>
     <body >
@@ -107,27 +111,24 @@
                                         <form id="mod" name="tab" action="cadastrarComandante.jsp" method="get">
 
                                             <div class="form-group col s12">
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
-                                                        <input name="nome" class="validate black-text" id="nomeComandante" type="text" required >
+                                                <div class="form-row col s6 center-align">
+                                                    <div class="input-field col s12 push-s6 center-align">
+                                                        <input name="idC" class="validate black-text" type=hidden id="idC"  type="text" >
+                                                        <input name="nome" class="validate black-text" id="nome" type="text" required >
                                                         <label for="nomeComandate">Nome do Comandante</label>
                                                     </div>
-                                                </div>
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
+                                                    <div class="input-field col s12 push-s6 center-align">
                                                         <input name="matricula" class="validate black-text" id="matricula" type="text" required >
                                                         <label for="matricula">Matricula</label>
                                                     </div>
-                                                </div>
-                                                <div class="form-row col s12 center-align">
-                                                    <div class="input-field col s12 center-align">
+                                                    <div class="input-field col s12 push-s6 center-align">
                                                         <input name="contato" class="validate black-text" id="contato" type="text" required>
                                                         <label for="contato">Contato</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="card-action col s12">
-                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Salvar<i class="material-icons right">send</i>/>
+                                                <div class="card-action col s12">
+                                                    <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Salvar<i class="material-icons right">send</i>/>
+                                                </div>
                                             </div>
 
 
@@ -168,17 +169,16 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[4][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <%
-                                            request.setAttribute("idComandante", comandantes[0][i]);
-                                        %>
-                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
-                                        <a class="dropdown-item" href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"  id="<%= comandantes[0][i]%>">Editar</a>
-                                        <a class="dropdown-item" href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>">Deletar</a>
-                                    </div>
+                                    <!-- Dropdown Trigger -->
+                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
+
+
+                                    <!-- Dropdown Structure -->
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
+                                        <li class="divider" tabindex="-1"></li>
+                                        <li><a href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
+                                    </ul>
                                 </div>
                             </th>
                         </tr>
@@ -198,8 +198,8 @@
         function confirma(form) {
             form.submit();
             return false;
-
-            $(".dropdown-trigger").dropdown();
+        }
+        $(".dropdown-trigger").dropdown();
 
     </script>
 
@@ -208,11 +208,11 @@
     <!--Materialize JS -->
     <script src="js/materialize.js">
 
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, options);
-            }
-            );
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, options);
+        }
+        );
 
     </script>
     <!--Materialize NavBar -->    
