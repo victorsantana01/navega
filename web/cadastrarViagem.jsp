@@ -1,10 +1,10 @@
 <%@page import="dao.ViagemDao"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
-  <meta charset="utf-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -29,8 +29,8 @@
         </div>
           
           <%
-              
-              String nomeViagem= request.getParameter("nomeViagem");
+
+              String nomeViagem = request.getParameter("nomeViagem");
               String status = request.getParameter("status");
               String origem = request.getParameter("origem");
               String destino = request.getParameter("destino");
@@ -40,14 +40,14 @@
               String date = request.getParameter("datetimes22").replace("/", "-");
               String data[] = date.split(" - ");
               String dataInicio = data[0];
-              String dataFim =data[1];
-              
-              
+              String dataFim = data[1];
+
               ViagemDao cons = new ViagemDao();
-              cons.incluirViagem(nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
+              System.out.println("TESTE DE NOME =cadastroViagem=-------> "+origem);
+              cons.incluirViagem(nomeViagem, status, usuario, origem, dataInicio, destino, dataFim, idBarco, idcomandante);
               System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
-    String redirectURL = "/NavegaGestor/cadViagem.jsp";
-    response.sendRedirect(redirectURL);
+              String redirectURL = "/NavegaGestor/cadViagem.jsp";
+              response.sendRedirect(redirectURL);
           %>
          <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
       
