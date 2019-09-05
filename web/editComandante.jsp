@@ -22,27 +22,16 @@
         <!--Materialize Icones -->  
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Materialize CSS -->
-        <!--Materialize Icones -->  
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
         <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     </head>
-    <body >
-        <script>
-
-            $(".dropdown-trigger").dropdown('toggle');
-        </script>
+    <body > 
 
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -108,27 +97,36 @@
                                 <div class="container col s12">
                                     <div class="row ">
 
-                                        <form id="mod" name="tab" action="cadastrarComandante.jsp" method="get">
-
+                                        <form id="mod" name="tab" action="editarComandante.jsp" method="get">
+                                            <!--FAZ UMA PESQUISA APARTI DE UM ID, E SALVA O RESULTADO EM UM ARRAY-->
+                                            <%
+                                                String idComandante = request.getParameter("idComandante");
+                                                ComandanteDao comandante = new ComandanteDao();
+                                                String[][] comandanteE = comandante.pesquisarComandante(idComandante);
+                                                System.out.println("id: "+comandanteE[0][0]);
+                                            %>
                                             <div class="form-group col s12">
                                                 <div class="form-row col s6 center-align">
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="idC" class="validate black-text" type=hidden id="idC"  type="text" >
-                                                        <input name="nome" class="validate black-text" id="nome" type="text" required >
+                                                        <input name="idC" class="validate black-text" type=hidden id="idC" value="<%=comandanteE[0][0] %>" type="text" >
+                                                        <input name="nome" class="validate black-text" id="nome" value="<%=comandanteE[1][0] %>" type="text" required >
                                                         <label for="nomeComandate">Nome do Comandante</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" required >
+                                                        <input name="matricula" class="validate black-text" id="matricula" type="text" value="<%=comandanteE[2][0] %>" required >
                                                         <label for="matricula">Matricula</label>
                                                     </div>
                                                     <div class="input-field col s12 push-s6 center-align">
-                                                        <input name="contato" class="validate black-text" id="contato" type="text" required>
+                                                        <input name="contato" class="validate black-text" id="contato" type="text" value="<%=comandanteE[3][0] %>"required>
                                                         <label for="contato">Contato</label>
                                                     </div>
                                                 </div>
-                                                <div class="card-action col s12">
-                                                    <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Salvar<i class="material-icons right">send</i>/>
-                                                </div>
+
+
+
+                                            </div>
+                                            <div class="card-action col s12">
+                                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue" >Editar<i class="material-icons right">send</i>/>
                                             </div>
 
 
@@ -143,51 +141,7 @@
 
 
                     </div>
-                    <table class="highlight striped responsive-table z-depth-4" id="dataTable">
-                        <thead class=" background #0277bd light-blue darken-1">
-                        <b><tr>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Nome</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Matricula</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Ultima Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Contato</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                            </tr></b>
-                        </thead>
 
-                        <%
-                            ComandanteDao coman = new ComandanteDao();
-                            String[][] comandantes = coman.pesquisarComandantes().clone();
-                            for (int i = 0; i < 1000; i++) {
-                                if (comandantes[0][i] == null) {
-                                    i = 2000;
-                                } else {
-                        %>
-                        <tr>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[0][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[1][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[2][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[4][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;
-                                <div class="btn-group">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
-
-
-                                    <!-- Dropdown Structure -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
-                                    </ul>
-                                </div>
-                            </th>
-                        </tr>
-                        <%  }
-                            }
-                        %>
-
-
-                    </table>
 
                 </div>
             </div>
@@ -195,11 +149,10 @@
     </div>
 
     <script type="text/javascript">
-        function confirma(form) {
-            form.submit();
-            return false;
-        }
-        $(".dropdown-trigger").dropdown();
+            function confirma(form) {
+                form.submit();
+                return false;
+                }
 
     </script>
 
@@ -208,11 +161,11 @@
     <!--Materialize JS -->
     <script src="js/materialize.js">
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
-        }
-        );
+                document.addEventListener('DOMContentLoaded', function () {
+                    var elems = document.querySelectorAll('select');
+                    var instances = M.FormSelect.init(elems, options);
+                }
+                );
 
     </script>
     <!--Materialize NavBar -->    

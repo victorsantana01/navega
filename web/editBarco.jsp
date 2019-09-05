@@ -25,23 +25,15 @@
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <!--FIM Cabeçalho Para Materialize-->
+        <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     </head>
     <body> 
 
-        <script>
 
-            $(".dropdown-trigger").dropdown('toggle');
-        </script>
     </div>
     <%
         String conta = session.getAttribute("conta").toString();
@@ -98,26 +90,35 @@
             <div class="col s12">
                 <div class="card offset-s5">
                     <div class="card-content white-text ">
-                        <span class="card-title black-text center"><b>Cadastro Embarcação</b></span>
+                        <span class="card-title black-text center"><b>Editar Embarcação</b></span>
                         <div class="row">
                             <div class="container col s12">
                                 <div class="row ">
-                                    <form id="mod" name="tab" action="cadastrarBarco.jsp" method="get">
-
+                                    <form id="mod" name="tab" action="editarBarco.jsp" method="get">
+                                        <!--FAZ UMA PESQUISA APARTI DE UM ID, E SALVA O RESULTADO EM UM ARRAY-->
+                                        <%
+                                            String idbarco = request.getParameter("idBarco");
+                                            BarcoDao barco = new BarcoDao();
+                                            String[][] barcoE = barco.pesquisarBarco(idbarco);
+                                            for (int i = 0; i < barcoE.length; i++) {
+                                                System.out.println("**********************  " + barcoE[i][0]);
+                                            }
+                                        %>
                                         <div class="form-group col s12">
                                             <div class="form-row col s6 center-align">
                                                 <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="codBarco" class="validate black-text" id="codBarco" type="text" required>
+                                                    <input name="codBarco" class="validate black-text" id="idBarco" type=hidden value="<%= barcoE[0][0]%>" type="text" >
+                                                    <input name="codBarco" class="validate black-text" id="codBarco" type="text" value="<%= barcoE[1][0]%>" required>
                                                     <label for="codBarco">MCT / UCC</label>
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="nomeBarco" class="validate black-text" id="nomeBarco" type="text" required>
+                                                    <input name="nomeBarco" class="validate black-text" id="nomeBarco" type="text" value="<%= barcoE[2][0]%>" required>
                                                     <label for="nomeBarco">Nome da Embarcação</label>
                                                 </div>
                                                 <div class="col s12 push-s6 center-align">
                                                     <label class="left">Motor</label>
                                                     <select class="browser-default black-text" name="motor" id="motor" required>
-                                                        <option class="black-text"value="" disabled selected>Motores</option>
+                                                        <option class="black-text"value="" disabled>Motores</option>
                                                         <%
                                                             BarcoDao com = new BarcoDao();
                                                             String[][] motores = com.pesquisaMotores().clone();
@@ -125,20 +126,24 @@
                                                                 if (motores[i][0] == null) {
                                                                     i = 50;
                                                                 } else {
+                                                                    if (barcoE[3][0].equals(motores[i][0])) {
                                                         %>
+                                                        <option class="black-text" value="<%=motores[i][0]%>" selected><%=motores[i][1]%></option>
+                                                        <% } else {%>
                                                         <option class="black-text" value="<%=motores[i][0]%>"><%=motores[i][1]%></option>
 
                                                         <%
+                                                                    }
                                                                 }
                                                             }%>
                                                     </select>
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="modelo" class="validate black-text" id="modelo" type="text" required>
+                                                    <input name="modelo" class="validate black-text" id="modelo" type="text" value="<%=barcoE[4][0]%>" required>
                                                     <label for="modelo">modelo</label>
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="base" class="validate black-text" id="base" type="text" required>
+                                                    <input name="base" class="validate black-text" id="base" value="<%=barcoE[5][0]%>"  type="text" required>
                                                     <label for="base">base</label>
                                                 </div>
                                             </div>
@@ -147,7 +152,7 @@
 
                                         </div>
                                         <div class="card-action col s12">
-                                            <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Salvar<i class="material-icons right"> send</i></>
+                                            <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Editar<i class="material-icons right"> send</i></>
                                         </div>
 
 
@@ -169,74 +174,28 @@
         </div>
 
 
-        <table class="highlight striped responsive-table z-depth-4" id="dataTable">
-            <thead class=" background #0277bd light-blue darken-1">
-            <b><tr>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Embarcação</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Base</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data Cadastro</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                </tr></b>
-            </thead>
-
-            <%
-                Format format = new Format();
-                String data;
-                BarcoDao barco = new BarcoDao();
-                String[][] barcos = barco.pesquisaBarcos().clone();
-                for (int i = 0; i < 50; i++) {
-                    if (barcos[0][i] == null) {
-                        i = 50;
-                    } else {
-            %>
-            <tr>
-                <%
-                    data = format.DataFormat(barcos[6][i]);
-                %>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[1][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[2][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[3][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[5][i]%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;
-                    <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
-
-
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
-                        <li class="divider" tabindex="-1"></li>
-                        <li><a href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
-                    </ul>
-                </th>
-            </tr>
-            <% }
-                }
-            %>
-
-        </table>
-
     </div>
 </div>
 
 <script type="text/javascript">
-    function confirma(form) {
-        form.submit();
-        return false;
-        $(".dropdown-trigger").dropdown();
-    }
+            function confirma(form) {
+                form.submit();
+                return false;
+                $(".dropdown-trigger").dropdown();
+
 </script>
 
 <!--FIM do Corpo do App -->
 
 <!--Materialize JS -->
-<script>
-    $('.dropdown-trigger').dropdown();
+<script src="js/materialize.js">
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    var elems = document.querySelectorAll('select');
+                    var instances = M.FormSelect.init(elems, options);
+                }
+                );
+
 </script>
 <!--Materialize NavBar -->    
 

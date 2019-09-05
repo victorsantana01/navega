@@ -40,6 +40,14 @@
     </head>
 
     <body>
+        <style>
+            .daterangepicker .drp-calendar .calendar-time select{
+                display:inline !important;
+            }
+            .modal-dialog{
+                margin: 0px !important;
+            }
+        </style>
         <%
             /* Inicio de Sessão */
             String conta = session.getAttribute("conta").toString();
@@ -123,6 +131,10 @@
                                                 <label for="nomeViagem" class="active">Nome da Viagem</label>
                                             </div>
                                         </div>
+                                                <% System.out.println("-----------------------"+viagemE[0][0]+"------------------");%>
+                                                <% System.out.println("-----------------------"+viagemE[1][0]+"------------------");%>
+                                                <% System.out.println("-----------------------"+viagemE[2][0]+"------------------");%>
+                                                <% System.out.println("-----------------------"+viagemE[3][0]+"------------------");%>
                                         <div class="col s6">
                                             <select class="browser-default" name="status" value="<%= viagemE[2][0]%>" required >
                                                 <option value="" disabled>Status de Viagem</option>
@@ -134,7 +146,7 @@
                                                     if (viagemE[2][0].equals("1")) {
                                                 %>
                                                 <option value="1" selected>Em Progresso</option>
-                                                <% } else {%>
+                                                <% } else { %>
                                                 <option value="1">Em Progresso</option>
                                                 <%}
                                                     if (viagemE[2][0].equals("2")) {
@@ -171,15 +183,15 @@
                                                     <%
                                                         BarcoDao bar = new BarcoDao();
                                                         String[][] barcos = bar.pesquisaBarcos().clone();
-                                                        for (int i = 0; i < 10; i++) {
+                                                        for (int i = 0; i < 50; i++) {
                                                             if (barcos[0][i] == null) {
-                                                                i = 50;
+                                                                i = 100;
                                                             } else {
-                                                                if (barcos[0][i].equals(viagemE[7][0])) { %>
-                                                    <option class="black-text" value="<%=barcos[0][i]%>" selected><%=barcos[1][i]%></option>
+                                                                if (barcos[0][i].equals(viagemE[7][0])) {%>
+                                                    <option class="black-text" value="<%=barcos[0][i]%>" selected><%=barcos[2][i]%></option>
                                                     <%
-                                                    } else { %>
-                                                    <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[1][i]%></option>
+                                                    } else {%>
+                                                    <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[2][i]%></option>
 
                                                     <%
                                                                 }
@@ -211,10 +223,7 @@
                                                         }%>
                                                 </select>
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                     <div class="card-action col s12">
                                         <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Editar />
@@ -222,9 +231,6 @@
 
                                 </form>
                             </div>
-
-
-
                         </div>
 
                     </div>

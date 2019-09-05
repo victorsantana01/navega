@@ -13,7 +13,7 @@
 <html>
     <head>
         <title>NAVEGA GESTOR</title>
-        <!--Cabeçalho Para Materialize-->
+        <!--Cabe?alho Para Materialize-->
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
@@ -32,19 +32,23 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-        <!--FIM Cabeçalho Para Materialize-->
+        <!--FIM Cabe?alho Para Materialize-->
         <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     </head>
     <%
 
         if (session.getAttribute("user") != null) {
-            System.out.println("Está logado o usuario: " + session.getAttribute("user"));
+            System.out.println("Est? logado o usuario: " + session.getAttribute("user"));
 
         } else {
             response.sendRedirect("login.jsp");
@@ -60,8 +64,8 @@
                 margin: 0px !important;
             }
         </style>
-        <script type="text/javascript">
-
+        <script>
+            $(".dropdown-trigger").dropdown('toggle');
         </script>
         <script>
             $(function () {
@@ -79,7 +83,7 @@
             $(".dropdown-trigger").dropdown('toggle');
         </script>
         <!--Materialize INICIALIZA o menu para Mobile -->
-        <!-- INICIO Botão de Add -->
+        <!-- INICIO Bot?o de Add -->
         <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
             <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
             <ul>
@@ -89,7 +93,7 @@
                 </li>
             </ul>
         </div>
-        <!-- FIM Botão de Add -->
+        <!-- FIM Bot?o de Add -->
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
@@ -101,7 +105,7 @@
                             <b><h4 class="white-text">Navega Gestor</h4></b> 
                         </div>
                         <div class="center">
-                            <b class="white-text">Gestão à bordo</b>
+                            <b class="white-text">Gest?o ? bordo</b>
                         </div>
                     </a>
                 </div>
@@ -109,7 +113,7 @@
 
 
             <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
+            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarção</h6></b></a></li>
             <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
             <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
             <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
@@ -120,7 +124,7 @@
         </ul>
 
 
-        <!-- INICIO Botão de Add -->
+        <!-- INICIO Bot?o de Add -->
         <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
             <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
             <ul>
@@ -172,11 +176,11 @@
                                                     </div>
                                                     <div class="input-field col s6">
                                                         <input type="text" name="datetimes22" id="datetimes22" />
-                                                        <label for="datetimes22">Datas e Horarios</label>
+                                                        <label for="datetimes22" class="active">Datas e Horarios</label>
                                                     </div> 
                                                 </div>
                                                 <div class="form-group col s12">
-                                                    <span class="card-title center"><b>Embarcação</b></span>
+                                                    <span class="card-title center"><b>Embarção</b></span>
 
                                                     <div class="col s6">
                                                         <select class="browser-default black-text" name="barco" required > 
@@ -189,7 +193,7 @@
                                                                         i = 50;
                                                                     } else {
                                                             %>
-                                                            <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[1][i]%></option>
+                                                            <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[2][i]%></option>
 
                                                             <%
                                                                     }
@@ -279,19 +283,16 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <%
-                                            request.setAttribute("idViagem", viagens[0][i]);
-                                        %>
-                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalExemplo" id="" onClick="edite(this)">Editar</a>-->
-                                        <a class="dropdown-item" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"  id="<%= viagens[0][i]%>">Editar</a>
-                                        <a class="dropdown-item" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>">Deletar</a>
-                                    </div>
-                                </div>
+                                <!-- Dropdown Trigger -->
+                                <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
+
+
+                                <!-- Dropdown Structure -->
+                                <ul id='dropdown1' class='dropdown-content'>
+                                    <li><a href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
+                                    <li class="divider" tabindex="-1"></li>
+                                    <li><a href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
+                                </ul>
                             </th>
                         </tr>
                         <%  }
@@ -305,107 +306,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal EDIÇÃO -->
-    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content col-12">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Viagem</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- CORPO DA MODAL DE EDIÇÃO -->
-                <div class="modal-body">
-
-                    <form id="mod2" name="tab" action="cadastrarViagem.jsp" method="get">
-
-                        <div class="form-group col-12">
-                            <div class="col-12 ">
-                                <div class="input-field col-6">
-                                    <input name="nomeViagem" class="validate black-text" id="nomeViagemEdit" type="text" required>
-                                    <label for="nomeViagem" id="nomeLabel">Nome da Viagem</label>
-                                </div>
-                                <div class="col-6">
-                                    <select class="browser-default col" name="status" id="statusEdit" required >
-                                        <option value="" disabled selected>Status de Viagem</option>
-                                        <option value="0">Agendado</option>
-                                        <option value="1">Em Progresso</option>
-                                        <option value="2">Finalizado</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <div class="input-field col s6">
-                                    <div class="input-field col-6">
-                                        <input name="origem" class="validate black-text" id="origemEdit" type="text" required>
-                                        <label id="origemLabel" for="origem">Origem</label>
-                                    </div>
-                                    <div class="input-field col-6">
-                                        <input name="destino" class="validate black-text" id="destinoEdit" type="text" required>
-                                        <label id="destinoLabel" for="destino">Destino</label>
-                                    </div>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input type="text" name="datetimes22" id="datetimes22Edit" />
-                                    <label id="datetimeLabel" for="datetimes22">Datas e Horarios</label>
-                                </div> 
-                            </div>
-                            <div class="form-group col s12">
-                                <span class="card-title center"><b>Embarcação</b></span>
-
-                                <div class="col s6">
-                                    <select class="browser-default black-text" name="barco" id="barcoEdit" required > 
-                                        <option class="black-text" value="" disabled selected>Barco</option>
-                                        <%
-                                            BarcoDao bar2 = new BarcoDao();
-                                            String[][] barcos2 = bar2.pesquisaBarcos().clone();
-                                            for (int i = 0; i < 10; i++) {
-                                                if (barcos2[0][i] == null) {
-                                                    i = 50;
-                                                } else {
-                                        %>
-                                        <option class="black-text" value="<%=barcos2[0][i]%>"><%=barcos2[1][i]%></option>
-
-                                        <%
-                                                }
-                                            }%>
-                                    </select>
-                                </div>
-                                <div class="col s6"> 
-                                    <select class="browser-default black-text" name="comandante" id="comandanteEdit" required>
-                                        <option class="black-text" value="" disabled selected>Comandante</option>
-                                        <%
-                                            ComandanteDao com2 = new ComandanteDao();
-                                            String[][] comandantes2 = com2.pesquisarComandantes().clone();
-                                            for (int i = 0; i < 200; i++) {
-                                                if (comandantes2[0][i] == null) {
-                                                    i = 500;
-                                                } else {
-                                        %>
-                                        <option class="black-text" value="<%=comandantes2[0][i]%>"><%=comandantes2[1][i]%></option>
-
-                                        <%
-                                                }
-                                            }%>
-                                    </select>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Salvar mudanças</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <script type="text/javascript">
         function confirma(form) {
@@ -415,16 +316,13 @@
         function pegaNome() {
             var nome = $('#origem').val();
             alert(nome);
-}
-
-        
-        
+        }
     </script>
     <!--FIM do Corpo do App -->
 
     <!--Materialize JS -->
-    <script src="js/materialize.js">
-
+    <script>
+        $('.dropdown-trigger').dropdown();
     </script>
     <!--Materialize NavBar -->    
 

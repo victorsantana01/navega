@@ -1,4 +1,4 @@
-<%@page import="dao.ViagemDao"%>
+<%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,27 +25,21 @@
       <div class="card-body">
         <div class="text-center mt-4 mb-5">
           <h4>Feito!</h4>
-          <p>viagem editada com sucesso!</p>
+          <p>Comandante editado com sucesso!</p>
         </div>
           
           <%
-              String idViagem = request.getParameter("id");
-              String nomeViagem= request.getParameter("nomeViagem");
-              String status = request.getParameter("status");
-              String origem = request.getParameter("origem");
-              String destino = request.getParameter("destino");
-              String idBarco = request.getParameter("barco");
-              String idcomandante = request.getParameter("comandante");
-              String usuario = session.getAttribute("conta").toString();
-              String date = request.getParameter("datetimes22").replace("/", "-");
-              String data[] = date.split(" - ");
-              String dataInicio = data[0];
-              String dataFim =data[1];
+              String idBarco = request.getParameter("idBarco");
+              String codBarco = request.getParameter("codBarco");
+              String nomeBarco= request.getParameter("nomeBarco");
+              String motor= request.getParameter("motor");
+              String modelo = request.getParameter("modelo");
+              String base= request.getParameter("base");
               
-              ViagemDao cons = new ViagemDao();
-              cons.editarViagem(idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
-              System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!");
-    String redirectURL = "/NavegaGestor/cadViagem.jsp";
+              BarcoDao cons = new BarcoDao();
+              cons.editarBarco(idBarco, codBarco, nomeBarco, motor, modelo, base);
+              System.out.println("EMBARCAÇÃO EDITADA COM SUCESSO!!!!!!!");
+    String redirectURL = "/NavegaGestor/cadBarco.jsp";
     response.sendRedirect(redirectURL);
           %>
          <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
