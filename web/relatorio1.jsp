@@ -222,7 +222,7 @@ function trocaClasse(elemento, antiga, nova) {
     <body class="background #eeeeee grey lighten-3">
     -->
     <body>
-
+        
 
 <!-- START LEFT SIDEBAR NAV-->
         
@@ -362,7 +362,7 @@ function trocaClasse(elemento, antiga, nova) {
                      
                 <div class="col s12">
                
-                  <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
+                  <button id="cmd" class="btn medium right 455a64 blue-grey darken-2" ><i class="material-icons">print</i>
                      </button> 
                           
                             <div class="center"  id="divCorpo" style="display: <%=parametro%>">
@@ -825,7 +825,9 @@ function trocaClasse(elemento, antiga, nova) {
                    
             </div>
             </div>
-
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js'></script>
+        <script  src="./script.js"></script>
+            
         <!--Materialize JS -->
         <script src="js/materialize.js">
 document.addEventListener('DOMContentLoaded', function() {

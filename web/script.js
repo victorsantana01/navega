@@ -6,7 +6,7 @@ var specialElementHandlers = {
 };
 
 $('#cmd').click(function () {
-    doc.fromHTML($('#content').html(), 15, 15, {
+    doc.fromHTML($('#divCorpo').html(), 15, 15, {
         'width': 170,
             'elementHandlers': specialElementHandlers
     });
