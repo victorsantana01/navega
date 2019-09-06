@@ -193,7 +193,7 @@
                                                                         i = 50;
                                                                     } else {
                                                             %>
-                                                            <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[2][i]%></option>
+                                                            <option class="black-text" value="<%=barcos[1][i]%>"><%=barcos[2][i]%></option>
 
                                                             <%
                                                                     }
@@ -248,7 +248,7 @@
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;inicio Viagem</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;destino</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;fim Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;nome Embarcacao</th>
+                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp; MCT / UCC</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;comandante</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data de Cadastro</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
@@ -273,15 +273,15 @@
                                 fim = format.DataFormat(viagens[6][i]);
                                 cadastro = format.DataFormat(viagens[9][i]);
                             %>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[3][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= inicio%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[5][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= fim%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th> <!-- nome Viagem -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th> <!-- status -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[3][i]%></th> <!-- origem -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= inicio%></th>        <!-- inicio viagem -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[5][i]%></th> <!-- destino -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= fim%></th>           <!-- fim viagem -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th> <!--  MCT / UCC-->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th> <!-- comandante -->
+                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>      <!-- data decadastro -->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;
                                 <!-- Dropdown Trigger -->
                                 <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>

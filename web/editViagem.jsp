@@ -2,17 +2,17 @@
 <%@page import="dao.BarcoDao"%>
 <%@page import="dao.ViagemDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.Rpm"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <title>NAVEGA GESTOR</title>
-        <!--Cabe√ßalho Para Materialize-->
+        <!--CabeÁalho Para Materialize-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
@@ -29,7 +29,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
-        <!--FIM Cabe√ßalho Para Materialize-->
+        <!--FIM CabeÁalho Para Materialize-->
         <script src="js/jquery.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -49,9 +49,9 @@
             }
         </style>
         <%
-            /* Inicio de Sess√£o */
+            /* Inicio de Sess„o */
             String conta = session.getAttribute("conta").toString();
-            System.out.println("Numero da conta √© >>>>> " + conta);
+            System.out.println("Numero da conta È >>>>> " + conta);
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
             con.close();
@@ -82,12 +82,12 @@
                         <b><h4 class="white-text">Navega Gestor</h4></b> 
                     </div>
                     <div class="center">
-                        <b class="white-text">Gest√£o √† bordo</b>
+                        <b class="white-text">Gest„o ‡ bordo</b>
                     </div>
                 </div>
             </li>   
             <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarca√ß√£o</h6></b></a></li>
+            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro EmbarcaÁ„o</h6></b></a></li>
             <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
             <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
             <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
@@ -97,7 +97,7 @@
             <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
         </ul>
 
-        <!-- INICIO Bot√£o de Add -->
+        <!-- INICIO Bot„o de Add -->
         <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
             <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
             <ul>
@@ -174,7 +174,7 @@
                                             </div> 
                                         </div>
                                         <div class="form-group col s12">
-                                            <span class="card-title center"><b>Embarca√ß√£o</b></span>
+                                            <span class="card-title center"><b>EmbarcaÁ„o</b></span>
 
                                             <div class="col s6">
                                                 <select class="browser-default black-text" name="barco" value="<%=viagemE[7][0]%>" required > 
@@ -187,11 +187,11 @@
                                                             if (barcos[0][i] == null) {
                                                                 i = 100;
                                                             } else {
-                                                                if (barcos[0][i].equals(viagemE[7][0])) {%>
-                                                    <option class="black-text" value="<%=barcos[0][i]%>" selected><%=barcos[2][i]%></option>
+                                                                if (barcos[1][i].equals(viagemE[7][0])) {%>
+                                                    <option class="black-text" value="<%=barcos[1][i]%>" selected><%=barcos[2][i]%></option>
                                                     <%
                                                     } else {%>
-                                                    <option class="black-text" value="<%=barcos[0][i]%>"><%=barcos[2][i]%></option>
+                                                    <option class="black-text" value="<%=barcos[1][i]%>"><%=barcos[2][i]%></option>
 
                                                     <%
                                                                 }
