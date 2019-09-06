@@ -1,3 +1,4 @@
+<%@page import="dao.Rpm"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -102,18 +103,29 @@
                         <div class="row">
                             <div class="container col s12">
                                 <div class="row ">
+                                    
                                     <form id="mod" name="tab" action="cadastrarBarco.jsp" method="get">
 
                                         <div class="form-group col s12">
                                             <div class="form-row col s6 center-align">
-                                                <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="codBarco" class="validate black-text" id="codBarco" type="text" required>
-                                                    <label for="codBarco">MCT / UCC</label>
+                                                <div class="col s12 push-s6 center-align">
+                                                    <label>Escolha o Empurrador</label>
+                                                    <select class="browser-default black-text" name="mctBarco" >
+                                                        <option value="" disabled selected>Empurrador</option>
+                                                        <%
+                                                            Rpm rpm = new Rpm();
+                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt).clone();
+                                                            for (int i = 0; i < 100; i++) {
+                                                                if (veiculo[1][i] == null) {
+                                                                    i = 100;
+                                                                } else {
+                                                        %>
+                                                        <option value="<%=veiculo[0][i] + "-" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                        <%}
+                             }%>
+                                                    </select>
                                                 </div>
-                                                <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="nomeBarco" class="validate black-text" id="nomeBarco" type="text" required>
-                                                    <label for="nomeBarco">Nome da Embarcação</label>
-                                                </div>
+                                                
                                                 <div class="col s12 push-s6 center-align">
                                                     <label class="left">Motor</label>
                                                     <select class="browser-default black-text" name="motor" id="motor" required>
