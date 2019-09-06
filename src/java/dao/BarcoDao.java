@@ -150,4 +150,18 @@ public class BarcoDao {
             System.out.println("ERRO NO METODO EDITARBARCO " + e);
         }
     }
+    
+    public void excluirBarco(String idBarco){
+        System.out.println("METODO ---> EXCLUIR BARCO INICIADO.........");
+        try {
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
+            String sql = ("DELETE FROM `exporta`.`barco` WHERE `idbarco`='"+idBarco+"';");
+            stmt.executeUpdate(sql);
+            System.out.println("METODO ---> EXCLUIR BARCO REALIZADO COM SUCESSO.........");
+
+        } catch (SQLException e) {
+            System.out.println("ERRO NO METODO EXCLUIRBARCO " + e);
+        }
+    }
 }

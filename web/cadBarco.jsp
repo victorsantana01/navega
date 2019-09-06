@@ -223,7 +223,7 @@
                     <ul id='dropdown1' class='dropdown-content'>
                         <li><a href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
                         <li class="divider" tabindex="-1"></li>
-                        <li><a href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
+                        <li><a href="excluirBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
                     </ul>
                 </th>
             </tr>
