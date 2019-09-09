@@ -1,5 +1,4 @@
 <%@page import="dao.ViagemDao"%>
-<%@page import="net.sf.jasperreports.engine.JasperPrint"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Connection"%>
@@ -28,20 +27,20 @@
         </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script
-<!--Materialize Icone            s -->  
+<!--Materialize Icones -->  
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/print.css"  media="print" />
-<!--Materialize             CSS -->
+<!--MaterializeCSS -->
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-        <!--FIM Cabeçalho  P ara Materia            lize-->
+        <!--FIM Cabeçalho  Para Materialize-->
         <script src="js/jquery.js"></script>
              
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
             <%
 
                 String conta = session.getAttribute("conta").toString();
-                System.out.println("Numero da conta é >>>>> " + conta);
+                System.out.println("Numero da conta e >>>>> " + conta);
 
                 Connection con = ConexaoMySQL.getConexaoMySQL();
 
@@ -262,11 +261,7 @@
 
 </li>
 </ul>
-<!-- START LEFT SIDEBAR NAV FIM--> 
-
-
-
-<!--Materialize NavBar -->    
+            
 
 <nav class="navbar-fixed z-depth-5 #0097a7 cyan darken-3" id="navBar" >
     <div class="nav-wrapper" >
@@ -286,19 +281,20 @@
 <!--INICIO do Corpo do App -->
 
 
-
+<!-- FORM DE SELEÇÃO DE VIAGEM -->
 <div class="container">
     <div class="card">
         <div class="card-content black-text ">
             <div class="container" >
                 <div class="row">
                     <div class="col s6 center-align push-s3">
-                        <!-- FORM DE SELEÇÃO DE VIAGEM -->
                         <form method="get" name="viagemSelect">
                             <h5>Escolha a Viagem</h5>
-                            <select class="browser-default black-text center" name="viagem" required > 
+                            <!-- SELECIONAR VIAGEM -->
+                            <select class="browser-default black-text center" id="viagem" name="viagem" required > 
                                 <option class="black-text" value="" disabled selected>Viagem</option>
-                                <%                        ViagemDao via = new ViagemDao();
+                                <%  
+                                    ViagemDao via = new ViagemDao();
                                     String[][] viagem = via.pesquisarViagens().clone();
                                     for (int i = 0; i < 20; i++) {
                                         if (viagem[0][i] == null) {
@@ -314,10 +310,9 @@
                             <div id="btnPesquisa2" class="row"><br>
                                 <!-- Botão pesquisar--> 
                                 <div class="col s6 ">
-                                    <a id="btnViagem" onclick ='confirma2(viagemSelect)'class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
+                                    <a id="btnViagem" onclick ='confirma2(viagemSelect)' class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
                                 </div>
 
-                              <!--                      Fim Botão pesquisar --> 
                             </div>
                     </form>                             
                 </div>
@@ -346,24 +341,22 @@
 
 
                 <%
+                    //PESQUISA VIAGENS APARTIR DO ID ESCOLHIDO NO SELECT
                     String id = request.getParameter("viagem");
                     viagem = via.pesquisarViagens(id);
                     
                     Format format = new Format();
-                    String[] str = viagem[4][0].split(" ");
-                    String inicio = str[0];
+                    String inicio = viagem[4][0];
                     System.out.println("INICIO >>>>>>>>>> " + inicio);
                     String begin = inicio;
 
-                    String[] str2 = viagem[6][0].split(" ");
-                    String fim = str2[0];
+                    String fim = viagem[6][0];
                     String finish = fim;
                     System.out.println("FIM >>>>>>>>>> " + fim);
 
                     if (inicio == null || inicio == "") {
                         inicio = format.hoje();
                     }
-
                     inicio = format.DiaFormat(inicio);
                     if (fim == null || fim == "") {
                         fim = format.hoje();
@@ -376,7 +369,7 @@
                 %>
 
 
-                <div class="" id="columnchart_values " style="width: 1000px; height:400px;display: none"></div>
+                <div class="" id="columnchart_values " style="width: 1000px; height:400px; display:none"></div>
 
 
                 <%  
@@ -460,7 +453,7 @@
                                         cor = "#0B243B";
                                     }
                         %>
-            ["<%=painel1[0][i]%>",<%=min[i]%>, "<%=cor%>"],                     <%}
+            ["<%=painel1[0][i]%>","<%=min[i]%>" , "<%=cor%>"],                     <%}
                             }
                         %>
 ]);
@@ -649,11 +642,6 @@ var view = new google.visualization.DataView(data);
                             <div class="row col s12 ">
                                 <div class="row col s12 background blue">              
                                 </div>
-                                <%
-                                    System.out.println(kmString);
-                                    JasperPrint jasperPrint = null;
-
-                                %>
                                 <h5><b>Informações Gerais</b></h5>
                                 <b class="center">Equipamento: </b><%=empurrador%><br> 
                                 <b class="center">Deslocamento Total: </b><%=dist%> KM.<br> 
@@ -727,7 +715,7 @@ var view = new google.visualization.DataView(data);
             ]);
                     var options = {
                     title: 'DETALHE RPM 01',
-                                                curveType: 'function',
+                    curveType: 'function',
                     legend: { position: 'bottom' }
             };
             
@@ -743,21 +731,21 @@ var view = new google.visualization.DataView(data);
         
         function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-        ['HORA', 'RPM'],
-            <%
-                String dataRpm2 = "";
-                for (int i = 0; i < 500; i++) {
-                    if (painel[0][i] == null) {
-                        i = 500;
-                    } else {
-                        dataRpm2 = format.DataFormat(painel[2][i]);
-            %>
+                                                        var data = google.visualization.arrayToDataTable([
+                                                        ['HORA', 'RPM'],
+                                            <%
+                                                String dataRpm2 = "";
+                                                for (int i = 0; i < 500; i++) {
+                                                    if (painel[0][i] == null) {
+                                                        i = 500;
+                                                    } else {
+                                                        dataRpm2 = format.DataFormat(painel[2][i]);
+                                            %>
 
-                    ['<%= dataRpm2%>', <%= painel[4][i]%>],
+                                                        ['<%= dataRpm2%>', <%= painel[4][i]%>],
             <%}
-                }
-            %>
+                                                }
+                                            %>
 
             ]);
             var options = {
@@ -797,12 +785,13 @@ var view = new google.visualization.DataView(data);
                         
                         var table3 = document.getElementById("dataTable3"),rIndex;
             
-                        for(var i = 1; i < table3.rows.length; i++){
-                        table3.rows[i].onclick = function(){
-                            rIndex = this.rowIndex;
-                            var rpm = document.getElementById("rpmConsumo").value = this.cells[0].innerHTML;
-                            console.log(rpm);
-                        };
+            for(var i = 1; i < table3.rows.length; i++){
+                table3.rows[i].onclick = function()
+                {
+                rIndex = this.rowIndex;
+                var rpm = document.getElementById("rpmConsumo").value = this.cells[0].innerHTML;
+                console.log(rpm);
+                 }
              }
             
             </script>
