@@ -310,7 +310,7 @@
                             <div id="btnPesquisa2" class="row"><br>
                                 <!-- Botão pesquisar--> 
                                 <div class="col s6 ">
-                                    <a id="btnViagem" onclick ='confirma2(viagemSelect)' class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
+                                    <a id="btnViagem" onclick ='confirma(viagemSelect)' class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
                                 </div>
 
                             </div>
@@ -367,7 +367,7 @@
                     String empurrador = viagem[7][0];
 
                 %>
-
+                
 
                 <div class="" id="columnchart_values " style="width: 1000px; height:400px; display:none"></div>
 
@@ -385,7 +385,7 @@
                     int vetPosition = 0;
                     int maiorMinuto = 0;
 
-                    System.out.println("Valida1 >>>>>>>>>>>>>>>>>> " + painel1[4][0]);
+                    System.out.println("DADOS DO PAINEL ====>>>>>>>>>>>>>>>>> " + painel1[4][0]+", "+painel1[1][0]+", "+painel1[4][0]);
                     for (int i = 0; i < 2000; i++) {
                         if (painel1[0][i] == null || painel1[0][i] == "0") {
                             i = 2000;
