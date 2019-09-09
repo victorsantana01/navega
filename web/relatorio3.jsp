@@ -58,13 +58,13 @@
         
             var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
             
-function exibir() {
-            document.getElementById("divCorpo").style.display = "block";
-}
+            function exibir() {
+                document.getElementById("divCorpo").style.display = "block";
+            }
 
             function ocultar() {
-            document.getElementById("divCorpo").style.display = "none";
-        }
+                document.getElementById("divCorpo").style.display = "none";
+            }
 //Botões de exibir/ Ocultar
             function exibirDeslocamento() {
                 document.getElementById("idDeslocamento").style.display = "block";
@@ -285,52 +285,51 @@ function exibir() {
 
 <!--INICIO do Corpo do App -->
 
-<div id="btnPesquisa" class="row"><br>
-    <!-- Botão pesquisar--> 
-    <div class="col s6 ">
-        <a id="btnFiltro" data-activates="menu-mobile" class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
-    </div>
 
 
-    <!-- Fim Botão pesquisar--> 
-</div>
+<div class="container">
+    <div class="card">
+        <div class="card-content black-text ">
+            <div class="container" >
+                <div class="row">
+                    <div class="col s6 center-align push-s3">
+                        <!-- FORM DE SELEÇÃO DE VIAGEM -->
+                        <form method="get" name="viagemSelect">
+                            <h5>Escolha a Viagem</h5>
+                            <select class="browser-default black-text center" name="viagem" required > 
+                                <option class="black-text" value="" disabled selected>Viagem</option>
+                                <%                        ViagemDao via = new ViagemDao();
+                                    String[][] viagem = via.pesquisarViagens().clone();
+                                    for (int i = 0; i < 20; i++) {
+                                        if (viagem[0][i] == null) {
+                                            i = 50;
+                                        } else {
+                                %>
+                                <option class="black-text" value="<%=viagem[0][i]%>"><strong>Viagem: </strong><%=viagem[1][i]%><strong> Status: </strong><%= viagem[2][i]%></option>
 
-<!-- FORM DE SELEÇÃO DE VIAGEM -->
-<div class="container" >
-    <div class="row">
-        <div class="col s6 center-align">
-            <form method="get" name="viagemSelect">
-                <select class="browser-default black-text center" name="viagem" required > 
-                    <option class="black-text" value="" disabled selected>Viagem</option>
-                    <%
-                        ViagemDao via = new ViagemDao();
-                        String[][] viagem = via.pesquisarViagens().clone();
-                        for (int i = 0; i < 20; i++) {
-                            if (viagem[0][i] == null) {
-                                i = 50;
-                            } else {
-                    %>
-                    <option class="black-text" value="<%=viagem[0][i]%>"><strong>Viagem: </strong><%=viagem[1][i]%><strong>status: </strong><%= viagem[2][i]%></option>
+                                <%
+                                        }
+                                    }%>
+                            </select>
+                            <div id="btnPesquisa2" class="row"><br>
+                                <!-- Botão pesquisar--> 
+                                <div class="col s6 ">
+                                    <a id="btnViagem" onclick ='confirma2(viagemSelect)'class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
+                                </div>
 
-                    <%
-                            }
-                        }%>
-                </select>
-            </form>
+                              <!--                      Fim Botão pesquisar --> 
+                            </div>
+                    </form>                             
+                </div>
+            </div>
         </div>
     </div>
+</div>            
 </div>
+               
 <!-- FIM DE SELEÇÃO VIAGEM -->
 
-<div id="btnPesquisa2" class="row"><br>
-    <!-- Botão pesquisar--> 
-    <div class="col s6 ">
-        <a id="btnViagem" onclick ='confirma2(viagemSelect)'class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
-    </div>
 
-
-    <!-- Fim Botão pesquisar--> 
-</div>
 
 <div class=" container " id="divCampo"><br>
 
@@ -351,12 +350,15 @@ function exibir() {
                     viagem = via.pesquisarViagens(id);
                     
                     Format format = new Format();
-                    String inicio = viagem[4][0];
-                    System.out.println(">>>>>>>>>> " + inicio);
+                    String[] str = viagem[4][0].split(" ");
+                    String inicio = str[0];
+                    System.out.println("INICIO >>>>>>>>>> " + inicio);
                     String begin = inicio;
 
-                    String fim = viagem[6][0];
+                    String[] str2 = viagem[6][0].split(" ");
+                    String fim = str2[0];
                     String finish = fim;
+                    System.out.println("FIM >>>>>>>>>> " + fim);
 
                     if (inicio == null || inicio == "") {
                         inicio = format.hoje();
@@ -436,8 +438,8 @@ function exibir() {
 
 
                     <script type="text/javascript">
-google.charts.load("current", {packages:['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+                    google.charts.load("current", {packages:['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
                     function drawChart() {
                                 var data = google.visualization.arrayToDataTable([
                                 ["RPM", "Minutos", { role: "style" } ],
@@ -741,21 +743,21 @@ var view = new google.visualization.DataView(data);
         
         function drawChart() {
 
-                                                        var data = google.visualization.arrayToDataTable([
-                                                        ['HORA', 'RPM'],
-                                            <%
-                                                String dataRpm2 = "";
-                                                for (int i = 0; i < 500; i++) {
-                                                    if (painel[0][i] == null) {
-                                                        i = 500;
-                                                    } else {
-                                                        dataRpm2 = format.DataFormat(painel[2][i]);
-                                            %>
+        var data = google.visualization.arrayToDataTable([
+        ['HORA', 'RPM'],
+            <%
+                String dataRpm2 = "";
+                for (int i = 0; i < 500; i++) {
+                    if (painel[0][i] == null) {
+                        i = 500;
+                    } else {
+                        dataRpm2 = format.DataFormat(painel[2][i]);
+            %>
 
-                                                        ['<%= dataRpm2%>', <%= painel[4][i]%>],
+                    ['<%= dataRpm2%>', <%= painel[4][i]%>],
             <%}
-                                                }
-                                            %>
+                }
+            %>
 
             ]);
             var options = {
@@ -793,17 +795,14 @@ var view = new google.visualization.DataView(data);
                     <script>
                         $(".button-collapse").sideNav();
                         
-                            var table3 = document.getElementById("dataTable3"),rIndex;
+                        var table3 = document.getElementById("dataTable3"),rIndex;
             
-            for(var i = 1; i < table3.rows.length; i++){
-                table3.rows[i].onclick = function()
-                {
-                rIndex = this.rowIndex;
-                var rpm = document.getElementById("rpmConsumo").value = this.cells[0].innerHTML;
-                console.log(rpm);
-//alert(rpm);
-
-                 };
+                        for(var i = 1; i < table3.rows.length; i++){
+                        table3.rows[i].onclick = function(){
+                            rIndex = this.rowIndex;
+                            var rpm = document.getElementById("rpmConsumo").value = this.cells[0].innerHTML;
+                            console.log(rpm);
+                        };
              }
             
             </script>
