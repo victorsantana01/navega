@@ -337,10 +337,8 @@ function trocaClasse(elemento, antiga, nova) {
               <%
               //PESQUISA VIAGENS APARTIR DO ID ESCOLHIDO NO SELECT
               
-               String idViagem = request.getParameter("viagem");
-               if (idViagem == null) {
-                      
-                   }
+               String idViagem = request.getParameter("idViagem");
+              
                String[][] dadosViagem = via.pesquisarViagens(idViagem).clone();
                String dadosIdViagem = dadosViagem[0][0];
                String dadosNomeViagem = dadosViagem[1][0];
@@ -388,11 +386,11 @@ function trocaClasse(elemento, antiga, nova) {
                                     <%
                                         
                                         Format format = new Format();
-                                        String inicio = request.getParameter("dataInicio");
+                                        String inicio = dadosInicioViagem;
                                         System.out.println("CAMPO INICIO - FORMULARIO - :"+inicio);
                                         String begin = inicio;
                                         
-                                        String fim = request.getParameter("dataFim");
+                                        String fim = dadosFimViagem;
                                         System.out.println("CAMPO FIM - FORMULARIO - :"+fim);
                                         String finish = fim;
                                         
@@ -731,8 +729,8 @@ function trocaClasse(elemento, antiga, nova) {
                                                                 
                                             </div>
                                             
-                                            <div class="row col s12 right " id="curve_chart_r1"  style="width: 800px; height: 200px;display: block"></div>  
-                                            <div class="row col s12 right " id="curve_chart_r2"  style="width: 800px; height: 200px; display: block"></div>         
+                                            <div class="row col s12 right " id="curve_chart_r1"  style="width: 1000px; height: 300px;display: block"></div>  
+                                            <div class="row col s12 right " id="curve_chart_r2"  style="width: 1000px; height: 300px; display: block"></div>         
                                            
                                    <br><br><br>
 
