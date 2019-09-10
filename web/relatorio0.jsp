@@ -48,297 +48,52 @@
 %>                
 
 
-    <style>
-        .nada{
-            
-        }
-    </style>
-<script type="text/javascript">
- 
-    var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
-
-    function exibir() {
-        document.getElementById("divCorpo").style.display = "block";
-    }
- 
-    function ocultar() {
-        document.getElementById("divCorpo").style.display = "none";
-    }
-    //Botões de exibir/ Ocultar
-        function exibirDeslocamento() {
-        document.getElementById("idDeslocamento").style.display = "block";
-        document.getElementById("btnMais").style.display = "none";
-         document.getElementById("btnMenos").style.display = "block";
-    }  
     
- function ocultarDeslocamento() {
-        document.getElementById("idDeslocamento").style.display = "none";
-        document.getElementById("btnMenos").style.display = "none";
-       document.getElementById("btnMais").style.display = "block";
-    }
-  
-  //Botões Exibir / Ocultar Consumo
-  function exibirConsumo2() {
-        document.getElementById("divConsumo2").style.display = "block";
-        document.getElementById("btnMaisConsumo2").style.display = "none";
-         document.getElementById("btnMenosConsumo2").style.display = "block";
-    }  
-    
- function ocultarConsumo2() {
-        document.getElementById("divConsumo2").style.display = "none";
-        document.getElementById("btnMenosConsumo2").style.display = "none";
-       document.getElementById("btnMaisConsumo2").style.display = "block";
-    }
-
-    
-
-    //Botões Exibir / Ocultar RPM
-  function exibirRpm() {
-        document.getElementById("divRpm").style.display = "block";
-        document.getElementById("btnMaisRpm").style.display = "none";
-         document.getElementById("btnMenosRpm").style.display = "block";
-    }  
-    
- function ocultarRpm() {
-        document.getElementById("divRpm").style.display = "none";
-        document.getElementById("btnMenosRpm").style.display = "none";
-       document.getElementById("btnMaisRpm").style.display = "block";
-    }
-  $(document).ready(function(){   
-
-        });
-        
-        
-        
-function chama(link){
-
-window.location.href = link ;
-
-
-}
-
-  
-           function printpage()
-            {
-                window.print()
-            }
-            function ocultarFiltro() {
-
-                
-                document.getElementById("btnPesquisa").style.display = "none";
-                document.getElementById("divCampo").style.display = "none";
-                document.getElementById("navBar").style.display = "none";
-                document.getElementById("btnFiltro").style.display = "none";
-                document.getElementById("btnPrint").style.display = "none";
-               
-                
-               var div = document.querySelector('#areaRelatorio');
-               trocaClasse(div, 'container', 'nada');
-            
-                printpage();
-                document.getElementById("btnPrint").style.display = "block";
-               document.getElementById("btnFiltro").style.display = "block";
-                document.getElementById("divCampo").style.display = "block";
-                document.getElementById("navBar").style.display = "block";
-                trocaClasse(div,'nada','container');
-            }
-            function mostrarFiltro() {
-                document.getElementById("filtro").style.display = "block";
-            }
-
-
-
-
-
-    
-function trocaClasse(elemento, antiga, nova) {
-    elemento.classList.remove(antiga);
-    elemento.classList.add(nova);
-}
-
-</script>
-        <style type="text/css">
-        
-        .linha{
-            border-color:#aaa;
-            box-sizing:border-box;
-            width:100%;  
-        }
-        table.table-style-one {
-            font-family: verdana,arial,sans-serif;
-            font-size:14px;
-            color:#333333;
-            border-width: 1px;
-            border-color: #3A3A3A;
-            border-collapse: collapse;
-        }
-        table.table-style-one th {
-            border-width: 1px;
-            padding: 14px;
-            border-style: solid;
-            border-color: #3A3A3A;
-            background-color: #B3B3B3;
-        }
-        table.table-style-one td {
-            border-width: 1px;
-            padding: 14px;
-            border-style: solid;
-            border-color: #3A3A3A;
-            background-color: #ffffff;
-        }
-    </style>
     </head>
     <body class="background white">
 
 
-<!-- START LEFT SIDEBAR NAV-->
-        
-         <!--Menu para Mobile -->
-         
-          <!-- Parou aqui, preciso colocar o filtro no side nav, inserir os relatorios--> 
-           <ul id="menu-mobile" class="side-nav" style="width: 300px">
-               
-               <li class="center-align"><h5><i class="material-icons right-align small">directions_boat</i></h5></li>
-               <li class="center-align"><h5>Filtrar Periodo</h5></li>
-               <li>
-                   <form method="get" name="filtro">
-                   <div class="container">
-                   <label for="exampleInputName">Inicio</label>
-                   <input name="dataInicio" class="form-control"  type="date" >
-                   </div>
-                   
-                   <div class="container">
-                   <label for="exampleInputName">Fim</label>
-                   <input name="dataFim" class="form-control"  type="date" >
-                   </div>
-                   
-                   <div class="container">
-                     <label>Escolha o Empurrador</label>
-                     <select class="browser-default" name="mct" >
-                         <option value="" disabled selected>Empurrador</option>
-                         <%
-                             Rpm rpm = new Rpm();
-                             String[][] veiculo = rpm.painelAtualizado(conta,con,stmt).clone();
-                             for (int i = 0; i < 100; i++) {
-                                 if (veiculo[1][i] == null) {
-                                     i = 100;
-                                 } else {
-                         %>
-                         <option value="<%=veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
-                         <%}
-                    }%>
-                     </select>
-                   </div>
-                      <div class="container">
-                     <label>Perfil de Motor</label>
-                     <select class="browser-default" name="nomeMotor" id="selectService" >
-                    
-                     <%
-                     ConsumoDao cons = new ConsumoDao();
-                   
-                     String [][] dados = cons.getTabelaConsumo().clone();
-                       
+<ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
+        <li>
+            <div class="user-view">
+                <a href="index.jsp" >
+                    <div class="background">
+                        <img src="img/mar.jpg" alt=""/>
+                    </div>
+                    <div class="center">
+                        <b><h4 class="white-text">Navega Gestor</h4></b> 
+                    </div>
+                    <div class="center">
+                        <b class="white-text">Gestão à bordo</b>
+                    </div>
+                </a>
 
-                      for (int i = 0; i < 500; i++) {
-         
-                     if(cons.getTabelaConsumo()[0][i]==null){
-                         i=500;
-                         
-                     }else{%>
-                     <option value="<%=dados[0][i]%>"><%=dados[0][i]%></option>
-                    <%}}%>
-                </select>
-                   </div>
-                <div class="container">
-                    <a  class="btn col s6 center-align push-s3 z-depth-5  " onclick ='confirma(filtro)'>Buscar<i class="material-icons right">send</i></a>
-                </div>
-                    </form>
-                
-                <%
-                    
-                String mct = request.getParameter("mct");
-                String parametro = "";
-                String parametro2 = "";
-                if (mct == null) {
-                        parametro = "none";
-                    }else{
-                    parametro="block";
-                }
-                if (mct == null) {
-                        parametro2 = "block";
-                    }else{
-                    parametro2="none";
-                }
-                
-                %>
-                
-               </li>
-           </ul>
-        <!-- START LEFT SIDEBAR NAV FIM--> 
-        
-       
-      
-         <!--Materialize NavBar -->    
+            </div>
+        </li>   
 
-           <nav class="navbar-fixed z-depth-5 #0097a7 cyan darken-3" id="navBar" >
-                 <div class="nav-wrapper" >
-                     &nbsp;&nbsp;<a href="index.jsp" class="brand-logo right-aligned"><b><i class="material-icons">directions_boat</i><h5>NAVEGA GESTOR</h5></b></a>
-                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                         <li class="left-align"><a href="index.jsp" ><b class="center-align  waves-effect">Inicio</b></a></li>
-                         <li class="left-align"><a href="relatorio1.jsp"><b class=" waves-effect">Relatorio RPM</b></a></li>
-                         <li class="left-align"><a href="relatorio2.jsp"><b class=" waves-effect">Relatorio Consolidado</b></a></li>
-                         <li class="left-align"><a href="tables.jsp"><b class="center-align  waves-effect">Tabela de Consumo</b></a></li>
-                         <li class="left-align"><a href="motores.jsp"><b class=" waves-effect">Motores</b></a></li>
-                         <li class="left-align"><a href="login.jsp"><b class=" waves-effect">Sair</b></a></li>
-                     </ul>
-                 </div>
-         </nav>
+
+        <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
+        <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
+        <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
+        <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
+        <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
+        <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
+        <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
+        <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
+        <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
+        <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+    </ul>
    
          
         <!--INICIO do Corpo do App -->
-           
-        <div id="btnPesquisa" class="row"><br>
-           <!-- Botão pesquisar--> 
-           <div class="col s6 ">
-               <a id="btnFiltro" data-activates="menu-mobile" class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
-           </div>
-          <!-- Fim Botão pesquisar--> 
-        </div>
-<div class="container">
-                        <form method="get" name="viagemSelect">
-                            <h5>Escolha a Viagem</h5>
-                            <!-- SELECIONAR VIAGEM -->
-                            <select class="browser-default black-text center" id="viagem" name="viagem" required > 
-                                <option class="black-text" value="" disabled selected>Viagem</option>
-                                <%  
-                                    ViagemDao via = new ViagemDao();
-                                    String[][] viagem = via.pesquisarViagens().clone();
-                                    for (int i = 0; i < 20; i++) {
-                                        if (viagem[0][i] == null) {
-                                            i = 50;
-                                        } else {
-                                %>
-                                <option class="black-text" value="<%=viagem[0][i]%>"><strong>Viagem: </strong><%=viagem[1][i]%><strong> Status: </strong><%= viagem[2][i]%></option>
 
-                                <%
-                                        }
-                                    }%>
-                            </select>
-                            <div id="btnPesquisa2" class="row"><br>
-                                <!-- Botão pesquisar--> 
-                                <div class="col s6 ">
-                                    <a id="bViagem" onclick ='confirma(viagemSelect)' class="button-collapse right  btn-floating green pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
-                                </div>
 
-                            </div>
-                    </form>                             
-                </div>
               <!-- ============================================================ -->   
               <%
               //PESQUISA VIAGENS APARTIR DO ID ESCOLHIDO NO SELECT
-              
+               
                String idViagem = request.getParameter("idViagem");
-              
+               ViagemDao via = new ViagemDao();
                String[][] dadosViagem = via.pesquisarViagens(idViagem).clone();
                String dadosIdViagem = dadosViagem[0][0];
                String dadosNomeViagem = dadosViagem[1][0];
@@ -348,29 +103,8 @@ function trocaClasse(elemento, antiga, nova) {
                String dadosMotorViagem = dadosViagem[9][0];
                
                
-               %>
-              <!-- ============================================================ -->              
-                  <script>
-                      alert('<%=dadosIdViagem%>');
-                      alert('<%=dadosNomeViagem%>');
-                      alert('<%=dadosInicioViagem%>');
-                      alert('<%=dadosFimViagem%>');
-                      alert('<%=dadosMctViagem%>');
-                      alert('<%=dadosMotorViagem%>');
-              </script>           
-                            
-        <!--Preloder-->
-        <div class="row" style="display: <%=parametro2%>">
-            <div class="container"><br><br><br><br>
-                <span class="flow-text center-align">
-                    <h5>Clique no botão acima para começar.</h5>
-                </span>
-                <div class="progress">
-                    <div class="indeterminate"></div>
-                </div>
-            </div>
-        </div>
-        <!--Fim Preloder-->
+               %>        
+
         <div class=" container " id="divCampo"><br>
         
         </div>
@@ -416,7 +150,7 @@ function trocaClasse(elemento, antiga, nova) {
                                
 
                                             <%
-                                                
+                                                Rpm rpm = new Rpm();
                                                 String[][] painel1;
                                                 //painel1 = rpm.getPrincipalRpm(dadosInicioViagem, dadosFimViagem, request.getParameter("mct"),con,stmt).clone();
                                                 painel1 = rpm.getPrincipalRpm(dadosInicioViagem, dadosFimViagem, dadosMctViagem,con,stmt).clone();
@@ -446,7 +180,7 @@ function trocaClasse(elemento, antiga, nova) {
                                             
                                             <%
                                                 Teste te = new Teste();
-                                                //ConsumoDao cons = new ConsumoDao();
+                                                ConsumoDao cons = new ConsumoDao();
                                                 entrada = painel1[0][i];
                                                 String[] vetEntrada = entrada.split("");
                                                 if (vetEntrada.length == 2) {
@@ -464,8 +198,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                        if (minuto >maiorMinuto) {
                                                            maiorMinuto = minuto;
                                                             vetPosition = i;   
-                                                           }
-                                                       
+                                                           }   
                                                 consumo = te.consumo(cons.getLitrosPorRpm(dadosMotorViagem, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
@@ -562,7 +295,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                         
                                                     </div>
                                                      <span class="flow-text center-align">
-                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
+                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: block"><i class="material-icons">print</i>
                                                             </button>
                                                     </span>
     
@@ -607,7 +340,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                             vetPosition2 = i;   
                                                            }
                                                                 System.err.println("Valor Arredondado é: " + entrada2);
-
+                                                                ConsumoDao cons = new ConsumoDao();
                                                                 consumo2 = te.consumo(cons.getLitrosPorRpm(dadosMotorViagem, entrada), painel1[1][i]);
 
                                                                 consumoDouble2 = Double.valueOf(consumo2);
