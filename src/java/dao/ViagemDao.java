@@ -116,7 +116,50 @@ public class ViagemDao {
         }
         return viagem;
     }
+    public String[][] pesquisarViagensPorStatus(String status) {
 
+        String[][] viagem = new String[11][10];
+
+        try {
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
+//          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
+            String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.nomeEmbarcacao, \n" +
+            "v.comandante, m.nome_motor, b.codBarco\n" +
+            "	FROM exporta.viagem v \n" +
+            "    left join exporta.barco b on v.nomeEmbarcacao = b.codBarco\n" +
+            "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
+            "    where v.status = '"+status+"';");
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println("CONSULTA REALIZADA COM SUCESSO");
+            int i = 0;
+            while (rs.next()) {
+
+                viagem[0][i] = rs.getString("v.idViagem");
+                viagem[1][i] = rs.getString("v.nomeViagem");
+                viagem[2][i] = rs.getString("v.status");
+                viagem[3][i] = rs.getString("v.origem");
+                viagem[4][i] = rs.getString("v.inicioViagem");
+                viagem[5][i] = rs.getString("v.destino");
+                viagem[6][i] = rs.getString("v.fimViagem");
+                viagem[7][i] = rs.getString("v.nomeEmbarcacao");
+                viagem[8][i] = rs.getString("v.comandante");
+                viagem[9][i] = rs.getString("m.nome_motor");
+                viagem[10][i] = rs.getString("b.codBarco");
+                i++;
+            }
+
+            System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("ERROR - PESQUISAR POR ID --- " + e);
+        }
+        return viagem;
+    }
+
+    
+    
     public String[][] pesquisarViagens() {
 
         String[][] viagens = new String[10][10000];
