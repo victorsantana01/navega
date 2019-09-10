@@ -35,7 +35,8 @@
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
         <script src="js/jquery.js"></script>
-        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
 <%
 
@@ -105,18 +106,13 @@
                
                %>        
 
-        <div class=" container " id="divCampo"><br>
         
-        </div>
         
         <div id="areaRelatorio" class=" container "><br>
-            <div id="areaRelatorio" class="row ">
+            <div id="areaRelatorio" class="card row ">
                      
                 <div class="col s12">
-               
                             <div class=""  id="divCorpo" style="display: block">
-
-
                                     <%
                                         
                                         Format format = new Format();
@@ -211,34 +207,34 @@
                                                 %> 
                                             
                                             
-                                                <script type="text/javascript">
+                                                    <script type="text/javascript">
                                                 google.charts.load("current", {packages:['corechart']});
                                                 google.charts.setOnLoadCallback(drawChart);
                                                 function drawChart() {
                                                   var data = google.visualization.arrayToDataTable([
                                                     ["RPM", "Minutos", { role: "style" } ],
-                                                    <%
-                                                        String cor = "#0B243B";
-                                                        double[] min = new double[200];
-                                                        for (int i = 0; i < 200; i++) {
-                                                            if (painel1[1][i] == null) {
-                                                                i = 200;
-                                                            } else {
-                                                                min[i] = Double.parseDouble(painel1[1][i]);
-                                                                if (min[i] >= 500) {
-                                                                    cor = "#8A0808";
-                                                                }
-                                                                if (min[i] <= 100) {
-                                                                    cor = "#DBA901";
-                                                                }
-                                                                if (min[i] <= 60) {
-                                                                    cor = "#0B243B";
-                                                                }
-                                                    %>
+                                                <%                                                    
+                                                    String cor = "#0B243B";
+                                                    double[] min = new double[200];
+                                                    for (int i = 0; i < 200; i++) {
+                                                        if (painel1[1][i] == null) {
+                                                            i = 200;
+                                                        } else {
+                                                            min[i] = Double.parseDouble(painel1[1][i]);
+                                                            if (min[i] >= 500) {
+                                                                cor = "#8A0808";
+                                                            }
+                                                            if (min[i] <= 100) {
+                                                                cor = "#DBA901";
+                                                            }
+                                                            if (min[i] <= 60) {
+                                                                cor = "#0B243B";
+                                                            }
+                                                %>
                                             ["<%=painel1[0][i]%>",<%=min[i]%>, "<%=cor%>"],
-                                                    <%}
-                                                        }
-                                                    %>
+                                                        <%}
+                                                            }
+                                                        %>
       ]);
 
       var view = new google.visualization.DataView(data);
@@ -261,21 +257,12 @@
   }
   </script>
 
-                                
-
-            
-  
-
                                                     <% // Logica de Deslocamento
                                                         String dist = rpm.deslocamento(dadosInicioViagem, dadosFimViagem, dadosMctViagem);
                                                         if (dist == null) {
                                                             dist = "0";
                                                         }
-                                                        double deslocamet;
-                                                        String periodo = dadosInicioViagem + " a " + dadosFimViagem;
-                                                        if (dadosInicioViagem == null) {
-                                                            periodo = " ";
-                                                        }
+                                                        
                                                         double d;
                                                     %>
 
@@ -416,12 +403,6 @@
                                                         }
                                                     %>
 
-                                
-
-
-  
-      
-                                
                                       <div class="container black-text">
                                       <div class="row col s12 ">
                                           <div class="row col s12 background blue">              
@@ -439,128 +420,117 @@
                                       </div>
                                       </div>
                                         <div class="container black-text">
-                                        <div class="row col s5 ">
-                                            <h5><b>Motor 01</b></h5>
-                                            <b class="right-aligned">Consumo Total: </b><%=total%> Lts.<br>    
-                                            <b class=" ">Maior RPM: </b><%=maiorRpm1%><br>
-                                            <b class=" pull-s2">Menor RPM: </b><%=menorRpm1%><br>
-                                            <b class=" pull-s2">Media de RPM: </b><%=mediaRpm%><br>
-                                            <b class=" pull-s2">RPM Predomitante: </b><%=painel1[0][vetPosition]%> <b>Num.Reg:</b><%=painel1[2][vetPosition]%><br>
-                                            <b class=" pull-s2">Tempo de RPM predomintante: </b><%=painel1[1][vetPosition]%><br>
-                                        </div>
-                                        
+                                            <div class="row col s5 ">
+                                                <h5><b>Motor 01</b></h5>
+                                                <b class="right-aligned">Consumo Total: </b><%=total%> Lts.<br>    
+                                                <b class=" ">Maior RPM: </b><%=maiorRpm1%><br>
+                                                <b class=" pull-s2">Menor RPM: </b><%=menorRpm1%><br>
+                                                <b class=" pull-s2">Media de RPM: </b><%=mediaRpm%><br>
+                                                <b class=" pull-s2">RPM Predomitante: </b><%=painel1[0][vetPosition]%> <b>Num.Reg:</b><%=painel1[2][vetPosition]%><br>
+                                                <b class=" pull-s2">Tempo de RPM predomintante: </b><%=painel1[1][vetPosition]%><br>
+                                            </div>
+
                                             <div class="row col s5 push-s2">
                                                 <h5><b class="">Motor 02</b></h5>
                                                 <b class="">Consumo Total: </b><%=total2%> Lts.<br>    
                                                 <b class="center pull-s2">Maior RPM: </b><%=maiorRpm2%><br>
                                                 <b class="center pull-s2">Menor RPM: </b><%=menorRpm2%><br>
                                                 <b class="center pull-s2">Media de RPM: </b><%=mediaRpm2%><br>
-                                               <b class=" pull-s2">RPM Predomitante: </b><%=painel2[0][vetPosition2]%> <b>Num.Reg:</b><%=painel2[2][vetPosition2]%><br>
+                                                <b class=" pull-s2">RPM Predomitante: </b><%=painel2[0][vetPosition2]%> <b>Num.Reg:</b><%=painel2[2][vetPosition2]%><br>
                                                 <b class="center pull-s2">Tempo RPM predomintante: </b><%=painel2[1][vetPosition2]%><br>
                                             </div>
                                             <div class="row col s12 background blue">
-                                                                
+
                                             </div>
-                                            
+
                                             <div class="row col s12 right " id="curve_chart_r1"  style="width: 1000px; height: 300px;display: block"></div>  
                                             <div class="row col s12 right " id="curve_chart_r2"  style="width: 1000px; height: 300px; display: block"></div>         
-                                           
-                                   <br><br><br>
 
-                                             
-                                </div>
-                                    
-                                    
-                                    <div class="card mb-3 " id="divRpm" style="display: none">
-           
-        
-           
-                                        
-         
-      
-     
-            <div class="row">
-                <div class="container col s12 offset-s1">
-           
- 
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                  google.charts.load('current', {'packages':['corechart']});
-                  google.charts.setOnLoadCallback(drawChart);
-
-                  function drawChart() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['HORA', 'RPM'],
-          
-                    <%
-                        String dataRpm1 = "";
-                  for (int i = 0; i < 500; i++) {
-                      if(painel[0][i] == null){
-                          i=500;
-                      }else{
-                          dataRpm1=format.DataFormat(painel[2][i]);
-                    %>
-                        ['<%= dataRpm1%>',  <%= painel[0][i]%>],
-                    <%}
-}
-                    %>
-                
-                    ]);
-
-                    var options = {
-                      title: 'DETALHE RPM 01',
-                      curveType: 'function',
-                      legend: { position: 'bottom' }
-                    };
-
-                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart_r1'));
-
-                    chart.draw(data, options);
-                  }
-                </script> 
-          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                  google.charts.load('current', {'packages':['corechart']});
-                  google.charts.setOnLoadCallback(drawChart);
-
-                  function drawChart() {
-                  
-                    var data = google.visualization.arrayToDataTable([
-                      ['HORA', 'RPM'],
-          
-                    <%
-                        String dataRpm2 = "";
-                  for (int i = 0; i < 500; i++) {
-                      if(painel[0][i] == null){
-                          i=500;
-                      }else{
-                          dataRpm2=format.DataFormat(painel[2][i]);
-                    %>
-                                                    
-                        ['<%= dataRpm2%>',  <%= painel[4][i]%>],
-                    <%}
-}
-                    %>
-                
-                    ]);
-
-                    var options = {
-                      title: 'DETALHE RPM 02',
-                      curveType: 'function',
-                      legend: { position: 'bottom' }
-                    };
-
-                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart_r2'));
-
-                    chart.draw(data, options);
-                  }
-                </script> 
-                
-              
+                                            <br><br><br> 
+                                        </div>
+                                            </div>
+                </div>
+            </div>
         </div>
-                   
-            </div>
-            </div>
+                                    
+                                                
+                                                    
+                                                        
+                                                            
+                                                                <script type="text/javascript">
+                                                                  google.charts.load('current', {'packages':['corechart']});
+                                                                  google.charts.setOnLoadCallback(drawChart);
+
+                                                                  function drawChart() {
+                                                                    var data = google.visualization.arrayToDataTable([
+                                                                      ['HORA', 'RPM'],
+          
+                                                                    <%
+                                                                        String dataRpm1 = "";
+                                                                        for (int i = 0; i < 500; i++) {
+                                                                            if (painel[0][i] == null) {
+                                                                                i = 500;
+                                                                            } else {
+                                                                                dataRpm1 = format.DataFormat(painel[2][i]);
+                                                                    %>
+                                                                        ['<%= dataRpm1%>',  <%= painel[0][i]%>],
+                                                                    <%}
+                                                                        }
+                                                                    %>
+                
+                                                                    ]);
+
+                                                                    var options = {
+                                                                      title: 'DETALHE RPM 01',
+                                                                      curveType: 'function',
+                                                                      legend: { position: 'bottom' }
+                                                                    };
+
+                                                                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart_r1'));
+
+                                                                    chart.draw(data, options);
+                                                                  }
+                                                                </script> 
+
+                                                            <script type="text/javascript">
+                                                                  google.charts.load('current', {'packages':['corechart']});
+                                                                  google.charts.setOnLoadCallback(drawChart);
+                                                                  function drawChart() {
+                                                                    var data = google.visualization.arrayToDataTable([
+                                                                      ['HORA', 'RPM'],
+                                                                    <%
+                                                                        String dataRpm2 = "";
+                                                                        for (int i = 0; i < 500; i++) {
+                                                                            if (painel[0][i] == null) {
+                                                                                i = 500;
+                                                                            } else {
+                                                                                dataRpm2 = format.DataFormat(painel[2][i]);
+                                                                    %>
+                                                    
+                                                                        ['<%= dataRpm2%>',  <%= painel[4][i]%>],
+                                                                    <%}
+                                                                        }
+                                                                    %>
+                
+                                                                    ]);
+
+                                                                    var options = {
+                                                                      title: 'DETALHE RPM 02',
+                                                                      curveType: 'function',
+                                                                      legend: { position: 'bottom' }
+                                                                    };
+
+                                                                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart_r2'));
+
+                                                                    chart.draw(data, options);
+                                                                  }
+                                                                </script> 
+                                                            
+              
+                                                           
+                                                           
+           
+       
 
         <!--Materialize JS -->
         <script src="js/materialize.js">
@@ -608,10 +578,10 @@ console.log(rpm);
              
           </script>
           
-         <%
-   con.close();
-   stmt.close();
-   %>
+                                                                <%
+                                                                    con.close();
+                                                                    stmt.close();
+                                                                %>
        
     </body>
 </html>
