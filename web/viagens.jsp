@@ -87,7 +87,6 @@
             <div class="card col s4">
                 <div class="card-title center"><i class="material-icons">schedule</i><b>  Viagens Agendadas</b></div>
                 <ul class="collapsible">
-                <li>
                     <%
                         String[][] viagensAgendadas = viagem.pesquisarViagensPorStatus("0");
                         for(int i=0;i < 100; i++){
@@ -95,28 +94,33 @@
                                 i = 200;
                             }else{
                                 %>
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensAgendadas[1][i]%></div>
+                    <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensAgendadas[1][i].toUpperCase()%></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
-                                          <tr>
-                                              <td><b>nome da viagem</b></td>
-                                            <td><%=viagensAgendadas[1][i]%></td>
-                                          </tr>
-                                          <tr>
-                                              <td><b>Origem</b></td>
-                                            <td><%=viagensAgendadas[3][i]%></td>
-                                            <td><%=viagensAgendadas[4][i]%></td>
-                                          </tr>
-                                          <tr>
+                                            <tr>
+                                                <td><b>Nome da viagem</b></td>
+                                                <td><%=viagensAgendadas[1][i]%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Origem</b></td>
+                                                <td><%=viagensAgendadas[3][i]%></td>
+                                                <td><%=viagensAgendadas[4][i].split(" ")[0]%></td>
+                                            </tr>
+                                            <tr>
                                               <td><b>Destino</b></td>
-                                            <td><%=viagensAgendadas[5][i]%></td>
-                                            <td><%=viagensAgendadas[6][i]%></td>
-                                          </tr>
-                                          </tr>
+                                                <td><%=viagensAgendadas[5][i]%></td>
+                                                <td><%=viagensAgendadas[6][i].split(" ")[0]%></td>
+                                            </tr>
                                         </tbody>
-                                      </table>
-                                    
+                                    </table>
+                                    <div class="row" style="margin:0px !important">
+                                        <div class="col s12">
+                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Relatorio de Viagem</a>
+                                        </div>
+                                    </div>
+                                            
                                 </div>
                                 <%
                             }
@@ -131,36 +135,41 @@
             <div class="card col s4">
                 <div class="card-title center"><i class="material-icons">directions_boat</i>  Viagens Em andamento</div>
                 <ul class="collapsible">
-                <li>
-                    <%
+                <%
                         String[][] viagensEmAndamento = viagem.pesquisarViagensPorStatus("1");
                         for(int i=0;i < 100; i++){
                             if(viagensEmAndamento[0][i] == null){
                                 i = 200;
                             }else{
                                 %>
-                                <div class="collapsible-header"><i class="material-icons">directions_boat</i><%=viagensEmAndamento[1][i]%></div>
+                    <li>
+                    
+                                <div class="collapsible-header"><i class="material-icons">directions_boat</i><%=viagensEmAndamento[1][i].toUpperCase()%></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
-                                          <tr>
-                                              <td><b>nome da viagem</b></td>
-                                            <td><%=viagensEmAndamento[1][i]%></td>
-                                          </tr>
-                                          <tr>
-                                              <td><b>Origem</b></td>
-                                            <td><%=viagensEmAndamento[3][i]%></td>
-                                            <td><%=viagensEmAndamento[4][i]%></td>
-                                          </tr>
-                                          <tr>
-                                              <td><b>Destino</b></td>
-                                            <td><%=viagensEmAndamento[5][i]%></td>
-                                            <td><%=viagensEmAndamento[6][i]%></td>
-                                          </tr>
-                                          </tr>
+                                            <tr>
+                                                <td><b>Nome da viagem</b></td>
+                                                <td><%=viagensEmAndamento[1][i]%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Origem</b></td>
+                                                <td><%=viagensEmAndamento[3][i]%></td>
+                                                <td><%=viagensEmAndamento[4][i].split(" ")[0]%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Destino</b></td>
+                                                <td><%=viagensEmAndamento[5][i]%></td>
+                                                <td><%=viagensEmAndamento[6][i].split(" ")[0]%></td>
+                                            </tr>
                                         </tbody>
-                                      </table>
-                                    
+                                    </table>
+                                    <div class="row" style="margin:0px !important">
+                                        <div class="col s12">
+                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Relatorio de Viagem</a>
+                                        </div>
+                                    </div>
+                                      
                                 </div>
                                 <%
                             }
@@ -175,7 +184,6 @@
             <div class="card col s4" >
                 <div class="card-title center"><i class="material-icons">check</i>  Viagens Finalizadas</div>
                 <ul class="collapsible">
-                <li>
                     <%
                         String[][] viagensFinalizadas = viagem.pesquisarViagensPorStatus("2");
                         for(int i=0;i < 100; i++){
@@ -183,28 +191,33 @@
                                 i = 200;
                             }else{
                                 %>
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensFinalizadas[1][i]%></div>
+                    <li>
+                    
+                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensFinalizadas[1][i].toUpperCase()%></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
-                                          <tr>
-                                              <td><b>nome da viagem</b></td>
-                                            <td><%=viagensFinalizadas[1][i]%></td>
-                                          </tr>
-                                          <tr>
-                                              <td><b>Origem</b></td>
-                                            <td><%=viagensFinalizadas[3][i]%></td>
-                                            <td><%=viagensFinalizadas[4][i]%></td>
-                                          </tr>
-                                          <tr>
-                                              <td><b>Destino</b></td>
-                                            <td><%=viagensFinalizadas[5][i]%></td>
-                                            <td><%=viagensFinalizadas[6][i]%></td>
-                                          </tr>
-                                          </tr>
+                                            <tr>
+                                                <td><b>Nome da viagem</b></td>
+                                                <td><%=viagensFinalizadas[1][i]%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Origem</b></td>
+                                                <td><%=viagensFinalizadas[3][i]%></td>
+                                                <td><%=viagensFinalizadas[4][i].split(" ")[0]%></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Destino</b></td>
+                                                <td><%=viagensFinalizadas[5][i]%></td>
+                                                <td><%=viagensFinalizadas[6][i].split(" ")[0]%></td>
+                                            </tr>
                                         </tbody>
-                                      </table>
-                                    
+                                    </table>
+                                    <div class="row" style="margin:0px !important">
+                                        <div class="col s12">
+                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Relatorio de Viagem</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <%
                             }
