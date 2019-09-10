@@ -85,7 +85,7 @@
           <div class="row"><!--INCIO DO CORPO DA PAGINA-->
            <% ViagemDao viagem = new ViagemDao(); %>
             <div class="card col s4">
-                <div class="card-title center"><b>Viagens Agendadas</b></div>
+                <div class="card-title center"><i class="material-icons">schedule</i><b>  Viagens Agendadas</b></div>
                 <ul class="collapsible">
                 <li>
                     <%
@@ -129,7 +129,7 @@
             </ul>
             </div>
             <div class="card col s4">
-                <div class="card-title">Viagens Finalizadas</div>
+                <div class="card-title center"><i class="material-icons">directions_boat</i>  Viagens Em andamento</div>
                 <ul class="collapsible">
                 <li>
                     <%
@@ -139,7 +139,7 @@
                                 i = 200;
                             }else{
                                 %>
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensEmAndamento[1][i]%></div>
+                                <div class="collapsible-header"><i class="material-icons">directions_boat</i><%=viagensEmAndamento[1][i]%></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
@@ -173,7 +173,7 @@
             </ul>
             </div>  
             <div class="card col s4" >
-                <div class="card-title">Viagens Em Andamento</div>
+                <div class="card-title center"><i class="material-icons">check</i>  Viagens Finalizadas</div>
                 <ul class="collapsible">
                 <li>
                     <%
