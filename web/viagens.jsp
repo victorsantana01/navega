@@ -80,24 +80,42 @@
               </li>
           </ul>
       </div>
-        <div class="container"><!--INCIO DO CORPO DA PAGINA-->
-            <ul class="collapsible">
+      <div class="container offset-l1">
+          <div class="row"><!--INCIO DO CORPO DA PAGINA-->
+           
+            <div class="card col s4">
+                <div class="card-title center"><b>Viagens Agendadas</b></div>
+                <ul class="collapsible">
                 <li>
                     <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
                     <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                 </li>
+            </ul>
+            </div>
+              
+            <div class="card col s4">
+                <div class="card-title">Viagens Em Andamento</div>
+                <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
                     <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                 </li>
             </ul>
+            </div>
+              
+            <div class="card col s4">
+                <div class="card-title">Viagens Finalizadas</div>
+                <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                </li>
+            </ul>
+            </div>
             
-            
-        </div><!--FIM DO CORPO DA PAGINA-->
+        </div>
+      </div>
+        <!--FIM DO CORPO DA PAGINA-->
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
