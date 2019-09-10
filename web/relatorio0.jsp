@@ -382,8 +382,6 @@ function trocaClasse(elemento, antiga, nova) {
                      
                 <div class="col s12">
                
-                   
-                          
                             <div class=""  id="divCorpo" style="display: block">
 
 
