@@ -118,7 +118,7 @@ public class ViagemDao {
     }
     public String[][] pesquisarViagensPorStatus(String status) {
 
-        String[][] viagem = new String[11][10];
+        String[][] viagem = new String[12][2000];
 
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();

@@ -339,7 +339,7 @@ function trocaClasse(elemento, antiga, nova) {
               
                String idViagem = request.getParameter("viagem");
                if (idViagem == null) {
-                       idViagem = "45";
+                      
                    }
                String[][] dadosViagem = via.pesquisarViagens(idViagem).clone();
                String dadosIdViagem = dadosViagem[0][0];
