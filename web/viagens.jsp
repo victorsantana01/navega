@@ -124,8 +124,9 @@
                                     </table>
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Relatorio Consolidado</a>
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio1.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Relatorio Detalhado</a>
+                                            <h5 class="center col s12"><b>Relatorio</b></h5>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Consolidado</a>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio1.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Detalhado</a>
                                         </div>
                                     </div>
                                             
@@ -177,8 +178,9 @@
                                     </table>
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensEmAndamento[0][i]%>">Relatorio Consolidado</a>
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio1.jsp?idViagem=<%=viagensEmAndamento[0][i]%>">Relatorio Detalhado</a>
+                                            <h5 class="center col s12"><b>Relatorio</b></h5>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio0.jsp?idViagem=<%=viagensEmAndamento[0][i]%>">Consolidado</a>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio1.jsp?idViagem=<%=viagensEmAndamento[0][i]%>">Detalhado</a>
                                         </div>
                                     </div>
                                       
@@ -231,8 +233,9 @@
                                     </table>
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio0.jsp?idViagem=<%=viagensFinalizadas[0][i]%>">Relatorio Consolidado</a>
-                                            <a class="btn waves-effect waves-light center col s12" href="relatorio1.jsp?idViagem=<%=viagensFinalizadas[0][i]%>">Relatorio Detalhado</a>
+                                            <h5 class="center col s12"><b>Relatorio</b></h5>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio0.jsp?idViagem=<%=viagensFinalizadas[0][i]%>">Consolidado</a>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio1.jsp?idViagem=<%=viagensFinalizadas[0][i]%>">Detalhado</a>
                                         </div>
                                     </div>
                                 </div>
