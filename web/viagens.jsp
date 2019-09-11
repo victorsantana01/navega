@@ -1,3 +1,4 @@
+<%@page import="logic.Format"%>
 <%@page import="dao.ViagemDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Statement"%>
@@ -84,7 +85,9 @@
       </div>
       <div class="container" style="padding-top:20px">
           <div class="row"><!--INCIO DO CORPO DA PAGINA-->
-           <% ViagemDao viagem = new ViagemDao(); %>
+           <% ViagemDao viagem = new ViagemDao(); 
+           Format format = new Format();
+           %>
             <div class="card large col s4" style="overflow-y: auto">
                 <div class="card-title center"><i class="material-icons">schedule</i><b>  Viagens Agendadas</b></div>
                 <ul class="collapsible">
@@ -94,9 +97,12 @@
                             if(viagensAgendadas[0][i] == null){
                                 i = 200;
                             }else{
+                                String viagemDataOrigemFormatada = format.DataFormat(viagensAgendadas[4][i].split(" ")[0]);
+                                String viagemDataDestinoFormatada = format.DataFormat(viagensAgendadas[6][i].split(" ")[0]);
+                                String viagemDataCriacaoFormatada = format.DataFormat(viagensAgendadas[11][i].split(" ")[0]);
                                 %>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">filter_drama</i><span style="text-aligh:left"><%=viagensAgendadas[1][i].toUpperCase()%></span><span style="text-aligh:right"><%=viagensAgendadas[11][i].split(" ")[0]%></span></div>
+                        <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensAgendadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
@@ -107,12 +113,12 @@
                                             <tr>
                                                 <td><b>Origem</b></td>
                                                 <td><%=viagensAgendadas[3][i]%></td>
-                                                <td><%=viagensAgendadas[4][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataOrigemFormatada%></td>
                                             </tr>
                                             <tr>
                                               <td><b>Destino</b></td>
                                                 <td><%=viagensAgendadas[5][i]%></td>
-                                                <td><%=viagensAgendadas[6][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataDestinoFormatada%></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -142,10 +148,13 @@
                             if(viagensEmAndamento[0][i] == null){
                                 i = 200;
                             }else{
+                                String viagemDataOrigemFormatada = format.DataFormat(viagensEmAndamento[4][i].split(" ")[0]);
+                                String viagemDataDestinoFormatada = format.DataFormat(viagensEmAndamento[6][i].split(" ")[0]);
+                                String viagemDataCriacaoFormatada = format.DataFormat(viagensEmAndamento[11][i].split(" ")[0]);
                                 %>
                     <li>
                     
-                                <div class="collapsible-header"><i class="material-icons">directions_boat</i><%=viagensEmAndamento[1][i].toUpperCase()%></div>
+                        <div class="collapsible-header"><i class="material-icons">directions_boat</i><span><%=viagensEmAndamento[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
@@ -156,12 +165,12 @@
                                             <tr>
                                                 <td><b>Origem</b></td>
                                                 <td><%=viagensEmAndamento[3][i]%></td>
-                                                <td><%=viagensEmAndamento[4][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataOrigemFormatada%></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Destino</b></td>
                                                 <td><%=viagensEmAndamento[5][i]%></td>
-                                                <td><%=viagensEmAndamento[6][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataDestinoFormatada%></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -191,10 +200,14 @@
                             if(viagensFinalizadas[0][i] == null){
                                 i = 200;
                             }else{
+                                String viagemDataOrigemFormatada = format.DataFormat(viagensFinalizadas[4][i].split(" ")[0]);
+                                String viagemDataDestinoFormatada = format.DataFormat(viagensFinalizadas[6][i].split(" ")[0]);
+                                String viagemDataCriacaoFormatada = format.DataFormat(viagensFinalizadas[11][i].split(" ")[0]);
                                 %>
                     <li>
+                    <li>
                     
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i><%=viagensFinalizadas[1][i].toUpperCase()%></div>
+                        <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensFinalizadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <table class="striped">
                                         <tbody>
@@ -205,12 +218,12 @@
                                             <tr>
                                                 <td><b>Origem</b></td>
                                                 <td><%=viagensFinalizadas[3][i]%></td>
-                                                <td><%=viagensFinalizadas[4][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataOrigemFormatada%></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Destino</b></td>
                                                 <td><%=viagensFinalizadas[5][i]%></td>
-                                                <td><%=viagensFinalizadas[6][i].split(" ")[0]%></td>
+                                                <td><%=viagemDataDestinoFormatada%></td>
                                             </tr>
                                         </tbody>
                                     </table>
