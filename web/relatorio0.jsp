@@ -110,7 +110,6 @@
         
         <div id="areaRelatorio" class=" container "><br>
             <div id="areaRelatorio" class="card row ">
-                     
                 <div class="col s12">
                             <div class=""  id="divCorpo" style="display: block">
                                     <%

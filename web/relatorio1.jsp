@@ -46,13 +46,6 @@
                 Statement stmt = con.createStatement();
 %>                
 
-
-    <style>
-        .nada{
-            
-        }
-    </style>
-    
     <script>
 function abreLink(url){
 	//window.open('index.jsp');
@@ -68,68 +61,24 @@ function abreLink(url){
     var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
 
     function exibir() {
-        document.getElementById("divCorpo").style.display = "block";
-    }
- 
-    function ocultar() {
-        document.getElementById("divCorpo").style.display = "none";
+        document.getElementById("divCorpo").classList.toggle("oculto");;
     }
     //Botões de exibir/ Ocultar
         function exibirDeslocamento() {
-        document.getElementById("idDeslocamento").style.display = "block";
-        document.getElementById("btnMais").style.display = "none";
-         document.getElementById("btnMenos").style.display = "block";
+        document.getElementById("idDeslocamento").classList.toggle("oculto");
     }  
     
- function ocultarDeslocamento() {
-        document.getElementById("idDeslocamento").style.display = "none";
-        document.getElementById("btnMenos").style.display = "none";
-       document.getElementById("btnMais").style.display = "block";
-    }
-  
-  //Botões Exibir / Ocultar Consumo
+//Botões Exibir / Ocultar Consumo
   function exibirConsumo2() {
-        document.getElementById("divConsumo2").style.display = "block";
-        document.getElementById("btnMaisConsumo2").style.display = "none";
-         document.getElementById("btnMenosConsumo2").style.display = "block";
-    }  
-    
- function ocultarConsumo2() {
-        document.getElementById("divConsumo2").style.display = "none";
-        document.getElementById("btnMenosConsumo2").style.display = "none";
-       document.getElementById("btnMaisConsumo2").style.display = "block";
+        document.getElementById("divConsumo2").classList.toggle("oculto");
     }
   function exibirConsumo() {
-        document.getElementById("divConsumo").style.display = "block";
-        document.getElementById("btnMaisConsumo").style.display = "none";
-         document.getElementById("btnMenosConsumo").style.display = "block";
-    }  
-    
- function ocultarConsumo() {
-        document.getElementById("divConsumo").style.display = "none";
-        document.getElementById("btnMenosConsumo").style.display = "none";
-       document.getElementById("btnMaisConsumo").style.display = "block";
+        document.getElementById("divConsumo").classList.toggle("oculto");
     }
     //Botões Exibir / Ocultar RPM
   function exibirRpm() {
-        document.getElementById("divRpm").style.display = "block";
-        document.getElementById("btnMaisRpm").style.display = "none";
-         document.getElementById("btnMenosRpm").style.display = "block";
-    }  
-    
- function ocultarRpm() {
-        document.getElementById("divRpm").style.display = "none";
-        document.getElementById("btnMenosRpm").style.display = "none";
-       document.getElementById("btnMaisRpm").style.display = "block";
+        document.getElementById("divRpm").classList.toggle("oculto");
     }
-  $(document).ready(function(){   
-              ocultarDeslocamento();
-              ocultarConsumo();
-              ocultarConsumo2();
-              ocultarRpm();
-        });
-        
-        
         
 function chama(link){
 
@@ -143,49 +92,6 @@ window.location.href = link ;
             {
                 window.print()
             }
-            function ocultarFiltro() {
-
-                
-                document.getElementById("btnPesquisa").style.display = "none";
-                document.getElementById("divCampo").style.display = "none";
-                document.getElementById("navBar").style.display = "none";
-                
-               var div = document.querySelector('#areaRelatorio');
-               trocaClasse(div, 'container', 'nada');
-               exibirConsumo();
-               document.getElementById("btnMenosConsumo").style.display = "none";
-               exibirConsumo2();
-                document.getElementById("btnMenosConsumo2").style.display = "none";
-                exibirRpm();
-                document.getElementById("btnMenosRpm").style.display = "none";
-                document.getElementById("btnPrint").style.display = "none";
-                exibirDeslocamento();
-                printpage();
-                document.getElementById("btnMenos").style.display = "none";
-                document.getElementById("btnPesquisa").style.display = "block";
-                document.getElementById("btnPrint").style.display = "block";
-                ocultarRpm();
-                ocultarConsumo();
-                ocultarConsumo2();
-                
-                document.getElementById("divCampo").style.display = "block";
-                document.getElementById("navBar").style.display = "block";
-                trocaClasse(div,'nada','container');
-            }
-            function mostrarFiltro() {
-                document.getElementById("filtro").style.display = "block";
-
-            }
-
-
-
-
-
-    
-function trocaClasse(elemento, antiga, nova) {
-    elemento.classList.remove(antiga);
-    elemento.classList.add(nova);
-}
 
 </script>
         <style type="text/css">
@@ -216,6 +122,9 @@ function trocaClasse(elemento, antiga, nova) {
             border-style: solid;
             border-color: #3A3A3A;
             background-color: #ffffff;
+        }
+        .oculto{
+            display: none;
         }
     </style>
     </head>
@@ -284,8 +193,8 @@ function trocaClasse(elemento, antiga, nova) {
             <div id="areaRelatorio" class="row card">
                 <div class="col s12">
                     <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
-                        </button> 
-                            <div class="center"  id="divCorpo" style="display: <%=parametro%>">
+</button> 
+                            <div class="center"  id="divCorpo">
                                 <span class="flow-text">
                                     <h4><b>Graficos de RPM</b></h4>
                                     <%
@@ -325,13 +234,12 @@ function trocaClasse(elemento, antiga, nova) {
                                 <div  id="curve_chart_r1"  style="width: 1150px; height: 500px"></div>  
                                 <div  id="curve_chart_r2"  style="width: 1150px; height: 500px"></div>
 
-
-                                <span class="flow-text center">
-                                    <h4 class=" btn " id="btnMenosConsumo" onclick="ocultarConsumo()"><b>Relatorio de Consumo</b></h4>
-                                    <h4 class=" btn " id="btnMaisConsumo" onclick="exibirConsumo()"><b>Relatorio de Consumo</b></h4>
-                                </span>
-                                
-                                <div class="card mb-3" id="divConsumo" style="display: none">
+                                <div class="row">
+                                    <span class="flow-text center col s12">
+                                        <h4 class=" btn col s12" id="btnMaisConsumo" onclick="exibirConsumo()"><b>Relatorio de Consumo</b></h4>
+                                    </span>
+                                </div>
+                                <div class="card mb-3 oculto" id="divConsumo" >
                                   <span class="flow-text center-align">
                                  <h5>Consumo Motor  01</h5>
                                   </span>
@@ -467,13 +375,12 @@ function trocaClasse(elemento, antiga, nova) {
                                 
 
             
-  
-            <span class="flow-text center">
-                <h4 class=" btn " id="btnMenosConsumo2" onclick="ocultarConsumo2()"><b>Relatorio de Consumo 2</b></h4>
-                <h4 class=" btn " id="btnMaisConsumo2" onclick="exibirConsumo2()"><b>Relatorio de Consumo 2</b></h4>
+        <div class="row">
+            <span class="flow-text center col s12">
+                <h4 class=" btn col s12" id="btnMaisConsumo2" onclick="exibirConsumo2()"><b>Relatorio de Consumo 2</b></h4>
             </span>
-                
-            <div class="card mb-3" id="divConsumo2" style="display: none;">
+        </div>
+            <div class="card mb-3 oculto" id="divConsumo2">
                   <span class="flow-text center-align">
                                  <h5>Consumo Motor  02</h5>
                                   </span>
@@ -552,13 +459,12 @@ function trocaClasse(elemento, antiga, nova) {
                             </table><br>
                             </div>
                             </div>
-   
-
-                    <span class="flow-text center">
-                        <h4 class=" btn " id="btnMais" onclick="exibirDeslocamento()"><b>Relatorio de Deslocamento</b></h4>
-                        <h4 class=" btn " id="btnMenos" onclick="ocultarDeslocamento()"><b>Relatorio de Deslocamento</b></h4>
-                    </span>
-                    <div class="card mb-3" id="idDeslocamento" style="display: none">
+                    <div class="row">
+                        <span class="flow-text center col s12">
+                            <h4 class=" btn col s12" id="btnMais" onclick="exibirDeslocamento()"><b>Relatorio de Deslocamento</b></h4>
+                        </span>
+                    </div>
+                    <div class="card mb-3 oculto" id="idDeslocamento">
             <div class="table-responsive">
             <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
               <thead>
@@ -595,15 +501,15 @@ function trocaClasse(elemento, antiga, nova) {
                                         <td><%=dist + " KM"%></td>
                                     </tr>
                                 </tbody>
-        </table>
-        </div>
-        </div>
-      
-                                 <span class="flow-text ">
-                <h4 class=" btn " id="btnMaisRpm" onclick="exibirRpm()"><b>Detalhamento de RPM</b></h4>
-                <h4 class=" btn " id="btnMenosRpm" onclick="ocultarRpm()"><b>Detalhamento de RPM</b></h4>
-            </span>
-            <div class="card mb-3 " id="divRpm">
+            </table>
+            </div>
+            </div>
+            <div class="row">
+                <span class="flow-text col s12">
+                    <h4 class=" btn col s12" id="btnMaisRpm" onclick="exibirRpm()"><b>Detalhamento de RPM</b></h4>
+                </span>
+            </div>
+            <div class="card mb-3 oculto " id="divRpm">
            
         <div class="card-header">
           <i class="fa fa-table" ></i> Detalhamento de RM</div>
