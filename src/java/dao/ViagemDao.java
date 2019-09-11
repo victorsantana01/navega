@@ -125,7 +125,7 @@ public class ViagemDao {
             Statement stmt = con.createStatement();
 //          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
             String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.nomeEmbarcacao, \n" +
-            "v.comandante, m.nome_motor, b.codBarco\n" +
+            "v.comandante, m.nome_motor, b.codBarco, v.dataCad\n" +
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.nomeEmbarcacao = b.codBarco\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
@@ -147,6 +147,7 @@ public class ViagemDao {
                 viagem[8][i] = rs.getString("v.comandante");
                 viagem[9][i] = rs.getString("m.nome_motor");
                 viagem[10][i] = rs.getString("b.codBarco");
+                viagem[11][i] = rs.getString("v.dataCad");
                 i++;
             }
 
