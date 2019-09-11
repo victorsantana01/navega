@@ -1,3 +1,4 @@
+<%@page import="dao.ViagemDao"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Connection"%>
@@ -222,163 +223,79 @@ function trocaClasse(elemento, antiga, nova) {
     <body class="background #eeeeee grey lighten-3">
     -->
     <body>
-
-
-<!-- START LEFT SIDEBAR NAV-->
-        
-         <!--Menu para Mobile -->
-         
-          <!-- Parou aqui, preciso colocar o filtro no side nav, inserir os relatorios--> 
-           <ul id="menu-mobile" class="side-nav" style="width: 300px">
-               
-               <li class="center-align"><h5><i class="material-icons right-align small">directions_boat</i></h5></li>
-               <li class="center-align"><h5>Filtrar Periodo</h5></li>
-               <li>
-                   <form method="get" name="filtro">
-                   <div class="container">
-                   <label for="exampleInputName">Inicio</label>
-                   <input name="dataInicio" class="form-control"  type="date" >
-                   </div>
-                   
-                   <div class="container">
-                   <label for="exampleInputName">Fim</label>
-                   <input name="dataFim" class="form-control"  type="date" >
-                      <input type="text" class="datepicker">
-                   </div>
-                   
-                   <div class="container">
-                     <label>Escolha o Empurrador</label>
-                     <select class="browser-default" name="mct" >
-                         <option value="" disabled selected>Empurrador</option>
-                         <%
-                             Rpm rpm = new Rpm();
-                             String[][] veiculo = rpm.painelAtualizado(conta,con,stmt).clone();
-                             for (int i = 0; i < 100; i++) {
-                                 if (veiculo[1][i] == null) {
-                                     i = 100;
-                                 } else {
-                         %>
-                         <option value="<%=veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
-                         <%}
-                    }%>
-                     </select>
-                   </div>
-                      <div class="container">
-                     <label>Perfil de Motor</label>
-                     <select class="browser-default" name="nomeMotor" id="selectService" >
-                    
-                     <%
-                     ConsumoDao cons = new ConsumoDao();
-                   
-                     String [][] dados = cons.getTabelaConsumo().clone();
-                       
-
-                      for (int i = 0; i < 500; i++) {
-         
-                     if(cons.getTabelaConsumo()[0][i]==null){
-                         i=500;
-                         
-                     }else{%>
-                     <option value="<%=dados[0][i]%>"><%=dados[0][i]%></option>
-                    <%}}%>
-                </select>
-                   </div>
-                <div class="container">
-                    <a  class="btn col s6 center-align push-s3 z-depth-5  " onclick ='confirma(filtro)'>Buscar<i class="material-icons right">send</i></a>
-                </div>
-                    </form>
-                
                 <%
                     
-                String mct = request.getParameter("mct");
+                String idViagem = request.getParameter("idViagem");
+                ViagemDao via = new ViagemDao();
+                String[][] viagemRelatorio = via.pesquisarViagens(idViagem);
+                String viagemMct  = viagemRelatorio[7][0];
+                String viagemInicio = viagemRelatorio[4][0];
+                String viagemFim  = viagemRelatorio[6][0];
+                String viagemNomeMotor = viagemRelatorio[9][0];
                 String parametro = "";
                 String parametro2 = "";
-                if (mct == null) {
+                if (viagemMct == null) {
                         parametro = "none";
                     }else{
                     parametro="block";
                 }
-                if (mct == null) {
+                if (viagemMct == null) {
                         parametro2 = "block";
                     }else{
                     parametro2="none";
                 }
                 
                 %>
-                
-               </li>
-           </ul>
-        <!-- START LEFT SIDEBAR NAV FIM--> 
-        
-       
-      
+    
+            
          <!--Materialize NavBar -->    
 
-           <nav class="navbar-fixed z-depth-5 #0097a7 cyan darken-3" id="navBar" >
-                 <div class="nav-wrapper" >
-                     &nbsp;&nbsp;<a href="index.jsp" class="brand-logo right-aligned"><b><i class="material-icons">directions_boat</i><h5>NAVEGA GESTOR</h5></b></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                         <li class="left-align"><a href="index.jsp" ><b class="center-align  waves-effect">Inicio</b></a></li>
-                         <li class="left-align"><a href="relatorio1.jsp"><b class=" waves-effect">Relatorio RPM</b></a></li>
-                         <li class="left-align"><a href="relatorio2.jsp"><b class=" waves-effect">Relatorio Consolidado</b></a></li>
-                         <li class="left-align"><a href="tables.jsp"><b class="center-align  waves-effect">Tabela de Consumo</b></a></li>
-                         <li class="left-align"><a href="motores.jsp"><b class=" waves-effect">Motores</b></a></li>
-                         <li class="left-align"><a href="login.jsp"><b class=" waves-effect">Sair</b></a></li>
-                     </ul>
-                 </div>
-         </nav>
-   
-         
-        <!--INICIO do Corpo do App -->
-           
-        <div id="btnPesquisa" class="row"><br>
-           <!-- Botão pesquisar--> 
-           <div class="col s6 ">
-               <a data-activates="menu-mobile" class="button-collapse right  btn-floating blue pulse z-depth-5 btn-large"><i class="material-icons">search</i></a>    
-           </div>
-         
-          
-          <!-- Fim Botão pesquisar--> 
-        </div>
-
-        <!--Preloder-->
-        <div class="row" style="display: <%=parametro2%>">
-            <div class="container"><br><br><br><br>
-                <span class="flow-text center-align">
-                    <h5>Clique no botão acima para começar.</h5>
-                </span>
-                <div class="progress">
-                    <div class="indeterminate"></div>
+           <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="img/mar.jpg" alt=""/>
+                    </div>
+                    <div class="center">
+                        <b><h4 class="white-text">Navega Gestor</h4></b> 
+                    </div>
+                    <div class="center">
+                        <b class="white-text">Gestão à bordo</b>
+                    </div>
                 </div>
+            </li>   
+            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
+            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
+            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
+            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
+            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
+            <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
+            <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
+            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
+            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
+            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+        </ul>
+   
+            <div class=" container " id="divCampo"><br>
+
             </div>
-        </div>
-        <!--Fim Preloder-->
-        <div class=" container " id="divCampo"><br>
-        
-        </div>
         
         <div id="areaRelatorio" class=" container "><br>
-            <div id="areaRelatorio" class="row ">
-                     
+            <div id="areaRelatorio" class="row card">
                 <div class="col s12">
-               
-                  <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
-                     </button> 
-                          
+                    <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
+                        </button> 
                             <div class="center"  id="divCorpo" style="display: <%=parametro%>">
-                                
                                 <span class="flow-text">
-                                  
-                        
                                     <h4><b>Graficos de RPM</b></h4>
                                     <%
                                         
                                         Format format = new Format();
-                                        String inicio = request.getParameter("dataInicio");
+                                        String inicio = viagemInicio.split(" ")[0];
                                         System.out.println(">>>>>>>>>> "+inicio);
                                         String begin = inicio;
                                         
-                                        String fim = request.getParameter("dataFim");
+                                        String fim = viagemFim.split(" ")[0];
                                          String finish = fim;
                                         if (inicio == null || inicio == "") {
                                             inicio = format.hoje();
@@ -393,7 +310,7 @@ function trocaClasse(elemento, antiga, nova) {
                                        
                                                
                                         fim = format.DiaFormat(fim);
-                                        String empurrador = request.getParameter("mct");
+                                        String empurrador = viagemMct;
                                          
                                     %>
                                     
@@ -430,9 +347,9 @@ function trocaClasse(elemento, antiga, nova) {
                                             </thead>
 
                                             <%
-                                                
+                                                Rpm rpm = new Rpm();
                                                 String[][] painel1;
-                                                painel1 = rpm.getPrincipalRpm(begin, finish, request.getParameter("mct"),con,stmt).clone();
+                                                painel1 = rpm.getPrincipalRpm(begin, finish, viagemMct,con,stmt).clone();
                                              
                                                 String consumo = "";
                                                 String latLon = "";
@@ -477,8 +394,8 @@ function trocaClasse(elemento, antiga, nova) {
                                                 }
 
                                                 System.err.println("Valor Arredondado é: " + entrada);
-
-                                                consumo = te.consumo(cons.getLitrosPorRpm(request.getParameter("nomeMotor"), entrada), painel1[1][i]);
+                                                ConsumoDao cons = new ConsumoDao();
+                                                consumo = te.consumo(cons.getLitrosPorRpm(viagemNomeMotor, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
@@ -573,7 +490,7 @@ function trocaClasse(elemento, antiga, nova) {
 
                                                     <%
                                                         String[][] painel2;
-                                                        painel2 = rpm.getPrincipalRpm2(begin,finish, request.getParameter("mct")).clone();
+                                                        painel2 = rpm.getPrincipalRpm2(begin,finish, viagemMct).clone();
                                                        System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
                                                         String consumo2 = "";
                                                         String rpmArrendon2 = "";
@@ -613,8 +530,8 @@ function trocaClasse(elemento, antiga, nova) {
                                                         }
 
                                                         System.err.println("Valor Arredondado é: " + entrada2);
-
-                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(request.getParameter("nomeMotor"), entrada), painel1[1][i]);
+                                                        ConsumoDao cons = new ConsumoDao();
+                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(viagemNomeMotor, entrada), painel1[1][i]);
 
                                                         consumoDouble2 = Double.valueOf(consumo2);
                                                         total2 = total2 + consumoDouble2;
@@ -651,7 +568,7 @@ function trocaClasse(elemento, antiga, nova) {
                 </tr>
               </thead>
                               
-                                <%                 String dist = rpm.deslocamento(begin, finish, request.getParameter("mct"));
+                                <%                 String dist = rpm.deslocamento(begin, finish, viagemMct);
 
                                     if (dist == null) {
                                         dist = "0";
@@ -706,8 +623,8 @@ function trocaClasse(elemento, antiga, nova) {
                <%
                     
                  String [][] painel;
-                 painel=rpm.getRpm(begin,finish,request.getParameter("mct")).clone();
-                 rpm.setNumRowRpm(begin,finish,request.getParameter("mct"));
+                 painel=rpm.getRpm(begin,finish,viagemMct).clone();
+                 rpm.setNumRowRpm(begin,finish,viagemMct);
                     String data ="";
                   for(int i = 0;i<rpm.getNumRowRpm(); i++){
                        data = format.DataFormat(painel[2][i]);
@@ -738,6 +655,8 @@ function trocaClasse(elemento, antiga, nova) {
               
            
         </div>
+    </div>
+</div>
         
  
 </div>
@@ -823,7 +742,6 @@ function trocaClasse(elemento, antiga, nova) {
               
         </div>
                    
-            </div>
             </div>
 
         <!--Materialize JS -->
