@@ -104,28 +104,14 @@
                     <li>
                         <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensAgendadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
-                                    <table class="striped">
-                                        <tbody>
-                                            <tr>
-                                                <td><b>Nome da viagem</b></td>
-                                                <td><%=viagensAgendadas[1][i]%></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Origem</b></td>
-                                                <td><%=viagensAgendadas[3][i]%></td>
-                                                <td><%=viagemDataOrigemFormatada%></td>
-                                            </tr>
-                                            <tr>
-                                              <td><b>Destino</b></td>
-                                                <td><%=viagensAgendadas[5][i]%></td>
-                                                <td><%=viagemDataDestinoFormatada%></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <p><b>Nome da Viagem: </b><%=viagensAgendadas[1][i]%></p>
+                                    <p><b>Origem:</b> <%=viagensAgendadas[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
+                                    <p><b>Destino:</b> <%=viagensAgendadas[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
+                                    
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
-                                            <h5 class="center col s12"><b>Relatorio</b></h5>
-                                            <a class="btn waves-effect waves-light center col s6" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Consolidado</a>
+                                            <h5 class="center col s12"><b>Relatorio</b></h5><br>
+                                            <a class="btn waves-effect waves-light center col s6" href="relatorio0.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Consolidado</a><br>
                                             <a class="btn waves-effect waves-light center col s6" href="relatorio1.jsp?idViagem=<%=viagensAgendadas[0][i]%>">Detalhado</a>
                                         </div>
                                     </div>
@@ -158,24 +144,9 @@
                     
                         <div class="collapsible-header"><i class="material-icons">directions_boat</i><span><%=viagensEmAndamento[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
-                                    <table class="striped">
-                                        <tbody>
-                                            <tr>
-                                                <td><b>Nome da viagem</b></td>
-                                                <td><%=viagensEmAndamento[1][i]%></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Origem</b></td>
-                                                <td><%=viagensEmAndamento[3][i]%></td>
-                                                <td><%=viagemDataOrigemFormatada%></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Destino</b></td>
-                                                <td><%=viagensEmAndamento[5][i]%></td>
-                                                <td><%=viagemDataDestinoFormatada%></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <p><b>Nome da Viagem: </b><%=viagensEmAndamento[1][i]%></p>
+                                    <p><b>Origem:</b> <%=viagensEmAndamento[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
+                                    <p><b>Destino:</b> <%=viagensEmAndamento[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
                                             <h5 class="center col s12"><b>Relatorio</b></h5>
@@ -213,24 +184,9 @@
                     
                         <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensFinalizadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
-                                    <table class="striped">
-                                        <tbody>
-                                            <tr>
-                                                <td><b>Nome da viagem</b></td>
-                                                <td><%=viagensFinalizadas[1][i]%></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Origem</b></td>
-                                                <td><%=viagensFinalizadas[3][i]%></td>
-                                                <td><%=viagemDataOrigemFormatada%></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Destino</b></td>
-                                                <td><%=viagensFinalizadas[5][i]%></td>
-                                                <td><%=viagemDataDestinoFormatada%></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <p><b>Nome da Viagem: </b><%=viagensFinalizadas[1][i]%></p>
+                                    <p><b>Origem:</b> <%=viagensFinalizadas[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
+                                    <p><b>Destino:</b> <%=viagensFinalizadas[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
                                     <div class="row" style="margin:0px !important">
                                         <div class="col s12">
                                             <h5 class="center col s12"><b>Relatorio</b></h5>
