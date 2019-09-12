@@ -38,6 +38,8 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
+        <script src="jquery-printme.js"></script>
+
 <%
 
         String conta = session.getAttribute("conta").toString();
@@ -47,8 +49,31 @@
 
          Statement stmt = con.createStatement();
 %>                
-
-
+    <script type="text/javascript">
+        function printpage()
+            {
+                document.getElementById("menu-mobile").classList.toggle("oculto");
+                document.getElementById("curve_chart_r1").classList.toggle("viewSize");
+                document.getElementById("curve_chart_r1").classList.toggle("printSize");
+                printClick();
+                document.getElementById("menu-mobile").classList.toggle("oculto");
+                document.getElementById("curve_chart_r1").classList.toggle("viewSize");
+                document.getElementById("curve_chart_r1").classList.toggle("printSize");
+            }
+    </script>
+    <style type="text/css">
+        .oculto{
+            display: none;
+        }
+        .printSize{
+            width:500px;
+            height:30px;
+        }
+        .viewSize{
+            width: 1000px; 
+            height: 300px;
+        }
+    </style>
     
     </head>
     <body class="background white">
@@ -109,7 +134,7 @@
         
         
         <div id="areaRelatorio" class=" container "><br>
-            <div id="areaRelatorio" class="card row ">
+            <div id="areaRelatorio2" class="card row ">
                 <div class="col s12">
                             <div class=""  id="divCorpo" style="display: block">
                                     <%
@@ -170,7 +195,7 @@
 
 
                                                 
-                                            <input style="display: none" name="rpmConsumo" value=" <%= painel1[0][i]%>">
+                                            <!--<input style="display: none" name="rpmConsumo" value=" <%= painel1[0][i]%>">-->
                                             
                                             
                                             <%
@@ -281,7 +306,7 @@
                                                         
                                                     </div>
                                                      <span class="flow-text center-align">
-                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: block"><i class="material-icons">print</i>
+                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="printpage()" style="display: block"><i class="material-icons">print</i>
                                                             </button>
                                                     </span>
     
@@ -442,8 +467,8 @@
 
                                             </div>
 
-                                            <div class="row col s12 right " id="curve_chart_r1"  style="width: 1000px; height: 300px;display: block"></div>  
-                                            <div class="row col s12 right " id="curve_chart_r2"  style="width: 1000px; height: 300px; display: block"></div>         
+                                            <div class="row col s12 right viewSize" id="curve_chart_r1"  ></div>  
+                                            <div class="row col s12 right viewSize" id="curve_chart_r2"  ></div>         
 
                                             <br><br><br> 
                                         </div>
@@ -545,7 +570,14 @@ $('select').formSelect();
 });
             </script>
          <!--Materialize INICIALIZA o menu para Mobile -->
-      
+      <script>
+            function printClick() {  
+            var w = window.open('', 'printform', 'width=300,height=400');  
+            var html = $("#areaRelatorio2").html(); 
+            $(w.document.body).html(html);
+            w.print();
+        }
+    </script>
          <script>
             $(".button-collapse").sideNav();
             
