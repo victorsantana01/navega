@@ -50,16 +50,9 @@
          Statement stmt = con.createStatement();
 %>                
     <script type="text/javascript">
-        function printpage()
-            {
-                document.getElementById("menu-mobile").classList.toggle("oculto");
-                document.getElementById("curve_chart_r1").classList.toggle("viewSize");
-                document.getElementById("curve_chart_r1").classList.toggle("printSize");
-                printClick();
-                document.getElementById("menu-mobile").classList.toggle("oculto");
-                document.getElementById("curve_chart_r1").classList.toggle("viewSize");
-                document.getElementById("curve_chart_r1").classList.toggle("printSize");
-            }
+        function printpage(){
+            printClick();
+        }
     </script>
     <style type="text/css">
         .oculto{
@@ -568,16 +561,15 @@ $(document).ready(function(){
 $('.scrollspy').scrollSpy();
 $('select').formSelect();
 });
-            </script>
-         <!--Materialize INICIALIZA o menu para Mobile -->
-      <script>
+        </script>
+        <script>
             function printClick() {  
-            var w = window.open('', 'printform', 'width=300,height=400');  
-            var html = $("#areaRelatorio2").html(); 
-            $(w.document.body).html(html);
-            w.print();
-        }
-    </script>
+                var w = window.open('', 'printform', 'width=300,height=400');  
+                var html = $("#areaRelatorio2").html(); 
+                $(w.document.body).html(html);
+                w.print();
+            }
+        </script>
          <script>
             $(".button-collapse").sideNav();
             

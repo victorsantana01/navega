@@ -61,7 +61,7 @@ function abreLink(url){
     var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
 
     function exibir() {
-        document.getElementById("divCorpo").classList.toggle("oculto");;
+        document.getElementById("divCorpo").classList.toggle("oculto");
     }
     //Botões de exibir/ Ocultar
         function exibirDeslocamento() {
@@ -93,7 +93,12 @@ window.location.href = link ;
                 window.print()
             }
 
-</script>
+    </script>
+    <script type="text/javascript">
+        function printpage(){
+            printClick();
+        }
+    </script>
         <style type="text/css">
         
         .linha{
@@ -190,9 +195,9 @@ window.location.href = link ;
             </div>
         
         <div id="areaRelatorio" class=" container "><br>
-            <div id="areaRelatorio" class="row card">
+            <div id="areaRelatorio2" class="row card">
                 <div class="col s12">
-                    <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="ocultarFiltro()" style="display: <%=parametro%>"><i class="material-icons">print</i>
+                    <button id="btnPrint" class="btn medium right 455a64 blue-grey darken-2" name="action" onclick="printClick()" style="display: <%=parametro%>"><i class="material-icons">print</i>
 </button> 
                             <div class="center"  id="divCorpo">
                                 <span class="flow-text">
@@ -685,6 +690,14 @@ console.log(rpm);
 };
 }
             
+        </script>
+        <script>
+            function printClick() {  
+                var w = window.open('', 'printform', 'width=300,height=400');  
+                var html = $("#areaRelatorio2").html(); 
+                $(w.document.body).html(html);
+                w.print();
+            }
         </script>
          <script type="text/javascript">
                                                   
