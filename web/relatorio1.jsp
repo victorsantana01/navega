@@ -47,10 +47,10 @@
 %>                
 
     <script>
-function abreLink(url){
-	//window.open('index.jsp');
-          window.open(url,"janela1","width=700,height=500,scrollbars=NO");
-}
+    function abreLink(url){
+            //window.open('index.jsp');
+              window.open(url,"janela1","width=700,height=500,scrollbars=NO");
+    }
 </script>
 <script type="text/javascript">
     
@@ -694,7 +694,8 @@ console.log(rpm);
         <script>
             function printClick() {  
                 var w = window.open('', 'printform', 'width=300,height=400');  
-                var html = $("#areaRelatorio2").html(); 
+                var html = $("#areaRelatorio2").html();
+                $(w.document.body).html(html).css({"background-color": "yellow", "font-size": "200%"});
                 $(w.document.body).html(html);
                 w.print();
             }

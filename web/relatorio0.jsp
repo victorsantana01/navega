@@ -51,7 +51,9 @@
 %>                
     <script type="text/javascript">
         function printpage(){
+            document.getElementById("btnPrint").classList.toggle("oculto");
             printClick();
+            document.getElementById("btnPrint").classList.toggle("oculto");
         }
     </script>
     <style type="text/css">
@@ -299,7 +301,7 @@
                                                         
                                                     </div>
                                                      <span class="flow-text center-align">
-                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="printpage()" style="display: block"><i class="material-icons">print</i>
+                                                         <button id="btnPrint" class=" btn medium right 455a64 blue-grey darken-2" name="action" onclick="printpage()"><i class="material-icons">print</i>
                                                             </button>
                                                     </span>
     
