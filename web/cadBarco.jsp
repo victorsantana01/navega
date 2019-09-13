@@ -121,7 +121,7 @@
                                                                     i = 100;
                                                                 } else {
                                                         %>
-                                                        <option value="<%=veiculo[0][i] + "-" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                        <option value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
                                                         <%}
                              }%>
                                                     </select>

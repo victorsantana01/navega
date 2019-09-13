@@ -3,6 +3,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.Rpm"%>
+<%@page import="dao.MacroDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
    
 <!DOCTYPE html>
@@ -29,8 +30,9 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         
         <!-- css datatables -->
-        <link rel="stylesheet" src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" crossorigin="anonymous">
-        <link rel="stylesheet" src="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
+ 
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
         <!-- javascript datatables -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -51,8 +53,23 @@
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
         con.close();
+        
+        MacroDao m = new MacroDao();
+        String [][] macros = m.pesquisaMacro();
+        
         %>
         
+        <script>
+            <%
+                for(int i=0; i< macros.length; i++){
+                    if(macros[i] == null){
+                        
+                    }else{
+                    %> console.log("<%=i+" : "+macros[i][0] %>");<%
+                    }
+                }
+            %>
+        </script>
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
@@ -86,47 +103,41 @@
                 <table id="example" class="display nowrap striped" style="width:100%">
                 <thead class="background #0277bd light-blue darken-1">
                     <tr>
-                        <th>MÊS</th>
-                        <th>NAVIO</th>
+                        <th>DATA</th>
+                        <th>ENBARCAÇÃO</th>
                         <th>MANOBRA</th>
                         <th>MOTOR</th>
                         <th>DATA/HORA INICIO</th>
                         <th>DATA/HORA FIM</th>
-                        <th>REBOCADOR</th>
                         <th>TEMPO</th>
                         <th>CONSUMO</th>
                         <th>PORTO</th>
-                        <th>CLIENTE</th>
+                        <th>CMT</th>
+                        <th>CHEMAQ</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>SET/2019</td>
-                        <td>NAVIO0001</td>
-                        <td>ATRACAMENTO</td>
-                        <td>HP350</td>
-                        <td>11/09/2019 16:33:33</td>
-                        <td>11/09/2019 18:33:33</td>
-                        <td>TRES IRMÃOS</td>
-                        <td>2</td>
-                        <td>4 LITROS</td>
-                        <td>PORTO 66</td>
-                        <td>CARLOS</td>
+                    <%
+                        for(int i=0; i< macros.length; i++){
+                            %> <td><%=macros[i][0] %></td><%
+                        }
+                    %>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>MÊS</th>
-                        <th>NAVIO</th>
+                        <th>DATA</th>
+                        <th>ENBARCAÇÃO</th>
                         <th>MANOBRA</th>
                         <th>MOTOR</th>
                         <th>DATA/HORA INICIO</th>
                         <th>DATA/HORA FIM</th>
-                        <th>REBOCADOR</th>
                         <th>TEMPO</th>
                         <th>CONSUMO</th>
                         <th>PORTO</th>
-                        <th>CLIENTE</th>
+                        <th>CMT</th>
+                        <th>CHEMAQ</th>
                     </tr>
                 </tfoot>
             </table>

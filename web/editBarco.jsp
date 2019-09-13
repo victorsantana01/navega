@@ -1,3 +1,4 @@
+<%@page import="dao.Rpm"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -107,14 +108,28 @@
                                         %>
                                         <div class="form-group col s12">
                                             <div class="form-row col s6 center-align">
-                                                <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="codBarco" class="validate black-text" id="idBarco" type=hidden value="<%= barcoE[0][0]%>" type="text" >
-                                                    <input name="codBarco" class="validate black-text" id="codBarco" type="text" value="<%= barcoE[1][0]%>" required>
-                                                    <label for="codBarco">MCT / UCC</label>
-                                                </div>
-                                                <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="nomeBarco" class="validate black-text" id="nomeBarco" type="text" value="<%= barcoE[2][0]%>" required>
-                                                    <label for="nomeBarco">Nome da Embarcação</label>
+                                                <div class="col s12 push-s6">
+                                                    <label>Escolha o Empurrador</label>
+                                                    <input name="idBarco" class="validate black-text" id="idBarco" type=hidden value="<%= barcoE[0][0]%>" type="text" >
+                                                    <select class="browser-default black-text" name="mctBarco" >
+                                                        <option value="" disabled>Empurrador</option>
+                                                        <%
+                                                            Rpm rpm = new Rpm();
+                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt).clone();
+                                                            for (int i = 0; i < 100; i++) {
+                                                                if (veiculo[1][i] == null) {
+                                                                    i = 100;
+                                                                } else {
+                                                                    if(barcoE[1][0].equals(veiculo[1][i])){
+                                                                  %>
+                                                                  <option value="<%=veiculo[0][i] + " - " + veiculo[1][i]%>" selected><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                        <%  
+                                                                }
+                                                        %>
+                                                        <option value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                        <%}
+                             }%>
+                                                    </select>
                                                 </div>
                                                 <div class="col s12 push-s6 center-align">
                                                     <label class="left">Motor</label>
@@ -123,15 +138,15 @@
                                                         <%
                                                             BarcoDao com = new BarcoDao();
                                                             String[][] motores = com.pesquisaMotores().clone();
-                                                            for (int i = 0; i < 10; i++) {
-                                                                if (motores[i][0] == null) {
-                                                                    i = 50;
+                                                            for (int y = 0; y < 10; y++) {
+                                                                if (motores[y][0] == null) {
+                                                                    y = 50;
                                                                 } else {
-                                                                    if (barcoE[3][0].equals(motores[i][0])) {
+                                                                    if (barcoE[3][0].equals(motores[y][0])) {
                                                         %>
-                                                        <option class="black-text" value="<%=motores[i][0]%>" selected><%=motores[i][1]%></option>
+                                                        <option class="black-text" value="<%=motores[y][0]%>" selected><%=motores[y][1]%></option>
                                                         <% } else {%>
-                                                        <option class="black-text" value="<%=motores[i][0]%>"><%=motores[i][1]%></option>
+                                                        <option class="black-text" value="<%=motores[y][0]%>"><%=motores[y][1]%></option>
 
                                                         <%
                                                                     }

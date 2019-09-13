@@ -30,7 +30,7 @@
 
                     <%
                         String mctBarco = request.getParameter("mctBarco");
-                        String[] vetMct = mctBarco.split("-");
+                        String[] vetMct = mctBarco.split("--");
                         mctBarco = vetMct[1];
                         String nome = vetMct[0];
                         String motor = request.getParameter("motor");
