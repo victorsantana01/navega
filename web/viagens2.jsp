@@ -59,17 +59,7 @@
         
         %>
         
-        <script>
-            <%
-                for(int i=0; i< macros.length; i++){
-                    if(macros[i] == null){
-                        
-                    }else{
-                    %> console.log("<%=i+" : "+macros[i][0] %>");<%
-                    }
-                }
-            %>
-        </script>
+        
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
@@ -117,13 +107,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
                     <%
-                        for(int i=0; i< macros.length; i++){
-                            %> <td><%=macros[i][0] %></td><%
+                        for(int i=0; i< 1000; i++){
+                            if(macros[i][0] == null){
+                                i=2000;
+                            }else{
+                    %><tr>
+                    <%
+                            %> <td><%=macros[0][i] %></td><%
+                            %> <td><%=macros[1][i] %></td><%
+                            %> <td><%=macros[2][i] %></td><%
+                            %> <td><%=macros[3][i] %></td><%
+                            %> <td><%=macros[4][i] %></td><%
+                            %> <td><%=macros[5][i] %></td><%
+                            %> <td><%=macros[6][i] %></td><%
+                            %> <td><%=macros[7][i] %></td><%
+                            %> <td><%=macros[8][i] %></td><%
+                            %> <td><%=macros[9][i] %></td><%
+                            %> <td><%=macros[10][i] %></td><%
+                            %> <td><%=macros[11][i] %></td><%
                         }
+}
                     %>
                     </tr>
+                    <%}
+                    }%>
                 </tbody>
                 <tfoot>
                     <tr>

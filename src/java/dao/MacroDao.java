@@ -29,18 +29,17 @@ public class MacroDao {
             Statement stmt = con.createStatement();
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
             String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta.messagereturn_iirtn me \n" +
-                            "left join viagem v on me.IIRTN_MctAddress = v.nomeEmbarcacao \n" +
-                            "left join barco b on v.nomeEmbarcacao = b.codBarco\n" +
+                            "FROM exporta.messagereturn_iirtn me\n" +
+                            "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
+                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" ");
 
             ResultSet rs = stmt.executeQuery(sql);
 
             int i = 0;
             while (rs.next()) {
-
-
+                
+                System.out.println("next: "+rs.next());
                 String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
                 System.out.println("inicia MacroArray");
                 System.out.println("macroArray.length: "+macroArray.length);
@@ -51,7 +50,7 @@ public class MacroDao {
                 Format format = new Format();
                 String time = rs.getString("me.IIRTN_MessageTime");
 /*0 DATA            */  macros[0][i] = format.DataFormat(rs.getString("me.IIRTN_MessageTime").split(" ")[0]);
-/*1 EMBARCACAO      */  macros[1][i] = macroArray[2]; 
+/*1 EMBARCACAO      */  macros[1][i] = rs.getString("b.nome");
 /*2 MANOBRA         */  macros[2][i] = macroArray[7];
 /*3 MOTOR           */  macros[3][i] = rs.getString("mo.nome_motor");
 /* DATAHORAINICIO  */   macros[4][i] = format.DataFormat(time.split(" ")[0])+" "+macroArray[4].substring(0,2)+":"+macroArray[4].substring(2,4);

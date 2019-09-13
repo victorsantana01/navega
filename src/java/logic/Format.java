@@ -64,35 +64,24 @@ public class Format {
         //TRANSFORMA HORA INICIO EM MINUTOS
         int iTime = Integer.parseInt(iArr[0]);
         iTime *= 60;
-        System.out.println("iTime: "+iTime);
         int iTime2 = Integer.parseInt(iArr[1]);
-        System.out.println("iTime2: "+iTime2);
         iTime = iTime + iTime2;
-        System.out.println("iTime: "+iTime);
         
         //TRANSFORMA HORA FINAL EM MINUTOS
         int fTime = Integer.parseInt(fArr[0]);
         fTime *= 60;
-        System.out.println("fTime: "+fTime);
         int fTime2 = Integer.parseInt(fArr[1]);
-        System.out.println("fTime: "+fTime2);
         fTime = fTime + fTime2;
-        System.out.println("fTime: "+fTime);
         
         //SUBITRAI OS MINUTOS
         int tempo = fTime - iTime;
-        System.out.println("tempo: "+tempo);
         int horas = tempo/60;
-        System.out.println("horas? "+horas);
         int minutos = tempo%60;
-        System.out.println("minutos: "+minutos);
         String tempoResultado;
         if(minutos <10){
             tempoResultado = horas+":0"+minutos;
-            System.out.println("tempoResultado: "+tempoResultado);
         }else{
             tempoResultado = horas+":"+minutos;
-            System.out.println("tempoResultado: "+tempoResultado);
         }
         
         //RETORNA O RESULTADO
