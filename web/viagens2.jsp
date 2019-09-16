@@ -61,7 +61,6 @@
         Statement stmt = con.createStatement();
         con.close();
         
-        
         %>
         <script>
             $(function () {
@@ -76,6 +75,10 @@
                 });
             });
         </script>
+<!--        <script>
+            $('#barco').val(request.getParameter("barco"));
+            $('#datetimes22').val(request.getParameter("datetimes22"));
+        </script>-->
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
@@ -107,11 +110,11 @@
         <div class="container "><!--INCIO DO CORPO DA PAGINA-->
             <div class="card">
                 <div class="container ">
-                    <form id="viagens2" name="viagens2" id="viagens2">
+                    <form id="viagens2" name="viagens2" action="viagens2.jsp" method="get">
                         <div class="row">
                             <span class="card-title center col s12"><b>Selecione a Embarcação e a Data<br></b></span>
                             <div class="col s6">
-                                <select class="browser-default black-text" name="barco" required > 
+                                <select class="browser-default black-text" name="barco" id="barco" required > 
                                     <option class="black-text" value="" disabled selected>Barco</option>
                                     <%
                                         BarcoDao bar = new BarcoDao();
@@ -130,11 +133,12 @@
                             </div>
                             <div class="col s6">
                                 <div class="input-field col s12" style="margin:0px !important">
-                                    <input type="text" name="datetimes22" id="datetimes22"/>
+                                    <input type="text" name="datetimes22" value="" id="datetimes22"/>
                                 </div>
                             </div>
                             <div class="col s12">
-                                <a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>
+                                <!--<a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>-->
+                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Pesquisar/>
                             </div>
                         </div>
                     </form>
@@ -159,9 +163,16 @@
                 </thead>
                 <tbody>
                     <%
-                        
+                        String barco = request.getParameter("barco");
+                        String dataManobra = request.getParameter("datetimes22");
+                        if(barco == null){
+                            barco = "";
+                        }
+                        if(dataManobra == null){
+                            dataManobra = "";                            
+                        }
                         MacroDao m = new MacroDao();
-                        String [][] macros = m.pesquisaMacro();
+                        String [][] macros = m.pesquisaMacro(barco,dataManobra);
                         for(int i=0; i< 1000; i++){
                             if(macros[0][i] == null){
                                 i=2000;
@@ -220,9 +231,6 @@
                 } );
             } );
         </script>
-        <script>
-            var data = $('#datetimes22').val();
-            var barco = $('#barco').val();
-        </script>
+        
     </body>
 </html>

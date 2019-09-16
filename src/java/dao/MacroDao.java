@@ -32,7 +32,8 @@ public class MacroDao {
                             "FROM exporta.messagereturn_iirtn me\n" +
                             "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" ");
+                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" "+
+                            "and b.codBarco like '%"+embarcacao+"%' and me.IIRTN_MessageTime like '%"+data+"%' ");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
