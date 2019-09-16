@@ -22,24 +22,23 @@ public class MacroDao {
     
     public String[][] pesquisaMacro(){
         
-        String[][] macros = new String[11][100];
+        String[][] macros = new String[12][100];
         
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
-            String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
+            String sql = ("SELECT me.IIRTN_ID, me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
                             "FROM exporta.messagereturn_iirtn me\n" +
                             "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
                             "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" ");
 
             ResultSet rs = stmt.executeQuery(sql);
-
             int i = 0;
-            while (rs.next()) {
-                
-                System.out.println("next: "+rs.next());
+            
+             while (rs.next()){
+                System.out.println("i: "+i+" id: "+rs.getString("me.IIRTN_ID")+"-------------");
                 String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
                 System.out.println("inicia MacroArray");
                 System.out.println("macroArray.length: "+macroArray.length);
@@ -49,6 +48,7 @@ public class MacroDao {
                 System.out.println("final MacroArray");
                 Format format = new Format();
                 String time = rs.getString("me.IIRTN_MessageTime");
+                
 /*0 DATA            */  macros[0][i] = format.DataFormat(rs.getString("me.IIRTN_MessageTime").split(" ")[0]);
 /*1 EMBARCACAO      */  macros[1][i] = rs.getString("b.nome");
 /*2 MANOBRA         */  macros[2][i] = macroArray[7];

@@ -109,7 +109,7 @@
                 <tbody>
                     <%
                         for(int i=0; i< 1000; i++){
-                            if(macros[i][0] == null){
+                            if(macros[0][i] == null){
                                 i=2000;
                             }else{
                     %><tr>
@@ -125,13 +125,10 @@
                             %> <td><%=macros[8][i] %></td><%
                             %> <td><%=macros[9][i] %></td><%
                             %> <td><%=macros[10][i] %></td><%
-                            %> <td><%=macros[11][i] %></td><%
                         }
-}
+                    }
                     %>
                     </tr>
-                    <%}
-                    }%>
                 </tbody>
                 <tfoot>
                     <tr>
