@@ -1,3 +1,4 @@
+<%@page import="dao.BarcoDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -43,6 +44,12 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+        <!-- Materializecss -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
     
     <body>
@@ -54,12 +61,21 @@
         Statement stmt = con.createStatement();
         con.close();
         
-        MacroDao m = new MacroDao();
-        String [][] macros = m.pesquisaMacro();
         
         %>
-        
-        
+        <script>
+            $(function () {
+                $('input[name="datetimes22"]').daterangepicker({
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(24, 'hour'),
+                    "timePicker24Hour": true,
+                    locale: {
+                        format: 'DD/MM/YYYY hh:mm'
+                    }
+                });
+            });
+        </script>
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
@@ -89,6 +105,41 @@
       
       
         <div class="container "><!--INCIO DO CORPO DA PAGINA-->
+            <div class="card">
+                <div class="container ">
+                    <form id="viagens2" name="viagens2" id="viagens2">
+                        <div class="row">
+                            <span class="card-title center col s12"><b>Selecione a Embarcação e a Data<br></b></span>
+                            <div class="col s6">
+                                <select class="browser-default black-text" name="barco" required > 
+                                    <option class="black-text" value="" disabled selected>Barco</option>
+                                    <%
+                                        BarcoDao bar = new BarcoDao();
+                                        String[][] barcos = bar.pesquisaBarcos().clone();
+                                        for (int i = 0; i < 10; i++) {
+                                            if (barcos[0][i] == null) {
+                                                i = 50;
+                                            } else {
+                                    %>
+                                    <option class="black-text" value="<%=barcos[1][i]%>"><%=barcos[2][i]%></option>
+
+                                    <%
+                                            }
+                                        }%>
+                                </select>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field col s12" style="margin:0px !important">
+                                    <input type="text" name="datetimes22" id="datetimes22"/>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="card">   
                 <table id="example" class="display nowrap striped" style="width:100%">
                 <thead class="background #0277bd light-blue darken-1">
@@ -108,6 +159,9 @@
                 </thead>
                 <tbody>
                     <%
+                        
+                        MacroDao m = new MacroDao();
+                        String [][] macros = m.pesquisaMacro();
                         for(int i=0; i< 1000; i++){
                             if(macros[0][i] == null){
                                 i=2000;
@@ -165,6 +219,10 @@
                     ]
                 } );
             } );
+        </script>
+        <script>
+            var data = $('#datetimes22').val();
+            var barco = $('#barco').val();
         </script>
     </body>
 </html>
