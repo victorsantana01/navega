@@ -45,6 +45,8 @@
             System.out.println("Numero da conta é >>>>> " + conta);
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
+            Statement stmt1 = con.createStatement();
+            Statement stmt2 = con.createStatement();
         %>
 
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
@@ -116,7 +118,7 @@
 
             <%Rpm re = new Rpm();%>
             <%
-    String[][] painel = re.painelAtualizado(conta, con, stmt).clone();
+    String[][] painel = re.painelAtualizado(conta, con, stmt,stmt1,stmt2).clone();
     for (int i = 0; i < 100; i++) {
         if (painel[1][i] == null) {
             i = 100;
@@ -249,8 +251,8 @@
             </div>
         </div>
         <%
-            //con.close();
-            //stmt.close();
+            con.close();
+            stmt.close();
             
         %>
         <!--FIM do Corpo do App -->

@@ -298,17 +298,14 @@ System.err.println("com o rs.getRow();"+ i);
     //------------------------------------------------------------------------//
     
     
-     public String getMctNome(String mct) {
+     public String getMctNome(String mct, Connection con,Statement stmt ) {
         String queryRelatorio;
          
   
         String vetRelatorio = null;
 
         try {
-              Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-
-            
+              
                   queryRelatorio = ("select max(iipos_mctname) as MCT from positionhistory_iipos where iipos_mctaddress ='"+mct+"';");
            
                ResultSet rs = stmt.executeQuery(queryRelatorio);
@@ -325,9 +322,7 @@ System.err.println("com o rs.getRow();"+ i);
                   
             }
             
-            rs.close();
-            stmt.close();
-            con.close();
+        
         } catch (Exception e) {
             
             
@@ -607,7 +602,7 @@ System.err.println("com o rs.getRow();"+ i);
     }
     
        
-        public String[][] painelAtualizado(String conta,Connection con, Statement stmt) {
+        public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
         
         String[][] vetRelatorio = new String[12][120];
         int l = 0;
@@ -640,11 +635,11 @@ System.err.println("com o rs.getRow();"+ i);
                 ;
                 vetRelatorio[1][i] = rs.getString("MCT");
                 vetRelatorio[2][i] = rs.getString("HORA");
-               vetRelatorio[0][i] = rp.getMctNome(vetRelatorio[1][i]);
+               vetRelatorio[0][i] = rp.getMctNome(vetRelatorio[1][i],con,stmt2);
                 vetRelatorio[8][i] = rs.getString("LAT");
                 vetRelatorio[9][i] = rs.getString("LON");
-                vetRelatorio[5][i] = rp.rpmAtual1( vetRelatorio[1][i]);
-                vetRelatorio[6][i] = rp.rpmAtual2( vetRelatorio[1][i]);
+                vetRelatorio[5][i] = rp.rpmAtual1( vetRelatorio[1][i],con,stmt1);
+                vetRelatorio[6][i] = rp.rpmAtual2( vetRelatorio[1][i],con,stmt1);
                 if(vetRelatorio[5][i]==null){
                     vetRelatorio[5][i]="0";
                 }
@@ -674,14 +669,13 @@ System.err.println("com o rs.getRow();"+ i);
         return vetRelatorio;
     }
         
-       public String rpmAtual1(String mct) {
+       public String rpmAtual1(String mct,Connection con, Statement stmt) {
         
    String vetRelatorio = "";
         int l = 0;
         //Conexão
         try {
-              Connection con = ConexaoMySQL.getConexaoMySQL();
-           Statement stmt = con.createStatement();
+              
            
             //Query sql que vai pro mysql
            
@@ -700,9 +694,7 @@ System.err.println("com o rs.getRow();"+ i);
                 }
             System.err.println("RPM ATUAL: "+vetRelatorio);
             }
-            rs.close();
-            stmt.close();
-            con.close();
+          
         } catch (Exception e) {
       
              System.err.println("-NÃO FOI POSSIVEL PEGAR O RPM ATUAL"+l);
@@ -716,14 +708,13 @@ System.err.println("com o rs.getRow();"+ i);
         return vetRelatorio;
     }
         
-        public String rpmAtual2(String mct) {
+        public String rpmAtual2(String mct, Connection con, Statement stmt){
         
    String vetRelatorio = "";
         int l = 0;
         //Conexão
         try {
-              Connection con = ConexaoMySQL.getConexaoMySQL();
-           Statement stmt = con.createStatement();
+          
            
             //Query sql que vai pro mysql
            
@@ -742,9 +733,8 @@ System.err.println("com o rs.getRow();"+ i);
                 }
             System.err.println("RPM 2 ATUAL: "+vetRelatorio);
             }
-            rs.close();
-            stmt.close();
-            con.close();
+           
+           
         } catch (Exception e) {
       
              System.err.println("-NÃO FOI POSSIVEL PEGAR O RPM2 ATUAL"+l);
