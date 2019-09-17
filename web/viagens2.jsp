@@ -62,6 +62,14 @@
         con.close();
         
         %>
+        <style>
+            .daterangepicker .drp-calendar .calendar-time select{
+                display:inline !important;
+            }
+            .modal-dialog{
+                margin: 0px !important;
+            }
+        </style>
         <script>
             $(function () {
                 $('input[name="datetimes22"]').daterangepicker({
@@ -75,7 +83,7 @@
                 });
             });
         </script>
-<!--        <script>
+<!--    <script>
             $('#barco').val(request.getParameter("barco"));
             $('#datetimes22').val(request.getParameter("datetimes22"));
         </script>-->
@@ -133,12 +141,12 @@
                             </div>
                             <div class="col s6">
                                 <div class="input-field col s12" style="margin:0px !important">
-                                    <input type="text" name="datetimes22" value="" id="datetimes22"/>
+                                    <input type="text" name="datetimes22" id="datetimes22"/>
                                 </div>
                             </div>
                             <div class="col s12">
                                 <!--<a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>-->
-                                <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " >Pesquisar/>
+                                <input type="submit" class="btn col s4 center-align push-s4 blue " >Pesquisar/>
                             </div>
                         </div>
                     </form>
@@ -165,14 +173,15 @@
                     <%
                         String barco = request.getParameter("barco");
                         String dataManobra = request.getParameter("datetimes22");
-                        if(barco == null){
-                            barco = "";
-                        }
-                        if(dataManobra == null){
-                            dataManobra = "";                            
-                        }
                         MacroDao m = new MacroDao();
-                        String [][] macros = m.pesquisaMacro(barco,dataManobra);
+                        String [][] macros;
+                        if(barco == null || dataManobra == null){
+                            macros = m.pesquisaMacro();
+                        }else{
+                            macros = m.pesquisaMacro(barco,dataManobra);
+                        }
+                        
+                        
                         for(int i=0; i< 1000; i++){
                             if(macros[0][i] == null){
                                 i=2000;

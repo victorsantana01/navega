@@ -20,10 +20,40 @@ import logic.Format;
  */
 public class MacroDao {
     
-    public String[][] pesquisaMacro(String embarcacao, String data){
+    public String[][] pesquisaMacro(String embarcacaoManobra, String dataManobra){
         
+        Format format = new Format();
         String[][] macros = new String[12][100];
+        String data="";
+        String dataInicio;
+        String dataFim;
+        String embarcacao;
+
         
+        
+        if(embarcacaoManobra == null || embarcacaoManobra == ""){
+            embarcacao = "";
+        }else{            
+            embarcacao = "and b.codBarco like '%"+embarcacaoManobra+"%' ";
+        }
+        if(dataManobra == null || dataManobra == ""){}
+        else{
+            try{
+                dataManobra.replace("/", "-");
+                System.out.println("dataManobra: "+dataManobra);
+                dataInicio = dataManobra.split(" - ")[0].replace("/", "-");
+                dataFim =  dataManobra.split(" - ")[1].replace("/", "-");
+                System.out.println("dataInicio: "+dataInicio);
+                System.out.println("dataFim: "+dataFim);
+                dataInicio = format.DataFormat(dataInicio).replace("/", "-");
+                System.out.println("dataInicioFormatada: "+dataInicio);
+                dataFim = format.DataFormat(dataFim).replace("/", "-");
+                System.out.println("dataFimFormatada: "+dataFim);
+                data = "and (me.IIRTN_MessageTime BETWEEN '"+dataInicio+":00' and '"+dataFim+":00')";
+            }catch(Exception e){
+                System.out.println("---------------------ERROR: "+e+"  ---------------------------");
+            }
+        }
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
@@ -33,7 +63,7 @@ public class MacroDao {
                             "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
                             "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" "+
-                            "and b.codBarco like '%"+embarcacao+"%' and me.IIRTN_MessageTime like '%"+data+"%' ");
+                            embarcacao+" "+data+"; ");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
@@ -43,13 +73,9 @@ public class MacroDao {
                 String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
                 System.out.println("inicia MacroArray");
                 System.out.println("macroArray.length: "+macroArray.length);
-                for(int y=0;y<macroArray.length;y++){
-                    System.out.println(y+" : "+macroArray[y]);
-                }
-                System.out.println("final MacroArray");
-                Format format = new Format();
-                String time = rs.getString("me.IIRTN_MessageTime");
                 
+                System.out.println("final MacroArray");
+                String time = rs.getString("me.IIRTN_MessageTime");
 /*0 DATA            */  macros[0][i] = format.DataFormat(rs.getString("me.IIRTN_MessageTime").split(" ")[0]);
 /*1 EMBARCACAO      */  macros[1][i] = rs.getString("b.nome");
 /*2 MANOBRA         */  macros[2][i] = macroArray[7];
