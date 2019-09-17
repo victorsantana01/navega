@@ -116,43 +116,45 @@
       
       
         <div class="container "><!--INCIO DO CORPO DA PAGINA-->
-            <div class="card">
-                <div class="container ">
+            <div class="container">
+                <div class="card ">
                     <form id="viagens2" name="viagens2" action="viagens2.jsp" method="get">
                         <div class="row">
-                            <span class="card-title center col s12"><b>Selecione a Embarcação e a Data<br></b></span>
-                            <div class="col s6">
-                                <select class="browser-default black-text" name="barco" id="barco" required > 
-                                    <option class="black-text" value="" disabled selected>Barco</option>
-                                    <%
-                                        BarcoDao bar = new BarcoDao();
-                                        String[][] barcos = bar.pesquisaBarcos().clone();
-                                        for (int i = 0; i < 10; i++) {
-                                            if (barcos[0][i] == null) {
-                                                i = 50;
-                                            } else {
-                                    %>
-                                    <option class="black-text" value="<%=barcos[1][i]%>"><%=barcos[2][i]%></option>
+                            <span class="card-title center col s12"><b>Selecione a Embarcação e a Data<br></b></span><br><br>
+                            <div class="col s12">
+                                <div class="col s6">
+                                    <select class="browser-default black-text" name="barco" id="barco" required > 
+                                        <option class="black-text" value="" disabled selected>Barco</option>
+                                        <%
+                                            BarcoDao bar = new BarcoDao();
+                                            String[][] barcos = bar.pesquisaBarcos().clone();
+                                            for (int i = 0; i < 10; i++) {
+                                                if (barcos[0][i] == null) {
+                                                    i = 50;
+                                                } else {
+                                        %>
+                                        <option class="black-text" value="<%=barcos[1][i]%>"><%=barcos[2][i]%></option>
 
-                                    <%
-                                            }
-                                        }%>
-                                </select>
-                            </div>
-                            <div class="col s6">
-                                <div class="input-field col s12" style="margin:0px !important">
-                                    <input type="text" name="datetimes22" id="datetimes22"/>
+                                        <%
+                                                }
+                                            }%>
+                                    </select>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field col s12" style="margin:0px !important">
+                                        <input type="text" name="datetimes22" id="datetimes22"/>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col s12">
+                                <br>
                                 <!--<a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>-->
-                                <input type="submit" class="btn col s4 center-align push-s4 blue " >Pesquisar/>
+                                <input type="submit" class="btn col s4 center-align push-s4 blue " style="margin-bottom:10px" >Pesquisar/>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="card">   
                 <table id="example" class="display nowrap striped" style="width:100%">
                 <thead class="background #0277bd light-blue darken-1">
                     <tr>
@@ -220,7 +222,6 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
             
     </div><!--FIM DO CORPO DA PAGINA-->
         
