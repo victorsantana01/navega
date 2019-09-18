@@ -43,6 +43,12 @@
 
             $(".dropdown-trigger").dropdown('toggle');
         </script>
+        <%
+        String conta = session.getAttribute("conta").toString();
+        System.out.println("Numero da conta é >>>>> " + conta);
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
+    %>
 
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -149,7 +155,6 @@
                         <b><tr>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Nome</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Matricula</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Ultima Viagem</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Contato</th>
                                 <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                             </tr></b>
@@ -157,33 +162,21 @@
 
                         <%
                             ComandanteDao coman = new ComandanteDao();
-                            String[][] comandantes = coman.pesquisarComandantes().clone();
+                            String[][] comandantes = coman.pesquisarComandantes(conta, con, stmt).clone();
                             for (int i = 0; i < 1000; i++) {
                                 if (comandantes[0][i] == null) {
                                     i = 2000;
                                 } else {
                         %>
                         <tr>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[0][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[1][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[2][i]%></th>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= comandantes[4][i]%></th>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;
-                                <div class="btn-group">
-                                    <!-- Dropdown Trigger -->
-                                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
-
-
-                                    <!-- Dropdown Structure -->
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
-                                        <li class="divider" tabindex="-1"></li>
-                                        <li><a href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
-                                    </ul>
-                                </div>
-                            </th>
+                            <th style="width:250px">
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="editComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">create</i>Editar</a>
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirComandante.jsp?idComandante=<%= comandantes[0][i]%>"><i class="material-icons">delete</i>Deletar</a></th>
                         </tr>
-                        <%  }
+                        <%  }       
                             }
                         %>
 

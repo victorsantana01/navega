@@ -591,8 +591,6 @@ System.err.println("com o rs.getRow();"+ i);
            
             
             rs.close();
-            stmt.close();
-            con.close();
         } catch (Exception e) {
             
             
@@ -602,21 +600,16 @@ System.err.println("com o rs.getRow();"+ i);
     }
     
        
-        public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
+    public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
         
         String[][] vetRelatorio = new String[12][120];
         int l = 0;
         //Conexão
         try {
-           //Connection con = ConexaoMySQL.getConexaoMySQL();
-           //Statement stmt = con.createStatement();;
-           
-            //Query sql que vai pro mysql
-           
-             String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
-"iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
-"MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
-"MAX(IIPOS_LONGITUDE) AS LON  from positionhistory_iipos WHERE IIPOS_AccountNumber = '"+conta+"' group by iipos_mctaddress desc;");
+            String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
+            "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
+            "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
+            "MAX(IIPOS_LONGITUDE) AS LON  from positionhistory_iipos WHERE IIPOS_AccountNumber = '"+conta+"' group by iipos_mctaddress desc;");
              
    
                       
@@ -655,8 +648,6 @@ System.err.println("com o rs.getRow();"+ i);
                           System.out.println("TUDO OK NO METODO PAINEL ........... ");
 
             rs.close();
-            //stmt.close();
-            //con.close();
         } catch (Exception e) {
 
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -669,9 +660,9 @@ System.err.println("com o rs.getRow();"+ i);
         return vetRelatorio;
     }
         
-       public String rpmAtual1(String mct,Connection con, Statement stmt) {
+    public String rpmAtual1(String mct,Connection con, Statement stmt) {
         
-   String vetRelatorio = "";
+        String vetRelatorio = "";
         int l = 0;
         //Conexão
         try {
@@ -701,16 +692,12 @@ System.err.println("com o rs.getRow();"+ i);
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             
         }
-   
-    
-     
-        
         return vetRelatorio;
     }
         
-        public String rpmAtual2(String mct, Connection con, Statement stmt){
+    public String rpmAtual2(String mct, Connection con, Statement stmt){
         
-   String vetRelatorio = "";
+        String vetRelatorio = "";
         int l = 0;
         //Conexão
         try {

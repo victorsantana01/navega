@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.ViagemDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,11 +33,14 @@
                     
 
                     <%
-
+                        String conta = session.getAttribute("conta").toString();
+                        System.out.println("Numero da conta é >>>>> " + conta);
+                        Connection con = ConexaoMySQL.getConexaoMySQL();
+                        Statement stmt = con.createStatement();
                         String idViagem = request.getParameter("idViagem");
                         System.out.println("************************************************************* "+idViagem);
                         ViagemDao cons = new ViagemDao();
-                        cons.excluirViagem(idViagem);
+                        cons.excluirViagem(conta, con, stmt, idViagem);
                         System.out.println("VIAGEM EXCLUIDA COM SUCESSO!!!!!!!");
                         String redirectURL = "/NavegaGestor/cadViagem.jsp";
                         response.sendRedirect(redirectURL);

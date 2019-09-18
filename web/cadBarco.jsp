@@ -49,6 +49,8 @@
         System.out.println("Numero da conta é >>>>> " + conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
+        Statement stmt1 = con.createStatement();
+        Statement stmt2 = con.createStatement();
     %>
 
     <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
@@ -115,7 +117,7 @@
                                                         <option value="" disabled selected>Empurrador</option>
                                                         <%
                                                             Rpm rpm = new Rpm();
-                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt).clone();
+                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt, stmt1, stmt2).clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;
@@ -133,7 +135,7 @@
                                                         <option class="black-text"value="" disabled selected>Motores</option>
                                                         <%
                                                             BarcoDao com = new BarcoDao();
-                                                            String[][] motores = com.pesquisaMotores().clone();
+                                                            String[][] motores = com.pesquisaMotores(conta, con, stmt).clone();
                                                             for (int i = 0; i < 10; i++) {
                                                                 if (motores[i][0] == null) {
                                                                     i = 50;
@@ -192,6 +194,7 @@
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Base</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data Cadastro</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                 </tr></b>
             </thead>
 
@@ -199,11 +202,12 @@
                 Format format = new Format();
                 String data;
                 BarcoDao barco = new BarcoDao();
-                String[][] barcos = barco.pesquisaBarcos().clone();
-                for (int i = 0; i < 50; i++) {
+                String[][] barcos = barco.pesquisaBarcos(conta, con, stmt).clone();
+                for (int i = 0; i < 100; i++) {
                     if (barcos[0][i] == null) {
-                        i = 50;
+                        i = 200;
                     } else {
+                        System.out.println("id: "+barcos[0][i]);
             %>
             <tr>
                 <%
@@ -215,18 +219,11 @@
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[5][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
-                <th><i class="material-icons"></i>&nbsp;&nbsp;
-                    <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
-
-
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
-                        <li class="divider" tabindex="-1"></li>
-                        <li><a href="excluirBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
-                    </ul>
+                <th style="width:250px">
+                    <i class="material-icons" ></i>&nbsp;&nbsp;<a class="btn" href="editBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">create</i>Editar</a>
+                    <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirBarco.jsp?idBarco=<%= barcos[0][i]%>"><i class="material-icons">delete</i>Deletar</a>
                 </th>
+                   
             </tr>
             <% }
                 }

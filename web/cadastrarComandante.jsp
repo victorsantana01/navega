@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.ComandanteDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,14 +32,18 @@
         </div>
           
           <%
-              String nomeComandante = request.getParameter("nome");
-              String matricula= request.getParameter("matricula");
-              String contato= request.getParameter("contato");
-              
-              System.out.println("-------------------------------"+nomeComandante+"   "+matricula+"   "+contato);
-              
-              ComandanteDao cons = new ComandanteDao();
-              cons.incluirComandante(nomeComandante, matricula, contato);
+                String conta = session.getAttribute("conta").toString();
+                System.out.println("Numero da conta é >>>>> " + conta);
+                Connection con = ConexaoMySQL.getConexaoMySQL();
+                Statement stmt = con.createStatement();
+                String nomeComandante = request.getParameter("nome");
+                String matricula= request.getParameter("matricula");
+                String contato= request.getParameter("contato");
+
+                System.out.println("-------------------------------"+nomeComandante+"   "+matricula+"   "+contato);
+
+                ComandanteDao cons = new ComandanteDao();
+                cons.incluirComandante(conta, con, stmt, nomeComandante,  matricula, contato);
 
     String redirectURL = "/NavegaGestor/cadComandante.jsp";
     response.sendRedirect(redirectURL);

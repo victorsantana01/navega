@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.ComandanteDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,19 +32,18 @@
         </div>
           
           <%
-              String idComandante = request.getParameter("idC");
-              String nomeComandante = request.getParameter("nome");
-              String matricula= request.getParameter("matricula");
-              String contato= request.getParameter("contato");
-              
-              System.out.println("id: "+idComandante);
-              System.out.println("nome: "+nomeComandante);
-              System.out.println("matricula: "+matricula);
-              System.out.println("contato: "+contato);
+                  String conta = session.getAttribute("conta").toString();
+                  System.out.println("Numero da conta é >>>>> " + conta);
+                  Connection con = ConexaoMySQL.getConexaoMySQL();
+                  Statement stmt = con.createStatement();
+                  String idComandante = request.getParameter("idC");
+                  String nomeComandante = request.getParameter("nome");
+                  String matricula= request.getParameter("matricula");
+                  String contato= request.getParameter("contato");
               
               
               ComandanteDao cons = new ComandanteDao();
-              cons.editarComandante(idComandante, nomeComandante, matricula, contato);
+              cons.editarComandante(conta, con, stmt, idComandante, nomeComandante, matricula, contato);
               System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!");
     String redirectURL = "/NavegaGestor/cadComandante.jsp";
     response.sendRedirect(redirectURL);

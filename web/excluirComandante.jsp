@@ -1,3 +1,6 @@
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.ComandanteDao"%>
 <%@page import="dao.ViagemDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,14 +31,16 @@
                         <h4>Feito!</h4>
                         <p>Comandante excluido com sucesso!</p>
                     </div>
-                    
-
                     <%
-
+                        String conta = session.getAttribute("conta").toString();
+                        System.out.println("Numero da conta é >>>>> " + conta);
+                        Connection con = ConexaoMySQL.getConexaoMySQL();
+                        Statement stmt = con.createStatement();
+                        
                         String idComandante = request.getParameter("idComandante");
                         System.out.println("************************************************************* "+idComandante);
                         ComandanteDao cons = new ComandanteDao();
-                        cons.excluirComandante(idComandante);
+                        cons.excluirComandante(conta, con, stmt, idComandante);
                         System.out.println("COMANDANTE EXCLUIDO COM SUCESSO!!!!!!!");
                         String redirectURL = "/NavegaGestor/cadComandante.jsp";
                         response.sendRedirect(redirectURL);

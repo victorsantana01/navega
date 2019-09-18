@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,20 +32,24 @@
         </div>
           
           <%
-              String idBarco = request.getParameter("idBarco");
-              String mctBarco = request.getParameter("mctBarco");
-              String[] vetMct = mctBarco.split("--");
-              mctBarco = vetMct[1];
-              String nomeBarco = vetMct[0];;
-              String motor= request.getParameter("motor");
-              String modelo = request.getParameter("modelo");
-              String base= request.getParameter("base");
-              
-              BarcoDao cons = new BarcoDao();
-              cons.editarBarco(idBarco, mctBarco, nomeBarco, motor, modelo, base);
-              System.out.println("EMBARCAÇÃO EDITADA COM SUCESSO!!!!!!!");
-    String redirectURL = "/NavegaGestor/cadBarco.jsp";
-    response.sendRedirect(redirectURL);
+                String conta = session.getAttribute("conta").toString();
+                System.out.println("Numero da conta é >>>>> " + conta);
+                Connection con = ConexaoMySQL.getConexaoMySQL();
+                Statement stmt = con.createStatement();
+                String idBarco = request.getParameter("idBarco");
+                System.out.println("mct: "+request.getParameter("mctBarco"));
+                String mctBarco = request.getParameter("mctBarco").split(" - ")[1];
+                String nomeBarco = request.getParameter("mctBarco").split(" - ")[0];
+                String motor = request.getParameter("motor");
+                String modelo = request.getParameter("modelo");
+                String base = request.getParameter("base");
+                BarcoDao cons = new BarcoDao();
+                cons.editarBarco(conta, con, stmt, idBarco, mctBarco, nomeBarco, motor, modelo, base);
+                System.out.println("EMBARCAÇÃO EDITADA COM SUCESSO!!!!!!!");
+                String redirectURL = "/NavegaGestor/cadBarco.jsp";
+                response.sendRedirect(redirectURL);
+                con.close();
+                stmt.close();
           %>
          <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
       

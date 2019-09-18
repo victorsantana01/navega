@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.BarcoDao"%>
 <%@page import="dao.ComandanteDao"%>
 <%@page import="dao.ViagemDao"%>
@@ -32,14 +35,19 @@
                     
 
                     <%
-
+                        String conta = session.getAttribute("conta").toString();
+                        System.out.println("Numero da conta é >>>>> " + conta);
+                        Connection con = ConexaoMySQL.getConexaoMySQL();
+                        Statement stmt = con.createStatement();
                         String idBarco = request.getParameter("idBarco");
-                        System.out.println("************************************************************* "+idBarco);
+                        System.out.println("barco excluido: "+idBarco);
                         BarcoDao cons = new BarcoDao();
-                        cons.excluirBarco(idBarco);
+                        cons.excluirBarco(conta, con, stmt, idBarco);
                         System.out.println("EMBARCAÇÃO EXCLUIDO COM SUCESSO!!!!!!!");
                         String redirectURL = "/NavegaGestor/cadBarco.jsp";
                         response.sendRedirect(redirectURL);
+                        con.close();
+                        stmt.close();
                     %>
                     <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
 

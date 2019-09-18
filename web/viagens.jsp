@@ -44,7 +44,6 @@
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
-        con.close();
         %>
         
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
@@ -92,7 +91,7 @@
                 <div class="card-title center"><i class="material-icons">schedule</i><b>  Viagens Agendadas</b></div>
                 <ul class="collapsible">
                     <%
-                        String[][] viagensAgendadas = viagem.pesquisarViagensPorStatus("0");
+                        String[][] viagensAgendadas = viagem.pesquisarViagensPorStatus(conta, con, stmt,"0");
                         for(int i=0;i < 100; i++){
                             if(viagensAgendadas[0][i] == null){
                                 i = 200;
@@ -131,7 +130,7 @@
                 <div class="card-title center"><i class="material-icons">directions_boat</i>  Viagens Em andamento</div>
                 <ul class="collapsible">
                 <%
-                        String[][] viagensEmAndamento = viagem.pesquisarViagensPorStatus("1");
+                        String[][] viagensEmAndamento = viagem.pesquisarViagensPorStatus(conta, con, stmt, "1");
                         for(int i=0;i < 100; i++){
                             if(viagensEmAndamento[0][i] == null){
                                 i = 200;
@@ -170,7 +169,7 @@
                 <div class="card-title center"><i class="material-icons">check</i>  Viagens Finalizadas</div>
                 <ul class="collapsible">
                     <%
-                        String[][] viagensFinalizadas = viagem.pesquisarViagensPorStatus("2");
+                        String[][] viagensFinalizadas = viagem.pesquisarViagensPorStatus(conta, con, stmt, "2");
                         for(int i=0;i < 100; i++){
                             if(viagensFinalizadas[0][i] == null){
                                 i = 200;

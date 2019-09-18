@@ -44,9 +44,7 @@
 
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
-        
         Connection con = ConexaoMySQL.getConexaoMySQL();
-
          Statement stmt = con.createStatement();
 %>                
     <script type="text/javascript">
@@ -115,7 +113,7 @@
                
                String idViagem = request.getParameter("idViagem");
                ViagemDao via = new ViagemDao();
-               String[][] dadosViagem = via.pesquisarViagens(idViagem).clone();
+               String[][] dadosViagem = via.pesquisarViagens(conta, con, stmt, idViagem).clone();
                String dadosIdViagem = dadosViagem[0][0];
                String dadosNomeViagem = dadosViagem[1][0];
                String dadosInicioViagem = dadosViagem[4][0].substring(0, 10);

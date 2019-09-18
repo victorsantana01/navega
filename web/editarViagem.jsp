@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="dao.ViagemDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,22 +32,26 @@
         </div>
           
           <%
-              String idViagem = request.getParameter("id");
-              String nomeViagem= request.getParameter("nomeViagem");
-              String status = request.getParameter("status");
-              String origem = request.getParameter("origem");
-              String destino = request.getParameter("destino");
-              String idBarco = request.getParameter("barco");
-              String idcomandante = request.getParameter("comandante");
-              String usuario = session.getAttribute("conta").toString();
-              String date = request.getParameter("datetimes22").replace("/", "-");
-              String data[] = date.split(" - ");
-              String dataInicio = data[0];
-              String dataFim =data[1];
+                String conta = session.getAttribute("conta").toString();
+                System.out.println("Numero da conta é >>>>> " + conta);
+                Connection con = ConexaoMySQL.getConexaoMySQL();
+                Statement stmt = con.createStatement();
+                String idViagem = request.getParameter("id");
+                String nomeViagem= request.getParameter("nomeViagem");
+                String status = request.getParameter("status");
+                String origem = request.getParameter("origem");
+                String destino = request.getParameter("destino");
+                String idBarco = request.getParameter("barco");
+                String idcomandante = request.getParameter("comandante");
+                String usuario = session.getAttribute("conta").toString();
+                String date = request.getParameter("datetimes22").replace("/", "-");
+                String data[] = date.split(" - ");
+                String dataInicio = data[0];
+                String dataFim =data[1];
               
               ViagemDao cons = new ViagemDao();
-              cons.editarViagem(idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
-              System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!");
+              cons.editarViagem(conta, con, stmt, idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
+              System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!"); 
     String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);
           %>

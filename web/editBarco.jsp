@@ -41,6 +41,8 @@
         System.out.println("Numero da conta é >>>>> " + conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
+        Statement stmt2 = con.createStatement();
+        Statement stmt3 = con.createStatement();
     %>
 
     <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
@@ -100,8 +102,9 @@
                                         <!--FAZ UMA PESQUISA APARTI DE UM ID, E SALVA O RESULTADO EM UM ARRAY-->
                                         <%
                                             String idbarco = request.getParameter("idBarco");
+                                            System.out.println("idbarco: "+idbarco);
                                             BarcoDao barco = new BarcoDao();
-                                            String[][] barcoE = barco.pesquisarBarco(idbarco);
+                                            String[][] barcoE = barco.pesquisarBarco(conta, con, stmt, idbarco);
                                             for (int i = 0; i < barcoE.length; i++) {
                                                 System.out.println("**********************  " + barcoE[i][0]);
                                             }
@@ -115,7 +118,7 @@
                                                         <option value="" disabled>Empurrador</option>
                                                         <%
                                                             Rpm rpm = new Rpm();
-                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt).clone();
+                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt, stmt2, stmt3).clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;
@@ -137,7 +140,7 @@
                                                         <option class="black-text"value="" disabled>Motores</option>
                                                         <%
                                                             BarcoDao com = new BarcoDao();
-                                                            String[][] motores = com.pesquisaMotores().clone();
+                                                            String[][] motores = com.pesquisaMotores(conta, con, stmt).clone();
                                                             for (int y = 0; y < 10; y++) {
                                                                 if (motores[y][0] == null) {
                                                                     y = 50;

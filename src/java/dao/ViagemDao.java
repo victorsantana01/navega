@@ -18,19 +18,17 @@ import logic.Format;
  */
 public class ViagemDao {
 
-    public void incluirViagem(String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
+    public void incluirViagem(String conta,Connection con, Statement stmt, String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
         System.out.println("METODO ---> INCLUIR VIAGEM INICIADO.........");
         
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             Format format = new Format();
             fimV = format.DataFormat(fimV);
             inicioV = format.DataFormat(inicioV);
             System.out.println("inicioV: " + inicioV);
             System.out.println("fimV: " + fimV);
 
-            String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `nomeEmbarcacao`, `comandante`) "
+            String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `mct`, `comandante`) "
                     + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV + "', '" + destino + "', '" + fimV + "', '" + codBarco + "', '" + comandante + "');");
 
             stmt.executeUpdate(sql);
@@ -41,11 +39,9 @@ public class ViagemDao {
 
     }
 
-    public void excluirViagem(String id) {
+    public void excluirViagem(String conta,Connection con, Statement stmt, String id) {
         System.out.println("ENTROU NO METODO EXCLUIRVIAGEM");
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             String sql = ("DELETE FROM `exporta`.`viagem` WHERE `idViagem`='" + id + "';");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EXCLUIR VIAGEM REALIZADO COM SUCESSO.........");
@@ -54,18 +50,16 @@ public class ViagemDao {
         }
     }
 
-    public void editarViagem(String id,String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
+    public void editarViagem(String conta,Connection con, Statement stmt, String id,String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String mct, String comandante) {
         System.out.println("METODO ---> EDITAR VIAGEM INICIADO.........");
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             Format format = new Format();
             fimV = format.DataFormat(fimV);
             inicioV = format.DataFormat(inicioV);
             System.out.println("inicioV: " + inicioV);
             System.out.println("fimV: " + fimV);
 
-            String sql = ("UPDATE `exporta`.`viagem` SET `nomeViagem`='" + nomeV + "', `status`='" + status + "', `origem`='" + origem + "', `inicioViagem`='" + inicioV + "', `destino`='" + destino + "', `fimViagem`='" + fimV + "', `nomeEmbarcacao`='" + codBarco + "', `comandante`='" + comandante + "' WHERE `idViagem`='"+id+"'");
+            String sql = ("UPDATE `exporta`.`viagem` SET `nomeViagem`='" + nomeV + "', `status`='" + status + "', `origem`='" + origem + "', `inicioViagem`='" + inicioV + "', `destino`='" + destino + "', `fimViagem`='" + fimV + "', `mct`='" + mct + "', `comandante`='" + comandante + "' WHERE `idViagem`='"+id+"'");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EDITAR VIAGEM REALIZADO COM SUCESSO.........");
@@ -75,18 +69,16 @@ public class ViagemDao {
 
     }
 
-    public String[][] pesquisarViagens(String id) {
+    public String[][] pesquisarViagens(String conta,Connection con, Statement stmt, String id) {
 
         String[][] viagem = new String[11][10];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-//          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
-            String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.nomeEmbarcacao, \n" +
-            "v.comandante, m.nome_motor, b.codBarco\n" +
+//          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, mct, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
+            String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.mct, \n" +
+            "v.comandante, m.nome_motor, b.mct\n" +
             "	FROM exporta.viagem v \n" +
-            "    left join exporta.barco b on v.nomeEmbarcacao = b.codBarco\n" +
+            "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
             "    where v.idViagem = '"+id+"';");
             
@@ -102,10 +94,10 @@ public class ViagemDao {
                 viagem[4][i] = rs.getString("v.inicioViagem");
                 viagem[5][i] = rs.getString("v.destino");
                 viagem[6][i] = rs.getString("v.fimViagem");
-                viagem[7][i] = rs.getString("v.nomeEmbarcacao");
+                viagem[7][i] = rs.getString("v.mct");
                 viagem[8][i] = rs.getString("v.comandante");
                 viagem[9][i] = rs.getString("m.nome_motor");
-                viagem[10][i] = rs.getString("b.codBarco");
+                viagem[10][i] = rs.getString("b.mct");
                 i++;
             }
 
@@ -116,18 +108,16 @@ public class ViagemDao {
         }
         return viagem;
     }
-    public String[][] pesquisarViagensPorStatus(String status) {
+    public String[][] pesquisarViagensPorStatus(String conta,Connection con, Statement stmt, String status) {
 
         String[][] viagem = new String[12][2000];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-//          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
-            String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.nomeEmbarcacao, \n" +
-            "v.comandante, m.nome_motor, b.codBarco, v.dataCad\n" +
+//          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, mct, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
+            String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.mct, \n" +
+            "v.comandante, m.nome_motor, b.mct, v.dataCad\n" +
             "	FROM exporta.viagem v \n" +
-            "    left join exporta.barco b on v.nomeEmbarcacao = b.codBarco\n" +
+            "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
             "    where v.status = '"+status+"';");
             
@@ -143,10 +133,10 @@ public class ViagemDao {
                 viagem[4][i] = rs.getString("v.inicioViagem");
                 viagem[5][i] = rs.getString("v.destino");
                 viagem[6][i] = rs.getString("v.fimViagem");
-                viagem[7][i] = rs.getString("v.nomeEmbarcacao");
+                viagem[7][i] = rs.getString("v.mct");
                 viagem[8][i] = rs.getString("v.comandante");
                 viagem[9][i] = rs.getString("m.nome_motor");
-                viagem[10][i] = rs.getString("b.codBarco");
+                viagem[10][i] = rs.getString("b.mct");
                 viagem[11][i] = rs.getString("v.dataCad");
                 i++;
             }
@@ -161,16 +151,14 @@ public class ViagemDao {
 
     
     
-    public String[][] pesquisarViagens() {
+    public String[][] pesquisarViagens(String conta,Connection con, Statement stmt) {
 
         String[][] viagens = new String[10][10000];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, "
-                    + "origem, inicioViagem, destino, fimViagem, nomeEmbarcacao, comandante.nome as comandante, viagem.dataCad FROM exporta.viagem"
-                    + " left join exporta.barco on exporta.viagem.nomeEmbarcacao = exporta.barco.idbarco "
+                    + "origem, inicioViagem, destino, fimViagem, viagem.mct, comandante.nome as comandante, viagem.dataCad FROM exporta.viagem"
+                    + " left join exporta.barco on exporta.viagem.mct = exporta.barco.mct "
                     + " left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -185,7 +173,7 @@ public class ViagemDao {
                 viagens[4][i] = rs.getString("inicioViagem");
                 viagens[5][i] = rs.getString("destino");
                 viagens[6][i] = rs.getString("fimViagem");
-                viagens[7][i] = rs.getString("nomeEmbarcacao");
+                viagens[7][i] = rs.getString("mct");
                 viagens[8][i] = rs.getString("comandante");
                 viagens[9][i] = rs.getString("dataCad");
                 i++;

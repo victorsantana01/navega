@@ -1,3 +1,6 @@
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.BarcoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +32,10 @@
                     </div>
 
                     <%
+                        String conta = session.getAttribute("conta").toString();
+                        System.out.println("Numero da conta é >>>>> " + conta);
+                        Connection con = ConexaoMySQL.getConexaoMySQL();
+                        Statement stmt = con.createStatement();
                         String mctBarco = request.getParameter("mctBarco");
                         String[] vetMct = mctBarco.split("--");
                         mctBarco = vetMct[1];
@@ -38,7 +45,7 @@
                         String base = request.getParameter("base");
 
                         BarcoDao cons = new BarcoDao();
-                        cons.incluirBarco(mctBarco, nome, motor, modelo, base);
+                        cons.incluirBarco(conta, con, stmt,mctBarco, nome, motor, modelo, base);
 
                         String redirectURL = "/NavegaGestor/cadBarco.jsp";
                         response.sendRedirect(redirectURL);

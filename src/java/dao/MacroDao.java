@@ -20,7 +20,7 @@ import logic.Format;
  */
 public class MacroDao {
     
-    public String[][] pesquisaMacro(String embarcacaoManobra, String dataManobra){
+    public String[][] pesquisaMacro(String conta,Connection con, Statement stmt, String embarcacaoManobra, String dataManobra){
         
         Format format = new Format();
         String[][] macros = new String[12][100];
@@ -34,7 +34,7 @@ public class MacroDao {
         if(embarcacaoManobra == null || embarcacaoManobra == ""){
             embarcacao = "";
         }else{            
-            embarcacao = "and b.codBarco like '%"+embarcacaoManobra+"%' ";
+            embarcacao = "and b.mct like '%"+embarcacaoManobra+"%' ";
         }
         if(dataManobra == null || dataManobra == ""){}
         else{
@@ -51,25 +51,22 @@ public class MacroDao {
                 System.out.println("dataFimFormatada: "+dataFim);
                 data = "and (me.IIRTN_MessageTime BETWEEN '"+dataInicio+":00' and '"+dataFim+":00')";
             }catch(Exception e){
-                System.out.println("---------------------ERROR: "+e+"  ---------------------------");
+                System.out.println("ERROR AO FORMATAR A DATA DE MANOBRA: "+e+"  ---------------------------");
             }
         }
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
-            String sql = ("SELECT me.IIRTN_ID, me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta.messagereturn_iirtn me\n" +
-                            "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
+            String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
+                            "FROM exporta.messagereturn_iirtn me \n" +
+                            "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" "+
+                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\"  "+
                             embarcacao+" "+data+"; ");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
             
              while (rs.next()){
-                System.out.println("i: "+i+" id: "+rs.getString("me.IIRTN_ID")+"-------------");
                 String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
                 System.out.println("inicia MacroArray");
                 System.out.println("macroArray.length: "+macroArray.length);
@@ -101,25 +98,22 @@ public class MacroDao {
         return macros;
         
     }
-    public String[][] pesquisaMacro(){
+    public String[][] pesquisaMacro(String conta,Connection con, Statement stmt){
         
         String[][] macros = new String[12][100];
         
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
-            String sql = ("SELECT me.IIRTN_ID, me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta.messagereturn_iirtn me\n" +
-                            "left join barco b on me.IIRTN_MctAddress = b.codBarco\n" +
+            String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
+                            "FROM exporta.messagereturn_iirtn me \n" +
+                            "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\" ");
+                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\"  ");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
             
              while (rs.next()){
-                System.out.println("i: "+i+" id: "+rs.getString("me.IIRTN_ID")+"-------------");
                 String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
                 System.out.println("inicia MacroArray");
                 System.out.println("macroArray.length: "+macroArray.length);

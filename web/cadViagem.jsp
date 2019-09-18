@@ -47,12 +47,11 @@
     </head>
     <%
 
-        if (session.getAttribute("user") != null) {
-            System.out.println("Est? logado o usuario: " + session.getAttribute("user"));
-
-        } else {
-            response.sendRedirect("login.jsp");
-        }%>
+        String conta = session.getAttribute("conta").toString();
+        System.out.println("Numero da conta é >>>>> " + conta);
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
+    %>
 
 
     <body> 
@@ -65,9 +64,6 @@
             }
         </style>
         <script>
-            $(".dropdown-trigger").dropdown('toggle');
-        </script>
-        <script>
             $(function () {
                 $('input[name="datetimes22"]').daterangepicker({
                     timePicker: true,
@@ -79,8 +75,6 @@
                     }
                 });
             });
-
-            $(".dropdown-trigger").dropdown('toggle');
         </script>
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Bot?o de Add -->
@@ -188,7 +182,7 @@
                                                             <option class="black-text" value="" disabled selected>Barco</option>
                                                             <%
                                                                 BarcoDao bar = new BarcoDao();
-                                                                String[][] barcos = bar.pesquisaBarcos().clone();
+                                                                String[][] barcos = bar.pesquisaBarcos(conta, con, stmt).clone();
                                                                 for (int i = 0; i < 10; i++) {
                                                                     if (barcos[0][i] == null) {
                                                                         i = 50;
@@ -206,7 +200,7 @@
                                                             <option class="black-text" value="" disabled selected>Comandante</option>
                                                             <%
                                                                 ComandanteDao com = new ComandanteDao();
-                                                                String[][] comandantes = com.pesquisarComandantes().clone();
+                                                                String[][] comandantes = com.pesquisarComandantes(conta, con, stmt).clone();
                                                                 for (int i = 0; i < 200; i++) {
                                                                     if (comandantes[0][i] == null) {
                                                                         i = 500;
@@ -262,7 +256,7 @@
                             String fim = "";
                             String cadastro = "";
                             ViagemDao viagem = new ViagemDao();
-                            String[][] viagens = viagem.pesquisarViagens().clone();
+                            String[][] viagens = viagem.pesquisarViagens(conta, con, stmt).clone();
                             for (int i = 0; i < 1000; i++) {
                                 if (viagens[0][i] == null) {
                                     i = 2000;
@@ -273,6 +267,7 @@
                                 inicio = format.DataFormat(viagens[4][i]);
                                 fim = format.DataFormat(viagens[6][i]);
                                 cadastro = format.DataFormat(viagens[9][i]);
+                                System.out.println(viagens[1][i]);
                             %>
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th> <!-- nome Viagem -->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th> <!-- status -->
@@ -283,18 +278,10 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th> <!--  MCT / UCC-->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th> <!-- comandante -->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>      <!-- data decadastro -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;
-                                <!-- Dropdown Trigger -->
-                                <a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">arrow_drop_down</i> </a>
-
-
-                                <!-- Dropdown Structure -->
-                                <ul id='dropdown1' class='dropdown-content'>
-                                    <li><a href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a></li>
-                                    <li class="divider" tabindex="-1"></li>
-                                    <li><a href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a></li>
-                                </ul>
-                            </th>
+                            <th>
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a>      <!-- data decadastro -->
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a>
+                            </th>      <!-- data decadastro -->
                         </tr>
                         <%  }
                             }

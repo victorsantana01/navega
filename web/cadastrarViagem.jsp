@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="dao.ViagemDao"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <!DOCTYPE html>
@@ -29,25 +32,28 @@
         </div>
           
           <%
+                String conta = session.getAttribute("conta").toString();
+                 System.out.println("Numero da conta é >>>>> " + conta);
+                Connection con = ConexaoMySQL.getConexaoMySQL();
+                Statement stmt = con.createStatement();
+                String nomeViagem = request.getParameter("nomeViagem");
+                String status = request.getParameter("status");
+                String origem = request.getParameter("origem");
+                String destino = request.getParameter("destino");
+                String idBarco = request.getParameter("barco");
+                String idcomandante = request.getParameter("comandante");
+                String usuario = session.getAttribute("conta").toString();
+                String date = request.getParameter("datetimes22").replace("/", "-");
+                String data[] = date.split(" - ");
+                String dataInicio = data[0];
+                String dataFim = data[1];
 
-              String nomeViagem = request.getParameter("nomeViagem");
-              String status = request.getParameter("status");
-              String origem = request.getParameter("origem");
-              String destino = request.getParameter("destino");
-              String idBarco = request.getParameter("barco");
-              String idcomandante = request.getParameter("comandante");
-              String usuario = session.getAttribute("conta").toString();
-              String date = request.getParameter("datetimes22").replace("/", "-");
-              String data[] = date.split(" - ");
-              String dataInicio = data[0];
-              String dataFim = data[1];
-
-              ViagemDao cons = new ViagemDao();
-              System.out.println("TESTE DE NOME =cadastroViagem=-------> "+origem);
-              cons.incluirViagem(nomeViagem, status, usuario, origem, dataInicio, destino, dataFim, idBarco, idcomandante);
-              System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
-              String redirectURL = "/NavegaGestor/cadViagem.jsp";
-              response.sendRedirect(redirectURL);
+                ViagemDao cons = new ViagemDao();
+                System.out.println("TESTE DE NOME =cadastroViagem=-------> "+origem);
+                cons.incluirViagem(conta, con, stmt, nomeViagem, status, usuario, origem, dataInicio, destino, dataFim, idBarco, idcomandante);
+                System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
+                String redirectURL = "/NavegaGestor/cadViagem.jsp";
+                response.sendRedirect(redirectURL);
           %>
          <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
       

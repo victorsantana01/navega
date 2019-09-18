@@ -31,7 +31,13 @@
 
 
     </head>
-    <body > 
+    <body>
+        <%
+        String conta = session.getAttribute("conta").toString();
+        System.out.println("Numero da conta é >>>>> " + conta);
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
+    %>
 
         <!--Materialize INICIALIZA o menu para Mobile -->
         <!-- INICIO Botão de Add -->
@@ -103,7 +109,7 @@
                                             <%
                                                 String idComandante = request.getParameter("idComandante");
                                                 ComandanteDao comandante = new ComandanteDao();
-                                                String[][] comandanteE = comandante.pesquisarComandante(idComandante);
+                                                String[][] comandanteE = comandante.pesquisarComandante(conta, con, stmt, idComandante);
                                                 System.out.println("id: "+comandanteE[0][0]);
                                             %>
                                             <div class="form-group col s12">

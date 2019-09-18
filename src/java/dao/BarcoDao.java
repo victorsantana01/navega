@@ -19,16 +19,14 @@ import java.time.LocalDateTime;
  */
 public class BarcoDao {
 
-    public void incluirBarco(String codBarco, String nome, String motor, String modelo, String base) {
+    public void incluirBarco(String conta,Connection con, Statement stmt, String mct, String nome, String motor, String modelo, String base) {
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
             String sql = ("INSERT INTO `exporta`.`barco` \n"
-                    + "(`codBarco`, `nome`, `motor`,`modelo`,`base`,`dataCad`)\n"
+                    + "(`mct`, `nome`, `motor`,`modelo`,`base`,`dataCad`)\n"
                     + " VALUES\n"
-                    + " ('" + codBarco + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "');");
+                    + " ('" + mct + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "');");
 
             stmt.executeUpdate(sql);
             System.out.println("Tabela salva com sucesso!!!!!");
@@ -38,14 +36,12 @@ public class BarcoDao {
         }
     }
 
-    public String[][] pesquisaBarcos() {
+    public String[][] pesquisaBarcos(String conta,Connection con, Statement stmt) {
 
         String[][] barcos = new String[7][100];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-            String sql = ("SELECT idbarco, codBarco, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
+            String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
                     + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -54,7 +50,7 @@ public class BarcoDao {
             while (rs.next()) {
 
                 barcos[0][i] = rs.getString("idbarco");
-                barcos[1][i] = rs.getString("codBarco");
+                barcos[1][i] = rs.getString("mct");
                 barcos[2][i] = rs.getString("nome");
                 barcos[3][i] = rs.getString("motor");
                 barcos[4][i] = rs.getString("modelo");
@@ -73,14 +69,12 @@ public class BarcoDao {
         return barcos;
     }
 
-    public String[][] pesquisarBarco(String id) {
+    public String[][] pesquisarBarco(String conta,Connection con, Statement stmt, String id) {
 
         String[][] barcos = new String[7][10];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-            String sql = ("SELECT idbarco, codBarco, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
+            String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
                     + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab WHERE idbarco = '" + id + "'");
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -88,7 +82,7 @@ public class BarcoDao {
             while (rs.next()) {
 
                 barcos[0][i] = rs.getString("idbarco");
-                barcos[1][i] = rs.getString("codBarco");
+                barcos[1][i] = rs.getString("mct");
                 barcos[2][i] = rs.getString("nome");
                 barcos[3][i] = rs.getString("motor");
                 barcos[4][i] = rs.getString("modelo");
@@ -108,13 +102,11 @@ public class BarcoDao {
         return barcos;
     }
 
-    public String[][] pesquisaMotores() {
+    public String[][] pesquisaMotores(String conta,Connection con, Statement stmt) {
 
         String[][] motores = new String[20][2];
 
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             String sql = ("SELECT * FROM exporta.motor_tab");
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -137,12 +129,12 @@ public class BarcoDao {
         return motores;
     }
 
-    public void editarBarco(String idBarco, String codBarco, String nomeBarco, String motor, String modelo, String base) {
+    public void editarBarco(String conta,Connection con, Statement stmt, String idBarco, String mct, String nomeBarco, String motor, String modelo, String base) {
         System.out.println("METODO ---> EDITAR BARCO INICIADO.........");
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
-            String sql = ("UPDATE `exporta`.`barco` SET `codBarco`='" + codBarco + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `base`='" + base + "' WHERE `idbarco`='" + idBarco + "';");
+            
+            
+            String sql = ("UPDATE `exporta`.`barco` SET `mct`='" + mct + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `base`='" + base + "' WHERE `idbarco`='" + idBarco + "';");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EDITAR BARCO REALIZADO COM SUCESSO.........");
 
@@ -151,11 +143,9 @@ public class BarcoDao {
         }
     }
     
-    public void excluirBarco(String idBarco){
+    public void excluirBarco(String conta,Connection con, Statement stmt, String idBarco){
         System.out.println("METODO ---> EXCLUIR BARCO INICIADO.........");
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
             String sql = ("DELETE FROM `exporta`.`barco` WHERE `idbarco`='"+idBarco+"';");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EXCLUIR BARCO REALIZADO COM SUCESSO.........");

@@ -37,13 +37,10 @@
         
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
 <%
-
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
-        
-                Connection con = ConexaoMySQL.getConexaoMySQL();
-
-                Statement stmt = con.createStatement();
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
 %>                
 
     <script>
@@ -141,7 +138,7 @@ window.location.href = link ;
                     
                 String idViagem = request.getParameter("idViagem");
                 ViagemDao via = new ViagemDao();
-                String[][] viagemRelatorio = via.pesquisarViagens(idViagem);
+                String[][] viagemRelatorio = via.pesquisarViagens(conta, con, stmt, idViagem);
                 String viagemMct  = viagemRelatorio[7][0];
                 String viagemInicio = viagemRelatorio[4][0];
                 String viagemFim  = viagemRelatorio[6][0];
@@ -695,7 +692,6 @@ console.log(rpm);
             function printClick() {  
                 var w = window.open('', 'printform', 'width=300,height=400');  
                 var html = $("#areaRelatorio2").html();
-                $(w.document.body).html(html).css({"background-color": "yellow", "font-size": "200%"});
                 $(w.document.body).html(html);
                 w.print();
             }

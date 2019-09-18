@@ -54,7 +54,6 @@
             System.out.println("Numero da conta é >>>>> " + conta);
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
-            con.close();
         %>
 
         <script>
@@ -121,8 +120,13 @@
                                     <!--FAZ UMA PESQUISA APARTI DE UM ID, E SALVA O RESULTADO EM UM ARRAY-->
                                     <%
                                         String idViagem = request.getParameter("idViagem");
+                                        System.out.println("idViagem: "+idViagem);
                                         ViagemDao viagem = new ViagemDao();
-                                        String[][] viagemE = viagem.pesquisarViagens(idViagem);
+                                        String[][] viagemE = viagem.pesquisarViagens(conta, con, stmt,idViagem);
+                                        System.out.println(viagemE[0][0]);
+                                        System.out.println(viagemE[1][0]);
+                                        System.out.println(viagemE[2][0]);
+                                        System.out.println(viagemE[3][0]);
                                     %>
                                     <div class="form-group col s12">
                                         <div class="form-row col s6 ">
@@ -139,18 +143,18 @@
                                         <div class="col s6">
                                             <select class="browser-default" name="status" value="<%= viagemE[2][0]%>" required >
                                                 <option value="" disabled>Status de Viagem</option>
-                                                <% if (viagemE[2][0].equals("0")) { %>
+                                                <% if (viagemE[2][0] =="0") { %>
                                                 <option value="0" selected>Agendado</option>
                                                 <% } else { %>
                                                 <option value="0">Agendado</option>
                                                 <% }
-                                                    if (viagemE[2][0].equals("1")) {
+                                                    if (viagemE[2][0] == "1") {
                                                 %>
                                                 <option value="1" selected>Em Progresso</option>
                                                 <% } else { %>
                                                 <option value="1">Em Progresso</option>
                                                 <%}
-                                                    if (viagemE[2][0].equals("2")) {
+                                                    if (viagemE[2][0] == "2") {
                                                 %>
                                                 <option value="2" selected>Finalizado</option>
                                                 <%} else { %>
@@ -183,7 +187,7 @@
                                                     <!--PESQUISA OS BARCOS E PREENCHE O MENU SELECT E SELECIONA A OPCAO  GRAVADA.-->
                                                     <%
                                                         BarcoDao bar = new BarcoDao();
-                                                        String[][] barcos = bar.pesquisaBarcos().clone();
+                                                        String[][] barcos = bar.pesquisaBarcos(conta, con, stmt).clone();
                                                         for (int i = 0; i < 50; i++) {
                                                             if (barcos[0][i] == null) {
                                                                 i = 100;
@@ -205,12 +209,12 @@
                                                     <option class="black-text" value="" disabled>Comandante</option>
                                                     <%
                                                         ComandanteDao com = new ComandanteDao();
-                                                        String[][] comandantes = com.pesquisarComandantes().clone();
+                                                        String[][] comandantes = com.pesquisarComandantes(conta, con, stmt).clone();
                                                         for (int i = 0; i < 200; i++) {
                                                             if (comandantes[0][i] == null) {
                                                                 i = 500;
                                                             } else {
-                                                                if (comandantes[0][i].equals(viagemE[8][0])) {
+                                                                if (comandantes[1][i].equals(viagemE[8][0])) {
                                                     %>
                                                     <option class="black-text" value="<%=comandantes[0][i]%>" selected><%=comandantes[1][i]%></option>
                                                     <%
