@@ -24,9 +24,9 @@ public class BarcoDao {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
             String sql = ("INSERT INTO `exporta`.`barco` \n"
-                    + "(`mct`, `nome`, `motor`,`modelo`,`base`,`dataCad`)\n"
+                    + "(`mct`, `nome`, `motor`,`modelo`,`base`,`dataCad`,`usuario`)\n"
                     + " VALUES\n"
-                    + " ('" + mct + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "');");
+                    + " ('" + mct + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "', '"+conta+"');");
 
             stmt.executeUpdate(sql);
             System.out.println("Tabela salva com sucesso!!!!!");
@@ -42,7 +42,8 @@ public class BarcoDao {
 
         try {
             String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
-                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab order by dataCad DESC;");
+                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab"
+                    + " WHERE usuario='"+conta+"' order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -75,7 +76,7 @@ public class BarcoDao {
 
         try {
             String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
-                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab WHERE idbarco = '" + id + "'");
+                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab WHERE idbarco = '" + id + "' and usuario='"+conta+"'");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
@@ -134,7 +135,7 @@ public class BarcoDao {
         try {
             
             
-            String sql = ("UPDATE `exporta`.`barco` SET `mct`='" + mct + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `base`='" + base + "' WHERE `idbarco`='" + idBarco + "';");
+            String sql = ("UPDATE `exporta`.`barco` SET `mct`='" + mct + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `base`='" + base + "' WHERE `idbarco`='" + idBarco + "' and usuario='"+conta+"' ;");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EDITAR BARCO REALIZADO COM SUCESSO.........");
 
@@ -146,7 +147,7 @@ public class BarcoDao {
     public void excluirBarco(String conta,Connection con, Statement stmt, String idBarco){
         System.out.println("METODO ---> EXCLUIR BARCO INICIADO.........");
         try {
-            String sql = ("DELETE FROM `exporta`.`barco` WHERE `idbarco`='"+idBarco+"';");
+            String sql = ("DELETE FROM `exporta`.`barco` WHERE `idbarco`='"+idBarco+"' and usuario='"+conta+"';");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EXCLUIR BARCO REALIZADO COM SUCESSO.........");
 

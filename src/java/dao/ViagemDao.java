@@ -80,7 +80,7 @@ public class ViagemDao {
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
-            "    where v.idViagem = '"+id+"';");
+            "    where v.idViagem = '"+id+"' and v.usuario = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");
@@ -119,7 +119,7 @@ public class ViagemDao {
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
-            "    where v.status = '"+status+"';");
+            "    where v.status = '"+status+"' and v.usuario = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");
@@ -157,9 +157,10 @@ public class ViagemDao {
 
         try {
             String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, "
-                    + "origem, inicioViagem, destino, fimViagem, viagem.mct, comandante.nome as comandante, viagem.dataCad FROM exporta.viagem"
-                    + " left join exporta.barco on exporta.viagem.mct = exporta.barco.mct "
-                    + " left join exporta.comandante on exporta.viagem.comandante = exporta.comandante.idcomandante order by dataCad DESC;");
+                    + "origem, inicioViagem, destino, fimViagem, v.mct, c.nome as comandante, v.dataCad FROM exporta.viagem v"
+                    + " left join exporta.barco b on v.mct = b.mct "
+                    + " left join exporta.comandante c on v.comandante = c.idcomandante"
+                    + " and v.usuario = '"+conta+"' order by v.dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 

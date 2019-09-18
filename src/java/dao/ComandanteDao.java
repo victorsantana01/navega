@@ -20,7 +20,7 @@ public class ComandanteDao {
     public void incluirComandante(String conta, Connection con, Statement stmt, String nome, String matricula, String contato) {
         try {
             
-            String sql = ("INSERT INTO `exporta`.`comandante` (`nome`, `matricula`, `contato`) VALUES ('" + nome + "', '" + matricula + "', '" + contato + "');");
+            String sql = ("INSERT INTO `exporta`.`comandante` (`nome`, `matricula`, `contato`, `usuario`) VALUES ('" + nome + "', '" + matricula + "', '" + contato + "', '"+conta+"');");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO INCLUIRCOMANDANTE REALIZADO COM SUCESSO ----- TABELA INCLUIDA COM SUCESSO!!!!!");
@@ -34,7 +34,7 @@ public class ComandanteDao {
         String[][] comandantes = new String[5][100];
 
         try {
-            String sql = ("SELECT * FROM exporta.comandante ");
+            String sql = ("SELECT * FROM exporta.comandante WHERE usuario='"+conta+"' ");
             ResultSet rs = stmt.executeQuery(sql);
 
             int i = 0;
@@ -62,7 +62,7 @@ public class ComandanteDao {
         String[][] comandantes = new String[4][2];
 
         try {
-            String sql = ("SELECT * FROM exporta.comandante WHERE idcomandante ='" + id + "'");
+            String sql = ("SELECT * FROM exporta.comandante WHERE idcomandante ='" + id + "' and usuario='"+conta+"'");
             ResultSet rs = stmt.executeQuery(sql);
 
             int i = 0;
@@ -87,7 +87,7 @@ public class ComandanteDao {
     public void excluirComandante(String conta, Connection con, Statement stmt, String id) {
 
         try {
-            String sql = ("DELETE FROM `exporta`.`comandante` WHERE `idcomandante`='" + id + "';");
+            String sql = ("DELETE FROM `exporta`.`comandante` WHERE `idcomandante`='" + id + "' and usuario='"+conta+"'");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EXCLUIR COMANDANTE REALIZADO COM SUCESSO.........");
         } catch (SQLException e) {
@@ -98,7 +98,7 @@ public class ComandanteDao {
 
     public void editarComandante(String conta, Connection con, Statement stmt, String id, String nome, String matricula, String contato) {
         try {
-            String sql = ("UPDATE `exporta`.`comandante` SET `nome`='" + nome + "', `matricula`='" + matricula + "', `contato`='" + contato + "' WHERE `idcomandante`='" + id + "';");
+            String sql = ("UPDATE `exporta`.`comandante` SET `nome`='" + nome + "', `matricula`='" + matricula + "', `contato`='" + contato + "' WHERE `idcomandante`='" + id + "' and usuario='"+conta+"'");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EDITAR COMANDANTE REALIZADO COM SUCESSO.........");
         } catch (SQLException e) {
