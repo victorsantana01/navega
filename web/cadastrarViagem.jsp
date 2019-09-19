@@ -42,7 +42,6 @@
                 String destino = request.getParameter("destino");
                 String idBarco = request.getParameter("barco");
                 String idcomandante = request.getParameter("comandante");
-                String usuario = session.getAttribute("conta").toString();
                 String date = request.getParameter("datetimes22").replace("/", "-");
                 String data[] = date.split(" - ");
                 String dataInicio = data[0];
@@ -50,7 +49,7 @@
 
                 ViagemDao cons = new ViagemDao();
                 System.out.println("TESTE DE NOME =cadastroViagem=-------> "+origem);
-                cons.incluirViagem(conta, con, stmt, nomeViagem, status, usuario, origem, dataInicio, destino, dataFim, idBarco, idcomandante);
+                cons.incluirViagem(conta, con, stmt, nomeViagem, status, origem, dataInicio, destino, dataFim, idBarco, idcomandante);
                 System.out.println("VIAGEM CADASTRADA COM SUCESSO!!!!!!!");
                 String redirectURL = "/NavegaGestor/cadViagem.jsp";
                 response.sendRedirect(redirectURL);

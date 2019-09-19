@@ -43,14 +43,13 @@
                 String destino = request.getParameter("destino");
                 String idBarco = request.getParameter("barco");
                 String idcomandante = request.getParameter("comandante");
-                String usuario = session.getAttribute("conta").toString();
                 String date = request.getParameter("datetimes22").replace("/", "-");
                 String data[] = date.split(" - ");
                 String dataInicio = data[0];
                 String dataFim =data[1];
               
               ViagemDao cons = new ViagemDao();
-              cons.editarViagem(conta, con, stmt, idViagem, nomeViagem, status, usuario, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
+              cons.editarViagem(conta, con, stmt, idViagem, nomeViagem, status, origem,dataInicio,destino,dataFim,idBarco,idcomandante);
               System.out.println("VIAGEM EDITADA COM SUCESSO!!!!!!!"); 
     String redirectURL = "/NavegaGestor/cadViagem.jsp";
     response.sendRedirect(redirectURL);

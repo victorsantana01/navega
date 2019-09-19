@@ -18,7 +18,7 @@ import logic.Format;
  */
 public class ViagemDao {
 
-    public void incluirViagem(String conta,Connection con, Statement stmt, String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
+    public void incluirViagem(String conta,Connection con, Statement stmt, String nomeV, String status, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
         System.out.println("METODO ---> INCLUIR VIAGEM INICIADO.........");
         
         try {
@@ -28,8 +28,8 @@ public class ViagemDao {
             System.out.println("inicioV: " + inicioV);
             System.out.println("fimV: " + fimV);
 
-            String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `usuario`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `mct`, `comandante`) "
-                    + "VALUES ('" + nomeV + "', '" + status + "', '" + usuario + "', '" + origem + "', '" + inicioV + "', '" + destino + "', '" + fimV + "', '" + codBarco + "', '" + comandante + "');");
+            String sql = ("INSERT INTO `exporta`.`viagem` (`nomeViagem`, `status`, `conta`, `origem`, `inicioViagem`, `destino`, `fimViagem`, `mct`, `comandante`) "
+                    + "VALUES ('" + nomeV + "', '" + status + "', '" + conta + "', '" + origem + "', '" + inicioV + "', '" + destino + "', '" + fimV + "', '" + codBarco + "', '" + comandante + "');");
 
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> INCLUIR VIAGEM REALIZADO COM SUCESSO.........");
@@ -50,7 +50,7 @@ public class ViagemDao {
         }
     }
 
-    public void editarViagem(String conta,Connection con, Statement stmt, String id,String nomeV, String status, String usuario, String origem, String inicioV, String destino, String fimV, String mct, String comandante) {
+    public void editarViagem(String conta,Connection con, Statement stmt, String id,String nomeV, String status, String origem, String inicioV, String destino, String fimV, String mct, String comandante) {
         System.out.println("METODO ---> EDITAR VIAGEM INICIADO.........");
         try {
             Format format = new Format();
@@ -80,7 +80,7 @@ public class ViagemDao {
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
-            "    where v.idViagem = '"+id+"' and v.usuario = '"+conta+"';");
+            "    where v.idViagem = '"+id+"' and v.conta = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");
@@ -119,7 +119,7 @@ public class ViagemDao {
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
-            "    where v.status = '"+status+"' and v.usuario = '"+conta+"';");
+            "    where v.status = '"+status+"' and v.conta = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");
@@ -160,7 +160,7 @@ public class ViagemDao {
                     + "origem, inicioViagem, destino, fimViagem, v.mct, c.nome as comandante, v.dataCad FROM exporta.viagem v"
                     + " left join exporta.barco b on v.mct = b.mct "
                     + " left join exporta.comandante c on v.comandante = c.idcomandante"
-                    + " and v.usuario = '"+conta+"' order by v.dataCad DESC;");
+                    + " and v.conta = '"+conta+"' order by v.dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
