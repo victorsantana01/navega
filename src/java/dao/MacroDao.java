@@ -57,10 +57,10 @@ public class MacroDao {
         try {
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
             String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta.messagereturn_iirtn me \n" +
+                            "FROM exporta."+conta+"messagereturn_iirtn me \n" +
                             "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\"  "+
+                            "where IIRTN_MacroNumber = \"3\"  "+
                             embarcacao+" "+data+"; ");
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -105,10 +105,10 @@ public class MacroDao {
         try {
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
             String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta.messagereturn_iirtn me \n" +
+                            "FROM exporta."+conta+"messagereturn_iirtn me \n" +
                             "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
-                            "where IIRTN_AccountNumber = \"268525817\" and IIRTN_MacroNumber = \"3\"  ");
+                            "where IIRTN_MacroNumber = \"3\"  ");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
