@@ -50,17 +50,12 @@ Class.forName(driverName);
 // Configurando a nossa conexão com um banco de dados//
     //String serverName = "node154823-env-6118138.jelasticlw.com.br";
             String serverName = "localhost";    //caminho do servidor do BD
-            //String serverName = "18.188.247.78";    //caminho do servidor do BD
-            //18.188.247.78
-            //nortetrac
-            //2012@norte
+
             String mydatabase = "exporta";        //nome do seu banco de dados
  
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
  
-          // String username = "nortetrac";        //nome de um usuário de seu BD      
- 
-           //String password = "2012@norte";      //sua senha de acesso  String password = "AAGxop09361";
+
  
            String username = "root";        //nome de um usuário de seu BD      
  
