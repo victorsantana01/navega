@@ -117,7 +117,7 @@
       
         <div class="container "><!--INCIO DO CORPO DA PAGINA-->
             <div class="container">
-                <div class="card ">
+                <div class="card " style="margin-top:25px">
                     <form id="viagens2" name="viagens2" action="viagens2.jsp" method="get">
                         <div class="row">
                             <span class="card-title center col s12"><b>Selecione a Embarcação e a Data<br></b></span><br><br>
@@ -231,6 +231,7 @@
             $(document).ready(function() {
                 $('#example').DataTable( {
                     dom: 'Bfrtip',
+                    pageLength: 20,
                     buttons: [
                         'copy', 'csv', 'excel', {
                 extend: 'pdfHtml5',
