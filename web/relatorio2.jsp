@@ -44,6 +44,8 @@
         Connection con = ConexaoMySQL.getConexaoMySQL();
 
          Statement stmt = con.createStatement();
+         Statement stmt2 = con.createStatement();
+         Statement stmt3 = con.createStatement();
 %>                
 
 
@@ -217,7 +219,7 @@ function trocaClasse(elemento, antiga, nova) {
                          <option value="" disabled selected>Empurrador</option>
                          <%
                              Rpm rpm = new Rpm();
-                             String[][] veiculo = rpm.painelAtualizado(conta,con,stmt).clone();
+                             String[][] veiculo = rpm.painelAtualizado(conta,con,stmt, stmt2, stmt3).clone();
                              for (int i = 0; i < 100; i++) {
                                  if (veiculo[1][i] == null) {
                                      i = 100;
@@ -366,7 +368,7 @@ function trocaClasse(elemento, antiga, nova) {
                                             <%
                                                 
                                                 String[][] painel1;
-                                                painel1 = rpm.getPrincipalRpm(begin, finish, request.getParameter("mct"),con,stmt).clone();
+                                                painel1 = rpm.getPrincipalRpm(conta,begin, finish, request.getParameter("mct"),con,stmt).clone();
                                              
                                                 String consumo = "";
                                                 String latLon = "";
@@ -481,7 +483,7 @@ function trocaClasse(elemento, antiga, nova) {
   
 
                                                     <% // Logica de Deslocamento
-                                                        String dist = rpm.deslocamento(begin, finish, request.getParameter("mct"));
+                                                        String dist = rpm.deslocamento(conta, begin, finish, request.getParameter("mct"));
                                                         if (dist == null) {
                                                             dist = "0";
                                                         }
@@ -516,7 +518,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                     <%
                                                          String kmString = "";
                                                         String[][] painel2;
-                                                        painel2 = rpm.getPrincipalRpm2(begin,finish, request.getParameter("mct")).clone();
+                                                        painel2 = rpm.getPrincipalRpm2(conta, begin,finish, request.getParameter("mct")).clone();
                                                        System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
                                                         String consumo2 = "";
                                                        
@@ -563,7 +565,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                          
                                                         }
                                                         String[][] painel;
-                                                        painel = rpm.getRpm(begin, finish, request.getParameter("mct")).clone();
+                                                        painel = rpm.getRpm(conta, begin, finish, request.getParameter("mct")).clone();
                                                         int cont = Integer.parseUnsignedInt(painel[5][0]);
                                                         String mediaRpm = "";
                                                         String mediaRpm2 = "";

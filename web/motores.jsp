@@ -34,7 +34,7 @@
   }else{
 response.sendRedirect( "login.jsp" );
   }%>
-    <body class="background #eeeeee grey lighten-3"> 
+    <body> 
       <!-- INICIO Botão de Add -->
       <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
           <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
@@ -47,39 +47,48 @@ response.sendRedirect( "login.jsp" );
       </div>
         <!-- FIM Botão de Add -->
          <!--Materialize NavBar -->    
-       <div class="navbar-fixed z-depth-5">
-
-         <nav class="#00838f cyan darken-3">
-             
-                 <div class="nav-wrapper" >
-                     &nbsp;&nbsp;<a href="index.jsp" class="brand-logo right-aligned"><b><i class="material-icons">directions_boat</i><h5>NAVEGA GESTOR</h5></b></a>
-                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                         <li class="left-align"><a href="index.jsp" ><b class="center-align  waves-effect">Inicio</b></a></li>
-                         <li class="left-align"><a href="relatorio1.jsp"><b class=" waves-effect">Relatorio RPM</b></a></li>
-                         <li class="left-align"><a href="relatorio2.jsp"><b class=" waves-effect">Relatorio Consolidado</b></a></li>
-                         <li class="left-align"><a href="tables.jsp"><b class="center-align  waves-effect">Tabela de Consumo</b></a></li>
-                         <li class="left-align"><a href="motores.jsp"><b class=" waves-effect">Motores</b></a></li>
-                         <li class="left-align"><a href="login.jsp"><b class=" waves-effect">Sair</b></a></li>
-                     </ul>
-                 </div>
-          
-         </nav>
-       </div>
+       <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
+            <li>
+                <div class="user-view">
+                    <a href="index.jsp" >
+                        <div class="background">
+                            <img src="img/mar.jpg" alt=""/>
+                        </div>
+                        <div class="center">
+                            <b><h4 class="white-text">Navega Gestor</h4></b> 
+                        </div>
+                        <div class="center">
+                            <b class="white-text">Gestão à bordo</b>
+                        </div>
+                    </a>
+                </div>
+            </li>   
+            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
+            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarção</h6></b></a></li>
+            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
+            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
+            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
+            <li class="left-align"><a href="viagens.jsp2"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Detalhe da Macro</h6></b></a></li>
+            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
+            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
+            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+    </ul>
         <!--INICIO do Corpo do App -->
           
       
        
         <br>
+            <div class="container">
             <div class="row ">
                 <div class="col s12">
-                    <div class="card blue-grey darken-1 offset-s5">
-                        <div class="card-content white-text ">
+                    <div class="card">
+                        <div class="card-content">
                             <span class="card-title">Motores Configurados</span>
                             <div class="row">
                                
-                                    <div class="row ">
+                                    <div class="row " style="overflow-y: auto; margin: 0px 10px !important">
                                         <!---->
-                                        <table class="highlight responsive-table">
+                                        <table class="highlight responsive-table" >
                                             <thead>
                                                 <tr>
                                                     <th>Motor</th>
@@ -180,6 +189,7 @@ response.sendRedirect( "login.jsp" );
 
                 </div>
             </div>
+        </div>
        
     </div>
    

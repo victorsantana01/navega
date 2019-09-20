@@ -97,8 +97,6 @@
         <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
         <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
         <li class="left-align"><a href="viagens2.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Detalhe da Macro</h6></b></a></li>
-        <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
-        <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
         <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
         <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
         <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
@@ -167,7 +165,7 @@
                                                 Rpm rpm = new Rpm();
                                                 String[][] painel1;
                                                 //painel1 = rpm.getPrincipalRpm(dadosInicioViagem, dadosFimViagem, request.getParameter("mct"),con,stmt).clone();
-                                                painel1 = rpm.getPrincipalRpm(dadosInicioViagem, dadosFimViagem, dadosMctViagem,con,stmt).clone();
+                                                painel1 = rpm.getPrincipalRpm(dadosInicioViagem, dadosFimViagem, dadosMctViagem,conta,con,stmt).clone();
                                              
                                                 String consumo = "";
                                                 String latLon = "";
@@ -276,7 +274,7 @@
   </script>
 
                                                     <% // Logica de Deslocamento
-                                                        String dist = rpm.deslocamento(dadosInicioViagem, dadosFimViagem, dadosMctViagem);
+                                                        String dist = rpm.deslocamento(conta, dadosInicioViagem, dadosFimViagem, dadosMctViagem);
                                                         if (dist == null) {
                                                             dist = "0";
                                                         }
@@ -307,7 +305,7 @@
                                                     <%
                                                          String kmString = "";
                                                         String[][] painel2;
-                                                        painel2 = rpm.getPrincipalRpm2(dadosInicioViagem,dadosFimViagem, dadosMctViagem).clone();
+                                                        painel2 = rpm.getPrincipalRpm2(conta,dadosInicioViagem,dadosFimViagem,dadosMctViagem).clone();
                                                        System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
                                                         String consumo2 = "";
                                                        
@@ -354,7 +352,7 @@
                                                          
                                                         }
                                                         String[][] painel;
-                                                        painel = rpm.getRpm(dadosInicioViagem, dadosFimViagem, dadosMctViagem).clone();
+                                                        painel = rpm.getRpm(conta, dadosInicioViagem, dadosFimViagem, dadosMctViagem).clone();
                                                         int cont = Integer.parseUnsignedInt(painel[5][0]);
                                                         String mediaRpm = "";
                                                         String mediaRpm2 = "";

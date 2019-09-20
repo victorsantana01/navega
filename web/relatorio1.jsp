@@ -161,9 +161,10 @@ window.location.href = link ;
             
          <!--Materialize NavBar -->    
 
-           <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
-            <li>
-                <div class="user-view">
+    <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
+        <li>
+            <div class="user-view">
+                <a href="index.jsp" >
                     <div class="background">
                         <img src="img/mar.jpg" alt=""/>
                     </div>
@@ -173,19 +174,20 @@ window.location.href = link ;
                     <div class="center">
                         <b class="white-text">Gestão à bordo</b>
                     </div>
-                </div>
-            </li>   
-            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarção</h6></b></a></li>
-            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
-            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
-            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Detalhe da Macro</h6></b></a></li>
-            <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
-            <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
-            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
-            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
-            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+                </a>
+            </div>
+        </li>
+
+
+        <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
+        <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarção</h6></b></a></li>
+        <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
+        <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
+        <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
+        <li class="left-align"><a href="viagens2.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Detalhe da Macro</h6></b></a></li>
+        <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
+        <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
+        <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
     </ul>
    
             <div class=" container " id="divCampo"><br>
@@ -260,7 +262,7 @@ window.location.href = link ;
                                             <%
                                                 Rpm rpm = new Rpm();
                                                 String[][] painel1;
-                                                painel1 = rpm.getPrincipalRpm(begin, finish, viagemMct,con,stmt).clone();
+                                                painel1 = rpm.getPrincipalRpm(begin, finish, viagemMct, conta, con, stmt).clone();
                                              
                                                 String consumo = "";
                                                 String latLon = "";
@@ -400,7 +402,7 @@ window.location.href = link ;
 
                                                     <%
                                                         String[][] painel2;
-                                                        painel2 = rpm.getPrincipalRpm2(begin,finish, viagemMct).clone();
+                                                        painel2 = rpm.getPrincipalRpm2(conta,begin,finish,viagemMct).clone();
                                                        System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
                                                         String consumo2 = "";
                                                         String rpmArrendon2 = "";
@@ -477,7 +479,7 @@ window.location.href = link ;
                 </tr>
               </thead>
                               
-                                <%                 String dist = rpm.deslocamento(begin, finish, viagemMct);
+                                <%                 String dist = rpm.deslocamento(conta, begin, finish, viagemMct);
 
                                     if (dist == null) {
                                         dist = "0";
@@ -532,8 +534,8 @@ window.location.href = link ;
                <%
                     
                  String [][] painel;
-                 painel=rpm.getRpm(begin,finish,viagemMct).clone();
-                 rpm.setNumRowRpm(begin,finish,viagemMct);
+                 painel=rpm.getRpm(conta, begin,finish,viagemMct).clone();
+                 rpm.setNumRowRpm(conta,begin,finish,viagemMct);
                     String data ="";
                   for(int i = 0;i<rpm.getNumRowRpm(); i++){
                        data = format.DataFormat(painel[2][i]);
