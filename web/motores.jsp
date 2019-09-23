@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.Rpm"%>  
 <%@page import="dao.ConsumoDao"%>
@@ -33,7 +36,12 @@
 
   }else{
 response.sendRedirect( "login.jsp" );
-  }%>
+  }
+        String conta = session.getAttribute("conta").toString();
+        System.out.println("Numero da conta é >>>>> " + conta);
+        Connection con = ConexaoMySQL.getConexaoMySQL();
+        Statement stmt = con.createStatement();
+    %>
     <body> 
       <!-- INICIO Botão de Add -->
       <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
@@ -126,11 +134,11 @@ response.sendRedirect( "login.jsp" );
 
                                             <%
                                                 ConsumoDao cons = new ConsumoDao();
-                                                String[][] dados = cons.getTabelaConsumo().clone();
+                                                String[][] dados = cons.getTabelaConsumo(conta).clone();
 
                                                 for (int i = 0; i < 50; i++) {
 
-                                                    if (cons.getTabelaConsumo()[0][i] == null) {
+                                                    if (cons.getTabelaConsumo(conta)[0][i] == null) {
                                                         i = 50;
 
                                                     } else {

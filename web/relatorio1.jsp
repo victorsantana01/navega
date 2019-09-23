@@ -308,7 +308,7 @@ window.location.href = link ;
 
                                                 System.err.println("Valor Arredondado é: " + entrada);
                                                 ConsumoDao cons = new ConsumoDao();
-                                                consumo = te.consumo(cons.getLitrosPorRpm(viagemNomeMotor, entrada), painel1[1][i]);
+                                                consumo = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
@@ -443,7 +443,7 @@ window.location.href = link ;
 
                                                         System.err.println("Valor Arredondado é: " + entrada2);
                                                         ConsumoDao cons = new ConsumoDao();
-                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(viagemNomeMotor, entrada), painel1[1][i]);
+                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor, entrada), painel1[1][i]);
 
                                                         consumoDouble2 = Double.valueOf(consumo2);
                                                         total2 = total2 + consumoDouble2;

@@ -29,6 +29,8 @@
         </div>
           
           <%
+              
+              String conta = session.getAttribute("conta").toString();
               String nome = request.getParameter("motor");
               String rpm400= request.getParameter("cons0");
               String rpm500= request.getParameter("cons1");
@@ -91,7 +93,7 @@
               
               
               ConsumoDao cons = new ConsumoDao();
-              cons.incluirFaixa(nome, rpm400, rpm500, rpm600, rpm700, rpm800, rpm900, rpm1000,
+              cons.incluirFaixa(conta,nome, rpm400, rpm500, rpm600, rpm700, rpm800, rpm900, rpm1000,
                       rpm1100, rpm1200, rpm1300, rpm1400, rpm1500, rpm1600, rpm1700, rpm1800,
                       rpm1900, rpm2000, rpm2100, rpm2200, rpm2300, rpm2400, rpm2500, rpm2600,
                       rpm2700, rpm2800, rpm2900, rpm3000, "");

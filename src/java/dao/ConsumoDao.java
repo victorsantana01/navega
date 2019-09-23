@@ -18,7 +18,7 @@ import java.sql.Statement;
 public class ConsumoDao {
     
   
-    public String [][] tabela() {
+    public String [][] tabela(String conta) {
        
          String[][] elemento = new String[29][100];
        
@@ -27,7 +27,7 @@ public class ConsumoDao {
         String Relatorio = null;
 
    
-        String SqlQueryIgn = ("SELECT * FROM exporta.motor_tab;");
+        String SqlQueryIgn = ("SELECT * FROM exporta.motor_tab where conta='"+conta+"';");
 
 
         try {
@@ -87,7 +87,7 @@ return elemento;
     }
 
     
-   public String[][] getTabelaConsumo() {
+   public String[][] getTabelaConsumo(String conta) {
         String[][] elemento = new String[30][50];
  
         try {
@@ -100,7 +100,7 @@ return elemento;
             /*sqlPainel=("SELECT idmotor_tab,nome_motor, `500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`,\n" +
 " `1900`, `2000`,`2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`,\n" +
 " `3000`, descricao FROM exporta.motor_tab;");*/
-            sqlPainel = "SELECT * FROM exporta.motor_tab;";
+            sqlPainel = "SELECT * FROM exporta.motor_tab where conta='"+conta+"';";
                     
             ResultSet rs = stmt.executeQuery(sqlPainel);
    
@@ -157,7 +157,7 @@ return elemento;
     }
    
    
-   public String getLitrosPorRpm(String nomeMotor, String rpm ) {
+   public String getLitrosPorRpm(String conta, String nomeMotor, String rpm ) {
         String elemento = null ;
         int intRpm = Integer.parseInt(rpm);
         if (intRpm < 400) {
@@ -174,8 +174,7 @@ return elemento;
 
             sqlPainel=("SELECT  `0`,`400`,`500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`,\n" +
 " `1900`, `2000`,`2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`,\n" +
-" `3000`, descricao FROM exporta.motor_tab where nome_motor =\""+nomeMotor+"\";\n" +
-" " );
+" `3000`, descricao FROM exporta.motor_tab where nome_motor ='"+nomeMotor+"' and conta='"+conta+"';");
             ResultSet rs = stmt.executeQuery(sqlPainel);
    
             int i =0;
@@ -208,7 +207,8 @@ return elemento;
         return elemento;
     }
     
-     public void incluirFaixa(String nomeMotor,
+     public void incluirFaixa(String conta,
+             String nomeMotor,
              String rpm400,
              String rpm500,
              String rpm600,
@@ -246,14 +246,14 @@ return elemento;
 
             // Prepare a statement to insert a record  
             String sql = ("INSERT INTO `exporta`.`motor_tab` \n" +
-"(`nome_motor`, `400`,`500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`, `1900`, `2000`, `2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`, `3000`, `descricao`)\n" +
+"(`nome_motor`, `400`,`500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`, `1900`, `2000`, `2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`, `3000`, `descricao`,`conta`)\n" +
 " VALUES\n" +
 " ('"+nomeMotor+"', '"+rpm400+"','"+rpm500+"', '"+rpm600+"', '"+rpm700+"', '"+rpm800+"', '"+rpm900+"', "
                     + "'"+rpm1000+"', '"+rpm1100+"', '"+rpm1200+"', '"+rpm1300+"', '"+rpm1400+"',"
                     + " '"+rpm1500+"', '"+rpm1600+"', '"+rpm1700+"', '"+rpm1800+"', '"+rpm1900+"',"
                     + " '"+rpm2000+"', '"+rpm2100+"', '"+rpm2200+"', '"+rpm2300+"', '"+rpm2400+"', "
                     + "'"+rpm2500+"', '"+rpm2600+"', '"+rpm2700+"', '"+rpm2800+"', '"+rpm2900+"', "
-                    + "'"+rpm3000+"', '"+descricao+"');");
+                    + "'"+rpm3000+"', '"+descricao+"','"+conta+"');");
                    
             stmt.executeUpdate(sql);
   System.out.println("Tabela salva com sucesso!!!!!");
@@ -267,7 +267,7 @@ return elemento;
     
      
      
-     public void faixa(String nomeMotor,String faixa, String litros, String descricao) {
+     public void faixa(String conta, String nomeMotor,String faixa, String litros, String descricao) {
 
         try {
       
@@ -276,8 +276,8 @@ return elemento;
           Statement stmt = con.createStatement();
 
             // Prepare a statement to insert a record  
-            String sql = ("INSERT INTO `exporta`.`tab_consumo` (`nome_motor`, `faixa_rpm`, `litros_hora`, `descricao`)"
-                    + " VALUES ('"+nomeMotor+"', '"+faixa+"', '"+litros+"', '"+descricao+"');");
+            String sql = ("INSERT INTO `exporta`.`tab_consumo` (`nome_motor`, `faixa_rpm`, `litros_hora`, `descricao`,`conta`)"
+                    + " VALUES ('"+nomeMotor+"', '"+faixa+"', '"+litros+"', '"+descricao+"', `"+conta+"`);");
                    
             stmt.executeUpdate(sql);
   System.out.println("Tabela salva com sucesso!!!!!");

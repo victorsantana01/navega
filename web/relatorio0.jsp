@@ -211,7 +211,7 @@
                                                            maiorMinuto = minuto;
                                                             vetPosition = i;   
                                                            }   
-                                                consumo = te.consumo(cons.getLitrosPorRpm(dadosMotorViagem, entrada), painel1[1][i]);
+                                                consumo = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
@@ -344,7 +344,7 @@
                                                            }
                                                                 System.err.println("Valor Arredondado é: " + entrada2);
                                                                 ConsumoDao cons = new ConsumoDao();
-                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(dadosMotorViagem, entrada), painel1[1][i]);
+                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
 
                                                                 consumoDouble2 = Double.valueOf(consumo2);
                                                                 total2 = total2 + consumoDouble2;
@@ -550,16 +550,16 @@
 
         <!--Materialize JS -->
         <script src="js/materialize.js">
-document.addEventListener('DOMContentLoaded', function() {
-var elems = document.querySelectorAll('select');
-var instances = M.FormSelect.init(elems, options);
-});
+                document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems, options);
+                });
 
-// Or with jQuery
-$(document).ready(function(){
-$('.scrollspy').scrollSpy();
-$('select').formSelect();
-});
+                // Or with jQuery
+                $(document).ready(function(){
+                $('.scrollspy').scrollSpy();
+                $('select').formSelect();
+                });
         </script>
         <script>
             function printClick() {  
