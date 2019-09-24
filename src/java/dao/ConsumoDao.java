@@ -305,7 +305,9 @@ return elemento;
     }
     
    public String arredondamento(String entrada){
-       
+       if (entrada.equals("65535")) {
+        entrada = "0";   
+       }
       String resultado = null;
       String []vetEntrada = entrada.split("");
       if(vetEntrada.length==3){
