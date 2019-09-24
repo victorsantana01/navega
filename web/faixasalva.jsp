@@ -62,35 +62,6 @@
               //String descricao= request.getParameter("descricao");
               
               
-             
-              String rpm400r= "400";
-              String rpm500r= "500";
-              String rpm600r= "600";
-              String rpm700r= "700";
-              String rpm800r= "800";
-              String rpm900r= "900";
-              String rpm1000r= "1000";
-              String rpm1100r= "1100";
-              String rpm1200r= "1200";
-              String rpm1300r= "1300";
-              String rpm1400r= "1400";
-              String rpm1500r= "1500";
-              String rpm1600r= "1600";
-              String rpm1700r= "1700";
-              String rpm1800r= "1800";
-              String rpm1900r= "1900";
-              String rpm2000r= "2000";
-              String rpm2100r= "2100";
-              String rpm2200r= "2200";
-              String rpm2300r= "2300";
-              String rpm2400r= "2400";
-              String rpm2500r= "2500";
-              String rpm2600r= "2600";
-              String rpm2700r= "2700";
-              String rpm2800r= "2800";
-              String rpm2900r= "2900";
-              String rpm3000r= "3000";
-              
               
               ConsumoDao cons = new ConsumoDao();
               cons.incluirFaixa(conta,nome, rpm400, rpm500, rpm600, rpm700, rpm800, rpm900, rpm1000,
