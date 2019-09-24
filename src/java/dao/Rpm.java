@@ -27,7 +27,7 @@ public class Rpm {
      //------------------------------------------------------------------------//
     public String [][] getRpm(String conta, String begin, String finish, String mct) {        
             
-        String[][] vetRelatorio = new String[7][2500];
+        String[][] vetRelatorio = new String[7][10000];
         //SCRIPT IGN
         String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_messagereturn_iirtn WHERE  IIRTN_MessageTime "
                 + "BETWEEN ('"+begin+" 00:00:00"+"') "
@@ -87,7 +87,9 @@ public class Rpm {
             }
             rs.last();
             n = rs.getRow();
+            n = n-1;
             vetRelatorio[5][0] = String.valueOf(n);
+            System.out.println("QUATIDADE DE LINHAS ************* "+vetRelatorio[5][0]);
             rs.close();
             stmt.close();
             con.close();
@@ -104,7 +106,7 @@ public class Rpm {
          //VisitaDao v =new VisitaDao();v.setNumRow();
         
             
-        String[][] vetRelatorio = new String[7][2500];
+        String[][] vetRelatorio = new String[7][10000];
         //SCRIPT IGN
         String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_messagereturn_iirtn WHERE  IIRTN_MessageTime "
                 + "BETWEEN ('"+begin+" 00:00:00"+"') "
