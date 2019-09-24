@@ -45,6 +45,8 @@
                 Connection con = ConexaoMySQL.getConexaoMySQL();
 
                 Statement stmt = con.createStatement();
+                Statement stmt2 = con.createStatement();
+                Statement stmt3 = con.createStatement();
             %>                
 
 
@@ -205,7 +207,7 @@
                          <option value="" disabled selected>Empurrador</option>
                 <%
                     Rpm rpm = new Rpm();
-                    String[][] veiculo = rpm.painelAtualizado(conta, con, stmt).clone();
+                    String[][] veiculo = rpm.painelAtualizado(conta, con, stmt, stmt2, stmt3).clone();
                     for (int i = 0; i < 100; i++) {
                         if (veiculo[1][i] == null) {
                             i = 100;
@@ -223,11 +225,11 @@
             <%
                 ConsumoDao cons = new ConsumoDao();
 
-                String[][] dados = cons.getTabelaConsumo().clone();
+                String[][] dados = cons.getTabelaConsumo(conta).clone();
 
                 for (int i = 0; i < 500; i++) {
 
-                    if (cons.getTabelaConsumo()[0][i] == null) {
+                    if (cons.getTabelaConsumo(conta)[0][i] == null) {
                                  i = 500;
 
                              } else {%>
@@ -295,7 +297,7 @@
                                 <option class="black-text" value="" disabled selected>Viagem</option>
                                 <%  
                                     ViagemDao via = new ViagemDao();
-                                    String[][] viagem = via.pesquisarViagens().clone();
+                                    String[][] viagem = via.pesquisarViagens(conta, con, stmt).clone();
                                     for (int i = 0; i < 20; i++) {
                                         if (viagem[0][i] == null) {
                                             i = 50;
@@ -343,7 +345,7 @@
                 <%
                     //PESQUISA VIAGENS APARTIR DO ID ESCOLHIDO NO SELECT
                     String id = request.getParameter("viagem");
-                    viagem = via.pesquisarViagens(id);
+                    viagem = via.pesquisarViagens(conta, con, stmt, id);
                     
                     Format format = new Format();
                     String inicio = viagem[4][0];
@@ -374,7 +376,7 @@
 
                 <%  
                     String[][] painel1;
-                    painel1 = rpm.getPrincipalRpm(begin, finish, empurrador, con, stmt).clone();
+                    painel1 = rpm.getPrincipalRpm(begin, finish, empurrador,conta, con, stmt).clone();
 
                     String consumo = "";
                     String latLon = "";
@@ -419,7 +421,7 @@
                                 maiorMinuto = minuto;
                                 vetPosition = i;
                             }
-                            consumo = te.consumo(cons.getLitrosPorRpm(viagem[9][0], entrada), painel1[1][i]);
+                            consumo = te.consumo(cons.getLitrosPorRpm(conta, viagem[9][0], entrada), painel1[1][i]);
 
                             consumoDouble = Double.valueOf(consumo);
                             total = total + consumoDouble;
@@ -483,7 +485,7 @@ var view = new google.visualization.DataView(data);
 
 
                         <% // Logica de Deslocamento
-                            String dist = rpm.deslocamento(begin, finish, viagem[7][0]);
+                            String dist = rpm.deslocamento(conta, begin, finish, viagem[7][0]);
                             if (dist == null) {
                                 dist = "0";
                             }
@@ -518,7 +520,7 @@ var view = new google.visualization.DataView(data);
                         <%
                             String kmString = "";
                             String[][] painel2;
-                            painel2 = rpm.getPrincipalRpm2(begin, finish, viagem[7][0]).clone();
+                            painel2 = rpm.getPrincipalRpm2(conta, begin, finish, viagem[7][0]).clone();
                             System.out.println("Valida2 >>>>>>>> " + painel2[0][0]);
                             String consumo2 = "";
 
@@ -557,7 +559,7 @@ var view = new google.visualization.DataView(data);
                                     }
                                     System.err.println("Valor Arredondado é: " + entrada2);
 
-                                    consumo2 = te.consumo(cons.getLitrosPorRpm(viagem[9][0], entrada), painel1[1][i]);
+                                    consumo2 = te.consumo( cons.getLitrosPorRpm(conta, viagem[9][0], entrada), painel1[1][i]);
 
                                     consumoDouble2 = Double.valueOf(consumo2);
                                     total2 = total2 + consumoDouble2;
@@ -565,7 +567,7 @@ var view = new google.visualization.DataView(data);
 
                             }
                             String[][] painel;
-                            painel = rpm.getRpm(begin, finish, viagem[7][0]).clone();
+                            painel = rpm.getRpm(conta, begin, finish, viagem[7][0]).clone();
                             int cont = Integer.parseUnsignedInt(painel[5][0]);
                             String mediaRpm = "";
                             String mediaRpm2 = "";
