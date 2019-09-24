@@ -647,7 +647,7 @@ System.err.println("com o rs.getRow();"+ i);
 
                 vetRelatorio[1][i] = rs.getString("MCT");
                 vetRelatorio[2][i] = rs.getString("HORA");
-                vetRelatorio[0][i] = rp.getMctNome(conta, vetRelatorio[1][i],con,stmt2);
+                vetRelatorio[0][i] = rs.getString("NOME");
                 vetRelatorio[8][i] = rs.getString("LAT");
                 vetRelatorio[9][i] = rs.getString("LON");
                 vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[1][i]);
