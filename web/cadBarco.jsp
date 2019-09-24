@@ -116,7 +116,7 @@
                                                         <option value="" disabled selected>Empurrador</option>
                                                         <%
                                                             Rpm rpm = new Rpm();
-                                                            String[][] veiculo = rpm.painelAtualizado(conta, con, stmt, stmt1, stmt2).clone();
+                                                            String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt).clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;
