@@ -82,9 +82,9 @@ response.sendRedirect( "login.jsp" );
         <div class=" container "><br>
             <div class="row ">
                 <div class="col s12">
-                    <div class="card blue-grey darken-1 offset-s5">
-                        <div class="card-content white-text ">
-                            <span class="card-title">Tabela de consumo</span>
+                    <div class="card offset-s5">
+                        <div class="card-content black-text ">
+                            <span class="card-title"><b>Tabela de consumo</b></span>
                             <div class="row">
                                 <div class="container col s12">
                                     <div class="row ">
@@ -92,14 +92,22 @@ response.sendRedirect( "login.jsp" );
                                         <form id="mod" name="tab" action="faixasalva.jsp" method="get">
                                             <div class="form-group">
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">Motor</label>
                                                         <input name="motor" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Motor">
 
                                                     </div>
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputLastName">400RPM</label>
-                                                        <input name="cons0" class="form-control" id="exampleInputLastName" type="text"  aria-describedby="nameHelp" placeholder="Litros">
+                                                        <input name="cons0" class="form-control" id="exampleInputLastName" type="number"  aria-describedby="nameHelp" placeholder="Litros">
+                                                    </div>
+                                                    <div class="input-field col s3">
+                                                        <label for="exampleInputName">500RPM</label>
+                                                        <input name="cons1" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
+                                                    </div>
+                                                    <div class="input-field col s3">
+                                                        <label for="exampleInputName">600RPM/Hora</label>
+                                                        <input name="cons2" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,87 +115,72 @@ response.sendRedirect( "login.jsp" );
 
                                             <div class="form-group" >
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
-                                                        <label for="exampleInputName">500RPM</label>
-                                                        <input name="cons1" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="input-field col s6">
-                                                        <label for="exampleInputName">600RPM/Hora</label>
-                                                        <input name="cons2" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
-
-
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">700RPM</label>
                                                         <input name="cons3" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
 
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">800RPM</label>
                                                         <input name="cons4" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
                                                     </div>
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">900RPM</label>
                                                         <input name="cons5" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1000RPM</label>
                                                         <input name="cons6" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1100RPM</label>
                                                         <input name="cons7" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1200RPM</label>
                                                         <input name="cons8" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
                                                     </div>
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1300RPM</label>
                                                         <input name="cons9" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1400RPM</label>
                                                         <input name="cons10" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1500RPM</label>
                                                         <input name="cons11" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1600RPM</label>
                                                         <input name="cons12" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">              
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1700RPM</label>
                                                         <input name="cons13" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
@@ -196,28 +189,28 @@ response.sendRedirect( "login.jsp" );
 
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1800RPM</label>
                                                         <input name="cons14" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">   
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">1900RPM</label>
                                                         <input name="cons15" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2000RPM</label>
                                                         <input name="cons16" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">    
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2100RPM</label>
                                                         <input name="cons17" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">             
                                                     </div>
@@ -225,14 +218,14 @@ response.sendRedirect( "login.jsp" );
 
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2200RPM</label>
                                                         <input name="cons18" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2300RPM</label>
                                                         <input name="cons19" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
@@ -240,28 +233,28 @@ response.sendRedirect( "login.jsp" );
 
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2400RPM</label>
                                                         <input name="cons20" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2500RPM</label>
                                                         <input name="cons21" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2600RPM</label>
                                                         <input name="cons22" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2700RPM</label>
                                                         <input name="cons23" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
 
@@ -269,29 +262,29 @@ response.sendRedirect( "login.jsp" );
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2800RPM</label>
                                                         <input name="cons24" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">2900RPM</label>
                                                         <input name="cons25" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="input-field col s6">
+                                                    <div class="input-field col s3">
                                                         <label for="exampleInputName">3000RPM</label>
                                                         <input name="cons26" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros">              
                                                     </div>
                                                 </div>
 
 
-                                                <div class="card-action">
-                                                    <a  class="btn col s6 center-align push-s3 z-depth-5  " onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
+                                                <div class="card-action col s12">
+                                                    <a  class="btn col s6 center-align push-s3 z-depth-5  " style="margin-top: 20px;" onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
                                                 </div>
 
 

@@ -41,22 +41,22 @@ public class BarcoDao {
         String[][] barcos = new String[7][100];
 
         try {
-            String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
-                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab"
-                    + " WHERE conta='"+conta+"' order by dataCad DESC;");
+            String sql = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b \n" +
+                            "join motor_tab m on b.motor=m.idmotor_tab \n" +
+                            "WHERE b.conta='"+conta+"' order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
             int i = 0;
             while (rs.next()) {
 
-                barcos[0][i] = rs.getString("idbarco");
-                barcos[1][i] = rs.getString("mct");
-                barcos[2][i] = rs.getString("nome");
+                barcos[0][i] = rs.getString("b.idbarco");
+                barcos[1][i] = rs.getString("b.mct");
+                barcos[2][i] = rs.getString("b.nome");
                 barcos[3][i] = rs.getString("motor");
-                barcos[4][i] = rs.getString("modelo");
-                barcos[5][i] = rs.getString("base");
-                barcos[6][i] = rs.getString("dataCad");
+                barcos[4][i] = rs.getString("b.modelo");
+                barcos[5][i] = rs.getString("b.base");
+                barcos[6][i] = rs.getString("b.dataCad");
                 i++;
             }
             System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
@@ -75,20 +75,20 @@ public class BarcoDao {
         String[][] barcos = new String[7][10];
 
         try {
-            String sql = ("SELECT idbarco, mct, nome, motor_tab.nome_motor as motor, modelo, base, dataCad FROM exporta.barco "
-                    + "join motor_tab on exporta.barco.motor=exporta.motor_tab.idmotor_tab WHERE idbarco = '" + id + "' and conta='"+conta+"'");
+            String sql = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b "
+                    + "join motor_tab m on b.motor=m.idmotor_tab WHERE b.idbarco = '" + id + "' and b.conta='"+conta+"'");
 
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
             while (rs.next()) {
 
-                barcos[0][i] = rs.getString("idbarco");
-                barcos[1][i] = rs.getString("mct");
-                barcos[2][i] = rs.getString("nome");
+                barcos[0][i] = rs.getString("b.idbarco");
+                barcos[1][i] = rs.getString("b.mct");
+                barcos[2][i] = rs.getString("b.nome");
                 barcos[3][i] = rs.getString("motor");
-                barcos[4][i] = rs.getString("modelo");
-                barcos[5][i] = rs.getString("base");
-                barcos[6][i] = rs.getString("dataCad");
+                barcos[4][i] = rs.getString("b.modelo");
+                barcos[5][i] = rs.getString("b.base");
+                barcos[6][i] = rs.getString("b.dataCad");
                 i++;
             }
 
@@ -108,7 +108,7 @@ public class BarcoDao {
         String[][] motores = new String[20][2];
 
         try {
-            String sql = ("SELECT * FROM exporta.motor_tab");
+            String sql = ("SELECT * FROM exporta.motor_tab where conta='"+conta+"'");
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -119,7 +119,8 @@ public class BarcoDao {
                 motores[i][1] = rs.getString("nome_motor");
                 i++;
             }
-            System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
+            System.out.println("METODO PESQUISAMOTOR FUNCIONANDO ........... ");
+            
             rs.close();
         } catch (Exception e) {
 
