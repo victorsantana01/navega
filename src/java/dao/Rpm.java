@@ -593,6 +593,32 @@ System.err.println("com o rs.getRow();"+ i);
         return i;
     }
     
+    public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt){
+        String[][] barcos = new String[2][120];
+        //Conexão   
+        try {
+            String sql =("SELECT distinct(IIPOS_MctAddress) as MCT, IIPOS_MctName as nome FROM "+conta+"_positionhistory_iipos;");
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            int i =0;
+            while (rs.next()) {
+                
+                barcos[1][i] = rs.getString("MCT");
+                barcos[0][i] = rs.getString("nome");
+                System.out.println("mct: "+barcos[1][i]+" - "+barcos[0][i]);
+                i++;
+                
+            }
+            System.out.println("METODO NOMEEMBARCACAO REALIZADO COM SUCESSO");
+            
+        } catch (Exception e) {
+
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+              System.err.println("Erro no painel!!!");
+        }
+        return barcos;
+            
+    }
        
     public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
         
@@ -605,7 +631,7 @@ System.err.println("com o rs.getRow();"+ i);
             "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
             "MAX(IIPOS_LONGITUDE) AS LON  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
              
-   
+                
                       
      
 //-----------------------------------------------------------------------------------------------------//  
@@ -618,11 +644,10 @@ System.err.println("com o rs.getRow();"+ i);
             int i =0;
             while (rs.next()) {
                 l=rs.getRow();
-                
-                ;
+
                 vetRelatorio[1][i] = rs.getString("MCT");
                 vetRelatorio[2][i] = rs.getString("HORA");
-               vetRelatorio[0][i] = rp.getMctNome(conta, vetRelatorio[1][i],con,stmt2);
+                vetRelatorio[0][i] = rp.getMctNome(conta, vetRelatorio[1][i],con,stmt2);
                 vetRelatorio[8][i] = rs.getString("LAT");
                 vetRelatorio[9][i] = rs.getString("LON");
                 vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[1][i]);
