@@ -49,7 +49,7 @@ Class.forName(driverName);
  
 // Configurando a nossa conexão com um banco de dados//
     //String serverName = "node154823-env-6118138.jelasticlw.com.br";
-            String serverName = "localhost";    //caminho do servidor do BD
+            String serverName = "18.188.247.78";    //caminho do servidor do BD
 
             String mydatabase = "exporta";        //nome do seu banco de dados
  
@@ -57,10 +57,11 @@ Class.forName(driverName);
  
 
  
-           String username = "root";        //nome de um usuário de seu BD      
+           String username = "nortetrac";        //nome de um usuário de seu BD      
  
-            String password = "auto.sup";      //sua senha de acesso  String password = "AAGxop09361";
+           String password = "2012@norte";      //sua senha de acesso  String password = "AAGxop09361";
  
+            
             connection = DriverManager.getConnection(url, username, password);
  
   
