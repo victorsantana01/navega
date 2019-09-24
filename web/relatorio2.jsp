@@ -237,12 +237,12 @@ function trocaClasse(elemento, antiga, nova) {
                      <%
                      ConsumoDao cons = new ConsumoDao();
                    
-                     String [][] dados = cons.getTabelaConsumo().clone();
+                     String [][] dados = cons.getTabelaConsumo(conta).clone();
                        
 
                       for (int i = 0; i < 500; i++) {
          
-                     if(cons.getTabelaConsumo()[0][i]==null){
+                     if(cons.getTabelaConsumo(conta)[0][i]==null){
                          i=500;
                          
                      }else{%>
@@ -415,7 +415,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                             vetPosition = i;   
                                                            }
                                                        
-                                                consumo = te.consumo(cons.getLitrosPorRpm(request.getParameter("nomeMotor"), entrada), painel1[1][i]);
+                                                consumo = te.consumo(cons.getLitrosPorRpm(conta, request.getParameter("nomeMotor"), entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
@@ -557,7 +557,7 @@ function trocaClasse(elemento, antiga, nova) {
                                                            }
                                                                 System.err.println("Valor Arredondado é: " + entrada2);
 
-                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(request.getParameter("nomeMotor"), entrada), painel1[1][i]);
+                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, request.getParameter("nomeMotor"), entrada), painel1[1][i]);
 
                                                                 consumoDouble2 = Double.valueOf(consumo2);
                                                                 total2 = total2 + consumoDouble2;
