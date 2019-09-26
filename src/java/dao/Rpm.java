@@ -87,7 +87,7 @@ public class Rpm {
             }
             rs.last();
             n = rs.getRow();
-            n = n-1;
+          //  n = n-1;
             vetRelatorio[5][0] = String.valueOf(n);
             System.out.println("QUATIDADE DE LINHAS ************* "+vetRelatorio[5][0]);
             rs.close();

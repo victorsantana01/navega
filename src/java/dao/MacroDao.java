@@ -23,7 +23,7 @@ public class MacroDao {
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt, String embarcacaoManobra, String dataManobra){
         
         Format format = new Format();
-        String[][] macros = new String[12][100];
+        String[][] macros = new String[12][5000];
         String data="";
         String dataInicio;
         String dataFim;
@@ -100,7 +100,7 @@ public class MacroDao {
     }
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt){
         
-        String[][] macros = new String[12][100];
+        String[][] macros = new String[12][5000];
         
         try {
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
