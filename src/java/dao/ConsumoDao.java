@@ -136,7 +136,6 @@ return elemento;
                 elemento[26][i]= rs.getString("3000");
                 elemento[27][i]= rs.getString("descricao");
                 elemento[28][i]= rs.getString("400");
-                elemento[29][i]= rs.getString("0");
                          
                
                 
@@ -245,28 +244,22 @@ return elemento;
           Statement stmt = con.createStatement();
 
             // Prepare a statement to insert a record  
-            String sql = ("INSERT INTO `exporta`.`motor_tab` \n" +
-"(`nome_motor`, `400`,`500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`, `1900`, `2000`, `2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`, `3000`, `descricao`,`conta`)\n" +
-" VALUES\n" +
-" ('"+nomeMotor+"', '"+rpm400+"','"+rpm500+"', '"+rpm600+"', '"+rpm700+"', '"+rpm800+"', '"+rpm900+"', "
-                    + "'"+rpm1000+"', '"+rpm1100+"', '"+rpm1200+"', '"+rpm1300+"', '"+rpm1400+"',"
-                    + " '"+rpm1500+"', '"+rpm1600+"', '"+rpm1700+"', '"+rpm1800+"', '"+rpm1900+"',"
-                    + " '"+rpm2000+"', '"+rpm2100+"', '"+rpm2200+"', '"+rpm2300+"', '"+rpm2400+"', "
-                    + "'"+rpm2500+"', '"+rpm2600+"', '"+rpm2700+"', '"+rpm2800+"', '"+rpm2900+"', "
-                    + "'"+rpm3000+"', '"+descricao+"','"+conta+"');");
-                   
+            
+            String sql = ("INSERT INTO `exporta`.`motor_tab` (`nome_motor`, `400`, `500`, `600`, `700`, `800`,"
+                    + " `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`,"
+                    + " `1900`, `2000`, `2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`,"
+                    + " `2900`, `3000`, `descricao`, `conta`)"
+                    + " VALUES ('"+nomeMotor+"', '"+rpm400+"', '"+rpm500+"', '"+rpm600+"', '"+rpm700+"',"
+                    + " '"+rpm800+"', '"+rpm900+"', '"+rpm1000+"', '"+rpm1100+"', '"+rpm1200+"', '"+rpm1300+"'"
+                    + ", '"+rpm1400+"', '"+rpm1500+"', '"+rpm1600+"', '"+rpm1700+"', '"+rpm1800+"', '"+rpm1900+"'"
+                    + ", '"+rpm2000+"', '"+rpm2100+"', '"+rpm2200+"', '"+rpm2300+"', '"+rpm2400+"', '"+rpm2500+"',"
+                    + " '"+rpm2600+"', '"+rpm2700+"', '"+rpm2800+"', '"+rpm2900+"', '"+rpm3000+"', '"+descricao+"', '"+conta+"');");     
             stmt.executeUpdate(sql);
-  System.out.println("Tabela salva com sucesso!!!!!");
+        System.out.println("Tabela salva com sucesso!!!!!");
         } catch (SQLException e) {
-             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!");
              System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
         }
-
-    }        
-    
-    
-     
-     
+    }
      public void faixa(String conta, String nomeMotor,String faixa, String litros, String descricao) {
 
         try {
@@ -280,14 +273,12 @@ return elemento;
                     + " VALUES ('"+nomeMotor+"', '"+faixa+"', '"+litros+"', '"+descricao+"', `"+conta+"`);");
                    
             stmt.executeUpdate(sql);
-  System.out.println("Tabela salva com sucesso!!!!!");
+            System.out.println("Tabela salva com sucesso!!!!!");
         } catch (SQLException e) {
 
         }
 
     }
-
-
     public String consumo(String litros, String minutos) {
 
         String consumo = "";
