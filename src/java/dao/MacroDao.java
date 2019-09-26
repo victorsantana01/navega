@@ -118,7 +118,6 @@ public class MacroDao {
                 
                 if(texto.equals(rs.getString("me.IIRTN_Text"))){
                     
-                    
                 }else{
                     texto = rs.getString("me.IIRTN_Text");
                     String[] macroArray = rs.getString("me.IIRTN_Text").split("_",12);
