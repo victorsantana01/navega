@@ -100,11 +100,11 @@ public class MacroDao {
     }
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt){
         
-        String[][] macros = new String[12][5000];
+        String[][] macros = new String[13][5000];
         
         try {
 //            String sql = ("SELECT * FROM exporta.messagereturn_iirtn where IIRTN_AccountNumber = '268525817' and IIRTN_MacroNumber = '3' ");
-            String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
+            String sql = ("SELECT me.IIRTN_MessageTime, me.IIRTN_MctAddress, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
                             "FROM exporta."+conta+"_messagereturn_iirtn me \n" +
                             "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
@@ -142,6 +142,7 @@ public class MacroDao {
     /* PORTO           */   macros[9][i] = macroArray[10];
     /* CMT             */   macros[10][i] = macroArray[11];
     /* CHEMAQ          */   macros[11][i] = macroArray[11]; 
+    /* CHEMAQ          */   macros[12][i] =  rs.getString("me.IIRTN_MctAddress");
                             i++;
                 }
                 

@@ -95,7 +95,10 @@
         </ul>
     </div>
     <!--INICIO do Corpo do App -->
-
+    <%
+    String recebMct = "";
+    recebMct = request.getParameter("enviaMct");
+    %>
     <div class=" container "><br>
         <div class="row ">
             <div class="col s12">
@@ -115,15 +118,24 @@
                                                     <select class="browser-default black-text" name="mctBarco" >
                                                         <option value="" disabled selected>Empurrador</option>
                                                         <%
+                                                            /*
+                                                            
+                                                            
+                                                            */
+                                                            
                                                             Rpm rpm = new Rpm();
                                                             String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt).clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;
                                                                 } else {
+                                                                    if (veiculo[1][i].equals(recebMct)) {%>
+                                                                    <option selected value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                        
+                                                                       <% }else{
                                                         %>
                                                         <option value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
-                                                        <%}
+                                                        <%}}
                              }%>
                                                     </select>
                                                 </div>
