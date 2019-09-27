@@ -58,7 +58,8 @@
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
-        Statement stmt = con.createStatement();        
+        Statement stmt = con.createStatement();
+        Statement stmt2 = con.createStatement();
         %>
         <style>
             .daterangepicker .drp-calendar .calendar-time select{
@@ -176,9 +177,9 @@
                         MacroDao m = new MacroDao();
                         String [][] macros;
                         if(barco == null || dataManobra == null){
-                            macros = m.pesquisaMacro(conta, con, stmt);
+                            macros = m.pesquisaMacro(conta, con, stmt, stmt2);
                         }else{
-                            macros = m.pesquisaMacro(conta, con, stmt, barco,dataManobra);
+                            macros = m.pesquisaMacro(conta, con, stmt, stmt2, barco,dataManobra);
                         }
                         
                         
