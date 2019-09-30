@@ -159,6 +159,7 @@
                     <tr>
                         <th>DATA</th>
                         <th>ENBARCAÇÃO</th>
+                        <th>MCT</th>
                         <th>MANOBRA</th>
                         <th>MOTOR</th>
                         <th>DATA/HORA INICIO</th>
@@ -176,12 +177,7 @@
                         String dataManobra = request.getParameter("datetimes22");
                         MacroDao m = new MacroDao();
                         String [][] macros;
-                        if(barco == null || dataManobra == null){
-                            macros = m.pesquisaMacro(conta, con, stmt, stmt2);
-                        }else{
-                            macros = m.pesquisaMacro(conta, con, stmt, stmt2, barco,dataManobra);
-                        }
-                        
+                        macros = m.pesquisaMacro(conta, con, stmt, stmt2, barco,dataManobra);
                         
                         for(int i=0; i< 5000; i++){
                             if(macros[0][i] == null){
@@ -191,6 +187,7 @@
                     <%
                             %> <td><%=macros[0][i] %></td><%
                             %> <td><%=macros[1][i] %></td><%
+                            %> <td><a href="cadBarco.jsp?enviaMct=<%=macros[12][i]%>"><%=macros[12][i] %></a></td><%
                             %> <td><%=macros[2][i] %></td><%
                             %> <td><%=macros[3][i] %></td><%
                             %> <td><%=macros[4][i] %></td><%
@@ -209,6 +206,7 @@
                     <tr>
                         <th>DATA</th>
                         <th>ENBARCAÇÃO</th>
+                        <th>MCT</th>
                         <th>MANOBRA</th>
                         <th>MOTOR</th>
                         <th>DATA/HORA INICIO</th>
