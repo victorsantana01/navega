@@ -20,6 +20,45 @@ import logic.Format;
  */
 public class MacroDao {
     
+    public String[][] listarMacros(String conta,Connection con, Statement stmt1, Statement stmt2){
+        String[][] macros = new String[6][100];
+        
+        try{
+                        
+            String sql = ("SELECT DISTINCT IIRTN_MacroNumber as macros FROM `268477387_messagereturn_iirtn`");
+            ResultSet rs = stmt2.executeQuery(sql);
+            
+            int i =0;
+            while(rs.next()){
+                System.out.println("total: "+rs.getString("macros"));
+                try{
+                    String sql2 = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+rs.getString("macros")+"' ORDER BY IIRTN_MessageTime DESC LIMIT 1");
+                    ResultSet rs2 = stmt1.executeQuery(sql2);
+                    
+                    while(rs2.next()){
+                        macros[0][i] = rs2.getString("IIRTN_MacroNumber");
+                        macros[1][i] = rs2.getString("IIRTN_MacroVersion");
+                        macros[2][i] = rs2.getString("IIRTN_MessageTime");
+                        macros[3][i] = rs2.getString("IIRTN_MctAddress");
+                        macros[4][i] = rs2.getString("IIRTN_Text");
+                        i++;
+                    }
+                }catch(Exception e){
+                    System.out.println("ERROR NO METODO LISTARMACROS WHILE 2");
+                    System.out.println(e);
+                }
+            }
+            
+            
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO LISTARMACROS");
+            System.out.println(e);
+        }
+        
+        
+        return macros;
+    }
+    
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt1, Statement stmt2, String embarcacaoManobra, String dataManobra){
         
         Format format = new Format();
