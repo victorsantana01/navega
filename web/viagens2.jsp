@@ -187,7 +187,11 @@
                     <%
                             %> <td><%=macros[0][i] %></td><%
                             %> <td><%=macros[1][i] %></td><%
-                            %> <td><a href="cadBarco.jsp?enviaMct=<%=macros[12][i]%>"><%=macros[12][i] %></a></td><%
+                            if(macros[1][i]!=null){
+                                %> <td><%=macros[12][i] %></td><%
+                            }else{
+                                %> <td><a href="cadBarco.jsp?enviaMct=<%=macros[12][i]%>"><%=macros[12][i]%></a></td><%
+                            }
                             %> <td><%=macros[2][i] %></td><%
                             %> <td><%=macros[3][i] %></td><%
                             %> <td><%=macros[4][i] %></td><%

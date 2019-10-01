@@ -599,7 +599,9 @@ System.err.println("com o rs.getRow();"+ i);
         String[][] barcos = new String[2][120];
         //Conexão   
         try {
-            String sql =("SELECT distinct(IIPOS_MctAddress) as MCT, IIPOS_MctName as nome FROM "+conta+"_positionhistory_iipos;");
+            String sql =("SELECT distinct(ph.IIPOS_MctAddress) as MCT, ph.IIPOS_MctName as nome, b.nome "
+                    + "FROM "+conta+"_positionhistory_iipos ph LEFT JOIN barco b ON ph.IIPOS_MctAddress = b.mct "
+                    + "WHERE b.nome is null");
             ResultSet rs = stmt.executeQuery(sql);
             
             int i =0;
