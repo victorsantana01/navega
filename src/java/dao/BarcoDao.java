@@ -49,7 +49,7 @@ public class BarcoDao {
 
             int i = 0;
             while (rs.next()) {
-
+                
                 barcos[0][i] = rs.getString("b.idbarco");
                 barcos[1][i] = rs.getString("b.mct");
                 barcos[2][i] = rs.getString("b.nome");
@@ -63,6 +63,7 @@ public class BarcoDao {
             rs.close();
         } catch (Exception e) {
 
+            System.err.println("ERRO NO METODO DE PESQUISABARCOS");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.err.println("Erro!!!");
         }

@@ -20,27 +20,81 @@ import logic.Format;
  */
 public class MacroDao {
     
-    public String[][] listarMacros(String conta,Connection con, Statement stmt1, Statement stmt2){
-        String[][] macros = new String[6][100];
+    
+    public String[][] getMacroById(String conta,Connection con, Statement stmt, String id){
+        String[][] macroSelecionada = new String[100][2];
         
         try{
+            
+            String sql = ("SELECT IIRTN_MacroNumber, IIRTN_Text, IIRTN_MacroVersion "
+                    + "FROM `"+conta+"_messagereturn_iirtn` WHERE idAuto = '"+id+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                int total = rs.getString("IIRTN_Text").split("_").length;
+                macroSelecionada[0][0] = rs.getString("IIRTN_MacroNumber");                 //NUMERO DA MACRO
+                macroSelecionada[1][0] = rs.getString("IIRTN_Text");                        //TEXTO
+                System.out.println("texto: "+macroSelecionada[1][0]);
+                macroSelecionada[2][0] = ""+rs.getString("IIRTN_MacroVersion");                 //Version
+                System.out.println("total: "+macroSelecionada[2][0]);
+                System.out.println("array length: "+macroSelecionada.length);
+                for (int i = 3; i < total+2; i++) {
+                    macroSelecionada[i][0] = rs.getString("IIRTN_Text").split("_")[i-2];
+                    System.out.println(i+" : "+macroSelecionada[i][0]);
+                }
+            }
+            
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACRO!");
+            System.out.println(e);
+        }
+            
+        return macroSelecionada;
+    }
+    
+    public void cadastrarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String versao ){
+        System.out.println("------------------------------");
+        System.out.println("numeroMacro: "+numeroMacro);
+        System.out.println("nome: "+nome);
+        System.out.println("Labels: "+labels);
+        System.out.println("versao: "+versao);
+        try{
+            
+            String sql = ("INSERT INTO `def_macro`(`macro`, `nome`, `usuario`, `text`,`versao` ) VALUES ('"+numeroMacro+"','"+nome+"','"+conta+"','"+labels+"','"+versao+"')");
+            stmt.executeUpdate(sql);
+            System.out.println("MACRO "+numeroMacro+" SALVA COM SUCESSO!!!!!");
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO CADASTRARMACRO");
+            System.out.println(e);
+        }
+    }
+    
+    public String[][] listarMacros(String conta,Connection con, Statement stmt1, Statement stmt2, Statement stmt3){
+        String[][] macros = new String[6][100];
+        try{
                         
-            String sql = ("SELECT DISTINCT IIRTN_MacroNumber as macros FROM `268477387_messagereturn_iirtn`");
+            String sql = ("SELECT DISTINCT IIRTN_MacroNumber as macros FROM `"+conta+"_messagereturn_iirtn`");
+            String sql3 = ("SELECT DISTINCT macro FROM def_macro");
             ResultSet rs = stmt2.executeQuery(sql);
+            ResultSet rs3 = stmt3.executeQuery(sql3);
+            String numeroDeMacros = "";
+            while(rs3.next()){
+                numeroDeMacros = numeroDeMacros+" AND IIRTN_MacroNumber <> "+rs3.getString("macro");
+            }
             
             int i =0;
             while(rs.next()){
-                System.out.println("total: "+rs.getString("macros"));
+//                System.out.println("total: "+rs.getString("macros"));
                 try{
-                    String sql2 = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+rs.getString("macros")+"' ORDER BY IIRTN_MessageTime DESC LIMIT 1");
+                    String sql2 = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+rs.getString("macros")+" "+numeroDeMacros+"' ORDER BY IIRTN_MacroNumber DESC LIMIT 1");
                     ResultSet rs2 = stmt1.executeQuery(sql2);
                     
                     while(rs2.next()){
-                        macros[0][i] = rs2.getString("IIRTN_MacroNumber");
-                        macros[1][i] = rs2.getString("IIRTN_MacroVersion");
-                        macros[2][i] = rs2.getString("IIRTN_MessageTime");
-                        macros[3][i] = rs2.getString("IIRTN_MctAddress");
-                        macros[4][i] = rs2.getString("IIRTN_Text");
+                        macros[0][i] = rs2.getString("idAuto");
+                        macros[1][i] = rs2.getString("IIRTN_MacroNumber");
+                        macros[2][i] = rs2.getString("IIRTN_MacroVersion");
+                        macros[3][i] = rs2.getString("IIRTN_MessageTime");
+                        macros[4][i] = rs2.getString("IIRTN_MctAddress");
+                        macros[5][i] = rs2.getString("IIRTN_Text");
                         i++;
                     }
                 }catch(Exception e){

@@ -1,3 +1,4 @@
+<%@page import="dao.MacroDao"%>
 <%@page import="dao.BarcoDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Statement"%>
@@ -64,6 +65,7 @@
             <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
             <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
             <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
+            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Definição de Macro</h6></b></a></li>
             <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
             <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
             <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
@@ -81,37 +83,66 @@
       </div>
         <div class="container"><!--INCIO DO CORPO DA PAGINA-->
             
-            <div class="container card">
-                <form  id="teste" action="teste.jsp" method="get">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_drama</i><span>Embarcações</span><span class="badge"></span></div>
-                            <div class="collapsible-body">
+            <div class="container">
+                <%
+                    String id = request.getParameter("id");
+                    MacroDao macrodao = new MacroDao();
+                    String[][] macroSelecionada = macrodao.getMacroById(conta, con, stmt, id);
+                    System.out.println("macro");
+                    for (int i = 0; i < 10; i++) {
+                        if(macroSelecionada[i][0] != null){
+                            System.out.println(i+" "+macroSelecionada[i][0]);                            
+                        }
+                    }
+                %>
+                <div class="card row">
+                    <div class="card-content black-text ">
+                        <span class="card-title center"><b>DEFINICAÇÃO DE MACRO</b></span><br>
+                        
+                        <div class=" col s12">
+                            <form id="macro" name="macro" action="cadastrarMacro.jsp" method="get">
+                                <div class="col s12">
+                                    <div class="input-field col s6 right-align" style="padding-left: 0px !important">
+                                        <input type="text" id="numeroMacro" name="numeroMacro" value="<%=macroSelecionada[0][0]%>" readonly />
+                                        <label for="numeroMacro" style="left:0px !important">Nº Macro</label>
+                                    </div>
+                                    <div class="input-field col s6 right-align" style="padding-left: 0px !important">
+                                        <input type="text" id="versao" name="versao" value="<%=macroSelecionada[2][0]%>" readonly />
+                                        <label for="versao" style="left:0px !important">Versao</label>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s6 right-align" style="padding-left: 0px !important">
+                                        <input type="text" id="nome" name="nome" required />
+                                        <label for="nome" style="left:0px !important">Nome da Macro</label>
+                                    </div>
+                                </div>
+                                <span class="card-title center">Nomeie os campos</span><br>
                                 <%
-                                    BarcoDao bar = new BarcoDao();
-                                    String[][] barcos = bar.pesquisaBarcos(conta, con, stmt).clone();
-                                    for (int i = 0; i < 50; i++) {
-                                        if (barcos[0][i] == null) {
-                                            i = 50;
-                                        } else {
-                                %>
-                                    <p>
-                                        <label>
-                                            <input id="<%=barcos[1][i]%>" type="checkbox" class="filled-in" checked="checked" />
-                                            <label for="<%=barcos[1][i]%>"><%=barcos[2][i]%></label>
-                                        </label>
-                                    </p>
-                                <%  }
+                                    int x=0;
+                                    for (int i = 3; i < 100; i++) {
+                                        if(macroSelecionada[i][0] == null){
+                                            
+                                        }else{
+                                        %>
+                                        <div class="input-field col s6">
+                                                <input type="text" id="label<%=x%>" name="label<%=x%>" required />
+                                                <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
+                                        </div>
+
+                                <%
+                                    x++;
+                                    }
                                     }
                                 %>
-                            </div>
-                        </li>
-                    </ul>
-                            <div class="container">
-                                <!--<input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " />-->
-                                <button class="btn" onClick="teste()">teste</button>
-                            </div>
-                </form>
+                                <br>
+                                <div class="card-action col s12">
+                                    <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             
@@ -119,18 +150,19 @@
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
+        <script type="text/javascript">
+            function confirma(form) {
+                form.submit();
+                return false;
+            }
+        </script>
         <script>
             $(document).ready(function(){
                 $('.collapsible').collapsible();
             });
         </script>
         <script>
-            var teste = "";
-            for (var i = 0; i < 50; i++) {
-                if($("#329524").prop('checked')){
-                    
-                }
-            }
+            
         </script>
     </body>
 </html>
