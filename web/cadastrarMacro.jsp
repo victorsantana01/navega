@@ -52,12 +52,20 @@
                         String nome = request.getParameter("nome");
                         String numeroMacro = request.getParameter("numeroMacro");
                         String versao = request.getParameter("versao");
-
+                        
                         MacroDao macro = new MacroDao();
-                        macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, versao);
-
-                        String redirectURL = "/NavegaGestor/listarMacros.jsp";
-                        response.sendRedirect(redirectURL);
+                        String xx = macro.getMacroName(conta, con, stmt, numeroMacro); 
+                        if(xx == null){
+                            macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, versao);
+                            String redirectURL = "/NavegaGestor/listarMacros.jsp";
+                            response.sendRedirect(redirectURL);
+                        }else{
+                            macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, versao);
+                            String redirectURL = "/NavegaGestor/listarMacros.jsp";
+                            response.sendRedirect(redirectURL);
+                        }                     
+                        
+                        
                     %>
                 </div>
             </div>

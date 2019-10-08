@@ -21,6 +21,30 @@ import logic.Format;
 public class MacroDao {
     
     
+    public String[][] listarMacroCadastradas(String conta,Connection con, Statement stmt){
+        String[][] macroCadastradas = new String[10][50];
+        
+        try{
+            
+            String sql = ("SELECT * FROM `def_macro` WHERE usuario = '"+conta+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            int i=0;
+            while(rs.next()){
+                macroCadastradas[0][i] = rs.getString("macro");
+                macroCadastradas[1][i] = rs.getString("versao");
+                macroCadastradas[2][i] = rs.getString("nome");
+                macroCadastradas[3][i] = rs.getString("text");
+                i++;
+            }
+            
+        }catch(Exception e){
+            System.out.println("ERROR NO METODO LISTARMACROCADASTRADAS");
+            System.out.println(e);
+        }
+        
+        return macroCadastradas;
+    }
+    
     public String[][] getMacroById(String conta,Connection con, Statement stmt, String id){
         String[][] macroSelecionada = new String[100][2];
         
@@ -64,6 +88,22 @@ public class MacroDao {
             System.out.println("MACRO "+numeroMacro+" SALVA COM SUCESSO!!!!!");
         }catch(Exception e){
             System.out.println("ERRO NO METODO CADASTRARMACRO");
+            System.out.println(e);
+        }
+    }
+    public void editarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String versao ){
+        System.out.println("------------------------------");
+        System.out.println("numeroMacro: "+numeroMacro);
+        System.out.println("nome: "+nome);
+        System.out.println("Labels: "+labels);
+        System.out.println("versao: "+versao);
+        try{
+            
+            String sql = ("UPDATE `def_macro` SET `nome` = '"+nome+"', `text` = '"+labels+"' WHERE `def_macro`.`macro` = "+numeroMacro+";");
+            stmt.executeUpdate(sql);
+            System.out.println("MACRO "+numeroMacro+" EDITADA COM SUCESSO!!!!!");
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO EDITARMACRO");
             System.out.println(e);
         }
     }
@@ -266,6 +306,88 @@ public class MacroDao {
 
         return macros;
         
+    }
+    
+    public String[][] getMacroDef(String conta,Connection con, Statement stmt, String NumeroMacro){
+        String[][] macroDef = new String[100][1];
+        System.out.println("METODO GETMACRODEF");
+        try{
+            String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                String x = rs.getString("text");
+                for (int j = 0; j < x.split("_").length-1; j++) {
+                    macroDef[j][0]= x.split("_")[j+1];
+                    System.out.println(j+" : "+macroDef[j][0]);
+                }
+            }
+            
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACRODEF");
+            System.out.println(e);
+        }
+        
+        return macroDef;
+    }
+    public String getMacroName(String conta,Connection con, Statement stmt, String NumeroMacro){
+        String macro = "";
+        try{
+            String sql = ("SELECT nome FROM `def_macro` WHERE macro="+NumeroMacro+" AND usuario ="+conta+";");
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            macro = rs.getString("nome");
+            System.out.println("nome: "+macro);
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACRONOME");
+            System.out.println(e);
+        }
+        return macro;
+    }
+    public String[][] getMacroText(String conta,Connection con, Statement stmt, String NumeroMacro){
+        String[][] macrosTexts = new String[100][10000];
+        
+        try{
+            String sql = ("SELECT IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+";");
+            ResultSet rs = stmt.executeQuery(sql);
+            int j = 0;
+            while(rs.next()){
+                String[] x = rs.getString("IIRTN_Text").split("_");
+                
+                for (int i = 0; i < x.length-1; i++) {
+                    macrosTexts[i][j]= x[i+1];
+                    System.out.println(i+":"+j+" = "+macrosTexts[i][j]);
+                }
+                j++;
+                System.out.println(j+"º");
+            }
+            
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACROTEXT");
+            System.out.println(e);
+        }
+        
+        return macrosTexts;
+    }
+    
+    public String[][] getMacroPorNumero(String conta,Connection con, Statement stmt1, String NumeroMacro){
+        String[][] macrosListados = new String[3][1000];
+        
+        try{
+            
+            String sql = ("SELECT * FROM `268477387_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+NumeroMacro+"'");
+            ResultSet rs = stmt1.executeQuery(sql);
+            int i=0;
+            while(rs.next()){
+                macrosListados[0][i] = rs.getString("IIRTN_MessageTime");
+                macrosListados[1][i] = rs.getString("IIRTN_MctAddress");
+                macrosListados[2][i] = rs.getString("IIRTN_Text");
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACROPORNUMERO");
+            System.out.println(e);
+        }
+        
+        return macrosListados;
     }
     
 }

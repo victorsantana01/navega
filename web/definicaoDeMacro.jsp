@@ -88,6 +88,8 @@
                     String id = request.getParameter("id");
                     MacroDao macrodao = new MacroDao();
                     String[][] macroSelecionada = macrodao.getMacroById(conta, con, stmt, id);
+                    String[][] macroEdit = macrodao.getMacroDef(conta, con, stmt, macroSelecionada[0][0]);
+                    String macroNome = macrodao.getMacroName(conta, con, stmt, macroSelecionada[0][0]);
                     System.out.println("macro");
                     for (int i = 0; i < 10; i++) {
                         if(macroSelecionada[i][0] != null){
@@ -113,7 +115,11 @@
                                 </div>
                                 <div class="col s12">
                                     <div class="input-field col s6 right-align" style="padding-left: 0px !important">
+                                        <% if(macroEdit[0][0] != null){ %>
+                                        <input type="text" id="nome" name="nome" value="<%= macroNome %>" required />
+                                        <% }else{ %>
                                         <input type="text" id="nome" name="nome" required />
+                                       <% }%>
                                         <label for="nome" style="left:0px !important">Nome da Macro</label>
                                     </div>
                                 </div>
@@ -124,6 +130,15 @@
                                         if(macroSelecionada[i][0] == null){
                                             
                                         }else{
+                                            if(macroEdit[i-3][0] != null){
+                                                System.out.println(macroEdit[0][0]);
+                                                %>
+                                        <div class="input-field col s6">
+                                            <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[i-3][0]%>" />
+                                            <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
+                                        </div>
+                                <%
+                                            }else{
                                         %>
                                         <div class="input-field col s6">
                                                 <input type="text" id="label<%=x%>" name="label<%=x%>" required />
@@ -132,6 +147,7 @@
 
                                 <%
                                     x++;
+                                    }
                                     }
                                     }
                                 %>
