@@ -135,9 +135,14 @@
                             %> <td><%=macros[3][i] %></td><%
                             %> <td><%=macros[4][i] %></td><%
                             %> <td><%=macros[5][i] %></td><%
-                            %> <td><a class="btn" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
+                                boolean macrotexto = m.MacroIsTextNull(conta, con, stmt, macros[1][i]);
+                                if(macrotexto == true){
+                                    %> <td><a class="btn disabled" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
+                                }else{
+                                    %> <td><a class="btn" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
+                                }
+                            }
                         }
-                    }
                     %>
                     </tr>
                 </tbody>

@@ -343,6 +343,25 @@ public class MacroDao {
         }
         return macro;
     }
+    public boolean MacroIsTextNull(String conta,Connection con, Statement stmt, String NumeroMacro){
+        boolean macro = false;
+        try{
+            String sql = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber='"+NumeroMacro+"' and IIRTN_Text <> \"\"");
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next() == false){
+                macro = true;
+                System.out.println("A Macro não possui texto");
+            }else{
+                macro = false;
+                System.out.println("A Macro possui texto");
+            }
+            
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACRONOME");
+            System.out.println(e);
+        }
+        return macro;
+    }
     public String[][] getMacroText(String conta,Connection con, Statement stmt, String NumeroMacro){
         String[][] macrosTexts = new String[100][10000];
         
