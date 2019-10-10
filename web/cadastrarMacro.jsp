@@ -46,6 +46,7 @@
                         int i=0;
                         String labels = "";
                         while(request.getParameter("label"+i) != null){
+                            System.out.println("label"+i+" :"+request.getParameter("label"+i));
                             labels = labels+"_"+request.getParameter("label"+i);
                             i++;
                         }

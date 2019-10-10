@@ -130,11 +130,11 @@
                                         if(macroSelecionada[i][0] == null){
                                             
                                         }else{
-                                            if(macroEdit[i-3][0] != null){
+                                            if(macroEdit[x][0] != null){
                                                 System.out.println(macroEdit[0][0]);
                                                 %>
                                         <div class="input-field col s6">
-                                            <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[i-3][0]%>" />
+                                            <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[x][0]%>" />
                                             <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
                                         </div>
                                 <%
@@ -146,9 +146,9 @@
                                         </div>
 
                                 <%
-                                    x++;
                                     }
                                     }
+                                        x++;
                                     }
                                 %>
                                 <br>

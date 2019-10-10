@@ -316,7 +316,7 @@ public class MacroDao {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 String x = rs.getString("text");
-                for (int j = 0; j < x.split("_").length-1; j++) {
+                for (int j = 0; j < x.split("_").length; j++) {
                     macroDef[j][0]= x.split("_")[j+1];
                     System.out.println(j+" : "+macroDef[j][0]);
                 }
