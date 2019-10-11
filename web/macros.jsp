@@ -139,7 +139,8 @@
                         </div>
                     </form>
                 </div>
-                <div >
+                </div>
+                <div style="overflow-y: auto">
                     <%
                         String macroEnviada = request.getParameter("macro");
                         if(macroEnviada == null){
@@ -202,9 +203,7 @@
                         </tfoot>
                     </table>
                     <% }%>
-                </div>
-            </div>
-           
+                </div>         
                         
             
             
