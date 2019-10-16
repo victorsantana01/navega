@@ -121,7 +121,7 @@
                         MacroDao m = new MacroDao();
                         String [][] macros;
                         macros = m.listarMacros(conta, con, stmt, stmt2, stmt3);
-                        
+                        Format ff = new Format();
                         for(int i=0; i< 50; i++){
                             if(macros[0][i] == null){
                                 i=50;
@@ -131,9 +131,9 @@
                             
                             %> <td><%=macros[1][i] %></td><%
                             %> <td><%=macros[2][i] %></td><%
-                            %> <td><%=macros[3][i] %></td><%
+                            %> <td><%= ff.DataFormat(macros[3][i]) %></td><%
                             %> <td><%=macros[4][i] %></td><%
-                            %> <td><%=macros[5][i] %></td><%
+                            %> <td style="overflow: hidden; max-width: 1000px;"><%=macros[5][i] %></td><%
                                 boolean macrotexto = m.MacroIsTextNull(conta, con, stmt, macros[1][i]);
                                 if(macrotexto == true){
                                     %> <td><a class="btn disabled" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
