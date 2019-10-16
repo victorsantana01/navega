@@ -138,7 +138,7 @@
                                 if(macrotexto == true){
                                     %> <td><a class="btn disabled" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
                                 }else{
-                                    %> <td><a class="btn" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
+                                    %> <td><a class="btn" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">Definir</a></td><%
                                 }
                             }
                         }
