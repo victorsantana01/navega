@@ -15,10 +15,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
-     html { height: 100% }
-     body { height: 100%; margin: 0; padding: 0 }
-     .wrap { max-width: 110em; min-height: 90em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
-     #map-canvas { height: 100%; }
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0 }
+           .wrap { max-width: 110em; min-height: 90em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
+            #map-canvas { height: 100%; }
         </style>
         <!--Materialize Icones -->  
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -65,99 +65,86 @@
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
         Statement stmt2 = con.createStatement();
-        String macroEnviada = request.getParameter("macro");
         %>
-        <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
-            <li>
-                <div class="user-view">
-                    <a href="index.jsp" >
-                        <div class="background">
-                            <img src="img/mar.jpg" alt=""/>
+        
+        <div class="row">
+            <div class="col s3">
+                <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
+                    <li>
+                        <div class="user-view">
+                            <div class="background">
+                                <img src="img/mar.jpg" alt=""/>
+                            </div>
+                            <div class="center">
+                                <b><h4 class="white-text">Navega Gestor</h4></b> 
+                            </div>
+                            <div class="center">
+                                <b class="white-text">Gestão à bordo</b>
+                            </div>
                         </div>
-                        <div class="center">
-                            <b><h4 class="white-text">Navega Gestor</h4></b> 
-                        </div>
-                        <div class="center">
-                            <b class="white-text">Gestão à bordo</b>
-                        </div>
-                    </a>
+                    </li>   
+                    <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
+                    <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
+                    <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
+                    <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
+                    <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
+                    <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
+                    <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
+                    <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Listar Macros</h6></b></a></li>
+                    <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
+                    <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
+                    <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+                </ul>
+            </div>
+            <div class="col s9 fixed"><!-- INICIO Botão de Add -->
+                <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
+                    <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
+                    <ul>
+                        <li>
+                            <a href="lista.html" class="btn-floating z-depth-5 #4db6ac teal lighten-3 btn-large waves-effect z-depth-4">
+                                <i class="material-icons">directions_run</i>clolse</a>
+                        </li>
+                    </ul>
                 </div>
-            </li>   
-
-
-            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
-            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
-            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
-            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-            <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
-            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
-            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
-            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
-            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
-        </ul>
-
-      <!-- INICIO Botão de Add -->
-      <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
-          <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
-          <ul>
-              <li>
-                  <a href="lista.html" class="btn-floating z-depth-5 #4db6ac teal lighten-3 btn-large waves-effect z-depth-4">
-                      <i class="material-icons">directions_run</i>clolse</a>
-              </li>
-          </ul>
-      </div>
-        <div class="container"><!--INCIO DO CORPO DA PAGINA-->
-            <div class="container">
-                <div class="card " style="margin-top:25px">
-                    <form id="viagens2" name="macros" action="macrolistar.jsp" method="get">
-                        <div class="row">
-                            <span class="card-title center col s12"><b>Selecione a Macro<br></b></span><br><br>
-                            <div class="col s12">
-                                <div class="container">
+                <div class="container">
+                    <div class="card " style="margin-top:25px"><!--INCIO DO CORPO DA PAGINA-->
+                        <form id="viagens2" name="macros" action="macrolistar.jsp" method="get">
+                            <div class="row">
+                                <span class="card-title center col s12"><b>Selecione a Macro<br></b></span><br><br>
+                                <div class="col s12">
                                     <div class="container">
-                                        <select class="browser-default black-text" name="macro" id="macro" required > 
-                                            <option class="black-text" value="" disabled selected>Macro</option>
-                                            <%
-                                            MacroDao macro = new MacroDao();
-                                            String[][] macroLista = macro.listarMacroCadastradas(conta, con, stmt).clone();
-                                            for (int i = 0; i < 50; i++) {
-                                                if (macroLista[0][i] == null) {
-                                                    i = 50;
-                                                } else {
-                                                    if(macroEnviada == null){
-                                            %>
-                                                        <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
-                                            <%
-                                                    }else{
-                                                        if(macroEnviada.equals(macroLista[0][i])){
-                                            %>
-                                                            <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>" selected><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
-                                            <%
-                                                        }else{
-                                            %>
-                                                        <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
-                                            <%
+                                        <div class="container">
+                                            <select class="browser-default black-text" name="macro" id="macro" required > 
+                                                <option class="black-text" value="" disabled selected>Macro</option>
+                                                <%
+                                                    MacroDao macro = new MacroDao();
+                                                    String[][] macroLista = macro.listarMacroCadastradas(conta, con, stmt).clone();
+                                                    for (int i = 0; i < 50; i++) {
+                                                        if (macroLista[0][i] == null) {
+                                                            i = 50;
+                                                        } else {
+                                                %>
+                                                <option class="black-text" value="<%=macroLista[0][i]+" --"+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
+
+                                                <%
                                                         }
-                                                    }
-                                                }
-                                            }%>
-                                        </select>
+                                                    }%>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col s12">
+                                    <br>
+                                    <!--<a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>-->
+                                    <input type="submit" class="btn col s4 center-align push-s4 blue " style="margin-bottom:10px" >Pesquisar/>
+                                </div>
                             </div>
-                            <div class="col s12">
-                                <br>
-                                <!--<a type="btn" class="waves-effect waves-light btn col s4 center-align push-s4 z-depth-5">Pesquisar </a>-->
-                                <input type="submit" class="btn col s4 center-align push-s4 blue " style="margin-bottom:10px" >Pesquisar/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                </div>
-                <div style="overflow-y: auto">
+                        </form>
+                    </div>
+                </div>                
+                <div>
                     <%
-                        
+                        String macroEnviada = request.getParameter("macro");
                         if(macroEnviada == null){
                         }else{
                     %>
@@ -177,11 +164,10 @@
                                             }
                                         }
                                 %>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
                             <%
                                 String [][] macros;
                                 macros = m.getMacroText(conta, con, stmt,macroEnviada);
@@ -194,23 +180,14 @@
                                             if(macros[j][i] == null){
                                                 j=5000;
                                             }else{
-                                                String mm = macros[j][i];
-                                                if(lista[j][1] != null){
-                                                    if(lista[j][1].equals("2") ){
-                                                        mm = mm.substring(0,2)+"/"+mm.substring(2,4);
-                                                    }
-                                                    if(lista[j][1].equals("3")){
-                                                        mm = mm.substring(0,2)+":"+mm.substring(2,4);
-                                                    }
-                                                }
-                                                %> <td><%=mm %></td><%
+                                                %> <td><%=macros[j][i] %></td><%
                                             }
                                         }
                                     }
                                     %></tr><%
                                 }
                             %>
-                            
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -228,11 +205,12 @@
                         </tfoot>
                     </table>
                     <% }%>
-                </div>         
-                        
-            
-            
-        </div><!--FIM DO CORPO DA PAGINA-->
+                </div>
+            </div><!--FIM DO CORPO DA PAGINA-->
+        </div>
+        
+
+      
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
@@ -258,7 +236,7 @@
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
                 pageSize: 'LEGAL'
-            }, 'print', 'pageLength'
+            }, 'print'
                     ]
                 } );
             } );

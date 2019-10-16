@@ -1,3 +1,4 @@
+<%@page import="dao.MacroDao"%>
 <%@page import="dao.BarcoDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
 <%@page import="java.sql.Statement"%>
@@ -30,12 +31,17 @@
         <!--FIM Cabeçalho Para Materialize-->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+        
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     
     <body>
+        <script>
+            $.post('/MacroDao.java', {RAND:RAND, redePl:redePl, excluidoPl:excluidoPl}, function(json){
+                
+            });
+        </script>
         <%
         /* Inicio de Sessão */
         String conta = session.getAttribute("conta").toString();
@@ -43,28 +49,31 @@
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
         %>
-        
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
-                    <div class="background">
-                        <img src="img/mar.jpg" alt=""/>
-                    </div>
-                    <div class="center">
-                        <b><h4 class="white-text">Navega Gestor</h4></b> 
-                    </div>
-                    <div class="center">
-                        <b class="white-text">Gestão à bordo</b>
-                    </div>
+                    <a href="index.jsp" >
+                        <div class="background">
+                            <img src="img/mar.jpg" alt=""/>
+                        </div>
+                        <div class="center">
+                            <b><h4 class="white-text">Navega Gestor</h4></b> 
+                        </div>
+                        <div class="center">
+                            <b class="white-text">Gestão à bordo</b>
+                        </div>
+                    </a>
                 </div>
             </li>   
+
+
             <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
             <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
             <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
             <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
-            <li class="left-align"><a href="relatorio1.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio RPM</h6></b></a></li>
-            <li class="left-align"><a href="relatorio2.jsp"><b><i class="material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Relatorio Consolidado</h6></b></a></li>
-            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
+            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
+            <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
+            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
             <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
             <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
             <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
@@ -83,36 +92,26 @@
         <div class="container"><!--INCIO DO CORPO DA PAGINA-->
             
             <div class="container card">
-                <form  id="teste" action="teste.jsp" method="get">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_drama</i><span>Embarcações</span><span class="badge"></span></div>
-                            <div class="collapsible-body">
-                                <%
-                                    BarcoDao bar = new BarcoDao();
-                                    String[][] barcos = bar.pesquisaBarcos(conta, con, stmt).clone();
-                                    for (int i = 0; i < 50; i++) {
-                                        if (barcos[0][i] == null) {
-                                            i = 50;
-                                        } else {
-                                %>
-                                    <p>
-                                        <label>
-                                            <input id="<%=barcos[1][i]%>" type="checkbox" class="filled-in" checked="checked" />
-                                            <label for="<%=barcos[1][i]%>"><%=barcos[2][i]%></label>
-                                        </label>
-                                    </p>
-                                <%  }
+                <div class="col s6 center-align push-s3">
+                    <div class="input-field">
+                        <select class="browser-default black-text" name="macro" id="macro" required > 
+                            <option class="black-text" value="" disabled selected>Macro</option>
+                            <%
+                                MacroDao macro = new MacroDao();
+                                String[][] macroLista = macro.listarMacroCadastradas(conta, con, stmt).clone();
+                                for (int i = 0; i < 50; i++) {
+                                    if (macroLista[0][i] == null) {
+                                        i = 50;
+                                    } else {
+                            %>
+                            <option class="black-text" value="<%=macroLista[0][i]+" --"+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
+
+                            <%
                                     }
-                                %>
-                            </div>
-                        </li>
-                    </ul>
-                            <div class="container">
-                                <!--<input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue " />-->
-                                <button class="btn" onClick="teste()">teste</button>
-                            </div>
-                </form>
+                                }%>
+                        </select>
+                    </div>
+                </div>
             </div>
             
             
@@ -126,12 +125,9 @@
             });
         </script>
         <script>
-            var teste = "";
-            for (var i = 0; i < 50; i++) {
-                if($("#329524").prop('checked')){
-                    
-                }
-            }
+            $(document).ready(function(){
+                $('select').formSelect();
+            });
         </script>
     </body>
 </html>

@@ -641,10 +641,10 @@ System.err.println("com o rs.getRow();"+ i);
 //-----------------------------------------------------------------------------------------------------//  
 
              
-         String r1="0";
-         String r2="0";
+            String r1="0";
+            String r2="0";
             ResultSet rs = stmt.executeQuery(sqlPainel);
-        Rpm rp = new Rpm();
+            Rpm rp = new Rpm();
             int i =0;
             while (rs.next()) {
                 l=rs.getRow();
@@ -655,7 +655,7 @@ System.err.println("com o rs.getRow();"+ i);
                 vetRelatorio[8][i] = rs.getString("LAT");
                 vetRelatorio[9][i] = rs.getString("LON");
                 vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[1][i]);
-                vetRelatorio[6][i] = rp.rpmAtual2(conta,con,stmt1,vetRelatorio[1][i]);
+                vetRelatorio[6][i] = rp.rpmAtual2(conta,con,stmt2,vetRelatorio[1][i]);
                 if(vetRelatorio[5][i]==null){
                     vetRelatorio[5][i]="0";
                 }
@@ -664,11 +664,8 @@ System.err.println("com o rs.getRow();"+ i);
                 }
                 i++;
                
-      
-              
-                
             }
-                          System.out.println("TUDO OK NO METODO PAINEL ........... ");
+             System.out.println("TUDO OK NO METODO PAINEL ........... ");
 
             rs.close();
         } catch (Exception e) {

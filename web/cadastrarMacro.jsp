@@ -44,24 +44,32 @@
                         System.out.println("Nome Macro: "+request.getParameter("nome"));
                         System.out.println("Versao: "+request.getParameter("versao"));
                         int i=0;
+                        int j=0;
                         String labels = "";
+                        String tipos = "";
                         while(request.getParameter("label"+i) != null){
-                            System.out.println("label"+i+" :"+request.getParameter("label"+i));
+//                            System.out.println("label"+i+" :"+request.getParameter("label"+i));
                             labels = labels+"_"+request.getParameter("label"+i);
                             i++;
                         }
+                        while(request.getParameter("tipo"+j) != null){
+                            System.out.println("tipo"+j+" :"+request.getParameter("tipo"+j));
+                            tipos = tipos+"_"+request.getParameter("tipo"+j);
+                            j++;
+                        }
+                        System.out.println("tipos: "+tipos);
                         String nome = request.getParameter("nome");
                         String numeroMacro = request.getParameter("numeroMacro");
                         String versao = request.getParameter("versao");
                         
                         MacroDao macro = new MacroDao();
-                        String xx = macro.getMacroName(conta, con, stmt, numeroMacro); 
-                        if(xx == null){
-                            macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, versao);
+                        boolean xx = macro.defExiste(conta, con, stmt, numeroMacro);
+                        if(xx == false){
+                            macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);
                         }else{
-                            macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, versao);
+                            macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);
                         }                     

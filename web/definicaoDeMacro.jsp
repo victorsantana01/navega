@@ -48,28 +48,32 @@
         <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
             <li>
                 <div class="user-view">
-                    <div class="background">
-                        <img src="img/mar.jpg" alt=""/>
-                    </div>
-                    <div class="center">
-                        <b><h4 class="white-text">Navega Gestor</h4></b> 
-                    </div>
-                    <div class="center">
-                        <b class="white-text">Gestão à bordo</b>
-                    </div>
+                    <a href="index.jsp" >
+                        <div class="background">
+                            <img src="img/mar.jpg" alt=""/>
+                        </div>
+                        <div class="center">
+                            <b><h4 class="white-text">Navega Gestor</h4></b> 
+                        </div>
+                        <div class="center">
+                            <b class="white-text">Gestão à bordo</b>
+                        </div>
+                    </a>
                 </div>
             </li>   
+
+
             <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
             <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
             <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
             <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
             <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-            <li class="left-align"><a href="viagens2.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Detalhe da Macro</h6></b></a></li>
-            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
+            <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
+            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
             <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
             <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
             <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
-    </ul>
+        </ul>
 
       <!-- INICIO Botão de Add -->
       <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
@@ -131,18 +135,49 @@
                                             
                                         }else{
                                             if(macroEdit[x][0] != null){
-                                                System.out.println(macroEdit[0][0]);
+//                                                System.out.println("LABEL"+x+" : "+macroEdit[x][1]);
                                                 %>
-                                        <div class="input-field col s6">
-                                            <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[x][0]%>" />
-                                            <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
-                                        </div>
+                                                <div class="input-field col s4">
+                                                    <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[x][0]%>" />
+                                                    <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
+                                                </div>
+                                                <div class="col s2">
+                                                    <select class="browser-default black-text" id="tipo<%=x%>" name="tipo<%=x%>" required > 
+                                                        <option class="black-text" value="" disabled selected>TIPO DE DADO</option>
+                                                        <% if(macroEdit[x][1].equals("1")){ %>
+                                                        <option class="black-text" value="1" selected>Texto</option>
+                                                        <% }else{ %>
+                                                        <option class="black-text" value="1">Texto</option>
+                                                        <% } %>
+                                                        <% if(macroEdit[x][1].equals("2")){ %>
+                                                        <option class="black-text" value="2" selected>Data</option>
+                                                        <% }else{ %>
+                                                        <option class="black-text" value="2">Data</option>
+                                                        <% } %>
+                                                        <% if(macroEdit[x][1].equals("3")){ %>
+                                                        <option class="black-text" value="3" selected>horas</option>
+                                                        <% }else{ %>
+                                                        <option class="black-text" value="3">horas</option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                        
+                                        
                                 <%
                                             }else{
                                         %>
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s4">
                                                 <input type="text" id="label<%=x%>" name="label<%=x%>" required />
                                                 <label for="label<%=x%>"><%=macroSelecionada[i][0]%></label>
+                                        </div>
+                                        
+                                        <div class="col s2">
+                                            <select class="browser-default black-text" id="tipo<%=x%>" name="tipo<%=x%>" required > 
+                                                <option class="black-text" value="" disabled selected>TIPO DE DADO</option>
+                                                <option class="black-text" value="1">Texto</option>
+                                                <option class="black-text" value="2">Data</option>
+                                                <option class="black-text" value="3">horas</option>
+                                            </select>
                                         </div>
 
                                 <%
@@ -178,7 +213,9 @@
             });
         </script>
         <script>
-            
+            $(document).ready(function(){
+                $('select').formSelect();
+            });
         </script>
     </body>
 </html>
