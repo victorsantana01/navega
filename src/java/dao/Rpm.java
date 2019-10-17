@@ -633,7 +633,11 @@ System.err.println("com o rs.getRow();"+ i);
             String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
             "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
             "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
-            "MAX(IIPOS_LONGITUDE) AS LON  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
+            "MAX(IIPOS_LONGITUDE) AS LON, IIPOS_Landmark AS LAND  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
+//            String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
+//            "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
+//            "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
+//            "MAX(IIPOS_LONGITUDE) AS LON  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
              
                 
                       
@@ -648,13 +652,18 @@ System.err.println("com o rs.getRow();"+ i);
             int i =0;
             while (rs.next()) {
                 l=rs.getRow();
-
+                
+                /*VELOCIDADE */
+                vetRelatorio[3][i] = rs.getString("LAND").split(",")[2];
+                /* LOCALIZAÇÃO */
+                vetRelatorio[4][i] = rs.getString("LAND").split("de ")[1].split(",")[0];
+                
                 vetRelatorio[1][i] = rs.getString("MCT");
                 vetRelatorio[2][i] = rs.getString("HORA");
                 vetRelatorio[0][i] = rs.getString("NOME");
                 vetRelatorio[8][i] = rs.getString("LAT");
                 vetRelatorio[9][i] = rs.getString("LON");
-                vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[1][i]);
+                vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[2][i]);
                 vetRelatorio[6][i] = rp.rpmAtual2(conta,con,stmt2,vetRelatorio[1][i]);
                 if(vetRelatorio[5][i]==null){
                     vetRelatorio[5][i]="0";

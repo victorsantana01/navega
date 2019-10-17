@@ -189,5 +189,47 @@ public class ViagemDao {
 
         return viagens;
     }
+    
+    public String pesquisarViagemStatusPorMCT(String conta,Connection con, Statement stmt, String mct){
+        String status="";
+        
+        try{
+            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            if(rs.next()){
+                status = rs.getString("status");
+                
+            }else{
+                status = "INEXISTENTE";
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO PESQUISARVIAGEMPORMCT");
+            System.out.println(e);
+        }
+        
+        return status;
+    }
+    
+    public String pesquisarViagemPorMCT(String conta,Connection con, Statement stmt, String mct){
+        String id="";
+        
+        try{
+            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            if(rs.next()){
+                id = rs.getString("idViagem");
+                
+            }else{
+                id = "INEXISTENTE";
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO PESQUISARVIAGEMPORMCT");
+            System.out.println(e);
+        }
+        
+        return id;
+    }
 
 }

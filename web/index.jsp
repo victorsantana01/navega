@@ -116,8 +116,7 @@
                 };
 
 
-            <%Rpm re = new Rpm();%>
-            <%
+            <%Rpm re = new Rpm();
         String[][] painel = re.painelAtualizado(conta, con, stmt,stmt1,stmt2).clone();
     for (int i = 0; i < 100; i++) {
         if (painel[1][i] == null) {
