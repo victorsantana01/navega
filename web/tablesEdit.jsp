@@ -1,3 +1,6 @@
+<%@page import="java.sql.Statement"%>
+<%@page import="fabricaConexao.ConexaoMySQL"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.Rpm"%>  
 <%@page import="dao.ConsumoDao"%>
@@ -35,7 +38,14 @@
 
   }else{
 response.sendRedirect( "login.jsp" );
-  }%>
+  }
+    String conta = session.getAttribute("conta").toString();
+    Connection con = ConexaoMySQL.getConexaoMySQL();
+    Statement stmt = con.createStatement();
+    String idMotorRecebido = request.getParameter("idMotor");
+    ConsumoDao cons = new ConsumoDao();
+    String[] dado = cons.getConsumoById(conta, con, stmt, idMotorRecebido) .clone();
+    %>
     <body class=""> 
         <script type="text/javascript">
 
@@ -93,25 +103,29 @@ response.sendRedirect( "login.jsp" );
                                 <div class="container col s12">
                                     <div class="row ">
 
-                                        <form id="mod" name="tab" action="faixasalva.jsp" method="get">
+                                        <form id="mod" name="tab" action="faixaEdita.jsp" method="get">
                                             <div class="form-group">
                                                 <div class="form-row">
+                                                    <div class="input-filed col s12">
+                                                        <label for="exampleInputName">IdMotor</label>
+                                                        <input name="idMotor" class="form-control" id="idMotor" type="text" aria-describedby="nameHelp" value="<%=dado[29]%>" disabled>
+                                                    </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">Motor</label>
-                                                        <input name="motor" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Motor" required>
+                                                        <input name="motor" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Motor" value="<%=dado[0]%>" required>
 
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputLastName">400RPM</label>
-                                                        <input name="cons0" class="form-control" id="exampleInputLastName" type="number"  aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons0" class="form-control" id="exampleInputLastName" type="number"  aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[28]%>" required>
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">500RPM</label>
-                                                        <input name="cons1" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons1" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[1]%>" required>
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">600RPM/Hora</label>
-                                                        <input name="cons2" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons2" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[2]%>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,72 +135,72 @@ response.sendRedirect( "login.jsp" );
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">700RPM</label>
-                                                        <input name="cons3" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons3" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[3]%>" required>
                                                     </div>
 
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">800RPM</label>
-                                                        <input name="cons4" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons4" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[4]%>" required>
 
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">900RPM</label>
-                                                        <input name="cons5" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons5" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[5]%>" required>
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1000RPM</label>
-                                                        <input name="cons6" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons6" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[6]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1100RPM</label>
-                                                        <input name="cons7" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons7" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[7]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1200RPM</label>
-                                                        <input name="cons8" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons8" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[8]%>" required>
 
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1300RPM</label>
-                                                        <input name="cons9" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons9" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[9]%>" required>
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1400RPM</label>
-                                                        <input name="cons10" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons10" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[10]%>" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1500RPM</label>
-                                                        <input name="cons11" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons11" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[11]%>" required>
 
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1600RPM</label>
-                                                        <input name="cons12" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>              
+                                                        <input name="cons12" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[12]%>" required>              
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1700RPM</label>
-                                                        <input name="cons13" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons13" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[13]%>" required>
                                                     </div>
                                                 </div>
 
@@ -195,28 +209,28 @@ response.sendRedirect( "login.jsp" );
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1800RPM</label>
-                                                        <input name="cons14" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons14" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[14]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">   
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">1900RPM</label>
-                                                        <input name="cons15" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons15" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[15]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2000RPM</label>
-                                                        <input name="cons16" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons16" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[16]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">    
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2100RPM</label>
-                                                        <input name="cons17" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>             
+                                                        <input name="cons17" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[17]%>" required>             
                                                     </div>
                                                 </div>
 
@@ -224,14 +238,14 @@ response.sendRedirect( "login.jsp" );
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2200RPM</label>
-                                                        <input name="cons18" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons18" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[18]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2300RPM</label>
-                                                        <input name="cons19" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons19" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[19]%>" required>
                                                     </div>
                                                 </div>
 
@@ -239,28 +253,28 @@ response.sendRedirect( "login.jsp" );
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2400RPM</label>
-                                                        <input name="cons20" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons20" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[20]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2500RPM</label>
-                                                        <input name="cons21" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons21" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[21]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2600RPM</label>
-                                                        <input name="cons22" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons22" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[22]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2700RPM</label>
-                                                        <input name="cons23" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons23" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[23]%>" required>
 
                                                     </div>
                                                 </div>
@@ -268,27 +282,27 @@ response.sendRedirect( "login.jsp" );
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2800RPM</label>
-                                                        <input name="cons24" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons24" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[24]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">2900RPM</label>
-                                                        <input name="cons25" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>
+                                                        <input name="cons25" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[25]%>" required>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">3000RPM</label>
-                                                        <input name="cons26" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" required>              
+                                                        <input name="cons26" class="form-control" id="exampleInputName" type="number" aria-describedby="nameHelp" placeholder="Litros" value="<%=dado[26]%>" required>              
                                                     </div>
                                                 </div>
 
 
                                                 <div class="card-action col s12">
-                                                    <a  class="btn col s6 center-align push-s3 z-depth-5  " style="margin-top: 20px;" onclick ='confirma(tab)'>Salvar<i class="material-icons right">send</i></a>
+                                                    <a  class="btn col s6 center-align push-s3 z-depth-5  " style="margin-top: 20px;" onclick ='confirma(tab)'>Editar<i class="material-icons right">send</i></a>
                                                 </div>
 
 

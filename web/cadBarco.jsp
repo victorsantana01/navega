@@ -39,9 +39,13 @@
     </head>
     <body> 
 
-        <script>
-
-            $(".dropdown-trigger").dropdown('toggle');
+       <script>
+            $(document).ready(function(){
+                $('.dropdown-trigger').dropdown();
+                $('select').formSelect();
+                $('.collapsible').collapsible();
+                $(".dropdown-trigger").dropdown('toggle');
+            });
         </script>
     </div>
     <%
@@ -53,35 +57,29 @@
         Statement stmt2 = con.createStatement();
     %>
 
-    <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
-            <li>
-                <div class="user-view">
-                    <a href="index.jsp" >
-                        <div class="background">
-                            <img src="img/mar.jpg" alt=""/>
-                        </div>
-                        <div class="center">
-                            <b><h4 class="white-text">Navega Gestor</h4></b> 
-                        </div>
-                        <div class="center">
-                            <b class="white-text">Gestão à bordo</b>
-                        </div>
-                    </a>
-                </div>
-            </li>   
-
-
-            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
-            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
-            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
-            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-            <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
-            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
-            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
-            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
-            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+    <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="cadBarco.jsp">Barco</a></li>
+            <li class="divider"></li>
+            <li><a href="cadComandante.jsp">Comandante</a></li>
+            <li class="divider"></li>
+            <li><a href="cadViagem.jsp">Viagem</a></li>
         </ul>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #0277bd !important;">
+                <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="macros.jsp">Macros</a></li>
+                    <li><a href="listarMacros.jsp">Definição da Macro</a></li>
+                    <li><a href="viagens.jsp">Viagens</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastro<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="tables.jsp">Tabela de Consumo</a></li>
+                    <li><a href="motores.jsp">Motores</a></li>
+                    <li><a href="login.jsp">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
 
 
     <!-- INICIO Botão de Add -->

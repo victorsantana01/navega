@@ -78,21 +78,21 @@
             <li><a href="cadViagem.jsp">Viagens</a></li>
         </ul>-->
         
-        <nav>
+<!--        <nav>
             <div class="nav-wrapper" style="background-color: #0277bd !important;">
                 <a href="index.jsp" class="brand-logo">Logo</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
                     <li><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
                     <li><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-                    <!-- Dropdown Trigger -->
-                    <!--<li><a class="dropdown-trigger" data-target="dropdown1">Cadastrar<i class="material-icons right">arrow_drop_down</i></a></li>-->
+                     Dropdown Trigger 
+                    <li><a class="dropdown-trigger" data-target="dropdown1">Cadastrar<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
                     <li><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
                     <li><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
                 </ul>
             </div>
-        </nav>
+        </nav>-->
        
 
             <div class="card">

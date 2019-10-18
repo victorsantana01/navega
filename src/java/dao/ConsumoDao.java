@@ -88,7 +88,7 @@ return elemento;
 
     
    public String[][] getTabelaConsumo(String conta) {
-        String[][] elemento = new String[30][50];
+        String[][] elemento = new String[31][50];
  
         try {
             Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -136,6 +136,7 @@ return elemento;
                 elemento[26][i]= rs.getString("3000");
                 elemento[27][i]= rs.getString("descricao");
                 elemento[28][i]= rs.getString("400");
+                elemento[29][i]= rs.getString("idmotor_tab");
                          
                
                 
@@ -146,6 +147,60 @@ return elemento;
             rs.close();
             stmt.close();
             con.close();
+            
+        } catch (Exception e) {
+              System.out.println("ERRO Get tabela de consumo !\n"+e);
+            
+        }
+
+        return elemento;
+    }
+   public String[] getConsumoById(String conta,Connection con, Statement stmt, String idMotor) {
+        String[] elemento = new String[31];
+ 
+        try {
+            
+            String sql = "SELECT * FROM `motor_tab` where conta='"+conta+"' and idmotor_tab='"+idMotor+"'";
+                    
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println("dentro do metodo getconsultabyid");
+            if(rs.next()) {
+                System.out.println("NOME DO MOTOR: "+elemento[0]);
+                
+                elemento[0] = rs.getString("nome_motor");
+                elemento[1] = rs.getString("500");
+                elemento[2] = rs.getString("600");
+                elemento[3] = rs.getString("700");
+                elemento[4] = rs.getString("800");
+                elemento[5] = rs.getString("900");
+                elemento[6] = rs.getString("1000");
+                elemento[7] = rs.getString("1100");
+                elemento[8] = rs.getString("1200");
+                elemento[9] = rs.getString("1300");
+                elemento[10]= rs.getString("1400");
+                elemento[11]= rs.getString("1500");
+                elemento[12]= rs.getString("1600");
+                elemento[13]= rs.getString("1700");
+                elemento[14]= rs.getString("1800");
+                elemento[15]= rs.getString("1900");
+                elemento[16]= rs.getString("2000");
+                elemento[17]= rs.getString("2100");
+                elemento[18]= rs.getString("2200");
+                elemento[19]= rs.getString("2300");
+                elemento[20]= rs.getString("2400");
+                elemento[21]= rs.getString("2500");
+                elemento[22]= rs.getString("2600");
+                elemento[23]= rs.getString("2700");
+                elemento[24]= rs.getString("2800");
+                elemento[25]= rs.getString("2900");
+                elemento[26]= rs.getString("3000");
+                elemento[27]= rs.getString("descricao");
+                elemento[28]= rs.getString("400");
+                elemento[29]= rs.getString("idmotor_tab");
+            }else{
+                System.out.println("não existe motor");
+            }
+           System.out.println("Get tabela de consumo OK!");
             
         } catch (Exception e) {
               System.out.println("ERRO Get tabela de consumo !\n"+e);
@@ -260,6 +315,28 @@ return elemento;
              System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
         }
     }
+     public void editarFaixa(String conta,Connection con, Statement stmt, String idMotor, String nomeMotor, String rpm400, String rpm500, String rpm600, String rpm700,
+             String rpm800, String rpm900, String rpm1000, String rpm1100, String rpm1200, String rpm1300, String rpm1400, String rpm1500,
+             String rpm1600, String rpm1700, String rpm1800, String rpm1900, String rpm2000, String rpm2100, String rpm2200, String rpm2300,
+             String rpm2400, String rpm2500, String rpm2600, String rpm2700, String rpm2800, String rpm2900, String rpm3000, String descricao) {
+
+        try {
+
+            // Prepare a statement to insert a record  
+            
+            String sql = ("UPDATE `motor_tab` SET `nome_motor` = '"+nomeMotor+"', `500` = '"+rpm500+"', `600` = '"+rpm600+"', `700` = '"+rpm700+"',"
+                    + " `800` = '"+rpm800+"', `900` = '"+rpm900+"', `1000` = '"+rpm1000+"', `1100` = '"+rpm1100+"', `1200` = '"+rpm1200+"',"
+                    + " `1300` = '"+rpm1300+"', `1400` = '"+rpm1400+"', `1500` = '"+rpm1500+"', `1600` = '"+rpm1600+"', `1700` = '"+rpm1700+"',"
+                    + " `1800` = '"+rpm1800+"', `1900` = '"+rpm1900+"', `2000` = '"+rpm2000+"', `2100` = '"+rpm2100+"', `2200` = '"+rpm2200+"',"
+                    + " `2300` = '"+rpm2300+"', `2400` = '"+rpm2400+"', `2500` = '"+rpm2500+"', `2600` = '"+rpm2600+"', `2700` = '"+rpm2700+"',"
+                    + " `2800` = '"+rpm2800+"', `2900` = '"+rpm2900+"', `3000` = '"+rpm3000+"', `400` = '"+rpm400+"' WHERE `motor_tab`.`idmotor_tab` = '"+idMotor+"' and conta='"+conta+"';");
+                    
+            stmt.executeUpdate(sql);
+        System.out.println("Tabela editada com sucesso!!!!!");
+        } catch (SQLException e) {
+             System.out.println("ERRO AO TENTAR EDITAFAIXA!!!!!\n"+e);
+        }
+    }
      public void faixa(String conta, String nomeMotor,String faixa, String litros, String descricao) {
 
         try {
@@ -312,5 +389,14 @@ return elemento;
       
       return resultado; 
    }
-
+   public void excluirFaixa(String conta,Connection con, Statement stmt, String idMotor){
+       try{
+           String sql = ("DELETE FROM `motor_tab` WHERE idmotor_tab = "+idMotor+" and conta = "+conta+";");
+           stmt.executeUpdate(sql);
+           System.out.println("EXCLUSÃO REALIZADA COM SUCESSO");
+       }catch(Exception e){
+           System.out.println("ERRO NO METODO EXCLUIRFAIXA");
+           System.out.println(e);
+       }
+   }
 }

@@ -33,9 +33,9 @@
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
-        <script src="js/jquery.js"></script>
-        
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <%
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
@@ -48,47 +48,43 @@
             //window.open('index.jsp');
               window.open(url,"janela1","width=700,height=500,scrollbars=NO");
     }
-</script>
-<script type="text/javascript">
-    
-    $(document).ready(function(){
-    $('.datepicker').datepicker();
-  });
- 
-    var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
+    </script>
+    <script type="text/javascript">
 
-    function exibir() {
-        document.getElementById("divCorpo").classList.toggle("oculto");
-    }
-    //Botões de exibir/ Ocultar
+        $(document).ready(function(){
+            $('.dropdown-trigger').dropdown();
+            $('select').formSelect();
+            $('.collapsible').collapsible();
+        });
+
+        var visibilidade = true; //Variável que vai manipular o botão Exibir/ocultar
+
+        function exibir() {
+            document.getElementById("divCorpo").classList.toggle("oculto");
+        }
+        //Botões de exibir/ Ocultar
         function exibirDeslocamento() {
-        document.getElementById("idDeslocamento").classList.toggle("oculto");
-    }  
+            document.getElementById("idDeslocamento").classList.toggle("oculto");
+        }  
     
-//Botões Exibir / Ocultar Consumo
-  function exibirConsumo2() {
-        document.getElementById("divConsumo2").classList.toggle("oculto");
-    }
-  function exibirConsumo() {
-        document.getElementById("divConsumo").classList.toggle("oculto");
-    }
-    //Botões Exibir / Ocultar RPM
-  function exibirRpm() {
-        document.getElementById("divRpm").classList.toggle("oculto");
-    }
-        
-function chama(link){
+        //Botões Exibir / Ocultar Consumo
+        function exibirConsumo2() {
+            document.getElementById("divConsumo2").classList.toggle("oculto");
+        }
+        function exibirConsumo() {
+            document.getElementById("divConsumo").classList.toggle("oculto");
+        }
+        //Botões Exibir / Ocultar RPM
+        function exibirRpm() {
+            document.getElementById("divRpm").classList.toggle("oculto");
+        }
 
-window.location.href = link ;
-
-
-}
-
-  
-            function printpage()
-            {
-                window.print()
-            }
+        function chama(link){
+            window.location.href = link ;
+        }  
+        function printpage(){
+            window.print()
+        }
 
     </script>
     <script type="text/javascript">
@@ -161,35 +157,29 @@ window.location.href = link ;
             
          <!--Materialize NavBar -->    
 
-    <ul id="menu-mobile" class="side-nav fixed " style="width: 300px">
-            <li>
-                <div class="user-view">
-                    <a href="index.jsp" >
-                        <div class="background">
-                            <img src="img/mar.jpg" alt=""/>
-                        </div>
-                        <div class="center">
-                            <b><h4 class="white-text">Navega Gestor</h4></b> 
-                        </div>
-                        <div class="center">
-                            <b class="white-text">Gestão à bordo</b>
-                        </div>
-                    </a>
-                </div>
-            </li>   
-
-
-            <li class="left-align"><a href="index.jsp" ><b><i class="material-icons">home</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Inicio</h6></b></a></li>
-            <li class="left-align"><a href="cadBarco.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Embarcação</h6></b></a></li>
-            <li class="left-align"><a href="cadComandante.jsp"><b><i class="material-icons">person_add</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Comandante</h6></b></a></li>
-            <li class="left-align"><a href="cadViagem.jsp"><b><i class="material-icons">map</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Cadastro Viagem</h6></b></a></li>
-            <li class="left-align"><a href="viagens.jsp"><b><i class="material-icons">directions_boat</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Viagens</h6></b></a></li>
-            <li class="left-align"><a href="macros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Macros</h6></b></a></li>
-            <li class="left-align"><a href="listarMacros.jsp"><b><i class="material-icons">description</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Definição da Macro</h6></b></a></li>
-            <li class="left-align"><a href="tables.jsp"><b><i class="material-icons">receipt</i>&nbsp;&nbsp;&nbsp;</b><b class="center-align  waves-effect"><h6>Tabela de Consumo</h6></b></a></li>
-            <li class="left-align"><a href="motores.jsp"><b><i class="material-icons">build</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Motores</h6></b></a></li>
-            <li class="left-align"><a href="login.jsp"><b><i class="material-icons">assignment_ind</i>&nbsp;&nbsp;&nbsp;</b><b class=" waves-effect"><h6>Sair</h6></b></a></li>
+    <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="cadBarco.jsp">Barco</a></li>
+            <li class="divider"></li>
+            <li><a href="cadComandante.jsp">Comandante</a></li>
+            <li class="divider"></li>
+            <li><a href="cadViagem.jsp">Viagem</a></li>
         </ul>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #0277bd !important;">
+                <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="macros.jsp">Macros</a></li>
+                    <li><a href="listarMacros.jsp">Definição da Macro</a></li>
+                    <li><a href="viagens.jsp">Viagens</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastro<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="tables.jsp">Tabela de Consumo</a></li>
+                    <li><a href="motores.jsp">Motores</a></li>
+                    <li><a href="login.jsp">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
    
             <div class=" container " id="divCampo"><br>
 
