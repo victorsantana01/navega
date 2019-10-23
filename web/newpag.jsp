@@ -48,15 +48,12 @@
     </head>
     
     <body>
-        <script>
-            $(document).ready(function(){
-                $('.dropdown-trigger').dropdown();
-                $('select').formSelect();
-                $('.collapsible').collapsible();
-            });
-        </script>
+        
         <%
         /* Inicio de Sessão */
+        if(session.getAttribute("conta").toString() == null){
+            response.sendRedirect("login.jsp");
+        }
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -64,6 +61,14 @@
         Statement stmt1 = con.createStatement();
         Statement stmt2 = con.createStatement();
         %>
+        <script>
+            $(document).ready(function(){
+                $('.dropdown-trigger').dropdown();
+                $('select').formSelect();
+                $('.collapsible').collapsible();
+                
+            });
+        </script>   
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="cadBarco.jsp">Barco</a></li>
@@ -88,97 +93,11 @@
             </div>
         </nav>
         <div class="card">
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th><i class="material-icons">directions_boat</i>&nbsp;&nbsp;Empurrador</th>
-                            <th><i class="material-icons">network_cell</i>&nbsp;&nbsp;MCT/UCC</th>
-                            <th><i class="material-icons">update</i>&nbsp;&nbsp;Ultima Posição</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;Status Viagem</th>
-                            <th><i class="material-icons">description</i>&nbsp;&nbsp;Relatorios</th>
-                            <th><i class="material-icons">location_on</i>&nbsp;&nbsp;LandMark</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;Velocidade</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;RPM-1</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;RPM-2</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            Format format = new Format();
-                            String position = "";
-                            Rpm re = new Rpm();
-                            String[][] painel = re.painelAtualizado(conta, con, stmt,stmt1,stmt2).clone();
-                            for (int i = 0; i < 100; i++) {
-
-                                        if (painel[1][i] == null) {
-                                            i = 100;
-
-                                        } else {
-                                            ViagemDao viagem = new ViagemDao();
-                                            String status = viagem.pesquisarViagemStatusPorMCT(conta, con, stmt, painel[1][i]);
-                                            String idViagem = viagem.pesquisarViagemPorMCT(conta, con, stmt, painel[1][i]);
-                                            String display="";
-                                            if(idViagem.equals("INEXISTENTE")){
-                                                display = "disabled";
-                                            }
-                                            String statusColor = "#808080";
-                                            String statusIcone = "";
-                                            if(status.equals("0")){
-                                                status = "AGENDADO";
-                                                statusColor = "yellow";
-                                                statusIcone = "schedule";
-                                            }else if(status.equals("1")){
-                                                status = "EM PROGRESSO";
-                                                statusColor = "blue";
-                                                statusIcone = "directions_boat";
-                                            }else if(status.equals("2")){
-                                                status = "FINALIZADO";
-                                                statusColor = "#00FF00";
-                                                statusIcone = "check";
-                                            }else{
-                                                statusColor = "#808080";
-                                                statusIcone = "clear";
-                                            }
-                        %>
-                        <tr>
-                            <% position = format.DataFormat(painel[2][i]); %>
-                            <th><i class="material-icons">directions_boat</i>&nbsp;&nbsp; <%=painel[0][i]%></th>
-                            <th><i class="material-icons">network_cell</i>&nbsp;&nbsp;<%=painel[1][i]%></th>
-                            <th><i class="material-icons">update</i>&nbsp;&nbsp;<%=position%></th>
-                            <th style="color:<%=statusColor%>;"><i class="material-icons"><%=statusIcone%></i>&nbsp;&nbsp;<%=status%></th>
-                            <th>
-                                
-                                <a class="btn dropdown-trigger" data-target="dropdown2" <%=display%>>Relatorios<i class="material-icons right">arrow_drop_down</i></a>
-                            </th>
-                            <th><i class="material-icons">location_on</i>&nbsp;&nbsp;<%=painel[4][i]%></th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;<%=painel[3][i]%></th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;<%=painel[5][i]%></th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;<%=painel[6][i]%></th>
-                        </tr>
-                        <ul id="dropdown2" href="#" class="dropdown-content">
-                                    <li><a href="relatorioConsolidado.jsp?idViagem=<%=idViagem%>">Consolidado</a></li>
-                                    <li><a href="relatorioDetalhado.jsp?idViagem=<%=idViagem%>">Detalhado</a></li>
-                                </ul>
-                        <%
-                            }
-                        }
-                        %>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th><i class="material-icons">directions_boat</i>&nbsp;&nbsp;Empurrador</th>
-                            <th><i class="material-icons">network_cell</i>&nbsp;&nbsp;MCT/UCC</th>
-                            <th><i class="material-icons">update</i>&nbsp;&nbsp;Ultima Posição</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;Status Viagem</th>
-                            <th><i class="material-icons">description</i>&nbsp;&nbsp;Relatorios</th>
-                            <th><i class="material-icons">location_on</i>&nbsp;&nbsp;LandMark</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;Velocidade</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;RPM-1</th>
-                            <th><i class="material-icons">multiline_chart</i>&nbsp;&nbsp;RPM-2</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div>
+                <a class="btn" style="display: flex; justify-content: center" id="btn01" onclick="usaTabel()">click</a>
             </div>
+            <div id="div01" class="container"></div>
+        </div>
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
@@ -196,6 +115,29 @@
                     ]
                 } );
             } );
+        </script>
+        <script>
+            function usaTabel(){
+                    <%
+                        MacroDao m = new MacroDao();
+                        String[][] macros = m.listarMacros(conta, con, stmt, stmt1, stmt2);
+                        String row = "";
+                        String headRow = "<thead class='background #0277bd light-blue darken-1'>"
+                                + "<tr><th>NUMERO</th><th>VERSÃO</th><th>DATA</th><th>MCT</th><th>TEXTO</th>"
+                                + "<th>AÇÃO</th></tr></thead>";
+                    for (int i = 0; i < 200; i++) {
+                            if(macros[0][i] == null){
+                                i=200;
+                            }else{
+                                row =row+"<tr><th>"+macros[1][i]+"</th><th>"+macros[2][i]+"</th><th>"+macros[3][i]+"</th><th>"+macros[4][i]+"</th><th>"+macros[5][i]+"</th></tr>";
+                            }
+                        }
+                    String tabelas = "<table>"+headRow+""+row+"</table>";
+                    
+                    %>
+                    $("#div01").html("<%=tabelas%>");
+                    console.log("usuario: "+conta+" entrou");
+            }
         </script>
         
         <!--Materialize JS -->

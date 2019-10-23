@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;  
+import java.util.List; 
+import src.Barco;
 
 /**
  *
@@ -35,7 +38,55 @@ public class BarcoDao {
             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n" + e);
         }
     }
+    
+        public List<Barco> pesquisaBarcosX(String conta,Connection con, Statement stmt) {
 
+//        String[][] barcos = new String[7][100];
+        List<Barco> barcos=new ArrayList<Barco>();  
+
+        try {
+            String sql = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b \n" +
+                            "join motor_tab m on b.motor=m.idmotor_tab \n" +
+                            "WHERE b.conta='"+conta+"' order by dataCad DESC;");
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while (rs.next()) {
+                Barco barco = new Barco();
+                
+                barco.setId(rs.getString("b.idbarco"));
+                barco.setMct(rs.getString("b.mct"));
+                barco.setNome(rs.getString("b.nome"));
+                barco.setMotor(rs.getString("motor"));
+                barco.setModelo(rs.getString("b.modelo"));
+                barco.setBase(rs.getString("b.base"));
+                barco.setDataCad(rs.getString("b.dataCad"));
+                
+//                barcos[0][i] = rs.getString("b.idbarco");
+//                barcos[1][i] = rs.getString("b.mct");
+//                barcos[2][i] = rs.getString("b.nome");
+//                barcos[3][i] = rs.getString("motor");
+//                barcos[4][i] = rs.getString("b.modelo");
+//                barcos[5][i] = rs.getString("b.base");
+//                barcos[6][i] = rs.getString("b.dataCad");
+//                i++;
+                barcos.add(barco);
+            }
+            System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
+            rs.close();
+        } catch (Exception e) {
+
+            System.err.println("ERRO NO METODO DE PESQUISABARCOS");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.err.println("Erro!!!");
+        }
+//        System.out.println("nome "+barcos.get(0).getNome());
+//        System.out.println("nome "+barcos.get(1).getNome());
+
+        return barcos;
+    }
+    
     public String[][] pesquisaBarcos(String conta,Connection con, Statement stmt) {
 
         String[][] barcos = new String[7][100];

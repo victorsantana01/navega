@@ -627,44 +627,29 @@ System.err.println("com o rs.getRow();"+ i);
     public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
         
         String[][] vetRelatorio = new String[12][120];
-        int l = 0;
         //Conexão
         try {
             String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
             "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
             "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
             "MAX(IIPOS_LONGITUDE) AS LON, IIPOS_Landmark AS LAND  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
-//            String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
-//            "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
-//            "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
-//            "MAX(IIPOS_LONGITUDE) AS LON  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
-             
-                
-                      
-     
 //-----------------------------------------------------------------------------------------------------//  
 
-             
             String r1="0";
             String r2="0";
             ResultSet rs = stmt.executeQuery(sqlPainel);
             Rpm rp = new Rpm();
             int i =0;
             while (rs.next()) {
-                l=rs.getRow();
-                
-                /*VELOCIDADE */
-                vetRelatorio[3][i] = rs.getString("LAND").split(",")[2];
-                /* LOCALIZAÇÃO */
-                vetRelatorio[4][i] = rs.getString("LAND").split("de ")[1].split(",")[0];
-                
+                vetRelatorio[0][i] = rs.getString("NOME");
                 vetRelatorio[1][i] = rs.getString("MCT");
                 vetRelatorio[2][i] = rs.getString("HORA");
-                vetRelatorio[0][i] = rs.getString("NOME");
-                vetRelatorio[8][i] = rs.getString("LAT");
-                vetRelatorio[9][i] = rs.getString("LON");
+                vetRelatorio[3][i] = rs.getString("LAND").split(",")[2];/*VELOCIDADE */
+                vetRelatorio[4][i] =rs.getString("LAND").split(",")[1];/* LOCALIZAÇÃO */
                 vetRelatorio[5][i] = rp.rpmAtual1( conta,con,stmt1,vetRelatorio[2][i]);
                 vetRelatorio[6][i] = rp.rpmAtual2(conta,con,stmt2,vetRelatorio[1][i]);
+                vetRelatorio[8][i] = rs.getString("LAT");
+                vetRelatorio[9][i] = rs.getString("LON");
                 if(vetRelatorio[5][i]==null){
                     vetRelatorio[5][i]="0";
                 }
@@ -680,11 +665,8 @@ System.err.println("com o rs.getRow();"+ i);
         } catch (Exception e) {
 
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-              System.err.println("Erro no painel!!!");
+              System.err.println("ERRO NO METODO PAINELATUALIZADO");
         }
-   
-    
-       ;
         
         return vetRelatorio;
     }
