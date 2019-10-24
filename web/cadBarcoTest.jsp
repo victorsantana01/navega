@@ -77,6 +77,7 @@
     recebMct = request.getParameter("enviaMct");
     %>
     <br>
+    <div class="container">
         <div class="row ">
             <div class="col s12">
                 <div class="card offset-s5">
@@ -175,13 +176,12 @@
         <table>
             <thead class=" background #0277bd light-blue darken-1">
                 <b><tr>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
+                    <th class="white-text" style="width:100px;"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Embarcação</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Base</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data Cadastro</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                 </tr></b>
             </thead>
@@ -210,8 +210,6 @@
                 <%}%>
             </tbody>
         </table>
-            
-    
 </div>
 
 <script type="text/javascript">

@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="src.Viagem"%>
+<%@page import="java.util.List"%>
 <%@page import="logic.Format"%>
 <%@page import="dao.ComandanteDao"%>
 <%@page import="dao.BarcoDao"%>
@@ -217,67 +220,62 @@
 
                         </div>
                     </div>
-
-                    <table class="highlight striped responsive-table z-depth-4" id="dataTable">
-                        <thead class=" background #0277bd light-blue darken-1">
-                        <b><tr>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;nome Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;status</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;origem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;inicio Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;destino</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;fim Viagem</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp; MCT / UCC</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;comandante</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data de Cadastro</th>
-                                <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
-                            </tr></b>
-                        </thead>
-
-                        <%
-                            Format format = new Format();
-                            String inicio = "";
-                            String fim = "";
-                            String cadastro = "";
-                            ViagemDao viagem = new ViagemDao();
-                            String[][] viagens = viagem.pesquisarViagens(conta, con, stmt).clone();
-                            for (int i = 0; i < 1000; i++) {
-                                if (viagens[0][i] == null) {
-                                    i = 2000;
-                                } else {
-                        %>
-                        <tr id="<%= viagens[0][i]%>">
-                            <%
-                                inicio = format.DataFormat(viagens[4][i]);
-                                fim = format.DataFormat(viagens[6][i]);
-                                cadastro = format.DataFormat(viagens[9][i]);
-                                System.out.println(viagens[1][i]);
-                            %>
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[1][i]%></th> <!-- nome Viagem -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[2][i]%></th> <!-- status -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[3][i]%></th> <!-- origem -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= inicio%></th>        <!-- inicio viagem -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[5][i]%></th> <!-- destino -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= fim%></th>           <!-- fim viagem -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[7][i]%></th> <!--  MCT / UCC-->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th> <!-- comandante -->
-                            <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>      <!-- data decadastro -->
-                            <th>
-                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 100%;" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a>      <!-- data decadastro -->
-                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 100%;" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a>
-                            </th>      <!-- data decadastro -->
-                        </tr>
-                        <%  }
-                            }
-                        %>
-
-
-                    </table>
-
                 </div>
             </div>
         </div>
-    </div>
+        <div style="width: 80%; margin: 0 auto;">
+            <table class="highlight striped responsive-table" id="dataTable">
+                <thead class=" background #0277bd light-blue darken-1">
+                    <b><tr>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;nome Viagem</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;status</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;origem</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;inicio Viagem</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;destino</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;fim Viagem</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp; MCT / UCC</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;comandante</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data de Cadastro</th>
+                            <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
+                        </tr></b>
+                    </thead>
+
+                <%
+                    Format format = new Format();
+                    String inicio = "";
+                    String fim = "";
+                    String cadastro = "";
+                    ViagemDao viagem = new ViagemDao();
+                    List<Viagem> viagens = viagem.pesquisarViagensX(conta, con, stmt);
+                    Iterator<Viagem> iteratorAsViagem = viagens.iterator();
+                    while(iteratorAsViagem.hasNext()){
+                        Viagem v = iteratorAsViagem.next();
+                %>
+                <tr style="padding: 0px 0px !important;">
+
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getNome()%></th> <!-- nome Viagem -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getStatus()%></th> <!-- status -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getOrigem()%></th> <!-- origem -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getInicio()%></th>        <!-- inicio viagem -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getDestino()%></th> <!-- destino -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getFim()%></th>           <!-- fim viagem -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getMct()%></th> <!--  MCT / UCC-->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getComandante()%></th> <!-- comandante -->
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%= v.getDataCad()%></th>      <!-- data decadastro -->
+                    <th>
+                        <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 95%;" href="editViagem.jsp?idViagem=<%= v.getIdViagem()%>"><i class="material-icons">create</i>Editar</a>      <!-- data decadastro -->
+                        <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 95%;" href="excluirViagem.jsp?idViagem=<%= v.getIdViagem()%>"><i class="material-icons">delete</i>Deletar</a>
+                    </th>      <!-- data decadastro -->
+                </tr>
+                <%
+                    }
+                %>
+
+
+            </table>
+        </div>
+                    
+
     
 
     <script type="text/javascript">

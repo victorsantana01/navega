@@ -172,13 +172,12 @@
         <table class="highlight striped responsive-table z-depth-4" id="dataTable">
             <thead class=" background #0277bd light-blue darken-1">
             <b><tr>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
+                    <th class="white-text" style="width:100px;"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Embarcação</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Base</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data Cadastro</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                 </tr></b>
             </thead>

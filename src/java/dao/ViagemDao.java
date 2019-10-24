@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import logic.Format;
+import src.Viagem;
 
 /**
  *
@@ -178,6 +181,45 @@ public class ViagemDao {
                 viagens[8][i] = rs.getString("comandante");
                 viagens[9][i] = rs.getString("dataCad");
                 i++;
+            }
+            System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
+            rs.close();
+        } catch (Exception e) {
+
+            System.err.println("ViagemDao :" + e.getClass().getName() + ": " + e.getMessage());
+            System.err.println("Erro!!!");
+        }
+
+        return viagens;
+    }
+    public List<Viagem> pesquisarViagensX(String conta,Connection con, Statement stmt) {
+
+//        String[][] viagens = new String[10][10000];
+        List<Viagem> viagens = new ArrayList<Viagem>();
+
+        try {
+            String sql = ("SELECT idViagem, nomeViagem, if(1>status, 'Agendado',if(2>status, 'Em Progresso', 'Finalizado')) as status, "
+                    + "origem, inicioViagem, destino, fimViagem, v.mct, c.nome as comandante, v.dataCad FROM exporta.viagem v"
+                    + " left join exporta.barco b on v.mct = b.mct "
+                    + " left join exporta.comandante c on v.comandante = c.idcomandante"
+                    + " and v.conta = '"+conta+"' order by v.dataCad DESC;");
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while (rs.next()) {
+                Viagem viagem = new Viagem();
+                viagem.setIdViagem(rs.getString("idViagem"));
+                viagem.setNome(rs.getString("nomeViagem"));
+                viagem.setStatus(rs.getString("status"));
+                viagem.setOrigem(rs.getString("origem"));
+                viagem.setInicio(rs.getString("inicioViagem"));
+                viagem.setDestino(rs.getString("destino"));
+                viagem.setFim(rs.getString("fimViagem"));
+                viagem.setMct(rs.getString("mct"));
+                viagem.setComandante(rs.getString("comandante"));
+                viagem.setDataCad(rs.getString("dataCad"));
+                viagens.add(viagem);
             }
             System.out.println("METODO PESQUISAVIAGEM REALIZADO COM SUCESSO........... ");
             rs.close();
