@@ -5,12 +5,15 @@
  */
 package src;
 
+import logic.Format;
+
 /**
  *
  * @author ricardson
  */
 public class Barco {
     private String id, mct, nome,motor, modelo, base, dataCad, conta;
+    Format format = new Format();
 
     public Barco() {}
     
@@ -85,7 +88,7 @@ public class Barco {
     }
 
     public String getDataCad() {
-        return dataCad;
+        return format.DataFormat(dataCad);
     }
 
     public void setDataCad(String dataCad) {

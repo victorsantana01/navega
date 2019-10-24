@@ -8,8 +8,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.*"%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>--%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -173,9 +172,9 @@
         </div>
 
 
-        
+        <table>
             <thead class=" background #0277bd light-blue darken-1">
-            <b><tr>
+                <b><tr>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Embarcação</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor</th>
@@ -186,31 +185,32 @@
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
                 </tr></b>
             </thead>
-
-            <%
-                Format format = new Format();
-                String data;
-                BarcoDao barco = new BarcoDao();
-                List<Barco> barcos = barco.pesquisaBarcosX(conta, con, stmt);
-                request.setAttribute("barcos",barcos); 
-            %>
-            <c:forEach items="${barcos}" var="b"> 
+            <tbody>
+                <%
+                    Format format = new Format();
+                    String data;
+                    BarcoDao barco = new BarcoDao();
+                    List<Barco> barcos = barco.pesquisaBarcosX(conta, con, stmt);
+                    Iterator<Barco> barcosAsIterator = barcos.iterator();
+                    while (barcosAsIterator.hasNext()){
+                    Barco b = barcosAsIterator.next();               
+                %>
                 <tr>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${b.getMct()}</th>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${b.getNome()}</th>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${b.getMotor()}</th>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${b.getModelo()}</th>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${b.getBase()}</th>
-                    <th><i class="material-icons"></i>&nbsp;&nbsp;${format.DataFormat(b.getDataCad())}</th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getMct()%></th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getNome()%></th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getMotor()%></th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getModelo()%></th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getBase()%></th>
+                    <th><i class="material-icons"></i>&nbsp;&nbsp;<%=b.getDataCad()%></th>
                     <th style="width:250px">
-                        <i class="material-icons" ></i>&nbsp;&nbsp;<a class="btn" href="editBarco.jsp?idBarco=${b.getId}"><i class="material-icons">create</i>Editar</a>
-                        <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirBarco.jsp?idBarco=${b.getId}"><i class="material-icons">delete</i>Deletar</a>
+                        <i class="material-icons" ></i>&nbsp;&nbsp;<a class="btn" href="editBarco.jsp?idBarco=<%=b.getId()%>"><i class="material-icons">create</i>Editar</a>
+                        <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirBarco.jsp?idBarco=<%=b.getId()%>"><i class="material-icons">delete</i>Deletar</a>
                     </th>
                 </tr>
-            </c:forEach>
-
-        
-
+                <%}%>
+            </tbody>
+        </table>
+            
     
 </div>
 

@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import src.Comandante;
 
 /**
  *
@@ -46,6 +49,33 @@ public class ComandanteDao {
                 comandantes[3][i] = rs.getString("ultimaViagem");
                 comandantes[4][i] = rs.getString("contato");
                 i++;
+            }
+            System.out.println("METODO PESQUISACOMANDANTES REALIZADO COM SUCESSO ........... ");
+            rs.close();
+        } catch (Exception e) {
+
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.err.println("Erro!!!");
+        }
+        return comandantes;
+    }
+    public List<Comandante> pesquisarComandantesX(String conta, Connection con, Statement stmt) {
+
+//        String[][] comandantes = new String[5][100];
+        List<Comandante> comandantes = new ArrayList<Comandante>();
+        try {
+            String sql = ("SELECT * FROM exporta.comandante WHERE conta='"+conta+"' ");
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int i = 0;
+            while (rs.next()) {
+                Comandante comandante = new Comandante();
+                comandante.setIdComandante(rs.getString("idcomandante"));
+                comandante.setNome(rs.getString("nome"));
+                comandante.setMatricula(rs.getString("matricula"));
+                comandante.setUltimaViagem(rs.getString("ultimaViagem"));
+                comandante.setContato(rs.getString("contato"));
+                comandantes.add(comandante);
             }
             System.out.println("METODO PESQUISACOMANDANTES REALIZADO COM SUCESSO ........... ");
             rs.close();
