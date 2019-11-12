@@ -98,9 +98,29 @@
             </ul>
         </div>
         <!-- FIM Bot?o de Add -->
-        
-        <!-- INCLUDE DA NAVBAR -->
-        <jsp:include page="navbar.jsp"></jsp:include>  
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="cadBarco.jsp">Barco</a></li>
+            <li class="divider"></li>
+            <li><a href="cadComandante.jsp">Comandante</a></li>
+            <li class="divider"></li>
+            <li><a href="cadViagem.jsp">Viagem</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #0277bd !important;">
+                <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="macros.jsp">Macros</a></li>
+                    <li><a href="listarMacros.jsp">Definição da Macro</a></li>
+                    <li><a href="viagens.jsp">Viagens</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastro<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="tables.jsp">Tabela de Consumo</a></li>
+                    <li><a href="motores.jsp">Motores</a></li>
+                    <li><a href="login.jsp">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
 
 
         <!-- INICIO Bot?o de Add -->
@@ -263,8 +283,8 @@
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= viagens[8][i]%></th> <!-- comandante -->
                             <th><i class="material-icons"></i>&nbsp;&nbsp;<%= cadastro%></th>      <!-- data decadastro -->
                             <th>
-                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 100%;" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a>      <!-- data decadastro -->
-                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" style="width: 100%;" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a>
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="editViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">create</i>Editar</a>      <!-- data decadastro -->
+                                <i class="material-icons"></i>&nbsp;&nbsp;<a class="btn" href="excluirViagem.jsp?idViagem=<%= viagens[0][i]%>"><i class="material-icons">delete</i>Deletar</a>
                             </th>      <!-- data decadastro -->
                         </tr>
                         <%  }
