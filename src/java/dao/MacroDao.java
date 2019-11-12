@@ -17,12 +17,18 @@ import java.util.logging.Logger;
 import logic.Format;
 
 /**
- *
- * @author ricardson
+ * Classe feita para consultar a Macro
+ * @author Luiz Lacerda
  */
 public class MacroDao {
     
-    
+    /**
+     * Metodo consulta as macros que estão cadastradas
+     * @param conta String - conta do cliente
+     * @param con Connection
+     * @param stmt Statement
+     * @return retorna um vetor bidimensional de Strings com os dados das macros encontradas.
+     */
     public String[][] listarMacroCadastradas(String conta,Connection con, Statement stmt){
         String[][] macroCadastradas = new String[10][50];
         
@@ -47,6 +53,14 @@ public class MacroDao {
         return macroCadastradas;
     }
     
+    /**
+     * Metodo procura uma macro apartir do seu id
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param id String - id da macro pesquisada
+     * @return retorna um vetor bidimensional de Strings com os dados da macro encontrada.
+     */
     public String[][] getMacroById(String conta,Connection con, Statement stmt, String id){
         String[][] macroSelecionada = new String[100][2];
         
@@ -76,7 +90,17 @@ public class MacroDao {
             
         return macroSelecionada;
     }
-    
+    /**
+     * Metodo cadastra uma nova macro no banco de dados
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param numeroMacro String - numero da macro
+     * @param nome String - nome da macro
+     * @param labels String - numero de itens na macro
+     * @param tipos String - os tipos de cada um dos itens na labels.
+     * @param versao String - versão da macro.
+     */
     public void cadastrarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao ){
         System.out.println("------------------------------");
         System.out.println("numeroMacro: "+numeroMacro);
@@ -93,6 +117,17 @@ public class MacroDao {
             System.out.println(e);
         }
     }
+    /**
+     * Edita uma macro no banco de dados
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param numeroMacro String - numero da macro
+     * @param nome String - novo nome da macro
+     * @param labels String - novos labels
+     * @param tipos String - novos tipos
+     * @param versao String - novo numero de versão
+     */
     public void editarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao ){
         System.out.println("------------------------------");
         System.out.println("numeroMacro: "+numeroMacro);
@@ -109,7 +144,15 @@ public class MacroDao {
             System.out.println(e);
         }
     }
-    
+    /**
+     * Metodo lista todas as macros pertencentes ao usuario
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt1 Statement
+     * @param stmt2 Statement
+     * @param stmt3 Statement
+     * @return retorna um vetor bidimensional de Strings com os dados das macros encontradas.
+     */
     public String[][] listarMacros(String conta,Connection con, Statement stmt1, Statement stmt2, Statement stmt3){
         String[][] macros = new String[6][100];
         try{
@@ -148,7 +191,16 @@ public class MacroDao {
         
         return macros;
     }
-    
+    /**
+     * @deprecated metodo especifico para a macro 3, não é mais usado, foi criado um metodo generico que ingloba todas as macros
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt1 Statement
+     * @param stmt2 Statement
+     * @param embarcacaoManobra String - mct da embaração
+     * @param dataManobra String - Data de inicio e fim da manobra.
+     * @return retorna um vetor bidimensional de Strings com os dados dos macros encontradas.
+     */
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt1, Statement stmt2, String embarcacaoManobra, String dataManobra){
         
         Format format = new Format();
@@ -233,6 +285,14 @@ public class MacroDao {
         return macros;
         
     }
+    /**
+     * @deprecated metodo especifico para a macro 3, não é mais usado, foi criado um metodo generico que ingloba todas as macros
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt1 Statement
+     * @param stmt2 Statement
+     * @return retorna um vetor bidimensional de Strings com os dados dos macros encontradas.
+     */
     public String[][] pesquisaMacro(String conta,Connection con, Statement stmt1, Statement stmt2){
         
         String[][] macros = new String[13][5000];
@@ -292,6 +352,14 @@ public class MacroDao {
         
     }
     
+    /**
+     * Metodo pesquisa a definição de uma macro apartir de seu numero.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param NumeroMacro String - numero da macro que sera procurada
+     * @return retorna um vetor bidimensional de String com os dados da definição de macro encontrada.
+     */
     public String[][] getMacroDef(String conta,Connection con, Statement stmt, String NumeroMacro){
         String[][] macroDef = new String[100][2];
         System.out.println("METODO GETMACRODEF");
@@ -316,6 +384,14 @@ public class MacroDao {
         
         return macroDef;
     }
+    /**
+     * Metodo pesquisa uma macro pelo seu numero e retorna o seu nome
+     * @param conta String - Conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param NumeroMacro String - numero da macro.
+     * @return retorna uma String com o nome da macro pesquisada.
+     */
     public String getMacroName(String conta,Connection con, Statement stmt, String NumeroMacro){
         String macro = "";
         try{
@@ -331,6 +407,14 @@ public class MacroDao {
         }
         return macro;
     }
+    /**
+     * Metodo verifica se uma macro possui texto nulo
+     * @param conta String - conta do cliente
+     * @param con Connection
+     * @param stmt Statement
+     * @param NumeroMacro String - numero da macro a ser pesquisada
+     * @return retorna um boolean, true se não for encontrada nenhuma macro com o texto nulo, false se forem encontradas macros com texto nulo.
+     */
     public boolean MacroIsTextNull(String conta,Connection con, Statement stmt, String NumeroMacro){
         boolean macro = false;
         try{
@@ -350,6 +434,14 @@ public class MacroDao {
         }
         return macro;
     }
+    /**
+     * Metodo pesquisa uma macro por numero e retorna o seu texto.
+     * @param conta String - conta
+     * @param con Connection
+     * @param stmt Statement
+     * @param NumeroMacro String - numero da macro.
+     * @return retorna um vetor bidimensional de String com os itens da macro.
+     */
     public String[][] getMacroText(String conta,Connection con, Statement stmt, String NumeroMacro){
         String[][] macrosTexts = new String[100][10000];
         
@@ -376,13 +468,20 @@ public class MacroDao {
         
         return macrosTexts;
     }
-    
+    /**
+     * metodo pesquisa macro por numero
+     * @param conta String - Conta do usuario
+     * @param con Connection
+     * @param stmt1 Statement
+     * @param NumeroMacro string - numero da macro a ser procurada
+     * @return retorna um vetor bidimensional de Strings com os dados da Macro encontrada.
+     */
     public String[][] getMacroPorNumero(String conta,Connection con, Statement stmt1, String NumeroMacro){
         String[][] macrosListados = new String[3][1000];
         
         try{
             
-            String sql = ("SELECT * FROM `268477387_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+NumeroMacro+"'");
+            String sql = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+NumeroMacro+"'");
             ResultSet rs = stmt1.executeQuery(sql);
             int i=0;
             while(rs.next()){
@@ -397,7 +496,14 @@ public class MacroDao {
         
         return macrosListados;
     }
-    
+    /**
+     * Metodo verifica se uma macro tem uma definição
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt1 Statement
+     * @param NumeroMacro String - numero da macro verificada
+     * @return Retorna um boolean, true se existir definição, false se não existir.
+     */
     public boolean defExiste(String conta,Connection con, Statement stmt1, String NumeroMacro){
         boolean existe = false;
         
@@ -414,6 +520,9 @@ public class MacroDao {
         return existe;
     }
     
+    /**
+     * Metodo utilizado para apagar textos duplicados nas macros.
+     */
     public void apagaDuplicados(){
         String[][] macros = new String[2][100];
             

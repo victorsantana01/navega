@@ -6,7 +6,7 @@
 package dao;
 
 /**
- *
+ * Classe criada para excluir dados duplicados na macro.
  * @author ricardson
  */
 public class NewClass {

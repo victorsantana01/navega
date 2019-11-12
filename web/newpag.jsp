@@ -24,36 +24,25 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         <!--Materialize CSS -->
-        <link rel="stylesheet" type="text/css" href="css/materialize.css">
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>        
-        <!--FIM Cabeçalho Para Materialize-->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         
-        <!-- Compiled and minified JavaScript -->
+        <!-- DateRangePicker files INICIO -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <!-- DateRangePicker files FIM -->
+        
+        <!-- -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         
     </head>
-    
     <body>
-        
         <%
-        /* Inicio de Sessão */
-        if(session.getAttribute("conta").toString() == null){
-            response.sendRedirect("login.jsp");
-        }
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -66,41 +55,34 @@
                 $('.dropdown-trigger').dropdown();
                 $('select').formSelect();
                 $('.collapsible').collapsible();
-                
+                $(".dropdown-trigger").dropdown('toggle');
+                $('input[name="datetimes22"]').daterangepicker({
+                    timePicker: true,
+                    startDate: moment().startOf('hour'),
+                    endDate: moment().startOf('hour').add(24, 'hour'),
+                    "timePicker24Hour": true,
+                    locale: {
+                        format: 'DD/MM/YYYY hh:mm'
+                    }
+                });
             });
-        </script>   
-        <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-            <li><a href="cadBarco.jsp">Barco</a></li>
-            <li class="divider"></li>
-            <li><a href="cadComandante.jsp">Comandante</a></li>
-            <li class="divider"></li>
-            <li><a href="cadViagem.jsp">Viagem</a></li>
-        </ul>
-        <nav>
-            <div class="nav-wrapper" style="background-color: #0277bd !important;">
-                <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="macros.jsp">Macros</a></li>
-                    <li><a href="listarMacros.jsp">Definição da Macro</a></li>
-                    <li><a href="viagens.jsp">Viagens</a></li>
-                    <!-- Dropdown Trigger -->
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastro<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li><a href="tables.jsp">Tabela de Consumo</a></li>
-                    <li><a href="motores.jsp">Motores</a></li>
-                    <li><a href="login.jsp">Sair</a></li>
-                </ul>
-            </div>
-        </nav>
+        </script>
+        <!-- INCLUDE DA NAVBAR -->
+        <jsp:include page="navbar.jsp"></jsp:include>  
+        
         <div class="card">
+            <div class="input-field col s6">
+                <input type="text" name="datetimes22" />
+                <label for="datetimes22" class="active">Datas e Horarios</label> 
+            </div> 
             <div>
                 <a class="btn" style="display: flex; justify-content: center" id="btn01" onclick="usaTabel()">click</a>
             </div>
             <div id="div01" class="container"></div>
         </div>
         
-        <!--Materialize JS -->
-        <script src="js/materialize.js"></script>
+
+        
         <script>
             $(document).ready(function() {
                 $('#example').DataTable( {
@@ -139,6 +121,7 @@
                     console.log("usuario: "+conta+" entrou");
             }
         </script>
+        
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>

@@ -82,16 +82,7 @@
         </nav>
 
 
-    <!-- INICIO Botão de Add -->
-    <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
-        <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
-        <ul>
-            <li>
-                <a href="lista.html" class="btn-floating z-depth-5 #4db6ac teal lighten-3 btn-large waves-effect z-depth-4">
-                    <i class="material-icons">directions_run</i>clolse</a>
-            </li>
-        </ul>
-    </div>
+    
     
 </div>
 

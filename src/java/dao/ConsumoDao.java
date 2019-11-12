@@ -12,23 +12,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * Classe criada para fazer o crud da tabela motor_tab
  * @author Victor Santana
+ * @author Luiz Lacerda
  */
 public class ConsumoDao {
     
-  
+    /**
+     * Pesquisa todos os motores ligados so usuario
+     * @param conta String - conta do usuario.
+     * @return retorna um vetor bidimensional de String com os dados dos motores
+     */
     public String [][] tabela(String conta) {
        
-         String[][] elemento = new String[29][100];
+        String[][] elemento = new String[29][100];
        
-        
- 
-        String Relatorio = null;
-
-   
         String SqlQueryIgn = ("SELECT * FROM exporta.motor_tab where conta='"+conta+"';");
-
 
         try {
            Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -38,7 +37,6 @@ public class ConsumoDao {
             int i = 0;
             
             while (rs.next()) {
-           
                
                 elemento[0][i] = rs.getString("nome_motor");
                 elemento[1][i] = rs.getString("500");
@@ -81,13 +79,15 @@ public class ConsumoDao {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-
-
-return elemento;
+        return elemento;
     }
 
-    
-   public String[][] getTabelaConsumo(String conta) {
+    /**
+     * Pesquisa todos os motores ligados so usuario
+     * @param conta String - conta do usuario.
+     * @return retorna um vetor bidimanesional com os dados dos motores
+     */
+    public String[][] getTabelaConsumo(String conta) {
         String[][] elemento = new String[31][50];
  
         try {
@@ -155,7 +155,16 @@ return elemento;
 
         return elemento;
     }
-   public String[] getConsumoById(String conta,Connection con, Statement stmt, String idMotor) {
+    
+    /**
+     * Pesquisa um motor apartir do seu id
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param idMotor String - id do motor a ser procurado.
+     * @return retorna um array com os dados do motor encontrado.
+     */
+    public String[] getConsumoById(String conta,Connection con, Statement stmt, String idMotor) {
         String[] elemento = new String[31];
  
         try {
@@ -210,7 +219,13 @@ return elemento;
         return elemento;
     }
    
-   
+   /**
+    * metodo pesquisa um motor por nome e retorna o quanto litros ele faz em um determinado rpm
+    * @param conta String - conta do usuario
+    * @param nomeMotor String - nome do motor a ser pesquisado
+    * @param rpm String - rpm escolhido
+    * @return retorna a String com o numero de litros feita na rpm escolhida
+    */
    public String getLitrosPorRpm(String conta, String nomeMotor, String rpm ) {
         String elemento = null ;
         int intRpm = Integer.parseInt(rpm);
@@ -261,36 +276,43 @@ return elemento;
         return elemento;
     }
     
-     public void incluirFaixa(String conta,
-             String nomeMotor,
-             String rpm400,
-             String rpm500,
-             String rpm600,
-             String rpm700,
-             String rpm800,
-             String rpm900,
-             String rpm1000,
-             String rpm1100,
-             String rpm1200,
-             String rpm1300,
-             String rpm1400,
-             String rpm1500,
-             String rpm1600,
-             String rpm1700,
-             String rpm1800,
-             String rpm1900,
-             String rpm2000,
-             String rpm2100,
-             String rpm2200,
-             String rpm2300,
-             String rpm2400,
-             String rpm2500,
-             String rpm2600,
-             String rpm2700,
-             String rpm2800,
-             String rpm2900,
-             String rpm3000,
-             String descricao) {
+   /**
+    * Insere novo motor na tabela motor_tab
+    * @param conta String nome da conta
+    * @param nomeMotor String nome do motor
+    * @param rpm400 String valor em litros que o motor faz em 400
+    * @param rpm500 String valor em litros que o motor faz em 500
+    * @param rpm600 String valor em litros que o motor faz em 600
+    * @param rpm700 String valor em litros que o motor faz em 700
+    * @param rpm800 String valor em litros que o motor faz em 800
+    * @param rpm900 String valor em litros que o motor faz em 900
+    * @param rpm1000 String valor em litros que o motor faz em 1000
+    * @param rpm1100 String valor em litros que o motor faz em 1100
+    * @param rpm1200 String valor em litros que o motor faz em 1200
+    * @param rpm1300 String valor em litros que o motor faz em 1300
+    * @param rpm1400 String valor em litros que o motor faz em 1400
+    * @param rpm1500 String valor em litros que o motor faz em 1500
+    * @param rpm1600 String valor em litros que o motor faz em 1600
+    * @param rpm1700 String valor em litros que o motor faz em 1700
+    * @param rpm1800 String valor em litros que o motor faz em 1800
+    * @param rpm1900 String valor em litros que o motor faz em 1900
+    * @param rpm2000 String valor em litros que o motor faz em 2000
+    * @param rpm2100 String valor em litros que o motor faz em 2100
+    * @param rpm2200 String valor em litros que o motor faz em 2200
+    * @param rpm2300 String valor em litros que o motor faz em 2300
+    * @param rpm2400 String valor em litros que o motor faz em 2400
+    * @param rpm2500 String valor em litros que o motor faz em 2500
+    * @param rpm2600 String valor em litros que o motor faz em 2600
+    * @param rpm2700 String valor em litros que o motor faz em 2700
+    * @param rpm2800 String valor em litros que o motor faz em 2800
+    * @param rpm2900 String valor em litros que o motor faz em 2900
+    * @param rpm3000 String valor em litros que o motor faz em 3000
+    * @param descricao String - descricao do motor
+    */
+    public void incluirFaixa(String conta,String nomeMotor,String rpm400,String rpm500,String rpm600,String rpm700,String rpm800,
+            String rpm900,String rpm1000,String rpm1100,String rpm1200,String rpm1300,String rpm1400,String rpm1500,String rpm1600,
+            String rpm1700,String rpm1800,String rpm1900,String rpm2000,String rpm2100,String rpm2200,String rpm2300,String rpm2400,
+            String rpm2500,String rpm2600,String rpm2700,String rpm2800,String rpm2900,String rpm3000,String descricao) {
 
         try {
       
@@ -315,7 +337,43 @@ return elemento;
              System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!\n"+e);
         }
     }
-     public void editarFaixa(String conta,Connection con, Statement stmt, String idMotor, String nomeMotor, String rpm400, String rpm500, String rpm600, String rpm700,
+    /**
+     * Edita um motor no banco de dados
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param idMotor String - id do motor a ser editado
+     * @param nomeMotor String - novo nome 
+     * @param rpm400 String - novo rpm
+     * @param rpm500 String - novo rpm
+     * @param rpm600 String - novo rpm
+     * @param rpm700 String - novo rpm
+     * @param rpm800 String - novo rpm
+     * @param rpm900 String - novo rpm
+     * @param rpm1000 String - novo rpm
+     * @param rpm1100 String - novo rpm
+     * @param rpm1200 String - novo rpm
+     * @param rpm1300 String - novo rpm
+     * @param rpm1400 String - novo rpm
+     * @param rpm1500 String - novo rpm
+     * @param rpm1600 String - novo rpm
+     * @param rpm1700 String - novo rpm
+     * @param rpm1800 String - novo rpm
+     * @param rpm1900 String - novo rpm
+     * @param rpm2000 String - novo rpm
+     * @param rpm2100 String - novo rpm
+     * @param rpm2200 String - novo rpm
+     * @param rpm2300 String - novo rpm
+     * @param rpm2400 String - novo rpm
+     * @param rpm2500 String - novo rpm
+     * @param rpm2600 String - novo rpm
+     * @param rpm2700 String - novo rpm
+     * @param rpm2800 String - novo rpm
+     * @param rpm2900 String - novo rpm
+     * @param rpm3000 String - novo rpm
+     * @param descricao String - nova descrição
+     */
+    public void editarFaixa(String conta,Connection con, Statement stmt, String idMotor, String nomeMotor, String rpm400, String rpm500, String rpm600, String rpm700,
              String rpm800, String rpm900, String rpm1000, String rpm1100, String rpm1200, String rpm1300, String rpm1400, String rpm1500,
              String rpm1600, String rpm1700, String rpm1800, String rpm1900, String rpm2000, String rpm2100, String rpm2200, String rpm2300,
              String rpm2400, String rpm2500, String rpm2600, String rpm2700, String rpm2800, String rpm2900, String rpm3000, String descricao) {
@@ -337,7 +395,16 @@ return elemento;
              System.out.println("ERRO AO TENTAR EDITAFAIXA!!!!!\n"+e);
         }
     }
-     public void faixa(String conta, String nomeMotor,String faixa, String litros, String descricao) {
+    /**
+     * 
+     * @param conta String - conta do usuario.
+     * @param nomeMotor String - nome do motor
+     * @param faixa String - faixa de rpm
+     * @param litros String - litros
+     * @param descricao String - descrição do motor
+     * @deprecated Este metodo foi substituido pelo metodo incluirFaixa devido a alterações no banco.
+     */
+    public void faixa(String conta, String nomeMotor,String faixa, String litros, String descricao) {
 
         try {
       
@@ -356,6 +423,12 @@ return elemento;
         }
 
     }
+    /**
+     * Metodo calcula quantos litros são consumidos em uma hora.
+     * @param litros String - valor de litros
+     * @param minutos String - tempo de consumo
+     * @return retorna um valor String do consumo.
+     */
     public String consumo(String litros, String minutos) {
 
         String consumo = "";
@@ -371,11 +444,15 @@ return elemento;
         System.err.println("Consumo é: " + consumo + " litro(s)");
         return consumo;
     }
-    
-   public String arredondamento(String entrada){
+    /**
+     * metodo arredonda o valor de entrada.
+     * @param entrada String - valor de entrada
+     * @return retorna uma String com o valor arredondado.
+     */
+    public String arredondamento(String entrada){
        if (entrada.equals("65535")) {
         entrada = "0";   
-       }
+      }
       String resultado = null;
       String []vetEntrada = entrada.split("");
       if(vetEntrada.length==3){
@@ -388,8 +465,15 @@ return elemento;
       System.err.println("Valor Arredondado é: " + entrada);
       
       return resultado; 
-   }
-   public void excluirFaixa(String conta,Connection con, Statement stmt, String idMotor){
+    }
+    /**
+     * Metodo exclui motor do banco de dados apartir do seu id.
+     * @param conta String - conta do usuario.
+     * @param con Connection
+     * @param stmt Statament
+     * @param idMotor String - id do motor que sera excluido do banco.
+     */
+    public void excluirFaixa(String conta,Connection con, Statement stmt, String idMotor){
        try{
            String sql = ("DELETE FROM `motor_tab` WHERE idmotor_tab = "+idMotor+" and conta = "+conta+";");
            stmt.executeUpdate(sql);

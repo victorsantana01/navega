@@ -15,11 +15,20 @@ import java.util.List;
 import src.Comandante;
 
 /**
- *
+ * Classe criada para fazer o crud da tabela Comandante
  * @author Luiz Lacerda
  */
 public class ComandanteDao {
-
+    
+    /**
+     * Inclui um novo comandante ao banco de dados.
+     * @param conta String - conta do usuario.
+     * @param con Connection
+     * @param stmt Statament
+     * @param nome string - nome do comandante
+     * @param matricula String - matricula do comandante
+     * @param contato String - contato do comantante
+     */
     public void incluirComandante(String conta, Connection con, Statement stmt, String nome, String matricula, String contato) {
         try {
             
@@ -31,7 +40,13 @@ public class ComandanteDao {
             System.out.println("ERRO AO TENTAR SALVAR TABELA!!!!!" + e);
         }
     }
-
+    /**
+     * Pesquisa todos os comandante ligados a conta do usuario.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @return Retorna um vetor bidimensional de Strings com os dados dos comandantes encontrados
+     */
     public String[][] pesquisarComandantes(String conta, Connection con, Statement stmt) {
 
         String[][] comandantes = new String[5][100];
@@ -86,7 +101,14 @@ public class ComandanteDao {
         }
         return comandantes;
     }
-
+    /**
+     * metodo pesquisa um barco apartir do seu id
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param id String - id do comandante a ser pesquisado
+     * @return retorna um vetor bidimensional de String com apenas um unico comandante
+     */
     public String[][] pesquisarComandante(String conta, Connection con, Statement stmt, String id) {
 
         String[][] comandantes = new String[4][2];
@@ -113,7 +135,13 @@ public class ComandanteDao {
         }
         return comandantes;
     }
-
+    /**
+     * metodo exclui um comandante apartir do seu id
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param id String - id do comandante a ser excluido
+     */
     public void excluirComandante(String conta, Connection con, Statement stmt, String id) {
 
         try {
@@ -126,6 +154,16 @@ public class ComandanteDao {
 
     }
 
+    /**
+     * Metodo edita um comandante existente apartir do seu id
+     * @param conta String - conta do usuario.
+     * @param con Connection
+     * @param stmt Statement
+     * @param id String - id do comandante a ser editado
+     * @param nome String - novo nome do comandante
+     * @param matricula String - nova matricula do comandante
+     * @param contato String - novo contato do comandante
+     */
     public void editarComandante(String conta, Connection con, Statement stmt, String id, String nome, String matricula, String contato) {
         try {
             String sql = ("UPDATE `exporta`.`comandante` SET `nome`='" + nome + "', `matricula`='" + matricula + "', `contato`='" + contato + "' WHERE `idcomandante`='" + id + "' and conta='"+conta+"'");

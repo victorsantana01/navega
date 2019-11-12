@@ -17,11 +17,22 @@ import java.util.List;
 import src.Barco;
 
 /**
- *
+ * Classe criada para fazer o crud da tabela Barco.
  * @author Luiz Lacerda
  */
 public class BarcoDao {
-
+    
+    /** 
+     * Metodo de inclusão de barcos no banco de dados.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param mct String - numero do MCT do barco
+     * @param nome String - nome da embarcação
+     * @param motor String - numero do motor
+     * @param modelo String - modelo do motor
+     * @param base String - base da embarcação
+     */
     public void incluirBarco(String conta,Connection con, Statement stmt, String mct, String nome, String motor, String modelo, String base) {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -39,9 +50,8 @@ public class BarcoDao {
         }
     }
     
-        public List<Barco> pesquisaBarcosX(String conta,Connection con, Statement stmt) {
+    public List<Barco> pesquisaBarcosX(String conta,Connection con, Statement stmt) {
 
-//        String[][] barcos = new String[7][100];
         List<Barco> barcos=new ArrayList<Barco>();  
 
         try {
@@ -62,15 +72,7 @@ public class BarcoDao {
                 barco.setModelo(rs.getString("b.modelo"));
                 barco.setBase(rs.getString("b.base"));
                 barco.setDataCad(rs.getString("b.dataCad"));
-                
-//                barcos[0][i] = rs.getString("b.idbarco");
-//                barcos[1][i] = rs.getString("b.mct");
-//                barcos[2][i] = rs.getString("b.nome");
-//                barcos[3][i] = rs.getString("motor");
-//                barcos[4][i] = rs.getString("b.modelo");
-//                barcos[5][i] = rs.getString("b.base");
-//                barcos[6][i] = rs.getString("b.dataCad");
-//                i++;
+
                 barcos.add(barco);
             }
             System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
@@ -81,12 +83,16 @@ public class BarcoDao {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.err.println("Erro!!!");
         }
-//        System.out.println("nome "+barcos.get(0).getNome());
-//        System.out.println("nome "+barcos.get(1).getNome());
 
         return barcos;
     }
-    
+    /** 
+     * Metodo de pesquisa de barcos, pesquisa e rerna todos os barcos pertencentes ao cliente.
+     * @param conta String - conta do usuario.
+     * @param con Connection
+     * @param stmt Statament
+     * @return retorna um vetor bidimensional de String com os dados dos barcos encontrados
+     */
     public String[][] pesquisaBarcos(String conta,Connection con, Statement stmt) {
 
         String[][] barcos = new String[7][100];
@@ -121,7 +127,15 @@ public class BarcoDao {
 
         return barcos;
     }
-
+    
+    /** 
+     * Pesquisa um barco apartir do seu id.
+     * @param conta Stringa - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param id String - id do barco pesquisado
+     * @return retorna um vetor bidimensional de String com apenas um unico barco.
+     */
     public String[][] pesquisarBarco(String conta,Connection con, Statement stmt, String id) {
 
         String[][] barcos = new String[7][10];
@@ -154,7 +168,14 @@ public class BarcoDao {
 
         return barcos;
     }
-
+    
+    /** 
+     * Metodo de pesquisa de motores na tabela motor_tab
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @return retorna um vetor bidimensional de string com os dados dos motores achados
+     */
     public String[][] pesquisaMotores(String conta,Connection con, Statement stmt) {
 
         String[][] motores = new String[20][2];
@@ -182,7 +203,19 @@ public class BarcoDao {
 
         return motores;
     }
-
+    
+    /**
+     * Metodo de edição de barbo
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param idBarco String - id do barco selecionado.
+     * @param mct String - novo MCT que sera editado
+     * @param nomeBarco String - novo nome do barco
+     * @param motor String - novo nome do motor
+     * @param modelo String - novo modelo de motor
+     * @param base String - nova base
+     */
     public void editarBarco(String conta,Connection con, Statement stmt, String idBarco, String mct, String nomeBarco, String motor, String modelo, String base) {
         System.out.println("METODO ---> EDITAR BARCO INICIADO.........");
         try {
@@ -197,6 +230,13 @@ public class BarcoDao {
         }
     }
     
+    /**
+     * metodo de exclusão de barco.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statament
+     * @param idBarco String - id do barco que sera excluido.
+     */
     public void excluirBarco(String conta,Connection con, Statement stmt, String idBarco){
         System.out.println("METODO ---> EXCLUIR BARCO INICIADO.........");
         try {
