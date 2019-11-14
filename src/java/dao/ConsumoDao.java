@@ -228,9 +228,14 @@ public class ConsumoDao {
     */
    public String getLitrosPorRpm(String conta, String nomeMotor, String rpm ) {
         String elemento = null ;
+        if(rpm.equals("65535")){
+            rpm = "0";
+        }   
         int intRpm = Integer.parseInt(rpm);
+
         if (intRpm < 400) {
            intRpm = 0;
+           
            rpm = String.valueOf(intRpm);
        }
  
