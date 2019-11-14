@@ -48,6 +48,8 @@
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
          Statement stmt = con.createStatement();
+         Statement stmt2 = con.createStatement();
+         Statement stmt3 = con.createStatement();
 %>                
     <script type="text/javascript">
         function printpage(){
@@ -193,6 +195,7 @@
                                                            maiorMinuto = minuto;
                                                             vetPosition = i;   
                                                            }   
+                                                
                                                 consumo = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);

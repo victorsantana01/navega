@@ -226,7 +226,7 @@ public class ConsumoDao {
     * @param rpm String - rpm escolhido
     * @return retorna a String com o numero de litros feita na rpm escolhida
     */
-   public String getLitrosPorRpm(String conta, String nomeMotor, String rpm ) {
+   public String getLitrosPorRpm(String conta, String nomeMotor, String rpm) {
         String elemento = null ;
         if(rpm.equals("65535")){
             rpm = "0";
