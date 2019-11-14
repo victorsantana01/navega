@@ -71,19 +71,40 @@
         String macroEnviada = request.getParameter("macro");
         %>
         
-        <!-- INCLUDE DA NAVBAR -->
-        <jsp:include page="navbar.jsp"></jsp:include>
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="cadBarco.jsp">Barco</a></li>
+            <li class="divider"></li>
+            <li><a href="cadComandante.jsp">Comandante</a></li>
+            <li class="divider"></li>
+            <li><a href="cadViagem.jsp">Viagem</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #0277bd !important;">
+                <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="macros.jsp">Macros</a></li>
+                    <li><a href="listarMacros.jsp">Definição da Macro</a></li>
+                    <li><a href="viagens.jsp">Viagens</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastro<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="tables.jsp">Tabela de Consumo</a></li>
+                    <li><a href="motores.jsp">Motores</a></li>
+                    <li><a href="login.jsp">Sair</a></li>
+                </ul>
+            </div>
+        </nav>
 
-      <!-- INICIO Botão de Add -->
-      <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
-          <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
-          <ul>
-              <li>
-                  <a href="lista.html" class="btn-floating z-depth-5 #4db6ac teal lighten-3 btn-large waves-effect z-depth-4">
-                      <i class="material-icons">directions_run</i>clolse</a>
-              </li>
-          </ul>
-      </div>
+        <!-- INICIO Botão de Add -->
+        <div class="fixed-action-btn  click-to-toggle " style="bottom: 35px; right: 45px;">
+            <a class="btn-floating z-depth-5 #4db6ac teal lighten-0 btn-large waves-effect z-depth-4"><i class="material-icons">add</i></a>
+            <ul>
+                <li>
+                    <a href="lista.html" class="btn-floating z-depth-5 #4db6ac teal lighten-3 btn-large waves-effect z-depth-4">
+                        <i class="material-icons">directions_run</i>clolse</a>
+                </li>
+            </ul>
+        </div>
         <div class="container"><!--INCIO DO CORPO DA PAGINA-->
             <div class="container">
                 <div class="card " style="margin-top:25px">
