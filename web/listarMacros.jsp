@@ -83,7 +83,7 @@
                 </li>
             </ul>
         </div>
-        <div style="margin-left:10px; margi-right:10px;"><!--INCIO DO CORPO DA PAGINA-->
+        <div class="container"><!--INCIO DO CORPO DA PAGINA-->
             
             <table id="example" class="display nowrap striped" style="width:100%; margin-top:5px;">
                 <thead class="background #0277bd light-blue darken-1">
@@ -93,6 +93,7 @@
                         <th>DATA</th>
                         <th>MCT</th>
                         <th>TEXTO</th>
+                        <th>STATUS</th>
                         <th>AÇÃO</th>
                     </tr>
                 </thead>
@@ -114,6 +115,13 @@
                             %> <td><%= ff.DataFormat(macros[3][i]) %></td><%
                             %> <td><%=macros[4][i] %></td><%
                             %> <td style="overflow: hidden; max-width: 1000px;"><%=macros[5][i] %></td><%
+                                boolean def = m.defExiste(conta, con, stmt, macros[1][i], macros[2][i]);
+                                System.out.println("def: "+def);
+                                if(def){
+                                    %> <td><p style="color:green">definida</p></td><%
+                                }else{
+                                    %> <td><p style="color:red">indefinida</p></td><%
+                                }
                                 boolean macrotexto = m.MacroIsTextNull(conta, con, stmt, macros[1][i]);
                                 if(macrotexto == true){
                                     %> <td><a class="btn disabled" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
@@ -132,6 +140,7 @@
                         <th>DATA</th>
                         <th>MCT</th>
                         <th>TEXTO</th>
+                        <th>STATUS</th>
                         <th>AÇÃO</th>
                     </tr>
                 </tfoot>

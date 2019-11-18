@@ -63,12 +63,14 @@
                         String versao = request.getParameter("versao");
                         
                         MacroDao macro = new MacroDao();
-                        boolean xx = macro.defExiste(conta, con, stmt, numeroMacro);
+                        boolean xx = macro.defExiste(conta, con, stmt, numeroMacro, versao);
                         if(xx == false){
+                            System.out.println("nova definição");
                             macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);
                         }else{
+                            System.out.println("editar definição");
                             macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);

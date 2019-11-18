@@ -13,7 +13,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Classe criada para fazer consultas de RPM
  * @author Victor Santana
  */
 public class Rpm {
@@ -24,7 +24,14 @@ public class Rpm {
      
 
 
-     //------------------------------------------------------------------------//
+    /**
+     * metodo faz a pesquisa de rpm de um mct especifico em uma espaço de tempo.
+     * @param conta String - conta do usuario
+     * @param begin String - data inicial a ser pesquisada
+     * @param finish String - data de final a ser pesquisada
+     * @param mct String - MCT do a ser pesquisado
+     * @return retorna um vetor bidimensional de String com o Rpm encontrado.
+     */
     public String [][] getRpm(String conta, String begin, String finish, String mct) {        
             
         String[][] vetRelatorio = new String[7][10000];
@@ -102,6 +109,15 @@ public class Rpm {
         return vetRelatorio;
     }
      //------------------------------------------------------------------------//
+    /**
+     * metodo de pesquisa de latitude e longitude apartir de um mct e rpm
+     * @param conta String - conta do usuario
+     * @param begin String - data inicial a ser pesquisada
+     * @param finish String - data final a ser pesquisada
+     * @param mct String - MCT a ser pesquisado
+     * @param rpm String - RPM a ser pesquisado
+     * @return retorna um vetor bidimensional de Strings com os dados de messagereturn_iirtn, mais a latitude e longetude.
+     */
     public String [][] getLatLongRpm(String conta, String begin, String finish, String mct, String rpm) {
          //VisitaDao v =new VisitaDao();v.setNumRow();
         
@@ -155,7 +171,7 @@ public class Rpm {
 
         return vetRelatorio;
     }
-
+    
     public void setRpm(String rpm) {
         this.rpm = rpm;
     }
@@ -163,7 +179,13 @@ public class Rpm {
     public int getNumRowRpm() {
         return numRowRpm;
     }
-
+    /**
+     * Metodo altera a variavel NumRowRpm para o numero total de linhas de uma pesquisa de na tabela messagereturn_iirtn de uma determinada data e mct 
+     * @param conta String - conta do usuario.
+     * @param begin String - data inicial da pesquisa
+     * @param finish String - data final da pesquisa
+     * @param mct String - mct a ser pesquisado.
+     */
     public void setNumRowRpm(String conta, String begin, String finish, String mct ) {
          //VisitaDao v =new VisitaDao();v.setNumRow();
         int i=0;
@@ -207,6 +229,9 @@ public class Rpm {
     }
     
     //------------------------------------------------------------------------//     
+    /**
+     * Metodo seta o valor da vetor veiculo, para as posições de todos os mcts distintos da tabela positionhisty_iipos
+     */
     public void setVeiculo() {
          Rpm veiMct = new Rpm();
          veiMct.setIdMct();
@@ -258,7 +283,9 @@ public class Rpm {
     public String[] getVeiculo() {
         return veiculo;
     }
-    
+    /**
+     * seta o idMct com o numero distinto de mcts na tabela positionhistory_iipos.
+     */
     public void setIdMct() {
         int i=0;
         int Relatorio = 0;
@@ -267,28 +294,26 @@ public class Rpm {
         //SCRIPT
         String SqlQueryIgn = ("select distinct iipos_mctaddress as mcts from positionhistory_iipos");
 
-try {
-         Connection con = ConexaoMySQL.getConexaoMySQL();
-           Statement stm = con.createStatement();
+        try {
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stm = con.createStatement();
             
- 
-    
-    ResultSet rs = stm.executeQuery(SqlQueryIgn);
-    
-    rs.last();
-    i = rs.getRow();
-    
-    rs.close();
-    stm.close();
-    con.close();
-} catch (Exception e) {
-    System.err.println(e.getClass().getName() + ": " + e.getMessage());
-    System.exit(0);
-}
+            ResultSet rs = stm.executeQuery(SqlQueryIgn);
+
+            rs.last();
+            i = rs.getRow();
+
+            rs.close();
+            stm.close();
+            con.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
 
 //	       System.out.println("Operation done successfully");
-this.IdMct=i;
-System.err.println("com o rs.getRow();"+ i);
+        this.IdMct=i;
+        System.err.println("com o rs.getRow();"+ i);
     }
 
     public int getIdMct() {
@@ -297,39 +322,43 @@ System.err.println("com o rs.getRow();"+ i);
     }
     //------------------------------------------------------------------------//
     
-    
-     public String getMctNome(String conta, String mct, Connection con,Statement stmt ) {
+    /**
+     * metodo retorna o nome de um mct pesquisado apartir do endereço de mct
+     * @param conta String - conta do usuario
+     * @param mct String - mct
+     * @param con Connection
+     * @param stmt Statement
+     * @return retorna uma String com o nome do mct.
+     */
+    public String getMctNome(String conta, String mct, Connection con,Statement stmt ) {
         String queryRelatorio;  
         String vetRelatorio = null;
 
         try {
               
-                  queryRelatorio = ("select max(iipos_mctname) as MCT from "+conta+"_positionhistory_iipos where iipos_mctaddress ='"+mct+"';");
-           
-               ResultSet rs = stmt.executeQuery(queryRelatorio);
+            queryRelatorio = ("select max(iipos_mctname) as MCT from "+conta+"_positionhistory_iipos where iipos_mctaddress ='"+mct+"';");
 
+            ResultSet rs = stmt.executeQuery(queryRelatorio);
             int i =0;
-          
+
             while (rs.next()) {
-                
-                
-                
                 vetRelatorio = rs.getString("MCT");
-                
-                i++;
-                  
+                i++;      
             }
-            
-        
+                    
         } catch (Exception e) {
-            
+            System.out.println("ERRO NO METODO GETMCTNOME");
+            System.out.println(e);
             
         }
-     
         return vetRelatorio;
     } 
-    
-     public String[][] listarEquipamentos(String conta) {
+    /**
+     * Metodo lista os equipamentos, nomes de MCT e endereço de MCT
+     * @param conta String - conta do usuario
+     * @return retorna um vetor bidimensional de Strings com os dados do equimamento.
+     */
+    public String[][] listarEquipamentos(String conta) {
         String queryRelatorio;
          
   
@@ -366,8 +395,15 @@ System.err.println("com o rs.getRow();"+ i);
      
         return vetRelatorio;
     }
-    
-       public String  deslocamento(String conta, String begin, String finish, String mct) {
+    /**
+     * Metodo retorna o deslocamento percorido por um equipamento mct
+     * @param conta String - Conta do usuario
+     * @param begin String - data inicial da pesquisa 
+     * @param finish String - data final da pesquisa
+     * @param mct String - mct do equipamento
+     * @return retorna o deslocamento percorrido pelo equipamento no periodo de tempo determinado.
+     */
+    public String deslocamento(String conta, String begin, String finish, String mct) {
         
         String resultado = null;
         //SCRIPT IGN
@@ -382,7 +418,7 @@ System.err.println("com o rs.getRow();"+ i);
        
     
         try {
-             Connection con = ConexaoMySQL.getConexaoMySQL();
+            Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(SqlQueryIgn);
             con.setAutoCommit(false);
@@ -410,18 +446,27 @@ System.err.println("com o rs.getRow();"+ i);
 
         return resultado;
     }
-    
-        public String [][] getPrincipalRpm(String begin, String finish, String mct,String conta, Connection con,Statement stmt) {
+    /**
+     * Metodo retorna os rpms de um determinado equipamento MCT
+     * @param begin String - data inicial da pesquisa 
+     * @param finish String - data final da pesquisa 
+     * @param mct String - mct do equipamento
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @return retorna um vetor bidimensional de strings com os valores de rpm.
+     */
+    public String [][] getPrincipalRpm(String begin, String finish, String mct,String conta, Connection con,Statement stmt) {
          //VisitaDao v =new VisitaDao();v.setNumRow();
         
             
         String[][] vetRelatorio = new String[7][2000];
         //SCRIPT IGN
         String SqlQueryIgn = (" SELECT DISTINCT IIRTN_RPM AS RPM,\n" +
-"COUNT('iIRTN_RPM')*15 AS TEMPO_MIN, COUNT('IIRTN_RPM') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
-"from "+conta+"_messagereturn_iirtn\n" +
-"where IIRTN_MctAddress='"+mct+"'and IIRTN_MessageTime between '"+begin+" 00:00:00' and '"+finish+" 23:59:59' and IIRTN_RPM > '0'\n" +
-"group by IIRTN_RPM ORDER BY IIRTN_RPM DESC;");
+        "COUNT('iIRTN_RPM')*15 AS TEMPO_MIN, COUNT('IIRTN_RPM') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
+        "from "+conta+"_messagereturn_iirtn\n" +
+        "where IIRTN_MctAddress='"+mct+"'and IIRTN_MessageTime between '"+begin+" 00:00:00' and '"+finish+" 23:59:59' and IIRTN_RPM > '0'\n" +
+        "group by IIRTN_RPM ORDER BY IIRTN_RPM DESC;");
         
         //É iniciada a variavel "Relatorio" que depois receberá os valores do objeto "rs"
         //Conexão
@@ -469,8 +514,16 @@ System.err.println("com o rs.getRow();"+ i);
 
         return vetRelatorio;
     }
-        public String [][] getPrincipalRpm2(String conta, String begin, String finish, String mct) {
-         //VisitaDao v =new VisitaDao();v.setNumRow();
+    /**
+     * Metodo retorna os rpms de um segundo motor de um determinado equipamento MCT
+     * @param conta String - Conta do cliente
+     * @param begin String - data inicial da pesquisa 
+     * @param finish String - data final da pesquisa 
+     * @param mct String - mct do equipamento.
+     * @return retorna um vetor bidimensional de strings com os valores de rpm.
+     */
+    public String [][] getPrincipalRpm2(String conta, String begin, String finish, String mct) {
+    //VisitaDao v =new VisitaDao();v.setNumRow();
         
             
         String[][] vetRelatorio = new String[7][2000];
@@ -524,11 +577,14 @@ System.err.println("com o rs.getRow();"+ i);
 
         return vetRelatorio;
     }
-        
-        
-  
-
-       public String mctName(String conta, String mct) {
+    
+    /**
+     * Metodo busca um mct e retorna o seu nome.
+     * @param conta String - conta do usuario
+     * @param mct Strint - mct do equipamento.
+     * @return retorna uma string com o nome do mct.
+     */
+    public String mctName(String conta, String mct) {
         String queryRelatorio;
          
   
@@ -538,9 +594,9 @@ System.err.println("com o rs.getRow();"+ i);
             Statement stmt = con.createStatement();
 
             
-                  queryRelatorio = ("SELECT max(iipos_mctname) as MCT FROM exporta."+conta+"_positionhistory_iipos where IIPOS_MctAddress = \""+mct+"\" order by iipos_mctname");
+            queryRelatorio = ("SELECT max(iipos_mctname) as MCT FROM exporta."+conta+"_positionhistory_iipos where IIPOS_MctAddress = \""+mct+"\" order by iipos_mctname");
 
-               ResultSet rs = stmt.executeQuery(queryRelatorio);
+            ResultSet rs = stmt.executeQuery(queryRelatorio);
 
           
             while (rs.next()) {
@@ -556,45 +612,48 @@ System.err.println("com o rs.getRow();"+ i);
             stmt.close();
             con.close();
         } catch (Exception e) {
-            
-            
+            System.out.println("Erro no metodo mctName");
+            System.out.println(e);
         }
      
         return vetRelatorio;
     }
-    
-       public int numMctName(String conta) {
+    /**
+     * metodo pesquisa o numero de mcts encontrados no banco
+     * @param conta
+     * @return retorna um inteiro com o numero mcts.
+     */
+    public int numMctName(String conta) {
         String queryRelatorio;
          int i= 0;
   
         String vetRelatorio =null;
         try {
               Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement();
 
-            
-                   queryRelatorio = ("SELECT * FROM exporta."+conta+"_positionhistory_iipos;");
+                queryRelatorio = ("SELECT * FROM exporta."+conta+"_positionhistory_iipos;");
            
-               ResultSet rs = stmt.executeQuery(queryRelatorio);
+                ResultSet rs = stmt.executeQuery(queryRelatorio);
 
-          rs.last();
-     
-                
+                rs.last();
                 i = rs.getRow();
                 
-                
-                  
-           
-            
-            rs.close();
+                rs.close();
         } catch (Exception e) {
-            
-            
+            System.out.println("ERRO NO METODO numMctName");
+            System.out.println(e);
         }
      
         return i;
     }
-    
+    /**
+     * metodo pesquisa e retorna todas as embarcações ligadas ao usuario.
+     * @param conta String - Conta
+     * @param con Connection
+     * @param stmt Statement
+     * @return Retorna um vetor bidimensional de Strings com o mct e o nome da embarcação.
+     */
     public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt){
         String[][] barcos = new String[2][120];
         //Conexão   
@@ -616,14 +675,21 @@ System.err.println("com o rs.getRow();"+ i);
             System.out.println("METODO NOMEEMBARCACAO REALIZADO COM SUCESSO");
             
         } catch (Exception e) {
-
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-              System.err.println("Erro no painel!!!");
+            System.err.println("Erro no painel!!!");
         }
         return barcos;
             
     }
-       
+    /**
+     * Metodo pesquisa o historico de posições das embarcações relacionadas ao cliente e apresenta suas posições.
+     * @param conta String - conta do cliente
+     * @param con Connection
+     * @param stmt Statemente
+     * @param stmt1 Statemente
+     * @param stmt2 Statemente
+     * @return retorna um vetor bidimensional de Strings com os dados e posições das embarcações.
+     */
     public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
         
         String[][] vetRelatorio = new String[12][120];
@@ -665,12 +731,19 @@ System.err.println("com o rs.getRow();"+ i);
         } catch (Exception e) {
 
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-              System.err.println("ERRO NO METODO PAINELATUALIZADO");
+            System.err.println("ERRO NO METODO PAINELATUALIZADO");
         }
         
         return vetRelatorio;
     }
-        
+    /**
+     * 
+     * @param conta
+     * @param con
+     * @param stmt
+     * @param mct
+     * @return 
+     */
     public String rpmAtual1(String conta, Connection con, Statement stmt, String mct) {
         
         String vetRelatorio = "";

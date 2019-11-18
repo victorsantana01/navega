@@ -73,7 +73,7 @@
                     String id = request.getParameter("id");
                     MacroDao macrodao = new MacroDao();
                     String[][] macroSelecionada = macrodao.getMacroById(conta, con, stmt, id);
-                    String[][] macroEdit = macrodao.getMacroDef(conta, con, stmt, macroSelecionada[0][0]);
+                    String[][] macroEdit = macrodao.getMacroDef(conta, con, stmt, macroSelecionada[0][0],macroSelecionada[2][0]);
                     String macroNome = macrodao.getMacroName(conta, con, stmt, macroSelecionada[0][0]);
                     System.out.println("macro");
                     for (int i = 0; i < 10; i++) {

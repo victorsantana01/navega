@@ -12,9 +12,10 @@ package dao;
 public class NewClass {
     public static void main(String[] args) {
         
+        String conta = "268525817";
         
         MacroDao m = new MacroDao();
         
-        m.apagaDuplicados();
+        m.apagaDuplicados(conta);   
     }
 }

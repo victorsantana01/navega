@@ -69,6 +69,8 @@
         Statement stmt = con.createStatement();
         Statement stmt2 = con.createStatement();
         String macroEnviada = request.getParameter("macro");
+        String macroN = macroEnviada.split("_")[0];
+        String macroE = macroEnviada.split("_")[1];
         %>
         
         <!-- Dropdown Structure -->
@@ -125,16 +127,16 @@
                                                 } else {
                                                     if(macroEnviada == null){
                                             %>
-                                                        <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
+                                                        <option class="black-text" value="<%=macroLista[0][i]+"_"+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
                                             <%
                                                     }else{
-                                                        if(macroEnviada.equals(macroLista[0][i])){
+                                                        if(macroN.equals(macroLista[0][i]) && macroE.equals(macroLista[1][i])){
                                             %>
-                                                            <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>" selected><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
+                                                            <option class="black-text" value="<%=macroLista[0][i]+"_"+macroLista[1][i]%>" selected><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
                                             <%
                                                         }else{
                                             %>
-                                                        <option class="black-text" value="<%=macroLista[0][i]+" -- "+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
+                                                        <option class="black-text" value="<%=macroLista[0][i]+"_"+macroLista[1][i]%>"><%=macroLista[2][i].toUpperCase()+" MACRO "+macroLista[0][i]+" VERSAO "+macroLista[1][i]%></option>
                                             <%
                                                         }
                                                     }
@@ -152,85 +154,90 @@
                         </div>
                     </form>
                 </div>
-                </div>
-                <div style="overflow-y: auto">
-                    <%
-                        
-                        if(macroEnviada == null){
-                        }else{
-                    %>
-                    <table id="example" class="display nowrap striped" style="width:100%">
-                        <thead class="background #0277bd light-blue darken-1">
-                            <tr>
-                                <%
-                                    MacroDao m = new MacroDao();
-                                    String[][] lista = m.getMacroDef(conta, con, stmt, macroEnviada);
-                                    for (int i = 0; i < 50; i++) {
-                                            if(lista[i][0] == null){
-                                                i=50;
-                                            }else{
-                                                %>
-                                                <th><%=lista[i][0]%></th>
-                                <%
-                                            }
-                                        }
-                                %>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <%
-                                String [][] macros;
-                                macros = m.getMacroText(conta, con, stmt,macroEnviada);
+            </div>
+        </div>
+        <div style="overflow-y: auto; width: 90%; display: block; margin: auto">
+            <%
 
-                                for(int i=0; i< 5000; i++){
-                                    if(macros[0][i] == null){
-                                        i=5000;
+                if(macroEnviada == null){
+                }else{
+            %>
+            <table id="example" class="display nowrap striped" style="width:100%">
+                <thead class="background #0277bd light-blue darken-1">
+                    <tr>
+                        <%
+                            MacroDao m = new MacroDao();
+                            String[][] lista = m.getMacroDef(conta, con, stmt, macroN, macroE);
+                            int leng = 0;
+                            for (int i = 0; i < 50; i++) {
+                                    if(lista[i][0] == null){
+                                        i=50;
                                     }else{
-                                        for (int j = 0; j < 5000; j++) {
-                                            if(macros[j][i] == null){
-                                                j=5000;
-                                            }else{
-                                                String mm = macros[j][i];
-                                                if(lista[j][1] != null){
-                                                    if(lista[j][1].equals("2") ){
-                                                        mm = mm.substring(0,2)+"/"+mm.substring(2,4);
-                                                    }
-                                                    if(lista[j][1].equals("3")){
-                                                        mm = mm.substring(0,2)+":"+mm.substring(2,4);
-                                                    }
-                                                }
-                                                %> <td><%=mm %></td><%
-                                            }
-                                        }
+                                        leng++;
+                                        %>
+                                        <th><%=lista[i][0]%></th>
+                        <%
                                     }
-                                    %></tr><%
                                 }
-                            %>
-                            
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <%        for (int i = 0; i < 50; i++) {
-                                            if(lista[i][0] == null){
-                                                i=50;
-                                            }else{
-                                                %>
-                                                <th><%=lista[i][0]%></th>
-                                <%
+                        %>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <%
+                        String [][] macros;
+                        macros = m.getMacroText(conta, con, stmt, stmt2,macroN,macroE);
+
+                        for(int i=0; i< 5000; i++){
+                            if(macros[0][i] == null){
+                                i=5000;
+                            }else{
+                                for (int j = 0; j < 5000; j++) {
+                                    if(macros[j][i] == null && j == leng){
+                                        j=5000;
+                                    }else{
+                                        String mm;
+                                        if(macros[j][i] == null){
+                                            mm = "";
+                                        }else{
+                                            mm = macros[j][i];
+                                        if(lista[j][1] != null){
+                                            if(lista[j][1].equals("2") ){
+                                                mm = mm.substring(0,2)+"/"+mm.substring(2,4);
+                                            }
+                                            if(lista[j][1].equals("3")){
+                                                mm = mm.substring(0,2)+":"+mm.substring(2,4);
                                             }
                                         }
-                                %>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <% }%>
-                </div>         
-                        
-            
-            
-        </div><!--FIM DO CORPO DA PAGINA-->
+                                        }
+
+                                        %> <td><%=mm %></td><%
+                                    }
+                                }
+                            }
+                            %></tr><%
+                        }
+                    %>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <%        for (int i = 0; i < 50; i++) {
+                                    if(lista[i][0] == null){
+                                        i=50;
+                                    }else{
+                                        %>
+                                        <th><%=lista[i][0]%></th>
+                        <%
+                                    }
+                                }
+                        %>
+                    </tr>
+                </tfoot>
+            </table>
+            <% }%>
+        </div>         
         
         <!--Materialize JS -->
         <script src="js/materialize.js"></script>
