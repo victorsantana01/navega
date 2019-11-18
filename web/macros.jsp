@@ -69,8 +69,13 @@
         Statement stmt = con.createStatement();
         Statement stmt2 = con.createStatement();
         String macroEnviada = request.getParameter("macro");
-        String macroN = macroEnviada.split("_")[0];
-        String macroE = macroEnviada.split("_")[1];
+        String macroN="";
+        String macroE="";
+        
+        if(macroEnviada != null){
+            macroN = macroEnviada.split("_")[0];
+            macroE = macroEnviada.split("_")[1];
+        }
         %>
         
         <!-- Dropdown Structure -->
