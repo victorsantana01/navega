@@ -8,11 +8,16 @@ package logic;
 import java.text.SimpleDateFormat;
 
 /**
- *
+ * Classe criada para formatar o formato de datas e horas
  * @author VictorSantana
+ * @author LuizLacerda
  */
 public class Format {
-
+    /**
+     * Metodo criado para formatar data, de yyyy-mm-dd para dd/mm/yyyy, podendo aceitar date e datetime.
+     * @param data String - data a ser formatada
+     * @return retorna uma String com a data formatada.
+     */
     public String DataFormat(String data) {
         if (data.indexOf(" ") > 0) {
             String dataReturn = "";
@@ -32,7 +37,11 @@ public class Format {
         }
 
     }
-
+    /**
+     * Metodo criado para formatar uma date. recebendo apenas data.
+     * @param data Stringa - data a ser formatada
+     * @return retorna a data formatada.
+     */
     public String DiaFormat(String data) {
         String dataReturn = "";
 
@@ -43,14 +52,23 @@ public class Format {
 
         return dataReturn;
     }
-
+    
+    /**
+     * metodo feito para retornar a data atual no formato yyyy-mm-dd
+     * @return retorna uma string com a data atual.
+     */
     public String hoje() {
         java.util.Date data = new java.util.Date();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         String dat = formatador.format(data);
         return dat;
     }
-    
+    /**
+     * Metodo recebe duas strings com o valor de horas, transforma em minutos, subtrai e retorna o intervalo de horas e minutos.
+     * @param i String - hora inicial
+     * @param f String - hora final
+     * @return retorna uma String com o valor da subritação das duas horas.
+     */
     public String tempo(String i, String f){
         //ARRAY DE HORA INICIAL
         String[] iArr = new String[2];

@@ -22,7 +22,13 @@ import org.joda.time.Days;
  * @author Victor Santana
  */
 public class RelatorioNavegacao {
-    
+    /**
+     * Metodo recebe duas datas, e retorna o numero de dias entre uma e outra.
+     * @param begn String - data inicial
+     * @param finish String - data final
+     * @return retorna o numero de dias entre as datas
+     * @throws ParseException 
+     */
     public int getDif(String begn, String finish) throws ParseException {
         int dife;
         
@@ -42,7 +48,14 @@ public class RelatorioNavegacao {
         dife = contador.getDays();
         return dife;
     }
-
+    /**
+     * 
+     * @param inic
+     * @param fin
+     * @param mct
+     * @return
+     * @throws ParseException 
+     */
     public String[][] resultadoRpm(String inic, String fin, String mct) throws ParseException {
         String[][] vetRelatorio = new String[4][1000];
         RelatorioNavegacao relat = new RelatorioNavegacao();
@@ -157,7 +170,13 @@ public class RelatorioNavegacao {
         
     return vetRelatorio;
 }
-
+    /**
+     * metodo pesquisa e retorna o rpm de uma determinado mct de uma determinada data.
+     * @param inicio String - data inicial
+     * @param fim String - data final
+     * @param mct String - mct a ser pesquisado
+     * @return retorna uma String com o rpm.
+     */
     public String getRpm(String inicio, String fim,String mct ) {
 
         String Relatorio = null;
@@ -196,7 +215,13 @@ public class RelatorioNavegacao {
 
         return Relatorio;
     }
-    
+    /**
+     * metodo pesquisa e retorna o rpm2(velocity) de uma determinado mct de uma determinada data.
+     * @param inicio String - data inicial
+     * @param fim String - data final
+     * @param mct String - mct a ser pesquisado
+     * @return retorna uma String com o rpm.
+     */
     public String getRpm02(String inicio, String fim,String mct ) {
 
         String Relatorio = null;
