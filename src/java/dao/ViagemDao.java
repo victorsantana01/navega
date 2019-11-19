@@ -16,11 +16,24 @@ import logic.Format;
 import src.Viagem;
 
 /**
- *
+ * Classe criada para fazer o crud com a tabela Viagem.
  * @author Luiz Lacerda
  */
 public class ViagemDao {
-
+    /**
+     * metodo cria uma nova viagem.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param nomeV String - nome da viagem
+     * @param status String - Status da viagem
+     * @param origem String - origem da viagem
+     * @param inicioV String - data inicial da viagem
+     * @param destino String - destino da viagem
+     * @param fimV String - data final da viagem
+     * @param codBarco String - codigo da embarcação da viagem
+     * @param comandante  String - codigo do comandante da viagem
+     */
     public void incluirViagem(String conta,Connection con, Statement stmt, String nomeV, String status, String origem, String inicioV, String destino, String fimV, String codBarco, String comandante) {
         System.out.println("METODO ---> INCLUIR VIAGEM INICIADO.........");
         
@@ -41,7 +54,13 @@ public class ViagemDao {
         }
 
     }
-
+    /**
+     * metodo exclui uma viagem
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param id String - id da viagem que sera excluida
+     */
     public void excluirViagem(String conta,Connection con, Statement stmt, String id) {
         System.out.println("ENTROU NO METODO EXCLUIRVIAGEM");
         try {
@@ -52,7 +71,21 @@ public class ViagemDao {
             System.out.println(" FALHA NO METODO ---> EXCLUIR VIAGEM .......... " + e);
         }
     }
-
+    /**
+     * metodo edita os dados de uma viagem
+     * @param conta String - conta do cliente
+     * @param con Connection
+     * @param stmt Statement
+     * @param id String - id da viagem a ser editada
+     * @param nomeV String - nome da viagem
+     * @param status String - status da viagem
+     * @param origem String - origem da viagem
+     * @param inicioV String - data inicial da viagem
+     * @param destino String - destino da viagem
+     * @param fimV String - data final da viagem
+     * @param mct String - mct da viagem
+     * @param comandante String - comandante da viagem
+     */
     public void editarViagem(String conta,Connection con, Statement stmt, String id,String nomeV, String status, String origem, String inicioV, String destino, String fimV, String mct, String comandante) {
         System.out.println("METODO ---> EDITAR VIAGEM INICIADO.........");
         try {
@@ -71,7 +104,14 @@ public class ViagemDao {
         }
 
     }
-
+    /**
+     * metodo pesquisa uma viagem via id
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param id - String id da viagem
+     * @return retorna uma String com os dados da viagem.
+     */
     public String[][] pesquisarViagens(String conta,Connection con, Statement stmt, String id) {
 
         String[][] viagem = new String[11][10];
@@ -111,6 +151,14 @@ public class ViagemDao {
         }
         return viagem;
     }
+    /**
+     * metodo pesquisa viagens por status
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param status String - status a ser pesquisado
+     * @return retorna um vetor bidimensional de string com os dados das viagens achadas
+     */
     public String[][] pesquisarViagensPorStatus(String conta,Connection con, Statement stmt, String status) {
 
         String[][] viagem = new String[12][2000];
@@ -152,8 +200,13 @@ public class ViagemDao {
         return viagem;
     }
 
-    
-    
+    /**
+     * metodo pesquisa todas as viagens ligadas ao usuario
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @return retorna um vetor bidimensional de String com os dados das viagens encontradas
+     */
     public String[][] pesquisarViagens(String conta,Connection con, Statement stmt) {
 
         String[][] viagens = new String[10][10000];
@@ -192,6 +245,14 @@ public class ViagemDao {
 
         return viagens;
     }
+    
+    /**
+     * metodo pesquisa viagem apartir da conta.
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @return retorna uma lista de objetos do tipo viagem.
+     */
     public List<Viagem> pesquisarViagensX(String conta,Connection con, Statement stmt) {
 
 //        String[][] viagens = new String[10][10000];
@@ -231,7 +292,14 @@ public class ViagemDao {
 
         return viagens;
     }
-    
+    /**
+     * metodo pesquisa viagens por mct
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param mct String - mct do aparelho
+     * @return retorna uma string com o status da viagem encontrada 
+     */
     public String pesquisarViagemStatusPorMCT(String conta,Connection con, Statement stmt, String mct){
         String status="";
         
@@ -252,7 +320,14 @@ public class ViagemDao {
         
         return status;
     }
-    
+    /**
+     * metodo pesquisa viagem por mct
+     * @param conta String - conta do usuario
+     * @param con Connection
+     * @param stmt Statement
+     * @param mct String - mct do barco
+     * @return retorna uma String com os dados da viagem encontrada
+     */
     public String pesquisarViagemPorMCT(String conta,Connection con, Statement stmt, String mct){
         String id="";
         
