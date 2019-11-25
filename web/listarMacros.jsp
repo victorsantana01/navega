@@ -133,17 +133,6 @@
                     %>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>NUMERO</th>
-                        <th>VERSÃO</th>
-                        <th>DATA</th>
-                        <th>MCT</th>
-                        <th>TEXTO</th>
-                        <th>STATUS</th>
-                        <th>AÇÃO</th>
-                    </tr>
-                </tfoot>
             </table>
             
             

@@ -87,12 +87,10 @@ public class ConsumoDao {
      * @param conta String - conta do usuario.
      * @return retorna um vetor bidimanesional com os dados dos motores
      */
-    public String[][] getTabelaConsumo(String conta) {
+    public String[][] getTabelaConsumo(String conta, Connection con, Statement stmt) {
         String[][] elemento = new String[31][50];
  
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
 
             //Query sql que vai pro mysql
             String sqlPainel;
@@ -177,6 +175,7 @@ public class ConsumoDao {
                 System.out.println("NOME DO MOTOR: "+elemento[0]);
                 
                 elemento[0] = rs.getString("nome_motor");
+                System.out.println("nome do motor: "+elemento[0]);
                 elemento[1] = rs.getString("500");
                 elemento[2] = rs.getString("600");
                 elemento[3] = rs.getString("700");
@@ -320,10 +319,8 @@ public class ConsumoDao {
             String rpm2500,String rpm2600,String rpm2700,String rpm2800,String rpm2900,String rpm3000,String descricao) {
 
         try {
-      
-        
-          Connection con = ConexaoMySQL.getConexaoMySQL();
-          Statement stmt = con.createStatement();
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
 
             // Prepare a statement to insert a record  
             
@@ -378,13 +375,14 @@ public class ConsumoDao {
      * @param rpm3000 String - novo rpm
      * @param descricao String - nova descrição
      */
-    public void editarFaixa(String conta,Connection con, Statement stmt, String idMotor, String nomeMotor, String rpm400, String rpm500, String rpm600, String rpm700,
+    public void editarFaixa(String conta, String idMotor, String nomeMotor, String rpm400, String rpm500, String rpm600, String rpm700,
              String rpm800, String rpm900, String rpm1000, String rpm1100, String rpm1200, String rpm1300, String rpm1400, String rpm1500,
              String rpm1600, String rpm1700, String rpm1800, String rpm1900, String rpm2000, String rpm2100, String rpm2200, String rpm2300,
              String rpm2400, String rpm2500, String rpm2600, String rpm2700, String rpm2800, String rpm2900, String rpm3000, String descricao) {
 
         try {
-
+            Connection con = ConexaoMySQL.getConexaoMySQL();
+            Statement stmt = con.createStatement();
             // Prepare a statement to insert a record  
             
             String sql = ("UPDATE `motor_tab` SET `nome_motor` = '"+nomeMotor+"', `500` = '"+rpm500+"', `600` = '"+rpm600+"', `700` = '"+rpm700+"',"
@@ -392,10 +390,10 @@ public class ConsumoDao {
                     + " `1300` = '"+rpm1300+"', `1400` = '"+rpm1400+"', `1500` = '"+rpm1500+"', `1600` = '"+rpm1600+"', `1700` = '"+rpm1700+"',"
                     + " `1800` = '"+rpm1800+"', `1900` = '"+rpm1900+"', `2000` = '"+rpm2000+"', `2100` = '"+rpm2100+"', `2200` = '"+rpm2200+"',"
                     + " `2300` = '"+rpm2300+"', `2400` = '"+rpm2400+"', `2500` = '"+rpm2500+"', `2600` = '"+rpm2600+"', `2700` = '"+rpm2700+"',"
-                    + " `2800` = '"+rpm2800+"', `2900` = '"+rpm2900+"', `3000` = '"+rpm3000+"', `400` = '"+rpm400+"' WHERE `motor_tab`.`idmotor_tab` = '"+idMotor+"' and conta='"+conta+"';");
-                    
+                    + " `2800` = '"+rpm2800+"', `2900` = '"+rpm2900+"', `3000` = '"+rpm3000+"', `400` = '"+rpm400+"' WHERE idmotor_tab = '"+idMotor+"' AND conta='"+conta+"';");
+            
             stmt.executeUpdate(sql);
-        System.out.println("Tabela editada com sucesso!!!!!");
+            System.out.println("TABELA EDITADA COM SUCESSO!!!!!");
         } catch (SQLException e) {
              System.out.println("ERRO AO TENTAR EDITAFAIXA!!!!!\n"+e);
         }

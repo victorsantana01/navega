@@ -121,11 +121,11 @@ response.sendRedirect( "login.jsp" );
 
                                             <%
                                                 ConsumoDao cons = new ConsumoDao();
-                                                String[][] dados = cons.getTabelaConsumo(conta).clone();
+                                                String[][] dados = cons.getTabelaConsumo(conta, con, stmt).clone();
 
                                                 for (int i = 0; i < 50; i++) {
 
-                                                    if (cons.getTabelaConsumo(conta)[0][i] == null) {
+                                                    if (dados[0][i] == null) {
                                                         i = 50;
 
                                                     } else {

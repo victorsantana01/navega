@@ -289,7 +289,6 @@ public class ViagemDao {
             System.err.println("ViagemDao :" + e.getClass().getName() + ": " + e.getMessage());
             System.err.println("Erro!!!");
         }
-
         return viagens;
     }
     /**

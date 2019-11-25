@@ -86,8 +86,7 @@ response.sendRedirect( "login.jsp" );
                                             <div class="form-group">
                                                 <div class="form-row">
                                                     <div class="input-filed col s12">
-                                                        <label for="exampleInputName">IdMotor</label>
-                                                        <input name="idMotor" class="form-control" id="idMotor" type="text" aria-describedby="nameHelp" value="<%=dado[29]%>" disabled>
+                                                        <input name="idMotor" class="form-control" id="idMotor" type="hidden" aria-describedby="nameHelp" value="<%=dado[29]%>">
                                                     </div>
                                                     <div class="input-field col s3">
                                                         <label for="exampleInputName">Motor</label>

@@ -227,18 +227,6 @@
 
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <%        for (int i = 0; i < 50; i++) {
-                                    if(lista[i][0] == null){
-                                        i=50;
-                                    }else{
-                                        %>
-                                        <th><%=lista[i][0]%></th>
-                        <%
-                                    }
-                                }
-                        %>
-                    </tr>
                 </tfoot>
             </table>
             <% }%>
