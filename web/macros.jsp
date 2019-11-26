@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="src.Macros"%>
 <%@page import="dao.MacroDao"%>
 <%@page import="dao.BarcoDao"%>
 <%@page import="fabricaConexao.ConexaoMySQL"%>
@@ -59,6 +62,7 @@
                 $('select').formSelect();
                 $('.collapsible').collapsible();
                 $(".dropdown-trigger").dropdown('toggle');
+                table.buttons().container().appendTo( '#example_wrapper .col-sm-6:eq(0)' );
             });
         </script>
         <%
@@ -167,9 +171,10 @@
                 if(macroEnviada == null){
                 }else{
             %>
-            <table id="example" class="display nowrap striped" style="width:100%">
+            <table id="example" class="display nowrap striped cell-border" style="width:100%">
                 <thead class="background #0277bd light-blue darken-1">
                     <tr>
+                        <th>MCT</th>
                         <%
                             MacroDao m = new MacroDao();
                             String[][] lista = m.getMacroDef(conta, con, stmt, macroN, macroE);
@@ -189,40 +194,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    
                     <%
-                        String [][] macros;
-                        macros = m.getMacroText(conta, con, stmt, stmt2,macroN,macroE);
-
-                        for(int i=0; i< 5000; i++){
-                            if(macros[0][i] == null){
-                                i=5000;
-                            }else{
-                                for (int j = 0; j < 5000; j++) {
-                                    if(macros[j][i] == null && j == leng){
-                                        j=5000;
-                                    }else{
-                                        String mm;
-                                        if(macros[j][i] == null){
-                                            mm = "";
-                                        }else{
-                                            mm = macros[j][i];
-                                        if(lista[j][1] != null){
-                                            if(lista[j][1].equals("2") ){
-                                                mm = mm.substring(0,2)+"/"+mm.substring(2,4);
-                                            }
-                                            if(lista[j][1].equals("3")){
-                                                mm = mm.substring(0,2)+":"+mm.substring(2,4);
-                                            }
-                                        }
-                                        }
-
-                                        %> <td><%=mm %></td><%
-                                    }
-                                }
+                        ArrayList<Macros> macros = m.getMacroText(conta, con, stmt, stmt2,macroN,macroE);
+                        Iterator<Macros> iteratorAsMacros = macros.iterator();
+                        int cont;
+                        while(iteratorAsMacros.hasNext()){
+                        cont=1;
+                        Macros ma = iteratorAsMacros.next();
+                        %><tr><td><%= ma.getMct() %></td><%
+                            Iterator<String> iteratorString = ma.getTexto().iterator();
+                            while(iteratorString.hasNext()){
+                                String mac = iteratorString.next();
+                        %><td><%= mac %></td><%
+                            cont++;
                             }
-                            %></tr><%
+                            while(leng >= cont){
+                                %><td></td><%
+                                cont++;
+                            }
+                        %></tr><%
                         }
+                        %><%
                     %>
 
                 </tbody>

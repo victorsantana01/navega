@@ -12,9 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logic.Format;
+import src.Macros;
 
 /**
  * Classe feita para consultar a Macro
@@ -369,7 +371,7 @@ public class MacroDao {
             while(rs.next()){
                 String x = rs.getString("text");
                 String y = rs.getString("tipo");
-                for (int j = 0; j < x.split("_").length; j++) {
+                for (int j = 0; j < x.split("_").length-1; j++) {
                     macroDef[j][0]= x.split("_")[j+1];
                     System.out.println(j+" : "+macroDef[j][0]);
                     macroDef[j][1]= y.split("_")[j+1];
@@ -442,40 +444,41 @@ public class MacroDao {
      * @param NumeroMacro String - numero da macro.
      * @return retorna um vetor bidimensional de String com os itens da macro.
      */
-    public String[][] getMacroText(String conta,Connection con, Statement stmt, Statement stmt1, String NumeroMacro, String versaoMacro){
-        String[][] macrosTexts = new String[100][10000];
+    public ArrayList<Macros> getMacroText(String conta,Connection con, Statement stmt, Statement stmt1, String NumeroMacro, String versaoMacro){
+        ArrayList<Macros> macros = new ArrayList<Macros>();
+        
         
         try{
             String sql1 = ("SELECT distinct IIRTN_Text as txt FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_MacroVersion="+versaoMacro+" and IIRTN_Text <> '' ;");
             ResultSet rs2 = stmt1.executeQuery(sql1);
-            int j = 0;
+            
             while(rs2.next()){
+                ArrayList<String> macrosTexts = new ArrayList<String>();    
                 String txt = rs2.getString("txt");
-                System.out.println(txt);
-                String sql = ("SELECT IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' ORDER BY IIRTN_MessageTime ASC limit 1;");
+                String sql = ("SELECT IIRTN_MctAddress, IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' ORDER BY IIRTN_MessageTime ASC limit 1;");
                 
                 ResultSet rs = stmt.executeQuery(sql);
                 
                 while(rs.next()){
+                    Macros macro = new Macros();
                     String[] x = rs.getString("IIRTN_Text").split("_");
-
-                    for (int i = 0; i < x.length-1; i++) {
-                        macrosTexts[i][j]= x[i+1];
-                        System.out.println(i+":"+j+" = "+macrosTexts[i][j]);
+                    for (int i = 1; i < x.length; i++) {
+                        macrosTexts.add(x[i]);
                     }
-                    j++;
-                    System.out.println(j+"º");
+                    macro.setMct(rs.getString("IIRTN_MctAddress"));
+                    macro.setTexto(macrosTexts);
+                    macros.add(macro);
                 }
-            }
-            
-            
+                
+                
+            }          
             
         }catch(Exception e){
             System.out.println("ERRO NO METODO GETMACROTEXT");
             System.out.println(e);
         }
         
-        return macrosTexts;
+        return macros;
     }
     /**
      * metodo pesquisa macro por numero
