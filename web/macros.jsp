@@ -206,6 +206,12 @@
                             Iterator<String> iteratorString = ma.getTexto().iterator();
                             while(iteratorString.hasNext()){
                                 String mac = iteratorString.next();
+                                if(lista[cont-1][1].equals("2")){
+                                    mac = mac.substring(0,2)+"/"+mac.substring(2,4);
+                                }
+                                if(lista[cont-1][1].equals("3")){
+                                    mac = mac.substring(0,2)+":"+mac.substring(2,4);
+                                }
                         %><td><%= mac %></td><%
                             cont++;
                             }
