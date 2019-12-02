@@ -97,12 +97,12 @@
                String idViagem = request.getParameter("idViagem");
                ViagemDao via = new ViagemDao();
                String[][] dadosViagem = via.pesquisarViagens(conta, con, stmt, idViagem).clone();
-               String dadosIdViagem = dadosViagem[0][0];
-               String dadosNomeViagem = dadosViagem[1][0];
                String dadosInicioViagem = dadosViagem[4][0].substring(0, 10);
                String dadosFimViagem = dadosViagem[6][0].substring(0, 10);
                String dadosMctViagem = dadosViagem[7][0];
                String dadosMotorViagem = dadosViagem[9][0];
+               String dadosBarco = dadosViagem[11][0];
+               String dadosComandante = dadosViagem[12][0];
                
                
                %>        
@@ -413,6 +413,8 @@
                                           %>
                                           <h5><b>Informações Gerais</b></h5>
                                         <b class="center">Equipamento: </b><%=empurrador%><br> 
+                                        <b class="center">Empurrador: </b><%=dadosBarco%><br> 
+                                        <b class="center">Comandante: </b><%=dadosComandante%><br> 
                                         <b class="center">Deslocamento Total: </b><%=dist%> KM.<br> 
                                         <b class="center">Periodo do filtro: </b><%=inicio + " a " + fim%><br>
                                          <b class=" right-align">Qtd Registros: </b><%=cont%><br>

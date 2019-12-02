@@ -136,9 +136,12 @@
                 ViagemDao via = new ViagemDao();
                 String[][] viagemRelatorio = via.pesquisarViagens(conta, con, stmt, idViagem);
                 String viagemMct  = viagemRelatorio[7][0];
+                String viagemNome  = viagemRelatorio[1][0].toUpperCase();
                 String viagemInicio = viagemRelatorio[4][0];
                 String viagemFim  = viagemRelatorio[6][0];
                 String viagemNomeMotor = viagemRelatorio[9][0];
+                String viagemNomeBarco = viagemRelatorio[11][0];
+                String viagemNomeComandante = viagemRelatorio[12][0].toUpperCase();
                 String parametro = "";
                 String parametro2 = "";
                 if (viagemMct == null) {
@@ -198,12 +201,19 @@
                                          
                                     %>
                                     
+                                    <h5><b><%=viagemNome%></B></h5>
                                     <h5><%=inicio + " a " + fim%></h5>
-                                    <h5><%=empurrador%></h5>
                                 </span>
 
-                              
-                                <div id="columnchart_values" style="width: 1000px; height:400px;"></div>
+                                <div class="black-text" style=" margin-left: 10%;">
+                                      <div class="row col s12 " style="text-align: left;">
+                                          <h5><b>Informações Gerais</b></h5>
+                                            <b>Equipamento: </b><%=empurrador%><br>
+                                            <b>Empurrador: </b><%=viagemNomeBarco%><br>
+                                            <b>Comandante: </b><%=viagemNomeComandante%><br>
+                                        </div>
+                                    </div>
+                                <div id="columnchart_values" style="width: 1000px; height:400px; margin-top: 140px;"></div>
                               
                                
                                 <div  id="curve_chart_r1"  style="width: 1150px; height: 500px"></div>  

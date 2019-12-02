@@ -114,15 +114,16 @@ public class ViagemDao {
      */
     public String[][] pesquisarViagens(String conta,Connection con, Statement stmt, String id) {
 
-        String[][] viagem = new String[11][10];
+        String[][] viagem = new String[13][10];
 
         try {
 //          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, mct, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
             String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.mct, \n" +
-            "v.comandante, m.nome_motor, b.mct\n" +
+            "v.comandante, m.nome_motor, b.mct, b.nome, c.nome\n" +
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
+            "    left join exporta.comandante c on v.comandante = c.idComandante \n" +
             "    where v.idViagem = '"+id+"' and v.conta = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
@@ -141,6 +142,8 @@ public class ViagemDao {
                 viagem[8][i] = rs.getString("v.comandante");
                 viagem[9][i] = rs.getString("m.nome_motor");
                 viagem[10][i] = rs.getString("b.mct");
+                viagem[11][i] = rs.getString("b.nome");
+                viagem[12][i] = rs.getString("c.nome");
                 i++;
             }
 
