@@ -116,8 +116,8 @@
 
                                         } else {
                                             ViagemDao viagem = new ViagemDao();
-                                            String status = viagem.pesquisarViagemStatusPorMCT(conta, con, stmt, painel[1][i]);
-                                            String idViagem = viagem.pesquisarViagemPorMCT(conta, con, stmt, painel[1][i]);
+                                            String status = viagem.pesquisarViagemStatusPorMCT(conta, con, stmt, painel[1][i],painel[2][i]);
+                                            String idViagem = viagem.pesquisarViagemPorMCT(conta, con, stmt, painel[1][i],painel[2][i]);
                                             String display="";
                                             if(idViagem.equals("INEXISTENTE")){
                                                 display = "disabled";

@@ -89,6 +89,9 @@
                         <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensAgendadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <p><b>Nome da Viagem: </b><%=viagensAgendadas[1][i]%></p>
+                                    <p><b>Empurrador: </b><%=viagensAgendadas[7][i]%></p>
+                                    <p><b>MCT: </b><%=viagensAgendadas[10][i]%></p>
+                                    <p><b>Comandante: </b><%=viagensAgendadas[8][i]%></p>
                                     <p><b>Origem:</b> <%=viagensAgendadas[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
                                     <p><b>Destino:</b> <%=viagensAgendadas[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
                                     
@@ -129,6 +132,9 @@
                         <div class="collapsible-header"><i class="material-icons">directions_boat</i><span><%=viagensEmAndamento[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <p><b>Nome da Viagem: </b><%=viagensEmAndamento[1][i]%></p>
+                                    <p><b>Empurrador: </b><%=viagensEmAndamento[7][i]%></p>
+                                    <p><b>MCT: </b><%=viagensEmAndamento[10][i]%></p>
+                                    <p><b>Comandante: </b><%=viagensEmAndamento[8][i]%></p>
                                     <p><b>Origem:</b> <%=viagensEmAndamento[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
                                     <p><b>Destino:</b> <%=viagensEmAndamento[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
                                     <div class="row" style="margin:0px !important">
@@ -169,6 +175,9 @@
                         <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensFinalizadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataCriacaoFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <p><b>Nome da Viagem: </b><%=viagensFinalizadas[1][i]%></p>
+                                    <p><b>Empurrador: </b><%=viagensFinalizadas[7][i]%></p>
+                                    <p><b>MCT: </b><%=viagensFinalizadas[10][i]%></p>
+                                    <p><b>Comandante: </b><%=viagensFinalizadas[8][i]%></p>
                                     <p><b>Origem:</b> <%=viagensFinalizadas[3][i]%><b>  Data: </b><%=viagemDataOrigemFormatada%> </p>
                                     <p><b>Destino:</b> <%=viagensFinalizadas[5][i]%><b>  Data: </b><%=viagemDataDestinoFormatada%> </p>
                                     <div class="row" style="margin:0px !important">

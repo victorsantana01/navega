@@ -166,10 +166,11 @@ public class ViagemDao {
         try {
 //          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, mct, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
             String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.mct, \n" +
-            "v.comandante, m.nome_motor, b.mct, v.dataCad\n" +
+            "v.comandante, m.nome_motor, b.mct, b.nome, c.nome, v.dataCad\n" +
             "	FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
+            "    left join exporta.comandante c on v.comandante = c.idcomandante"+
             "    where v.status = '"+status+"' and v.conta = '"+conta+"';");
             
             ResultSet rs = stmt.executeQuery(sql);
@@ -184,8 +185,8 @@ public class ViagemDao {
                 viagem[4][i] = rs.getString("v.inicioViagem");
                 viagem[5][i] = rs.getString("v.destino");
                 viagem[6][i] = rs.getString("v.fimViagem");
-                viagem[7][i] = rs.getString("v.mct");
-                viagem[8][i] = rs.getString("v.comandante");
+                viagem[7][i] = rs.getString("b.nome");
+                viagem[8][i] = rs.getString("c.nome");
                 viagem[9][i] = rs.getString("m.nome_motor");
                 viagem[10][i] = rs.getString("b.mct");
                 viagem[11][i] = rs.getString("v.dataCad");
@@ -216,7 +217,7 @@ public class ViagemDao {
                     + "origem, inicioViagem, destino, fimViagem, v.mct, c.nome as comandante, v.dataCad FROM exporta.viagem v"
                     + " left join exporta.barco b on v.mct = b.mct "
                     + " left join exporta.comandante c on v.comandante = c.idcomandante"
-                    + " and v.conta = '"+conta+"' order by v.dataCad DESC;");
+                    + " where v.conta = '"+conta+"' order by v.dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -299,11 +300,11 @@ public class ViagemDao {
      * @param mct String - mct do aparelho
      * @return retorna uma string com o status da viagem encontrada 
      */
-    public String pesquisarViagemStatusPorMCT(String conta,Connection con, Statement stmt, String mct){
+    public String pesquisarViagemStatusPorMCT(String conta,Connection con, Statement stmt, String mct, String data){
         String status="";
         
         try{
-            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'");
+            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"' AND '"+data+"' BETWEEN inicioViagem AND fimViagem");
             ResultSet rs = stmt.executeQuery(sql);
             
             if(rs.next()){
@@ -327,11 +328,11 @@ public class ViagemDao {
      * @param mct String - mct do barco
      * @return retorna uma String com os dados da viagem encontrada
      */
-    public String pesquisarViagemPorMCT(String conta,Connection con, Statement stmt, String mct){
+    public String pesquisarViagemPorMCT(String conta,Connection con, Statement stmt, String mct, String data){
         String id="";
         
         try{
-            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'");
+            String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'  AND '"+data+"' BETWEEN inicioViagem AND fimViagem");
             ResultSet rs = stmt.executeQuery(sql);
             
             if(rs.next()){
