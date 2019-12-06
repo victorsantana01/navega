@@ -654,13 +654,16 @@ public class Rpm {
      * @param stmt Statement
      * @return Retorna um vetor bidimensional de Strings com o mct e o nome da embarcação.
      */
-    public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt){
+    public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt, String idbarco){
         String[][] barcos = new String[2][120];
+        if(idbarco != ""){
+            idbarco = " OR b.idbarco = "+idbarco+"";
+        }
         //Conexão   
         try {
             String sql =("SELECT distinct(ph.IIPOS_MctAddress) as MCT, ph.IIPOS_MctName as nome, b.nome "
                     + "FROM "+conta+"_positionhistory_iipos ph LEFT JOIN barco b ON ph.IIPOS_MctAddress = b.mct "
-                    + "WHERE b.nome is null");
+                    + "WHERE b.nome is null"+idbarco);
             ResultSet rs = stmt.executeQuery(sql);
             
             int i =0;

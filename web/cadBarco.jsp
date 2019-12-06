@@ -98,7 +98,7 @@
                                                             */
                                                             
                                                             Rpm rpm = new Rpm();
-                                                            String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt).clone();
+                                                            String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt,"").clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;

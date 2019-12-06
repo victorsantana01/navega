@@ -102,19 +102,20 @@
                                                         <option value="" disabled>Empurrador</option>
                                                         <%
                                                             Rpm rpm = new Rpm();
-                                                            String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt).clone();
+                                                            String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt,idbarco).clone();
                                                             for (int i = 0; i < 100; i++) {
                                                                 if (veiculo[1][i] == null) {
                                                                     i = 100;
                                                                 } else {
                                                                     if(barcoE[1][0].equals(veiculo[1][i])){
                                                                   %>
-                                                                  <option value="<%=veiculo[0][i] + " - " + veiculo[1][i]%>" selected><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                                    <option value="<%=veiculo[0][i] + " - " + veiculo[1][i]%>" selected><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
                                                         <%  
-                                                                }
+                                                                }else{
                                                         %>
-                                                        <option value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
+                                                                    <option value="<%=veiculo[0][i] + "--" + veiculo[1][i]%>"><%=veiculo[0][i] + " - " + veiculo[1][i]%> </option>
                                                         <%}
+            }
                              }%>
                                                     </select>
                                                 </div>
