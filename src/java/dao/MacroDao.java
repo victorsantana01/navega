@@ -69,7 +69,7 @@ public class MacroDao {
         try{
             
             String sql = ("SELECT IIRTN_MacroNumber, IIRTN_Text, IIRTN_MacroVersion "
-                    + "FROM `"+conta+"_messagereturn_iirtn` WHERE idAuto = '"+id+"'");
+                    + "FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_ID = '"+id+"'");
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 int total = rs.getString("IIRTN_Text").split("_").length;
@@ -170,7 +170,7 @@ public class MacroDao {
                     ResultSet rs2 = stmt1.executeQuery(sql2);
                     
                     while(rs2.next()){
-                        macros[0][i] = rs2.getString("idAuto");
+                        macros[0][i] = rs2.getString("IIRTN_ID");
                         macros[1][i] = rs2.getString("IIRTN_MacroNumber");
                         macros[2][i] = rs2.getString("IIRTN_MacroVersion");
                         macros[3][i] = rs2.getString("IIRTN_MessageTime");
@@ -564,9 +564,9 @@ public class MacroDao {
                 ResultSet rs2 = stmt2.executeQuery(sql1);
                 if(rs2.next()){
                     System.out.println("ENTROU NO SEGUNDO WHILE");
-                    macros[0][i] = rs2.getString("idAuto");
+                    macros[0][i] = rs2.getString("IIRTN_ID");
                     macros[1][i] = rs2.getString("IIRTN_Text");
-                    System.out.println("I: "+i+" idAuto: "+macros[0][i]+" Texto: "+macros[1][i]);
+                    System.out.println("I: "+i+" IIRTN_ID: "+macros[0][i]+" Texto: "+macros[1][i]);
                     i++;                  
                 }else{
                     System.out.println("nullo");
