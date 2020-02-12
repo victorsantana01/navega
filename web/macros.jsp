@@ -62,7 +62,7 @@
                 $('select').formSelect();
                 $('.collapsible').collapsible();
                 $(".dropdown-trigger").dropdown('toggle');
-                table.buttons().container().appendTo( '#example_wrapper .col-sm-6:eq(0)' );
+//                table.buttons().container().appendTo( '#example_wrapper .col-sm-6:eq(0)' );
             });
         </script>
         <%
@@ -72,6 +72,7 @@
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
         Statement stmt2 = con.createStatement();
+        Statement stmt3 = con.createStatement();
         String macroEnviada = request.getParameter("macro");
         String macroN="";
         String macroE="";
@@ -174,7 +175,8 @@
             <table id="example" class="display nowrap striped cell-border" style="width:100%">
                 <thead class="background #0277bd light-blue darken-1">
                     <tr>
-                        <th>MCT</th>
+                        <th>MCT / EMPURRADOR</th>
+                        <th>COMENTARIO</th>
                         <%
                             MacroDao m = new MacroDao();
                             String[][] lista = m.getMacroDef(conta, con, stmt, macroN, macroE);
@@ -183,10 +185,15 @@
                                     if(lista[i][0] == null){
                                         i=50;
                                     }else{
-                                        leng++;
-                                        %>
-                                        <th><%=lista[i][0]%></th>
-                        <%
+                                        System.out.println(i+" - "+lista[i][1]);
+                                        
+                                        if(lista[i][1].equals("4")){
+                                        }else{
+                                            %>
+                                                <th><%=lista[i][0]%></th>
+                                            <%
+                                            leng++;
+                                        }
                                     }
                                 }
                         %>
@@ -196,30 +203,34 @@
                 <tbody>
                     
                     <%
-                        ArrayList<Macros> macros = m.getMacroText(conta, con, stmt, stmt2,macroN,macroE);
+                        ArrayList<Macros> macros = m.getMacroText(conta, con, stmt, stmt2, stmt3,macroN,macroE);
                         Iterator<Macros> iteratorAsMacros = macros.iterator();
                         int cont;
                         while(iteratorAsMacros.hasNext()){
-                        cont=1;
-                        Macros ma = iteratorAsMacros.next();
-                        %><tr><td><%= ma.getMct() %></td><%
-                            Iterator<String> iteratorString = ma.getTexto().iterator();
-                            while(iteratorString.hasNext()){
-                                String mac = iteratorString.next();
-                                if(lista[cont-1][1].equals("2")){
-                                    mac = mac.substring(0,2)+"/"+mac.substring(2,4);
-                                }
-                                if(lista[cont-1][1].equals("3")){
-                                    mac = mac.substring(0,2)+":"+mac.substring(2,4);
-                                }
-                        %><td><%= mac %></td><%
-                            cont++;
-                            }
-                            while(leng >= cont){
-                                %><td></td><%
+                            cont=1;
+                            Macros ma = iteratorAsMacros.next();
+                            String mct = ma.getMct();
+                            String comentario = ma.getComentario();
+                            Rpm rpm = new Rpm();
+                            %><tr><td><%= mct+"/"+rpm.getMctNome(conta, mct, con, stmt) %></td><%
+                            %><td><%= comentario %></td><%
+                                Iterator<String> iteratorString = ma.getTexto().iterator();
+                                while(iteratorString.hasNext()){
+                                    String mac = iteratorString.next();
+                                    if(lista[cont-1][1].equals("2")){
+                                        mac = mac.substring(0,2)+"/"+mac.substring(2,4);
+                                    }
+                                    if(lista[cont-1][1].equals("3")){
+                                        mac = mac.substring(0,2)+":"+mac.substring(2,4);
+                                    }
+                            %><td><%= mac %></td><%
                                 cont++;
-                            }
-                        %></tr><%
+                                }
+                                while(leng >= cont){
+                                    %><td></td><%
+                                    cont++;
+                                }
+                            %></tr><%
                         }
                         %><%
                     %>

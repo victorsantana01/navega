@@ -329,11 +329,11 @@ public class ViagemDao {
      * @param con Connection
      * @param stmt Statement
      * @param mct String - mct do barco
+     * @param data String - data da viagem
      * @return retorna uma String com os dados da viagem encontrada
      */
     public String pesquisarViagemPorMCT(String conta,Connection con, Statement stmt, String mct, String data){
         String id="";
-        
         try{
             String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'  AND '"+data+"' BETWEEN inicioViagem AND fimViagem");
             ResultSet rs = stmt.executeQuery(sql);
@@ -348,6 +348,7 @@ public class ViagemDao {
             System.out.println("ERRO NO METODO PESQUISARVIAGEMPORMCT");
             System.out.println(e);
         }
+        System.out.println("Conta: "+conta+" mct: "+mct+" id: "+id);
         
         return id;
     }

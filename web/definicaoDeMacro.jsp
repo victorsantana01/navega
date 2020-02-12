@@ -136,9 +136,14 @@
                                                         <option class="black-text" value="2">Data</option>
                                                         <% } %>
                                                         <% if(macroEdit[x][1].equals("3")){ %>
-                                                        <option class="black-text" value="3" selected>horas</option>
+                                                        <option class="black-text" value="3" selected>Horas</option>
                                                         <% }else{ %>
-                                                        <option class="black-text" value="3">horas</option>
+                                                        <option class="black-text" value="3">Horas</option>
+                                                        <% } %>
+                                                        <% if(macroEdit[x][1].equals("4")){ %>
+                                                        <option class="black-text" value="4" selected>Observacao</option>
+                                                        <% }else{ %>
+                                                        <option class="black-text" value="4">Observacao</option>
                                                         <% } %>
                                                     </select>
                                                 </div>
@@ -157,7 +162,8 @@
                                                 <option class="black-text" value="" disabled selected>TIPO DE DADO</option>
                                                 <option class="black-text" value="1">Texto</option>
                                                 <option class="black-text" value="2">Data</option>
-                                                <option class="black-text" value="3">horas</option>
+                                                <option class="black-text" value="3">Horas</option>
+                                                <option class="black-text" value="4">Observacao</option>
                                             </select>
                                         </div>
 

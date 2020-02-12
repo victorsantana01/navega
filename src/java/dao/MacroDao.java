@@ -373,9 +373,8 @@ public class MacroDao {
                 String y = rs.getString("tipo");
                 for (int j = 0; j < x.split("_").length-1; j++) {
                     macroDef[j][0]= x.split("_")[j+1];
-                    System.out.println(j+" : "+macroDef[j][0]);
                     macroDef[j][1]= y.split("_")[j+1];
-                    System.out.println(j+" : "+macroDef[j][1]);
+                    System.out.println(j+" : "+macroDef[j][0]+" - "+macroDef[j][1]);
                 }
             }
             
@@ -383,7 +382,7 @@ public class MacroDao {
             System.out.println("ERRO NO METODO GETMACRODEF");
             System.out.println(e);
         }
-        
+        System.out.println("FIM METODO GETMACRODEF");
         return macroDef;
     }
     /**
@@ -444,7 +443,8 @@ public class MacroDao {
      * @param NumeroMacro String - numero da macro.
      * @return retorna um vetor bidimensional de String com os itens da macro.
      */
-    public ArrayList<Macros> getMacroText(String conta,Connection con, Statement stmt, Statement stmt1, String NumeroMacro, String versaoMacro){
+    public ArrayList<Macros> getMacroText(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2, String NumeroMacro, String versaoMacro){
+        System.out.println("METODO GETMACROTEXT");
         ArrayList<Macros> macros = new ArrayList<Macros>();
         
         
@@ -459,14 +459,26 @@ public class MacroDao {
                 
                 ResultSet rs = stmt.executeQuery(sql);
                 
+                String sql2 = ("SELECT * FROM `def_macro` WHERE usuario = '"+conta+"' AND macro = '"+NumeroMacro+"' AND versao = '"+versaoMacro+"';");
+                ResultSet rsDef = stmt2.executeQuery(sql2);
                 while(rs.next()){
+                    rsDef.next();
+                    System.out.println("definicao: "+rsDef.getString("tipo"));
                     Macros macro = new Macros();
                     String[] x = rs.getString("IIRTN_Text").split("_");
+                    String[] y = rsDef.getString("tipo").split("_");
+                    String comentario = "";
                     for (int i = 1; i < x.length; i++) {
-                        macrosTexts.add(x[i]);
+                        if(y[i].equals("4")){
+                            comentario = comentario+" "+x[i];
+                        }else{
+                            macrosTexts.add(x[i]);
+                        }
                     }
+                    System.out.println("COMENTARIO!!:   "+comentario);
                     macro.setMct(rs.getString("IIRTN_MctAddress"));
                     macro.setTexto(macrosTexts);
+                    macro.setComentario(comentario);
                     macros.add(macro);
                 }
                 
