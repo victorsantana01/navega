@@ -656,6 +656,11 @@ public class Rpm {
      */
     public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt, String idbarco){
         String[][] barcos = new String[2][120];
+        String MctName = "";
+        if(conta.equals("268477387")){
+                MctName = " AND IIPOS_MctName like 'J%'";
+                System.out.println("possui J");
+            }
         if(idbarco != ""){
             idbarco = " OR b.idbarco = "+idbarco+"";
         }
@@ -663,7 +668,7 @@ public class Rpm {
         try {
             String sql =("SELECT distinct(ph.IIPOS_MctAddress) as MCT, ph.IIPOS_MctName as nome, b.nome "
                     + "FROM "+conta+"_positionhistory_iipos ph LEFT JOIN barco b ON ph.IIPOS_MctAddress = b.mct "
-                    + "WHERE b.nome is null"+idbarco);
+                    + "WHERE (b.nome is null"+idbarco+") "+MctName);
             ResultSet rs = stmt.executeQuery(sql);
             
             int i =0;
@@ -697,11 +702,17 @@ public class Rpm {
         
         String[][] vetRelatorio = new String[12][120];
         //Conexão
+            String MctName = "";
         try {
+            if(conta.equals("268477387")){
+                MctName = " WHERE IIPOS_MctName like 'J%'";
+                System.out.println("possui J");
+            }
             String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
             "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
             "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
-            "MAX(IIPOS_LONGITUDE) AS LON, IIPOS_Landmark AS LAND  from "+conta+"_positionhistory_iipos group by iipos_mctaddress desc;");
+            "MAX(IIPOS_LONGITUDE) AS LON, IIPOS_Landmark AS LAND  from "+conta+"_positionhistory_iipos "
+                    +MctName+" group by iipos_mctaddress desc;");
 //-----------------------------------------------------------------------------------------------------//  
 
             String r1="0";

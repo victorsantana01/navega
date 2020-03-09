@@ -64,6 +64,7 @@ public class MacroDao {
      * @return retorna um vetor bidimensional de Strings com os dados da macro encontrada.
      */
     public String[][] getMacroById(String conta,Connection con, Statement stmt, String id){
+        System.out.println("METODO GETMACROBYID");
         String[][] macroSelecionada = new String[100][2];
         
         try{
@@ -79,17 +80,24 @@ public class MacroDao {
                 macroSelecionada[2][0] = ""+rs.getString("IIRTN_MacroVersion");                 //Version
                 System.out.println("total: "+macroSelecionada[2][0]);
                 System.out.println("array length: "+macroSelecionada.length);
-                for (int i = 3; i < total+2; i++) {
-                    macroSelecionada[i][0] = rs.getString("IIRTN_Text").split("_")[i-2];
-                    System.out.println(i+" : "+macroSelecionada[i][0]);
+                if(total>0){
+                    for (int i = 3; i < total+2; i++) {
+                        macroSelecionada[i][0] = rs.getString("IIRTN_Text").split("_")[i-2];
+                        System.out.println(i+" : "+macroSelecionada[i][0]);
+                    }
+                }else{
+                    System.out.println("if getmacrobyid");
+                    macroSelecionada[3][0] = rs.getString("IIRTN_Text");
+                    System.out.println("0 : "+macroSelecionada[3][0]);
                 }
+                
             }
             
         }catch(Exception e){
             System.out.println("ERRO NO METODO GETMACRO!");
             System.out.println(e);
         }
-            
+        System.out.println("FIM METODO GETMACROBYID");
         return macroSelecionada;
     }
     /**
@@ -371,10 +379,17 @@ public class MacroDao {
             while(rs.next()){
                 String x = rs.getString("text");
                 String y = rs.getString("tipo");
-                for (int j = 0; j < x.split("_").length-1; j++) {
-                    macroDef[j][0]= x.split("_")[j+1];
-                    macroDef[j][1]= y.split("_")[j+1];
-                    System.out.println(j+" : "+macroDef[j][0]+" - "+macroDef[j][1]);
+                int total = x.split("_").length;
+                if(total > 0){
+                    for (int j = 0; j < total-1; j++) {
+                        macroDef[j][0]= x.split("_")[j+1];
+                        macroDef[j][1]= y.split("_")[j+1];
+                        System.out.println(j+" : "+macroDef[j][0]+" - "+macroDef[j][1]);
+                    }
+                }else{
+                    macroDef[0][0]= x;
+                    macroDef[0][1]= y;
+                    System.out.println("0 : "+macroDef[0][0]+" - "+macroDef[0][1]);
                 }
             }
             
@@ -394,6 +409,7 @@ public class MacroDao {
      * @return retorna uma String com o nome da macro pesquisada.
      */
     public String getMacroName(String conta,Connection con, Statement stmt, String NumeroMacro){
+        System.out.println("ENTROU NO METODO GETMACRONAME");
         String macro = "";
         try{
             String sql = ("SELECT nome FROM `def_macro` WHERE macro="+NumeroMacro+" AND usuario ="+conta+";");
@@ -406,6 +422,7 @@ public class MacroDao {
             System.out.println("ERRO NO METODO GETMACRONOME");
             System.out.println(e);
         }
+        System.out.println("FIM METODO GETMACRONAME");
         return macro;
     }
     /**
@@ -467,10 +484,14 @@ public class MacroDao {
                     Macros macro = new Macros();
                     String[] x = rs.getString("IIRTN_Text").split("_");
                     String[] y = rsDef.getString("tipo").split("_");
+                    String[] z = rsDef.getString("text").split("_");
                     String comentario = "";
+                    String manutencao = "";
                     for (int i = 1; i < x.length; i++) {
                         if(y[i].equals("4")){
                             comentario = comentario+" "+x[i];
+                        }else if(y[i].equals("5")){
+                            manutencao = manutencao+z[i]+"("+x[i]+")\n";
                         }else{
                             macrosTexts.add(x[i]);
                         }
@@ -479,6 +500,7 @@ public class MacroDao {
                     macro.setMct(rs.getString("IIRTN_MctAddress"));
                     macro.setTexto(macrosTexts);
                     macro.setComentario(comentario);
+                    macro.setManutencao(manutencao);
                     macros.add(macro);
                 }
                 
@@ -489,7 +511,7 @@ public class MacroDao {
             System.out.println("ERRO NO METODO GETMACROTEXT");
             System.out.println(e);
         }
-        
+        System.out.println(macros);
         return macros;
     }
     /**
