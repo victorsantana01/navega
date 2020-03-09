@@ -177,17 +177,19 @@
                     <tr>
                         <th>MCT / EMPURRADOR</th>
                         <th>COMENTARIO</th>
+                        <th>MANUTENCAO</th>
                         <%
                             MacroDao m = new MacroDao();
                             String[][] lista = m.getMacroDef(conta, con, stmt, macroN, macroE);
                             int leng = 0;
-                            for (int i = 0; i < 50; i++) {
+                            for (int i = 0; i < 100; i++) {
                                     if(lista[i][0] == null){
-                                        i=50;
+                                        i=100;
                                     }else{
                                         System.out.println(i+" - "+lista[i][1]);
                                         
                                         if(lista[i][1].equals("4")){
+                                        }else if(lista[i][1].equals("5")){
                                         }else{
                                             %>
                                                 <th><%=lista[i][0]%></th>
@@ -205,28 +207,34 @@
                     <%
                         ArrayList<Macros> macros = m.getMacroText(conta, con, stmt, stmt2, stmt3,macroN,macroE);
                         Iterator<Macros> iteratorAsMacros = macros.iterator();
-                        int cont;
+                        
                         while(iteratorAsMacros.hasNext()){
-                            cont=1;
+                            int cont;
                             Macros ma = iteratorAsMacros.next();
                             String mct = ma.getMct();
                             String comentario = ma.getComentario();
+                            String manutencao = ma.getManutencao();
                             Rpm rpm = new Rpm();
                             %><tr><td><%= mct+"/"+rpm.getMctNome(conta, mct, con, stmt) %></td><%
                             %><td><%= comentario %></td><%
+                            %><td><%= manutencao %></td><%
+                                cont = 0;
                                 Iterator<String> iteratorString = ma.getTexto().iterator();
                                 while(iteratorString.hasNext()){
+                                    
                                     String mac = iteratorString.next();
-                                    if(lista[cont-1][1].equals("2")){
+                                    if(lista[cont][1].equals("1")){
+                                    }
+                                    if(lista[cont][1].equals("2")){
                                         mac = mac.substring(0,2)+"/"+mac.substring(2,4);
                                     }
-                                    if(lista[cont-1][1].equals("3")){
+                                    if(lista[cont][1].equals("3")){
                                         mac = mac.substring(0,2)+":"+mac.substring(2,4);
                                     }
-                            %><td><%= mac %></td><%
-                                cont++;
+                                    %><td><%= mac %></td><%
+                                    cont++;
                                 }
-                                while(leng >= cont){
+                                while(leng > cont){
                                     %><td></td><%
                                     cont++;
                                 }

@@ -124,7 +124,7 @@
                                                 </div>
                                                 <div class="col s2">
                                                     <select class="browser-default black-text" id="tipo<%=x%>" name="tipo<%=x%>" required > 
-                                                        <option class="black-text" value="" disabled selected>TIPO DE DADO</option>
+                                                        <option class="black-text" value="" disabled>TIPO DE DADO</option>
                                                         <% if(macroEdit[x][1].equals("1")){ %>
                                                         <option class="black-text" value="1" selected>Texto</option>
                                                         <% }else{ %>
@@ -145,11 +145,16 @@
                                                         <% }else{ %>
                                                         <option class="black-text" value="4">Observacao</option>
                                                         <% } %>
+                                                        <% if(macroEdit[x][1].equals("5")){ %>
+                                                        <option class="black-text" value="5" selected>Manutenção</option>
+                                                        <% }else{ %>
+                                                        <option class="black-text" value="5">Manutenção</option>
+                                                        <% } %>
                                                     </select>
                                                 </div>
                                         
                                         
-                                <%
+                                        <%
                                             }else{
                                         %>
                                         <div class="input-field col s4">
@@ -159,20 +164,21 @@
                                         
                                         <div class="col s2">
                                             <select class="browser-default black-text" id="tipo<%=x%>" name="tipo<%=x%>" required > 
-                                                <option class="black-text" value="" disabled selected>TIPO DE DADO</option>
+                                                <option class="black-text" value="" disabled>TIPO DE DADO</option>
                                                 <option class="black-text" value="1">Texto</option>
                                                 <option class="black-text" value="2">Data</option>
                                                 <option class="black-text" value="3">Horas</option>
                                                 <option class="black-text" value="4">Observacao</option>
+                                                <option class="black-text" value="5">Manutenção</option>
                                             </select>
                                         </div>
 
-                                <%
-                                    }
-                                    }
+                                        <%
+                                                }
+                                            }
                                         x++;
-                                    }
-                                %>
+                                        }
+                                        %>
                                 <br>
                                 <div class="card-action col s12">
                                     <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar />

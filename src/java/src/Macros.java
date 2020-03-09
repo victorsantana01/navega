@@ -15,6 +15,7 @@ import java.util.Iterator;
 public class Macros {
     private String mct;
     private String comentario = "SEM COMENTARIO";
+    private String manutencao = "";
     private ArrayList<String> texto;
 
 //    public Macros(String mct, ArrayList<String> texto) {
@@ -62,6 +63,13 @@ public class Macros {
     
     public void setComentario(String c){
         this.comentario = c;
+    }
+    public String getManutencao(){
+        return manutencao;
+    }
+    
+    public void setManutencao(String m){
+        this.manutencao = m;
     }
     
 }

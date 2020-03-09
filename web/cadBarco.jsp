@@ -92,10 +92,6 @@
                                                     <select class="browser-default black-text" name="mctBarco" >
                                                         <option value="" disabled selected>Empurrador</option>
                                                         <%
-                                                            /*
-                                                            
-                                                            
-                                                            */
                                                             
                                                             Rpm rpm = new Rpm();
                                                             String[][] veiculo = rpm.nomeEmbarcacao(conta, con, stmt,"").clone();
