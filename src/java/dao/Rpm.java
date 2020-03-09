@@ -658,7 +658,7 @@ public class Rpm {
         String[][] barcos = new String[2][120];
         String MctName = "";
         if(conta.equals("268477387")){
-                MctName = " AND IIPOS_MctName like 'J%'";
+                MctName = " AND IIPOS_MctName like '%JOSE GUILHERME%'";
                 System.out.println("possui J");
             }
         if(idbarco != ""){
