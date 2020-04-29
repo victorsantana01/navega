@@ -178,11 +178,11 @@
                                     <%
                                         
                                         Format format = new Format();
-                                        String inicio = viagemInicio.split(" ")[0];
+                                        String inicio = viagemInicio;
                                         System.out.println(">>>>>>>>>> "+inicio);
                                         String begin = inicio;
                                         
-                                        String fim = viagemFim.split(" ")[0];
+                                        String fim = viagemFim;
                                          String finish = fim;
                                         if (inicio == null || inicio == "") {
                                             inicio = format.hoje();

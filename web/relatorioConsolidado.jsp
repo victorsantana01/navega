@@ -97,8 +97,10 @@
                String idViagem = request.getParameter("idViagem");
                ViagemDao via = new ViagemDao();
                String[][] dadosViagem = via.pesquisarViagens(conta, con, stmt, idViagem).clone();
-               String dadosInicioViagem = dadosViagem[4][0].substring(0, 10);
-               String dadosFimViagem = dadosViagem[6][0].substring(0, 10);
+               String dadosInicioViagem = dadosViagem[4][0];
+               String dadosFimViagem = dadosViagem[6][0];
+               System.out.println("DADOSINICIOVIAGEM ------- "+dadosViagem[4][0]);
+               System.out.println("DADOSFIMVIAGEM ------- "+dadosViagem[6][0]);
                String dadosMctViagem = dadosViagem[7][0];
                String dadosMotorViagem = dadosViagem[9][0];
                String dadosBarco = dadosViagem[11][0];
