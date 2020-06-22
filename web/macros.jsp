@@ -52,7 +52,7 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
     </head>
     
     <body>
@@ -61,7 +61,6 @@
                 $('.dropdown-trigger').dropdown();
                 $('select').formSelect();
                 $('.collapsible').collapsible();
-                $(".dropdown-trigger").dropdown('toggle');
 //                table.buttons().container().appendTo( '#example_wrapper .col-sm-6:eq(0)' );
             });
         </script>
@@ -83,6 +82,7 @@
         }
         %>
         
+        <!-- INCLUDE DA NAVBAR -->
         <!-- Dropdown Structure -->
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="cadBarco.jsp">Barco</a></li>
@@ -176,12 +176,30 @@
                 <thead class="background #0277bd light-blue darken-1">
                     <tr>
                         <th>MCT / EMPURRADOR</th>
-                        <th>COMENTARIO</th>
-                        <th>MANUTENCAO</th>
                         <%
                             MacroDao m = new MacroDao();
                             String[][] lista = m.getMacroDef(conta, con, stmt, macroN, macroE);
+                            boolean comentarioB = false;
+                            boolean manutencaoB = false;
                             int leng = 0;
+                            for (int i = 0; i < 100; i++) {
+                               if(lista[i][0] == null){
+                                        i=100;
+                                    }else{
+                                        if(lista[i][1].equals("4")){
+                                            if(comentarioB){
+                                                
+                                            }else{
+                                                %><th id="comentario">COMENTARIO</th><%
+                                                comentarioB = true;
+                                            }
+                                            
+                                        }else if(lista[i][1].equals("5")){
+                                            %><th id="manutencao">MANUTENCAO</th><%
+                                                manutencaoB = true;
+                                        }
+                               } 
+                            }
                             for (int i = 0; i < 100; i++) {
                                     if(lista[i][0] == null){
                                         i=100;
@@ -211,13 +229,17 @@
                         while(iteratorAsMacros.hasNext()){
                             int cont;
                             Macros ma = iteratorAsMacros.next();
-                            String mct = ma.getMct();
-                            String comentario = ma.getComentario();
+                            String mct = ma.getMct();                            
                             String manutencao = ma.getManutencao();
                             Rpm rpm = new Rpm();
-                            %><tr><td><%= mct+"/"+rpm.getMctNome(conta, mct, con, stmt) %></td><%
-                            %><td><%= comentario %></td><%
-                            %><td><%= manutencao %></td><%
+                            %><tr><td><%= mct+" / "+rpm.getMctNome(conta, mct, con, stmt) %></td><%
+                            if(comentarioB){
+                                    %><td><%= ma.getComentario() %></td><%
+                            }
+                            if(manutencaoB){
+                                %><td><%= ma.getManutencao() %></td><%
+                            }
+                            
                                 cont = 0;
                                 Iterator<String> iteratorString = ma.getTexto().iterator();
                                 while(iteratorString.hasNext()){
