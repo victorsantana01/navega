@@ -132,6 +132,21 @@
                                         System.out.println(viagemE[1][0]);
                                         System.out.println(viagemE[2][0]);
                                         System.out.println(viagemE[3][0]);
+                                        System.out.println("BEFORE");
+                                        System.out.println(viagemE[4][0]);
+                                        System.out.println(viagemE[6][0]);
+                                        System.out.println("AFTER");
+                                        String datIn = viagemE[4][0].substring(0, 16).replace('-','/');
+                                        String datOut = viagemE[6][0].substring(0, 16).replace('-','/');
+                                        String[] datInArray = datIn.split(" ");
+                                        String[] datOutArray = datOut.split(" ");
+                                        datIn = datInArray[0].split("/")[2]+"/"+datInArray[0].split("/")[1]+"/"+datInArray[0].split("/")[0]+" "+datInArray[1];
+                                        datOut = datOutArray[0].split("/")[2]+"/"+datOutArray[0].split("/")[1]+"/"+datOutArray[0].split("/")[0]+" "+datOutArray[1];
+                                        System.out.println(datIn);
+                                        System.out.println(datOut);
+                                        String datt = datIn+" - "+datOut;
+                                        System.out.println(datt);
+                                        
                                     %>
                                     <div class="form-group col s12">
                                         <div class="form-row col s6 ">
@@ -179,7 +194,7 @@
                                                 </div>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input type="text" name="datetimes22" id="datetimes22" value="<%= viagemE[4][0] + " " + viagemE[6][0]%>" />
+                                                <input type="text" name="datetimes22" id="datetimes22" value="<%= datt%>" />
                                                 <label for="datetimes22">Datas e Horarios</label>
                                             </div> 
                                         </div>
@@ -249,6 +264,20 @@
             </div>
 
         </div><!--FIM DO CORPO DA PAGINA-->
+        <script>
+            $(function () {
+                $('input[name="datetimes22"]').daterangepicker({
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    startDate: "<%=datIn%>",
+                    endDate: "<%=datOut%>",
+                    locale: {
+                        format: 'DD/MM/YYYY HH:mm'
+                    }
+                });
+            });
+
+        </script>
         <script type="text/javascript">
             function confirma(form) {
                 form.submit();
