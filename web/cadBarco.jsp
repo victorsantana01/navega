@@ -111,7 +111,7 @@
                                                 </div>
                                                 
                                                 <div class="col s12 push-s6 center-align">
-                                                    <label class="left">Motor</label>
+                                                    <label class="left">Motor 1</label>
                                                     <select class="browser-default black-text" name="motor" id="motor" required>
                                                         <option class="black-text"value="" disabled selected>Motores</option>
                                                         <%
@@ -131,7 +131,28 @@
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
                                                     <input name="modelo" class="validate black-text" id="modelo" type="text" required>
-                                                    <label for="modelo">modelo</label>
+                                                    <label for="modelo">modelo 1</label>
+                                                </div>
+                                                <div class="col s12 push-s6 center-align">
+                                                    <label class="left">Motor 2</label>
+                                                    <select class="browser-default black-text" name="motor2" id="motor2" required>
+                                                        <option class="black-text"value="" disabled selected>Motores</option>
+                                                        <%
+                                                            for (int i = 0; i < 10; i++) {
+                                                                if (motores[i][0] == null) {
+                                                                    i = 50;
+                                                                } else {
+                                                        %>
+                                                        <option class="black-text" value="<%=motores[i][0]%>"><%=motores[i][1]%></option>
+
+                                                        <%
+                                                                }
+                                                            }%>
+                                                    </select>
+                                                </div>
+                                                <div class="input-field col s12 push-s6 center-align">
+                                                    <input name="modelo2" class="validate black-text" id="modelo2" type="text" required>
+                                                    <label for="modelo2">modelo 2</label>
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
                                                     <input name="base" class="validate black-text" id="base" type="text" required>
@@ -170,8 +191,10 @@
             <b><tr>
                     <th class="white-text" style="width:100px;"><i class="material-icons"></i>&nbsp;&nbsp;MCT / UCC</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Embarcação</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor</th>
-                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo</th>
+                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor 1</th>
+                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo 1</th>
+                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Motor 2</th>
+                    <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Modelo 2</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Base</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;Data Cadastro</th>
                     <th class="white-text"><i class="material-icons"></i>&nbsp;&nbsp;</th>
@@ -197,6 +220,8 @@
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[2][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[3][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[4][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[7][i]%></th>
+                <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[8][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= barcos[5][i]%></th>
                 <th><i class="material-icons"></i>&nbsp;&nbsp;<%= data%></th>
                 <th style="width:250px">

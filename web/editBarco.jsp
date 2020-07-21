@@ -90,7 +90,7 @@
                                             BarcoDao barco = new BarcoDao();
                                             String[][] barcoE = barco.pesquisarBarco(conta, con, stmt, idbarco);
                                             for (int i = 0; i < barcoE.length; i++) {
-                                                System.out.println("**********************  " + barcoE[i][0]);
+                                                System.out.println("**********************  " + i + " - " + barcoE[i][0]);
                                             }
                                         %>
                                         <div class="form-group col s12">
@@ -120,7 +120,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col s12 push-s6 center-align">
-                                                    <label class="left">Motor</label>
+                                                    <label class="left">Motor 1</label>
                                                     <select class="browser-default black-text" name="motor" id="motor" required>
                                                         <option class="black-text"value="" disabled>Motores</option>
                                                         <%
@@ -130,7 +130,7 @@
                                                                 if (motores[y][0] == null) {
                                                                     y = 50;
                                                                 } else {
-                                                                    if (barcoE[3][0].equals(motores[y][0])) {
+                                                                    if (barcoE[3][0].equals(motores[y][1])) {
                                                         %>
                                                         <option class="black-text" value="<%=motores[y][0]%>" selected><%=motores[y][1]%></option>
                                                         <% } else {%>
@@ -141,10 +141,36 @@
                                                                 }
                                                             }%>
                                                     </select>
-                                                </div>
+                                                </div>                                                    
                                                 <div class="input-field col s12 push-s6 center-align">
-                                                    <input name="modelo" class="validate black-text" id="modelo" type="text" value="<%=barcoE[4][0]%>" required>
-                                                    <label for="modelo">modelo</label>
+                                                    <input name="modelo" class="validate black-text" id="modelo" type="text" value="<%=barcoE[8][0]%>" required>
+                                                    <label for="modelo">modelo 2</label>
+                                                </div>
+                                                <div class="col s12 push-s6 center-align">
+                                                    <label class="left">Motor 2</label>
+                                                    <select class="browser-default black-text" name="motor2" id="motor2" required>
+                                                        <option class="black-text"value="" disabled>Motores2</option>
+                                                        <%
+                                                            for (int y = 0; y < 10; y++) {
+                                                                if (motores[y][0] == null) {
+                                                                    y = 50;
+                                                                } else {
+                                                                    if (barcoE[7][0].equals(motores[y][1])) {
+                                                        %>
+                                                        <option class="black-text" value="<%=motores[y][0]%>" selected><%=motores[y][1]%></option>
+                                                        <% } else {%>
+                                                        
+                                                        <option class="black-text" value="<%=motores[y][0]%>"><%=motores[y][1]%></option>
+
+                                                        <%
+                                                                    }
+                                                                }
+                                                            }%>
+                                                    </select>
+                                                </div>                                                    
+                                                <div class="input-field col s12 push-s6 center-align">
+                                                    <input name="modelo2" class="validate black-text" id="modelo2" type="text" value="<%=barcoE[4][0]%>" required>
+                                                    <label for="modelo2">modelo</label>
                                                 </div>
                                                 <div class="input-field col s12 push-s6 center-align">
                                                     <input name="base" class="validate black-text" id="base" value="<%=barcoE[5][0]%>"  type="text" required>

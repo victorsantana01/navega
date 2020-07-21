@@ -42,10 +42,12 @@
                         String nome = vetMct[0];
                         String motor = request.getParameter("motor");
                         String modelo = request.getParameter("modelo");
+                        String motor2 = request.getParameter("motor2");
+                        String modelo2 = request.getParameter("modelo2");
                         String base = request.getParameter("base");
 
                         BarcoDao cons = new BarcoDao();
-                        cons.incluirBarco(conta, con, stmt,mctBarco, nome, motor, modelo, base);
+                        cons.incluirBarco(conta, con, stmt,mctBarco, nome, motor, modelo, motor2, modelo2, base);
 
                         String redirectURL = "/NavegaGestor/cadBarco.jsp";
                         response.sendRedirect(redirectURL);

@@ -42,9 +42,11 @@
                 String nomeBarco = request.getParameter("mctBarco").split(" - ")[0];
                 String motor = request.getParameter("motor");
                 String modelo = request.getParameter("modelo");
+                String motor2 = request.getParameter("motor2");
+                String modelo2 = request.getParameter("modelo2");
                 String base = request.getParameter("base");
                 BarcoDao cons = new BarcoDao();
-                cons.editarBarco(conta, con, stmt, idBarco, mctBarco, nomeBarco, motor, modelo, base);
+                cons.editarBarco(conta, con, stmt, idBarco, mctBarco, nomeBarco, motor, modelo, motor2, modelo2, base);
                 System.out.println("EMBARCAÇÃO EDITADA COM SUCESSO!!!!!!!");
                 String redirectURL = "/NavegaGestor/cadBarco.jsp";
                 response.sendRedirect(redirectURL);
