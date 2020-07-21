@@ -103,6 +103,7 @@
                System.out.println("DADOSFIMVIAGEM ------- "+dadosViagem[6][0]);
                String dadosMctViagem = dadosViagem[7][0];
                String dadosMotorViagem = dadosViagem[9][0];
+               String dadosMotorViagem2 = dadosViagem[13][0];
                String dadosBarco = dadosViagem[11][0];
                String dadosComandante = dadosViagem[12][0];
                
@@ -189,15 +190,12 @@
                                                 }
                                                 if (vetEntrada.length == 4) {
                                                     entrada = vetEntrada[0] + vetEntrada[1] + "00";
-                                                }
-
-                                           
+                                                }                                           
                                                       minuto = Integer.parseInt(painel1[1][i]);
                                                        if (minuto >maiorMinuto) {
                                                            maiorMinuto = minuto;
                                                             vetPosition = i;   
-                                                           }   
-                                                
+                                                           }                                                
                                                 consumo = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
@@ -331,7 +329,7 @@
                                                            }
                                                                 System.err.println("Valor Arredondado é: " + entrada2);
                                                                 ConsumoDao cons = new ConsumoDao();
-                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
+                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem2, entrada), painel1[1][i]);
 
                                                                 consumoDouble2 = Double.valueOf(consumo2);
                                                                 total2 = total2 + consumoDouble2;
@@ -427,7 +425,7 @@
                                         <div class="container black-text">
                                             <div class="row col s5 ">
                                                 <h5><b>Motor 01</b></h5>
-                                                <b class="right-aligned">Consumo Total: </b><%=total%> Lts.<br>    
+                                                <b class="right-aligned">Consumo Total: </b><%=(int)Math.round(total)%> Lts.<br>    
                                                 <b class=" ">Maior RPM: </b><%=maiorRpm1%><br>
                                                 <b class=" pull-s2">Menor RPM: </b><%=menorRpm1%><br>
                                                 <b class=" pull-s2">Media de RPM: </b><%=mediaRpm%><br>
@@ -437,7 +435,7 @@
 
                                             <div class="row col s5 push-s2">
                                                 <h5><b class="">Motor 02</b></h5>
-                                                <b class="">Consumo Total: </b><%=total2%> Lts.<br>    
+                                                <b class="">Consumo Total: </b><%=(int)Math.round(total2)%> Lts.<br>    
                                                 <b class="center pull-s2">Maior RPM: </b><%=maiorRpm2%><br>
                                                 <b class="center pull-s2">Menor RPM: </b><%=menorRpm2%><br>
                                                 <b class="center pull-s2">Media de RPM: </b><%=mediaRpm2%><br>

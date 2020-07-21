@@ -140,6 +140,7 @@
                 String viagemInicio = viagemRelatorio[4][0];
                 String viagemFim  = viagemRelatorio[6][0];
                 String viagemNomeMotor = viagemRelatorio[9][0];
+                String viagemNomeMotor2 = viagemRelatorio[13][0];
                 String viagemNomeBarco = viagemRelatorio[11][0];
                 String viagemNomeComandante = viagemRelatorio[12][0].toUpperCase();
                 String parametro = "";
@@ -292,9 +293,10 @@
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
+                                                //consumo = Math.round(Double.parseDouble(consumo));
 
                                             %>
-                                            <td><%=consumo + " Litros"%></td>
+                                            <td><%=Math.round(Double.parseDouble(consumo)) + " Litros"%></td>
                                             </tr>
 
                                             <%
@@ -302,7 +304,7 @@
                                                 }
                                                 ;%> 
                                             <td><h5><b>TOTAL</b></h5></td>
-                                            <td><h5><b><%=total%></b></h5></td>
+                                            <td><h5><b><%=Math.round(total)+ " Litros"%></b></h5></td>
                                                 <script type="text/javascript">
                                                 google.charts.load("current", {packages:['corechart']});
                                                 google.charts.setOnLoadCallback(drawChart);
@@ -423,13 +425,13 @@
 
                                                         System.err.println("Valor Arredondado é: " + entrada2);
                                                         ConsumoDao cons = new ConsumoDao();
-                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor, entrada), painel1[1][i]);
+                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor2, entrada), painel1[1][i]);
 
                                                         consumoDouble2 = Double.valueOf(consumo2);
                                                         total2 = total2 + consumoDouble2;
 
                                                     %>
-                                                    <td><%=consumo2 + " Litros"%></td>
+                                                    <td><%=Math.round(Double.parseDouble(consumo2)) + " Litros"%></td>
                             </tr>
 
                             <%
@@ -437,7 +439,7 @@
                                 }
                                 ;%> 
                             <td><h5><b>TOTAL</b></h5></td>
-                            <td><h5><b><%=total2%></b></h5></td>
+                            <td><h5><b><%=Math.round(total2)+ " Litros"%></b></h5></td>
 
 
                             </tbody>

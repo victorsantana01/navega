@@ -160,13 +160,14 @@ public class ViagemDao {
      */
     public String[][] pesquisarViagens(String conta,Connection con, Statement stmt, String id) {
 
-        String[][] viagem = new String[13][10];
+        String[][] viagem = new String[15][10];
 
         try {
 //          String sql = ("SELECT idViagem, nomeViagem, status, origem, inicioViagem, destino, fimViagem, mct, comandante FROM exporta.viagem WHERE idViagem = '"+id+"';");
             String sql = ("SELECT v.idViagem, v.nomeViagem, v.status, v.origem, v.inicioViagem, v.destino, v.fimViagem, v.mct, \n" +
-            "v.comandante, m.nome_motor, b.mct, b.nome, c.nome\n" +
-            "	FROM exporta.viagem v \n" +
+            "v.comandante, (SELECT nome_motor FROM motor_tab WHERE idmotor_tab = b.motor) as nome_motor1, \n" +
+            "    (SELECT nome_motor FROM motor_tab WHERE idmotor_tab = b.motor2) as nome_motor2, b.mct, b.nome, c.nome\n" +
+            "	 FROM exporta.viagem v \n" +
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
             "    left join exporta.comandante c on v.comandante = c.idComandante \n" +
@@ -186,10 +187,11 @@ public class ViagemDao {
                 viagem[6][i] = rs.getString("v.fimViagem");
                 viagem[7][i] = rs.getString("v.mct");
                 viagem[8][i] = rs.getString("v.comandante");
-                viagem[9][i] = rs.getString("m.nome_motor");
+                viagem[9][i] = rs.getString("nome_motor1");
                 viagem[10][i] = rs.getString("b.mct");
                 viagem[11][i] = rs.getString("b.nome");
                 viagem[12][i] = rs.getString("c.nome");
+                viagem[13][i] = rs.getString("nome_motor2");
                 i++;
             }
 
