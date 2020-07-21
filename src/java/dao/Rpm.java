@@ -331,6 +331,7 @@ public class Rpm {
      * @return retorna uma String com o nome do mct.
      */
     public String getMctNome(String conta, String mct, Connection con,Statement stmt ) {
+        System.out.println("ENTROU NO METODO GETMCTNOME");
         String queryRelatorio;  
         String vetRelatorio = null;
 
@@ -351,6 +352,7 @@ public class Rpm {
             System.out.println(e);
             
         }
+        System.out.println("SAIU DO METODO GETMCTNOME");
         return vetRelatorio;
     } 
     /**
@@ -458,14 +460,14 @@ public class Rpm {
      */
     public String [][] getPrincipalRpm(String begin, String finish, String mct,String conta, Connection con,Statement stmt) {
          //VisitaDao v =new VisitaDao();v.setNumRow();
-        
+        System.out.println("------------------------ METODO GETPRINCIPALRPM ----------------------");
             
         String[][] vetRelatorio = new String[7][2000];
         //SCRIPT IGN
         String SqlQueryIgn = (" SELECT DISTINCT IIRTN_RPM AS RPM,\n" +
         "COUNT('iIRTN_RPM')*15 AS TEMPO_MIN, COUNT('IIRTN_RPM') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
         "from "+conta+"_messagereturn_iirtn\n" +
-        "where IIRTN_MctAddress='"+mct+"'and IIRTN_MessageTime between '"+begin+" 00:00:00' and '"+finish+" 23:59:59' and IIRTN_RPM > '0'\n" +
+        "where IIRTN_MctAddress='"+mct+"'and IIRTN_MessageTime between '"+begin+"' and '"+finish+"' and IIRTN_RPM > '0'\n" +
         "group by IIRTN_RPM ORDER BY IIRTN_RPM DESC;");
         
         //É iniciada a variavel "Relatorio" que depois receberá os valores do objeto "rs"
@@ -481,6 +483,7 @@ public class Rpm {
             int i = 0;
             int n = 0;
             while (rs.next()) {
+                System.out.println("ACHOU REGISTROS");
               
                 vetRelatorio[0][i]= rs.getString("RPM");
                 if(vetRelatorio[0][i] == null){
@@ -511,7 +514,7 @@ public class Rpm {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-
+        System.out.println("------- FIM METODO GETPRINCIPALRPM --------- ");
         return vetRelatorio;
     }
     /**
@@ -534,7 +537,7 @@ public class Rpm {
 "COUNT('IIRTN_Velocity') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
 "from "+conta+"_messagereturn_iirtn\n" +
 "where IIRTN_MctAddress='"+mct+"' and \n" +
-"IIRTN_MessageTime between '"+begin+" 00:00:00"+"' and '"+finish+" 23:59:59"+"' and IIRTN_Velocity > '0'  \n" +
+"IIRTN_MessageTime between '"+begin+"' and '"+finish+"' and IIRTN_Velocity > '0'  \n" +
 "group by IIRTN_Velocity ORDER BY IIRTN_Velocity DESC;");
         
         //É iniciada a variavel "Relatorio" que depois receberá os valores do objeto "rs"
@@ -662,13 +665,13 @@ public class Rpm {
                 System.out.println("possui J");
             }
         if(idbarco != ""){
-            idbarco = " OR b.idbarco = "+idbarco+"";
+            idbarco = " AND b.idbarco = "+idbarco+"";
         }
         //Conexão   
         try {
             String sql =("SELECT distinct(ph.IIPOS_MctAddress) as MCT, ph.IIPOS_MctName as nome, b.nome "
                     + "FROM "+conta+"_positionhistory_iipos ph LEFT JOIN barco b ON ph.IIPOS_MctAddress = b.mct "
-                    + "WHERE (b.nome is null"+idbarco+") "+MctName);
+                    + "WHERE 1=1 "+idbarco+" "+MctName);
             ResultSet rs = stmt.executeQuery(sql);
             
             int i =0;
