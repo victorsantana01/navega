@@ -33,14 +33,14 @@ public class BarcoDao {
      * @param modelo String - modelo do motor
      * @param base String - base da embarcação
      */
-    public void incluirBarco(String conta,Connection con, Statement stmt, String mct, String nome, String motor, String modelo, String base) {
+    public void incluirBarco(String conta,Connection con, Statement stmt, String mct, String nome, String motor, String modelo, String motor2, String modelo2, String base) {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
             String sql = ("INSERT INTO `exporta`.`barco` \n"
-                    + "(`mct`, `nome`, `motor`,`modelo`,`base`,`dataCad`,`conta`)\n"
+                    + "(`mct`, `nome`, `motor`,`modelo`, `motor2`,`modelo2`,`base`,`dataCad`,`conta`)\n"
                     + " VALUES\n"
-                    + " ('" + mct + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "', '"+conta+"');");
+                    + " ('" + mct + "', '" + nome + "', '" + motor + "', '" + modelo + "', '" + motor2 + "', '" + modelo2 + "', '" + base + "','" + dtf.format(LocalDateTime.now()) + "', '"+conta+"');");
 
             stmt.executeUpdate(sql);
             System.out.println("Tabela salva com sucesso!!!!!");
@@ -95,12 +95,13 @@ public class BarcoDao {
      */
     public String[][] pesquisaBarcos(String conta,Connection con, Statement stmt) {
 
-        String[][] barcos = new String[7][100];
+        String[][] barcos = new String[10][100];
 
         try {
-            String sql = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b \n" +
-                            "join motor_tab m on b.motor=m.idmotor_tab \n" +
-                            "WHERE b.conta='"+conta+"' order by dataCad DESC;");
+            String sql = ("SELECT b.idbarco, b.mct, b.nome,"+
+                    "(select nome_motor from motor_tab WHERE idmotor_tab = b.motor) as motor1,b.modelo,"+
+                    "(select nome_motor from motor_tab WHERE idmotor_tab = b.motor2) as motor2, b.modelo2,"+
+                    "b.base, b.dataCad FROM exporta.barco b WHERE b.conta='"+conta+"' order by dataCad DESC;");
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -110,10 +111,12 @@ public class BarcoDao {
                 barcos[0][i] = rs.getString("b.idbarco");
                 barcos[1][i] = rs.getString("b.mct");
                 barcos[2][i] = rs.getString("b.nome");
-                barcos[3][i] = rs.getString("motor");
+                barcos[3][i] = rs.getString("motor1");
                 barcos[4][i] = rs.getString("b.modelo");
                 barcos[5][i] = rs.getString("b.base");
                 barcos[6][i] = rs.getString("b.dataCad");
+                barcos[7][i] = rs.getString("motor2");
+                barcos[8][i] = rs.getString("b.modelo2");
                 i++;
             }
             System.out.println("TUDO NICE NO METODO PESQUISAMOTOR ........... ");
@@ -138,12 +141,17 @@ public class BarcoDao {
      */
     public String[][] pesquisarBarco(String conta,Connection con, Statement stmt, String id) {
 
-        String[][] barcos = new String[7][10];
+        String[][] barcos = new String[9][10];
 
         try {
-            String sql = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b "
+            String sqlOLD = ("SELECT b.idbarco, b.mct, b.nome, m.nome_motor as motor, b.modelo, b.base, b.dataCad FROM exporta.barco b "
                     + "join motor_tab m on b.motor=m.idmotor_tab WHERE b.idbarco = '" + id + "' and b.conta='"+conta+"'");
-
+                    
+            String sql = ("SELECT b.idbarco, b.mct, b.nome,"+
+                    "(select nome_motor from motor_tab WHERE idmotor_tab = b.motor) as motor1,b.modelo,"+
+                    "(select nome_motor from motor_tab WHERE idmotor_tab = b.motor2) as motor2, b.modelo2,"+
+                    "b.base, b.dataCad FROM exporta.barco b WHERE b.idbarco = '" + id + "' and b.conta='"+conta+"'");
+                    
             ResultSet rs = stmt.executeQuery(sql);
             int i = 0;
             while (rs.next()) {
@@ -151,10 +159,12 @@ public class BarcoDao {
                 barcos[0][i] = rs.getString("b.idbarco");
                 barcos[1][i] = rs.getString("b.mct");
                 barcos[2][i] = rs.getString("b.nome");
-                barcos[3][i] = rs.getString("motor");
+                barcos[3][i] = rs.getString("motor1");
                 barcos[4][i] = rs.getString("b.modelo");
                 barcos[5][i] = rs.getString("b.base");
                 barcos[6][i] = rs.getString("b.dataCad");
+                barcos[7][i] = rs.getString("motor2");
+                barcos[8][i] = rs.getString("b.modelo2");
                 i++;
             }
 
@@ -216,12 +226,12 @@ public class BarcoDao {
      * @param modelo String - novo modelo de motor
      * @param base String - nova base
      */
-    public void editarBarco(String conta,Connection con, Statement stmt, String idBarco, String mct, String nomeBarco, String motor, String modelo, String base) {
+    public void editarBarco(String conta,Connection con, Statement stmt, String idBarco, String mct, String nomeBarco, String motor, String modelo, String motor2, String modelo2, String base) {
         System.out.println("METODO ---> EDITAR BARCO INICIADO.........");
         try {
             
             
-            String sql = ("UPDATE `exporta`.`barco` SET `mct`='" + mct + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `base`='" + base + "' WHERE `idbarco`='" + idBarco + "' and conta='"+conta+"' ;");
+            String sql = ("UPDATE `exporta`.`barco` SET `mct`='" + mct + "', `nome`='" + nomeBarco + "', `motor`='" + motor + "', `modelo`='" + modelo + "', `motor2`='" + motor2 + "', `modelo2`='" + modelo2 + "',`base`='" + base + "' WHERE `idbarco`='" + idBarco + "' and conta='"+conta+"' ;");
             stmt.executeUpdate(sql);
             System.out.println("METODO ---> EDITAR BARCO REALIZADO COM SUCESSO.........");
 
