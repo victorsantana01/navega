@@ -63,6 +63,8 @@
         Statement stmt = con.createStatement();
         Statement stmt1 = con.createStatement();
         Statement stmt2 = con.createStatement();
+        ViagemDao vi = new ViagemDao();
+        vi.updateStatus(conta, con, stmt, stmt1);
         %>
         <!-- INCLUDE DA NAVBAR -->
         <!-- Dropdown Structure -->

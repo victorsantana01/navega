@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import logic.Format;
 import src.Viagem;
@@ -20,6 +22,50 @@ import src.Viagem;
  * @author Luiz Lacerda
  */
 public class ViagemDao {
+    
+    
+    public void updateStatus(String conta, Connection con, Statement stmt, Statement stmt2){
+        System.out.println("METODO ---> UPDATESTATUS");
+        try{
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String dataAtual = formatter.format(date);
+            System.out.println(dataAtual);
+            String sql = ("SELECT * FROM viagem WHERE conta = '"+conta+"' AND inicioViagem <= '"+dataAtual+"' AND fimViagem >= '"+dataAtual+"' AND status = '0'");
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println("CONSULTA REALIZADA COM SUCESSO");
+            System.out.println("VIAGENS AGENDADAS");
+            while (rs.next()){
+                System.out.println("--------------------------------------------");
+                System.out.println("viagem id: "+rs.getString("idViagem"));
+                System.out.println("inicio viagem: "+rs.getString("inicioViagem"));
+                System.out.println("fim viagem: "+rs.getString("fimViagem"));
+                System.out.println("status: "+rs.getString("status"));
+                
+                String sqlUpdate = ("UPDATE `exporta`.`viagem` SET `status`='1' WHERE `idViagem`='"+rs.getString("idViagem")+"'");
+                stmt2.executeUpdate(sqlUpdate);
+                System.out.println("VIAGEM EDITADA");
+            }
+            
+            sql = ("SELECT * FROM viagem WHERE conta = '"+conta+"' AND fimViagem < '"+dataAtual+"' AND status = '1' or status = '0'");
+            rs = stmt.executeQuery(sql);
+            System.out.println("VIAGENS AGENDADAS OU EM PERCUSO");
+            while (rs.next()){
+                System.out.println("--------------------------------------------");
+                System.out.println("viagem id: "+rs.getString("idViagem"));
+                System.out.println("inicio viagem: "+rs.getString("inicioViagem"));
+                System.out.println("fim viagem: "+rs.getString("fimViagem"));
+                System.out.println("status: "+rs.getString("status"));
+                
+                String sqlUpdate = ("UPDATE `exporta`.`viagem` SET `status`='2' WHERE `idViagem`='"+rs.getString("idViagem")+"'");
+                stmt2.executeUpdate(sqlUpdate);
+                System.out.println("VIAGEM EDITADA");
+            }
+            System.out.println("FIM UPDATESTATUS");
+        } catch (SQLException e){
+            System.out.println(" FALHA NO METODO ---> UPDATESTATUS ......... " + e);
+        }   
+    }
     /**
      * metodo cria uma nova viagem.
      * @param conta String - conta do usuario
@@ -336,6 +382,8 @@ public class ViagemDao {
         String id="";
         try{
             String sql = ("SELECT * FROM `viagem` where conta = '"+conta+"' AND mct = '"+mct+"'  AND '"+data+"' BETWEEN inicioViagem AND fimViagem");
+            System.out.println("-----------------PESQUISAR VIAGEM POR MCT---------------------");
+            System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             
             if(rs.next()){
