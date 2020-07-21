@@ -47,9 +47,11 @@
                         int j=0;
                         String labels = "";
                         String tipos = "";
+                        String ordem = "";
                         while(request.getParameter("label"+i) != null){
 //                            System.out.println("label"+i+" :"+request.getParameter("label"+i));
                             labels = labels+"_"+request.getParameter("label"+i);
+                            ordem = ordem+"_"+request.getParameter("label"+i+"_ordem");
                             i++;
                         }
                         while(request.getParameter("tipo"+j) != null){
@@ -66,12 +68,12 @@
                         boolean xx = macro.defExiste(conta, con, stmt, numeroMacro, versao);
                         if(xx == false){
                             System.out.println("nova definição");
-                            macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
+                            macro.cadastrarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao, ordem);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);
                         }else{
                             System.out.println("editar definição");
-                            macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao);
+                            macro.editarMacro(conta, con, stmt, numeroMacro, nome, labels, tipos, versao, ordem);
                             String redirectURL = "/NavegaGestor/listarMacros.jsp";
                             response.sendRedirect(redirectURL);
                         }                     
