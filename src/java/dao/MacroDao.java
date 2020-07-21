@@ -111,15 +111,16 @@ public class MacroDao {
      * @param tipos String - os tipos de cada um dos itens na labels.
      * @param versao String - versão da macro.
      */
-    public void cadastrarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao ){
+    public void cadastrarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao, String ordem ){
         System.out.println("------------------------------");
         System.out.println("numeroMacro: "+numeroMacro);
         System.out.println("nome: "+nome);
         System.out.println("Labels: "+labels);
         System.out.println("versao: "+versao);
+        System.out.println("ordem: "+ordem);
         try{
             
-            String sql = ("INSERT INTO `def_macro`(`macro`, `nome`, `usuario`, `text`, `tipo`, `versao` ) VALUES ('"+numeroMacro+"','"+nome+"','"+conta+"','"+labels+"','"+tipos+"','"+versao+"')");
+            String sql = ("INSERT INTO `def_macro`(`macro`, `nome`, `usuario`, `text`, `tipo`, `versao`, `ordem` ) VALUES ('"+numeroMacro+"','"+nome+"','"+conta+"','"+labels+"','"+tipos+"','"+versao+"','"+ordem+"')");
             stmt.executeUpdate(sql);
             System.out.println("MACRO "+numeroMacro+" SALVA COM SUCESSO!!!!!");
         }catch(Exception e){
@@ -138,15 +139,16 @@ public class MacroDao {
      * @param tipos String - novos tipos
      * @param versao String - novo numero de versão
      */
-    public void editarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao ){
+    public void editarMacro(String conta,Connection con, Statement stmt, String numeroMacro, String nome, String labels, String tipos, String versao, String ordem ){
         System.out.println("------------------------------");
         System.out.println("numeroMacro: "+numeroMacro);
         System.out.println("nome: "+nome);
         System.out.println("Labels: "+labels);
         System.out.println("versao: "+versao);
+        System.out.println("ordem: "+ordem);
         try{
             
-            String sql = ("UPDATE `def_macro` SET `nome` = '"+nome+"', `text` = '"+labels+"', `tipo` = '"+tipos+"' WHERE `def_macro`.`macro` = "+numeroMacro+";");
+            String sql = ("UPDATE `def_macro` SET `nome` = '"+nome+"', `text` = '"+labels+"', `tipo` = '"+tipos+"' , `ordem` = '"+ordem+"' WHERE `def_macro`.`macro` = "+numeroMacro+";");
             stmt.executeUpdate(sql);
             System.out.println("MACRO "+numeroMacro+" EDITADA COM SUCESSO!!!!!");
         }catch(Exception e){
@@ -368,10 +370,10 @@ public class MacroDao {
      * @param con Connection
      * @param stmt Statement
      * @param NumeroMacro String - numero da macro que sera procurada
-     * @return retorna um vetor bidimensional de String com os dados da definição de macro encontrada.
+     * @return retorna um vetor bidimensional de String com os dados da definição de macro encontrada, text, tipo e ordem.
      */
     public String[][] getMacroDef(String conta,Connection con, Statement stmt, String NumeroMacro, String versao){
-        String[][] macroDef = new String[100][2];
+        String[][] macroDef = new String[100][10];
         System.out.println("METODO GETMACRODEF");
         try{
             String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"' AND versao='"+versao+"'");
@@ -379,16 +381,26 @@ public class MacroDao {
             while(rs.next()){
                 String x = rs.getString("text");
                 String y = rs.getString("tipo");
+                String z = rs.getString("ordem");
                 int total = x.split("_").length;
                 if(total > 0){
                     for (int j = 0; j < total-1; j++) {
                         macroDef[j][0]= x.split("_")[j+1];
                         macroDef[j][1]= y.split("_")[j+1];
-                        System.out.println(j+" : "+macroDef[j][0]+" - "+macroDef[j][1]);
+                        if(!z.split("_").getClass().isArray()){
+                            System.out.println("z = null");
+                            macroDef[j][2]= "";
+                        }else{
+                            System.out.println("z é array");
+                            System.out.println("Z= "+z);
+                            macroDef[j][2]= z.split("_")[j+1];
+                        }
+                        System.out.println(j+" : Texto: "+macroDef[j][0]+" - Tipo: "+macroDef[j][1]+" - Ordem:"+macroDef[j][2]);
                     }
                 }else{
                     macroDef[0][0]= x;
                     macroDef[0][1]= y;
+                    macroDef[0][2]= z;
                     System.out.println("0 : "+macroDef[0][0]+" - "+macroDef[0][1]);
                 }
             }
@@ -472,7 +484,7 @@ public class MacroDao {
             while(rs2.next()){
                 ArrayList<String> macrosTexts = new ArrayList<String>();    
                 String txt = rs2.getString("txt");
-                String sql = ("SELECT IIRTN_MctAddress, IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' ORDER BY IIRTN_MessageTime ASC limit 1;");
+                String sql = ("SELECT IIRTN_MctAddress,(SELECT IIPOS_MctName FROM `"+conta+"_positionhistory_iipos` WHERE IIPOS_MctAddress = IIRTN_MctAddress LIMIT 1) AS mctNome, IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' ORDER BY IIRTN_MessageTime ASC limit 1;");
                 
                 ResultSet rs = stmt.executeQuery(sql);
                 
@@ -497,7 +509,7 @@ public class MacroDao {
                         }
                     }
                     System.out.println("COMENTARIO!!:   "+comentario);
-                    macro.setMct(rs.getString("IIRTN_MctAddress"));
+                    macro.setMct(rs.getString("IIRTN_MctAddress")+"/"+rs.getString("mctNome"));
                     macro.setTexto(macrosTexts);
                     macro.setComentario(comentario);
                     macro.setManutencao(manutencao);
@@ -511,7 +523,8 @@ public class MacroDao {
             System.out.println("ERRO NO METODO GETMACROTEXT");
             System.out.println(e);
         }
-        System.out.println(macros);
+        System.out.println("------------------------- MACROS ----------------------");
+        //System.out.println("MACROS: "+macros;
         return macros;
     }
     /**
