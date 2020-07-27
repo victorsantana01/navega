@@ -183,23 +183,23 @@
                             boolean manutencaoB = false;
                             int leng = 0;
                             for (int i = 0; i < 100; i++) {
-                               if(lista[i][0] == null){
-                                        i=100;
-                                    }else{
-                                        if(lista[i][1].equals("4")){
-                                            if(comentarioB){
-                                                
-                                            }else{
-                                                %><th id="comentario">COMENTARIO</th><%
-                                                comentarioB = true;
-                                            }
+                                if(lista[i][0] == null){
+                                    i=100;
+                                }else{
+                                    if(lista[i][1].equals("4")){
+                                        if(comentarioB){
                                             
-                                        }else if(lista[i][1].equals("5")){
-                                            %><th id="manutencao">MANUTENCAO</th><%
-                                                manutencaoB = true;
-                                        }
-                               } 
+                                        }else{
+                                            %><th id="comentario">COMENTARIO</th><%
+                                            comentarioB = true;
+                                        }                                            
+                                    }else if(lista[i][1].equals("5")){
+                                        %><th id="manutencao">MANUTENCAO</th><%
+                                            manutencaoB = true;
+                                    }
+                                } 
                             }
+                            System.out.println("-------------DEF ---------------");
                             for (int i = 0; i < 100; i++) {
                                     if(lista[i][0] == null){
                                         i=100;
@@ -209,35 +209,37 @@
                                         if(lista[i][1].equals("4")){
                                         }else if(lista[i][1].equals("5")){
                                         }else{
+                                            
                                             %>
-                                                <th><%=lista[i][0]%></th>
+                                                <th><%=lista[Integer.parseInt(lista[i][2])][0]%></th>
                                             <%
+                                                System.out.println(i+" - "+lista[i][2]+" : "+lista[Integer.parseInt(lista[i][2])][0]);
                                             leng++;
                                         }
                                     }
                                 }
                         %>
-
                     </tr>
                 </thead>
-                <tbody>
-                    
+                <tbody>                    
                     <%
                         ArrayList<Macros> macros = m.getMacroText(conta, con, stmt, stmt2, stmt3,macroN,macroE);
                         Iterator<Macros> iteratorAsMacros = macros.iterator();
-                        
+                        int contador = 0;
                         while(iteratorAsMacros.hasNext()){
+                            System.out.println("WHILE LOOP: "+contador);
                             int cont;
                             Macros ma = iteratorAsMacros.next();
-                            String mct = ma.getMct();                            
+                            String mct = ma.getMct();
+                            System.out.println("mct: "+mct);
                             String manutencao = ma.getManutencao();
                             Rpm rpm = new Rpm();
-                            %><tr><td><%= mct+" / "+rpm.getMctNome(conta, mct, con, stmt) %></td><%
+                            %><tr><td><%= mct%></td><%
                             if(comentarioB){
                                     %><td><%= ma.getComentario() %></td><%
                             }
                             if(manutencaoB){
-                                %><td><%= ma.getManutencao() %></td><%
+                                %><td><%= manutencao %></td><%
                             }
                             
                                 cont = 0;
@@ -245,14 +247,7 @@
                                 while(iteratorString.hasNext()){
                                     
                                     String mac = iteratorString.next();
-                                    if(lista[cont][1].equals("1")){
-                                    }
-                                    if(lista[cont][1].equals("2")){
-                                        mac = mac.substring(0,2)+"/"+mac.substring(2,4);
-                                    }
-                                    if(lista[cont][1].equals("3")){
-                                        mac = mac.substring(0,2)+":"+mac.substring(2,4);
-                                    }
+                                    System.out.println("macro "+cont+": "+mac);
                                     %><td><%= mac %></td><%
                                     cont++;
                                 }
@@ -261,6 +256,7 @@
                                     cont++;
                                 }
                             %></tr><%
+                            contador++;
                         }
                         %><%
                     %>

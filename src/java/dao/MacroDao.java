@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import logic.Format;
@@ -363,7 +364,24 @@ public class MacroDao {
         return macros;
         
     }
-    
+    public String getMacroDefId(String conta,Connection con, Statement stmt, String NumeroMacro, String versao){
+        String id ="";
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("METODO GETMACRODEFID");
+        try{
+            String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"' AND versao='"+versao+"'");
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                id = rs.getString("idDefMacro");
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO GETMACRODEFID");
+            System.out.println(e);
+        }
+        System.out.println("SAIU DO METODO GETMACRODEFID");
+        System.out.println("-----------------------------------------------------------------------------------");
+        return id;
+    }
     /**
      * Metodo pesquisa a definição de uma macro apartir de seu numero.
      * @param conta String - conta do usuario
@@ -376,35 +394,41 @@ public class MacroDao {
         String[][] macroDef = new String[100][10];
         System.out.println("METODO GETMACRODEF");
         try{
+            System.out.println("TRY");
             String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"' AND versao='"+versao+"'");
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
+                System.out.println("WHILE");
                 String x = rs.getString("text");
                 String y = rs.getString("tipo");
                 String z = rs.getString("ordem");
+                System.out.println("Z = "+z);
                 int total = x.split("_").length;
                 if(total > 0){
+                    System.out.println("IF TOTAL > 0");
                     for (int j = 0; j < total-1; j++) {
                         macroDef[j][0]= x.split("_")[j+1];
                         macroDef[j][1]= y.split("_")[j+1];
-                        if(!z.split("_").getClass().isArray()){
+                        if(!z.split("_").getClass().isArray() || z == "" || z == null){
+                            System.out.println("IF NÃO POSSUI ORDEM");
                             System.out.println("z = null");
                             macroDef[j][2]= "";
                         }else{
-                            System.out.println("z é array");
-                            System.out.println("Z= "+z);
+                            System.out.println("ELSE POSSUI ORDEM");
+                            System.out.println("Z é array");
+                            System.out.println("Z = "+z);
                             macroDef[j][2]= z.split("_")[j+1];
                         }
                         System.out.println(j+" : Texto: "+macroDef[j][0]+" - Tipo: "+macroDef[j][1]+" - Ordem:"+macroDef[j][2]);
                     }
                 }else{
+                    System.out.println("ELSE TOTAL > 0");
                     macroDef[0][0]= x;
                     macroDef[0][1]= y;
                     macroDef[0][2]= z;
                     System.out.println("0 : "+macroDef[0][0]+" - "+macroDef[0][1]);
                 }
             }
-            
         }catch(Exception e){
             System.out.println("ERRO NO METODO GETMACRODEF");
             System.out.println(e);
@@ -493,27 +517,79 @@ public class MacroDao {
                 while(rs.next()){
                     rsDef.next();
                     System.out.println("definicao: "+rsDef.getString("tipo"));
-                    Macros macro = new Macros();
-                    String[] x = rs.getString("IIRTN_Text").split("_");
-                    String[] y = rsDef.getString("tipo").split("_");
-                    String[] z = rsDef.getString("text").split("_");
+                    System.out.println("IIRTN_texto: "+rs.getString("IIRTN_Text"));
+                    System.out.println("cabeçalho: "+rsDef.getString("text"));
+                    System.out.println("Ordem: "+rsDef.getString("ordem"));
+                    int leng = rsDef.getString("text").split("_").length;
+                    String[] x = rs.getString("IIRTN_Text").substring(1,rs.getString("IIRTN_Text").length()).split("_");
+                    String[] y = rsDef.getString("tipo").substring(1,rsDef.getString("tipo").length()).split("_");
+                    String[] z = rsDef.getString("text").substring(1,rsDef.getString("text").length()).split("_");
+                    String[] w = rsDef.getString("ordem").substring(1,rsDef.getString("ordem").length()).split("_");
+                    System.out.println("QUANTIDADE DE TEXTO MACRO");
                     String comentario = "";
                     String manutencao = "";
-                    for (int i = 1; i < x.length; i++) {
-                        if(y[i].equals("4")){
-                            comentario = comentario+" "+x[i];
-                        }else if(y[i].equals("5")){
-                            manutencao = manutencao+z[i]+"("+x[i]+")\n";
-                        }else{
-                            macrosTexts.add(x[i]);
+                    System.out.println("LENG: X "+x.length);
+                    System.out.println("LENG: Y "+y.length);
+                    System.out.println("LENG: Z "+z.length);
+                    System.out.println("LENG: W "+w.length);
+                    for (int i = 0; i < w.length; i++) {
+                        int index = Integer.parseInt(w[i]);
+                        System.out.println("------------FOR-----------");
+                        
+                        if(y[index].equals("1")){
+                            System.out.println("w["+i+"] = "+index);
+                            System.out.println("x leng = "+x.length+" < "+z.length);
+                            if(x.length < z.length){
+                                System.out.println("ENTROU!!!!!!!!");
+                                System.out.println(x.length+" > "+index+1);
+                                if(x.length < index+1){
+                                    System.out.println("IF");
+                                    macrosTexts.add("");
+                                    System.out.println("SAIU IF");
+                                }else{
+                                    System.out.println("ELSE");
+                                    System.out.println("x["+index+"] = "+x[index]);
+                                    macrosTexts.add(x[index]);                               
+                                }
+                            }else{
+                                macrosTexts.add(x[index]);
+                            }
+                            
+                        }else if(y[index].equals("2")){
+                            //System.out.println("equals 2");
+                            String temp = x[index];
+                            temp = temp.substring(0,2)+"/"+temp.substring(2,4);
+                            macrosTexts.add(temp);
+                        }else if(y[index].equals("3")){
+                            //System.out.println("equals 3");
+                            String temp = x[index];
+                            temp = temp.substring(0,2)+":"+temp.substring(2,4);
+                            macrosTexts.add(temp);
+                        }else if(y[index].equals("4")){
+                            System.out.println("COMENTARIO: "+x[index]+"  -  INDEX:"+index);
+                            comentario = comentario+""+x[index];
+                        }else if(y[index].equals("5")){
+                            manutencao = manutencao+z[index]+"("+x[index]+")\n";
                         }
+                        //System.out.println("Text:"+w[i]+": "+x[index]);
+                        //System.out.println("DEF:"+w[i]+": "+z[index]);
                     }
                     System.out.println("COMENTARIO!!:   "+comentario);
-                    macro.setMct(rs.getString("IIRTN_MctAddress")+"/"+rs.getString("mctNome"));
-                    macro.setTexto(macrosTexts);
-                    macro.setComentario(comentario);
-                    macro.setManutencao(manutencao);
+                    String mct = rs.getString("IIRTN_MctAddress")+"/"+rs.getString("mctNome");
+                    System.out.println("------------------- VAI ENTRAR NO CONTRUTOR ------------------");
+                    Macros macro = new Macros(mct, macrosTexts,comentario,manutencao);
+                    System.out.println("------------------- SAIU DO CONTRUTOR ---------------------");
                     macros.add(macro);
+                    Iterator<String> mc = macro.getTexto().iterator();
+                    int xxx = 0;
+                    while(mc.hasNext()){
+                        if(xxx > 16){
+                            xxx=0;
+                        }
+                        System.out.println(xxx+"txt: "+mc.next().toString());
+                        xxx++;
+                    }
+                    System.out.println("------------------------- FIM DO WHILE ----------------------------");
                 }
                 
                 
@@ -581,6 +657,17 @@ public class MacroDao {
             System.out.println(e);
         }
         return existe;
+    }
+    public void excluirDef(String conta,Connection con, Statement stmt, String id){
+        System.out.println("ENTROU NO METODO EXCLUIRDEF");
+        try{
+            String sql = ("DELETE FROM `def_macro` WHERE `def_macro`.`idDefMacro` = '"+id+"'");
+            stmt.executeUpdate(sql);
+            System.out.println("EXCLUSÃO DA MACRO = "+id+", REALIZADA COM SUCESSO");
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO EXCLUIR DEF");
+            System.out.println(e);            
+        }
     }
     
     /**

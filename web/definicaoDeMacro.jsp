@@ -39,7 +39,7 @@
         <link rel="stylesheet" type="text/css" href="css/dragula.css">
         <style>
             .drak{ height: 100%; width: 100%}
-            .equip{ height: 90px; border:solid 1px; background-color: blueviolet; margin: 5px; border-radius: 10px; text-align: center;}
+            .equip{ height: 90px; border:solid 1px; background-color: lightslategrey; margin: 5px; border-radius: 10px; text-align: center;}
             .contBody{margin:5px !important;border-radius: 10px; position: relative !important; background-color: #DFDFDF}
             .cont{margin:5px !important; padding-bottom: 20px !important; position: relative !important; width: 100% !important;}
             .grupo{ }
@@ -137,7 +137,7 @@
                                         <label for="nome" style="left:0px !important">Nome da Macro</label>
                                     </div>
                                 </div>
-                                <span class="card-title center">Nomeie os campos</span><br>
+                                <span class="card-title center"><strong>Nomeie e ordene os campos</strong</span><br>
                                 <div id="draktest" class="dragula-container drak s12">
                                 <%
                                     int x=0;
@@ -235,7 +235,7 @@
                                 </div>
                                 <br>
                                 <div class="card-action col s12">
-                                    <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar />
+                                    <button type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar</button>
                                 </div>
                             </form>
                         </div>

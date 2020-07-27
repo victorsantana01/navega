@@ -51,17 +51,29 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
-            <script>
+        <script>
             $(document).ready(function(){
                 $('.dropdown-trigger').dropdown();
                 $('select').formSelect();
                 $('.collapsible').collapsible();
                 $(".dropdown-trigger").dropdown('toggle');
             });
+            
         </script>
     <body>
         <%
         /* Inicio de Sessão */
+        if(session == null) {
+            System.out.println("kkku");
+            response.sendRedirect("/login.jsp");
+        }
+        
+        /*
+        if (session.isNew()) {
+            System.out.println("kkku");
+            response.sendRedirect("/login.jsp");
+        }
+        */
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
@@ -116,6 +128,7 @@
                             %> <td><%=macros[4][i] %></td><%
                             %> <td style="overflow: hidden; max-width: 1000px;"><%=macros[5][i] %></td><%
                                 boolean def = m.defExiste(conta, con, stmt, macros[1][i], macros[2][i]);
+                                String defId = m.getMacroDefId(conta, con, stmt, macros[1][i], macros[2][i]);
                                 System.out.println("def: "+def);
                                 if(def){
                                     %> <td><p style="color:green">definida</p></td><%
@@ -126,7 +139,11 @@
                                 if(macrotexto == true){
                                     %> <td><a class="btn disabled" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">açao</a></td><%
                                 }else{
-                                    %> <td><a class="btn" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">Definir</a></td><%
+                                    %> <td><a class="btn green darken-1" style="width:100px" href="definicaoDeMacro.jsp?id=<%=macros[0][i]%>">Definir</a><%
+                                        if(def){
+                                    %><a class="btn red accent-4" style="width:100px" onclick="excluirMacro(<%=defId%>,<%=macros[1][i]%>,<%=macros[2][i]%>)">Excluir</a><% 
+                                        }
+                                    %></td><%
                                 }
                             }
                         }
@@ -154,6 +171,18 @@
                     ]
                 } );
             } );
+            function excluirMacro(id, n, v){
+                if(confirm("Deseja excluir a definição da macro "+n+"º versao "+v+", de id:"+id+"?")){
+                    window.location.href = "./excluirMacroDef.jsp?id="+id+"";
+                }else{
+                    window.alert("NO!");
+                }
+            }
+            function apagar(id) {
+		if (confirm("Tem certeza que deseja deletar este Email: " + id + "?")) {
+                    window.location.href = "./apagarContato.php?contato=" + id + "";
+                } else {}
+            }
         </script>
     </body>
 </html>
