@@ -79,6 +79,7 @@
             <div class="nav-wrapper" style="background-color: #0277bd !important;">
                 <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
                 <ul class="right hide-on-med-and-down">
+                    <li><a href="equipamentos.jsp">Equipamentos</a></li>
                     <li><a href="macros.jsp">Macros</a></li>
                     <li><a href="listarMacros.jsp">Definição da Macro</a></li>
                     <li><a href="viagens.jsp">Viagens</a></li>

@@ -28,7 +28,7 @@ public class ViagemDao {
         System.out.println("METODO ---> UPDATESTATUS");
         try{
             Date date = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dataAtual = formatter.format(date);
             System.out.println(dataAtual);
             String sql = ("SELECT * FROM viagem WHERE conta = '"+conta+"' AND inicioViagem <= '"+dataAtual+"' AND fimViagem >= '"+dataAtual+"' AND status = '0'");
@@ -222,7 +222,7 @@ public class ViagemDao {
             "    left join exporta.barco b on v.mct = b.mct\n" +
             "    left join exporta.motor_tab m on b.motor = m.idmotor_tab \n" +
             "    left join exporta.comandante c on v.comandante = c.idcomandante"+
-            "    where v.status = '"+status+"' and v.conta = '"+conta+"';");
+            "    where v.status = '"+status+"' and v.conta = '"+conta+"' order by v.inicioViagem DESC;");
             
             ResultSet rs = stmt.executeQuery(sql);
             System.out.println("CONSULTA REALIZADA COM SUCESSO");

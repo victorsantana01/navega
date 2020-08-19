@@ -184,7 +184,7 @@ public class RelatorioNavegacao {
         //SCRIPT IGN
         String SqlQueryIgn = (" \n" +
 " SELECT timediff(max(iirtn_messagetime),min(iirtn_messagetime)) as diferença, iirtn_rpm\n" +
-" FROM exporta.messagereturn_iirtn where iirtn_rpm > 0 and iirtn_mctaddress='"+mct+"' and iirtn_messagetime between \""+inicio+"\" and \""+fim+"\";");
+" FROM exporta.RETURNMESSAGE_IIRTN where iirtn_rpm > 0 and iirtn_mctaddress='"+mct+"' and iirtn_messagetime between \""+inicio+"\" and \""+fim+"\";");
 
         //É iniciada a variavel "Relatorio" que depois receberá os valores do objeto "rs"
         //Conexão
@@ -193,9 +193,7 @@ public class RelatorioNavegacao {
         try {
                 Connection con = ConexaoMySQL.getConexaoMySQL();
            Statement stmt = con.createStatement();
-           
-
-            ResultSet rs = stmt.executeQuery(SqlQueryIgn);
+           ResultSet rs = stmt.executeQuery(SqlQueryIgn);
          
             while (rs.next()) {
                
@@ -229,7 +227,7 @@ public class RelatorioNavegacao {
         //SCRIPT IGN
         String SqlQueryIgn = (" \n" +
 " SELECT timediff(max(iirtn_messagetime),min(iirtn_messagetime)) as diferença, IIRTN_Velocity\n" +
-" FROM exporta.messagereturn_iirtn where IIRTN_Velocity > 0 and iirtn_mctaddress='"+mct+"' and iirtn_messagetime between \""+inicio+"\" and \""+fim+"\";");
+" FROM exporta.RETURNMESSAGE_IIRTN where IIRTN_Velocity > 0 and iirtn_mctaddress='"+mct+"' and iirtn_messagetime between \""+inicio+"\" and \""+fim+"\";");
 
         //É iniciada a variavel "Relatorio" que depois receberá os valores do objeto "rs"
         //Conexão

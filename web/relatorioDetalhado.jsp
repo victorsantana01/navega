@@ -41,6 +41,7 @@
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
+        Statement stmt2 = con.createStatement();
 %>                
 
     <script>
@@ -145,6 +146,8 @@
                 String viagemNomeComandante = viagemRelatorio[12][0].toUpperCase();
                 String parametro = "";
                 String parametro2 = "";
+                System.out.println("MOTOR 1: "+viagemNomeMotor);
+                System.out.println("MOTOR 2: "+viagemNomeMotor2);
                 if (viagemMct == null) {
                         parametro = "none";
                     }else{
@@ -251,9 +254,10 @@
                                                 double total = 0.0;
                                                 double consumoDouble;
                                                 System.out.println("Valida1 >>>>>>>>>>>>>>>>>> "+painel1[4][0]);
-                                                for (int i = 0; i < 2000; i++) {
+                                                for (int i = 0; i < 20000; i++) {
                                                     if (painel1[0][i] == null || painel1[0][i] == "0") {
-                                                        i = 2000;
+                                                        System.out.println("if null or 0");
+                                                        i = 20000;
                                                     } else {
                                                          System.out.println("audit >>>>>>>>>>>>>>>>>> "+painel1[1][i]);
                                             %> 
@@ -275,21 +279,25 @@
                                             <%
                                                 Teste te = new Teste();
                                                 //ConsumoDao cons = new ConsumoDao();
+                                                
                                                 entrada = painel1[0][i];
+                                                String entrada2 = "";
                                                 String[] vetEntrada = entrada.split("");
                                                 if (vetEntrada.length == 2) {
-                                                    entrada = "0";
+                                                    entrada2 = "0";
                                                 }
                                                 if (vetEntrada.length == 3) {
-                                                    entrada = vetEntrada[0] + "00";
+                                                    
+                                                    entrada2 = vetEntrada[0] + "00";
                                                 }
                                                 if (vetEntrada.length == 4) {
-                                                    entrada = vetEntrada[0] + vetEntrada[1] + "00";
+                                                    entrada2 = vetEntrada[0] + vetEntrada[1] + "00";
                                                 }
 
-                                                System.err.println("Valor Arredondado é: " + entrada);
+                                                System.err.println("Valor Não Arredondado é: " + entrada);
+                                                System.err.println("Valor Arredondado é: " + entrada2);
                                                 ConsumoDao cons = new ConsumoDao();
-                                                consumo = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor, entrada), painel1[1][i]);
+                                                consumo = te.consumo(cons.getLitrosPorRpm(conta,stmt2, viagemNomeMotor, entrada2), painel1[1][i]);
 
                                                 consumoDouble = Double.valueOf(consumo);
                                                 total = total + consumoDouble;
@@ -414,7 +422,7 @@
                                                         entrada2 = painel2[0][i];
                                                         String[] vetEntrada2 = entrada2.split("");
                                                         if (vetEntrada2.length == 2) {
-                                                            entrada = "0";
+                                                            entrada2 = "0";
                                                         }
                                                         if (vetEntrada2.length == 3) {
                                                             entrada2 = vetEntrada2[0] + "00";
@@ -425,7 +433,7 @@
 
                                                         System.err.println("Valor Arredondado é: " + entrada2);
                                                         ConsumoDao cons = new ConsumoDao();
-                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, viagemNomeMotor2, entrada), painel1[1][i]);
+                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, stmt2, viagemNomeMotor2, entrada2), painel2[1][i]);
 
                                                         consumoDouble2 = Double.valueOf(consumo2);
                                                         total2 = total2 + consumoDouble2;

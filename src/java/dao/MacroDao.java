@@ -71,7 +71,7 @@ public class MacroDao {
         try{
             
             String sql = ("SELECT IIRTN_MacroNumber, IIRTN_Text, IIRTN_MacroVersion "
-                    + "FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_ID = '"+id+"'");
+                    + "FROM `"+conta+"_RETURNMESSAGE_IIRTN` WHERE IIRTN_ID = '"+id+"'");
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 int total = rs.getString("IIRTN_Text").split("_").length;
@@ -170,14 +170,14 @@ public class MacroDao {
         String[][] macros = new String[6][100];
         try{
                         
-            String sql = ("SELECT DISTINCT IIRTN_MacroNumber as macros, IIRTN_MacroVersion as version FROM `"+conta+"_messagereturn_iirtn` ORDER BY IIRTN_MacroNumber ASC");
+            String sql = ("SELECT DISTINCT IIRTN_MacroNumber as macros, IIRTN_MacroVersion as version FROM `"+conta+"_RETURNMESSAGE_IIRTN` ORDER BY IIRTN_MacroNumber ASC");
             ResultSet rs = stmt2.executeQuery(sql);
             
             int i =0;
             while(rs.next()){
 //                System.out.println("total: "+rs.getString("macros"));
                 try{
-                    String sql2 = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+rs.getString("macros")+"' and IIRTN_MacroVersion = '"+rs.getString("version")+"' and IIRTN_Text <> '' ORDER BY IIRTN_MacroNumber DESC LIMIT 1");
+                    String sql2 = ("SELECT * FROM `"+conta+"_RETURNMESSAGE_IIRTN` WHERE IIRTN_MacroNumber = '"+rs.getString("macros")+"' and IIRTN_MacroVersion = '"+rs.getString("version")+"' and IIRTN_Text <> '' AND IIRTN_ID <> '' ORDER BY IIRTN_MacroNumber DESC LIMIT 1");
                     ResultSet rs2 = stmt1.executeQuery(sql2);
                     
                     while(rs2.next()){
@@ -251,7 +251,7 @@ public class MacroDao {
         }
         try {
             String sql2 = ("SELECT me.IIRTN_MessageTime, me.IIRTN_MctAddress, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                        "FROM exporta."+conta+"_messagereturn_iirtn me \n" +
+                        "FROM exporta."+conta+"_RETURNMESSAGE_IIRTN me \n" +
                         "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                         "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
                         "where IIRTN_MacroNumber = \"3\" "+
@@ -313,12 +313,12 @@ public class MacroDao {
         try {
             
             
-            String sql1 = ("SELECT DISTINCT(IIRTN_Text) FROM "+conta+"_messagereturn_iirtn where IIRTN_MacroNumber=3");
+            String sql1 = ("SELECT DISTINCT(IIRTN_Text) FROM "+conta+"_RETURNMESSAGE_IIRTN where IIRTN_MacroNumber=3");
             ResultSet rs1 = stmt1.executeQuery(sql1);
             int i = 0;
             while(rs1.next()){
                 String sql2 = ("SELECT first me.IIRTN_MessageTime, me.IIRTN_MctAddress, me.IIRTN_Text, b.nome, mo.nome_motor\n" +
-                            "FROM exporta."+conta+"_messagereturn_iirtn me \n" +
+                            "FROM exporta."+conta+"_RETURNMESSAGE_IIRTN me \n" +
                             "left join barco b on me.IIRTN_MctAddress = b.mct\n" +
                             "left join motor_tab mo on b.motor = mo.idmotor_tab\n" +
                             "where IIRTN_MacroNumber = \"3\" and me.IIRTN_MessageTime = '"+rs1.getString("IIRTN_Text")+"';");
@@ -393,9 +393,10 @@ public class MacroDao {
     public String[][] getMacroDef(String conta,Connection con, Statement stmt, String NumeroMacro, String versao){
         String[][] macroDef = new String[100][10];
         System.out.println("METODO GETMACRODEF");
+        int total =0;
         try{
             System.out.println("TRY");
-            String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"' AND versao='"+versao+"'");
+            String sql = ("SELECT * FROM `def_macro` WHERE macro='"+NumeroMacro+"' AND versao='"+versao+"' AND usuario = '"+conta+"' ");
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 System.out.println("WHILE");
@@ -403,20 +404,23 @@ public class MacroDao {
                 String y = rs.getString("tipo");
                 String z = rs.getString("ordem");
                 System.out.println("Z = "+z);
-                int total = x.split("_").length;
+                total = x.split("_").length;
                 if(total > 0){
                     System.out.println("IF TOTAL > 0");
                     for (int j = 0; j < total-1; j++) {
                         macroDef[j][0]= x.split("_")[j+1];
                         macroDef[j][1]= y.split("_")[j+1];
-                        if(!z.split("_").getClass().isArray() || z == "" || z == null){
+                        if(!z.split("_").getClass().isArray() || z == "" || z == null || z.length() <1){
                             System.out.println("IF NÃO POSSUI ORDEM");
                             System.out.println("z = null");
-                            macroDef[j][2]= "";
+                            macroDef[j][2]= j+"";
+                            System.out.println("z = "+macroDef[j][2]);
                         }else{
                             System.out.println("ELSE POSSUI ORDEM");
                             System.out.println("Z é array");
-                            System.out.println("Z = "+z);
+                            System.out.println("Ordem = "+z);
+                            System.out.println("Ordem = "+z.split("_")[j+1]);
+                            System.out.println("texto = "+x);
                             macroDef[j][2]= z.split("_")[j+1];
                         }
                         System.out.println(j+" : Texto: "+macroDef[j][0]+" - Tipo: "+macroDef[j][1]+" - Ordem:"+macroDef[j][2]);
@@ -433,6 +437,19 @@ public class MacroDao {
             System.out.println("ERRO NO METODO GETMACRODEF");
             System.out.println(e);
         }
+        System.out.println("FOR NORMAL");
+        for (int i = 0; i < total-1; i++) {
+            System.out.println("==========================");
+            System.out.println("index - "+i);
+            System.out.println("texto :"+macroDef[i][0]+"   -  Ordem: "+macroDef[i][2] );
+        }
+        System.out.println("FOR ORDENADO");
+        for (int i = 0; i < total-1; i++) {
+            System.out.println("==========================");
+            System.out.println("index - "+macroDef[i][2]);
+            System.out.println("texto :"+macroDef[Integer.parseInt(macroDef[i][2])][0]+"   -  Ordem: "+macroDef[i][2] );
+        }
+        System.out.println("==========================");
         System.out.println("FIM METODO GETMACRODEF");
         return macroDef;
     }
@@ -472,7 +489,7 @@ public class MacroDao {
     public boolean MacroIsTextNull(String conta,Connection con, Statement stmt, String NumeroMacro){
         boolean macro = false;
         try{
-            String sql = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber='"+NumeroMacro+"' and IIRTN_Text <> \"\"");
+            String sql = ("SELECT * FROM `"+conta+"_RETURNMESSAGE_IIRTN` WHERE IIRTN_MacroNumber='"+NumeroMacro+"' and IIRTN_Text <> \"\"");
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next() == false){
                 macro = true;
@@ -488,6 +505,37 @@ public class MacroDao {
         }
         return macro;
     }
+    public String equips(String conta,Connection con, Statement stmt1)  {
+        System.out.println("ENTROU NO METODO EQUIPS");
+        String equips = "";
+        String[] equipsArray;
+        try{
+            String sqlequips =("SELECT * FROM `visibilidade_equipamentos` WHERE usuario = '"+conta+"'");
+            ResultSet rsEquips = stmt1.executeQuery(sqlequips);
+            if(rsEquips.next()){
+                equips = rsEquips.getString("mcts");
+                System.out.println(equips);
+                if(equips.split("_").length >1){
+                    System.out.println("IF LENGTH > 1");
+                    equipsArray = equips.split("_");
+                    equips = "AND (";
+                    for (int i = 1; i < equipsArray.length; i++) {
+                        if(i == 1){
+                            equips = equips+" IIRTN_MctAddress = '"+equipsArray[i]+"' ";
+                        }else{
+                            equips = equips+" OR IIRTN_MctAddress = '"+equipsArray[i]+"' ";
+                        }
+                        System.out.println(i+" equips: "+equips);
+                    }
+                    equips = equips+") ";                    
+                }
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO EQUIPS");
+            System.out.println(e);
+        }
+     return equips;
+    }
     /**
      * Metodo pesquisa uma macro por numero e retorna o seu texto.
      * @param conta String - conta
@@ -500,15 +548,16 @@ public class MacroDao {
         System.out.println("METODO GETMACROTEXT");
         ArrayList<Macros> macros = new ArrayList<Macros>();
         
+        String equips = equips(conta, con, stmt);
         
         try{
-            String sql1 = ("SELECT distinct IIRTN_Text as txt FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_MacroVersion="+versaoMacro+" and IIRTN_Text <> '' ;");
+            String sql1 = ("SELECT distinct IIRTN_Text as txt FROM `"+conta+"_RETURNMESSAGE_IIRTN` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_MacroVersion="+versaoMacro+" and IIRTN_Text <> '' ;");
             ResultSet rs2 = stmt1.executeQuery(sql1);
             
             while(rs2.next()){
                 ArrayList<String> macrosTexts = new ArrayList<String>();    
                 String txt = rs2.getString("txt");
-                String sql = ("SELECT IIRTN_MctAddress,(SELECT IIPOS_MctName FROM `"+conta+"_positionhistory_iipos` WHERE IIPOS_MctAddress = IIRTN_MctAddress LIMIT 1) AS mctNome, IIRTN_Text FROM `"+conta+"_messagereturn_iirtn` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' ORDER BY IIRTN_MessageTime ASC limit 1;");
+                String sql = ("SELECT IIRTN_MctAddress,(SELECT IIPOS_MctName FROM `"+conta+"_positionhistory_iipos` WHERE IIPOS_MctAddress = IIRTN_MctAddress LIMIT 1) AS mctNome, IIRTN_Text FROM `"+conta+"_RETURNMESSAGE_IIRTN` where IIRTN_MacroNumber="+NumeroMacro+" and IIRTN_Text = '"+txt+"' and IIRTN_Text <> '' "+equips+" ORDER BY IIRTN_MessageTime ASC limit 1;");
                 
                 ResultSet rs = stmt.executeQuery(sql);
                 
@@ -520,6 +569,7 @@ public class MacroDao {
                     System.out.println("IIRTN_texto: "+rs.getString("IIRTN_Text"));
                     System.out.println("cabeçalho: "+rsDef.getString("text"));
                     System.out.println("Ordem: "+rsDef.getString("ordem"));
+                    
                     int leng = rsDef.getString("text").split("_").length;
                     String[] x = rs.getString("IIRTN_Text").substring(1,rs.getString("IIRTN_Text").length()).split("_");
                     String[] y = rsDef.getString("tipo").substring(1,rsDef.getString("tipo").length()).split("_");
@@ -567,7 +617,7 @@ public class MacroDao {
                             macrosTexts.add(temp);
                         }else if(y[index].equals("4")){
                             System.out.println("COMENTARIO: "+x[index]+"  -  INDEX:"+index);
-                            comentario = comentario+""+x[index];
+                            comentario = comentario+" "+x[index];
                         }else if(y[index].equals("5")){
                             manutencao = manutencao+z[index]+"("+x[index]+")\n";
                         }
@@ -616,7 +666,7 @@ public class MacroDao {
         
         try{
             
-            String sql = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_MacroNumber = '"+NumeroMacro+"'");
+            String sql = ("SELECT * FROM `"+conta+"_RETURNMESSAGE_IIRTN` WHERE IIRTN_MacroNumber = '"+NumeroMacro+"'");
             ResultSet rs = stmt1.executeQuery(sql);
             int i=0;
             while(rs.next()){
@@ -681,7 +731,7 @@ public class MacroDao {
             Statement stmt = con.createStatement();
             Statement stmt2 = con.createStatement();
             Statement stmt3 = con.createStatement();
-            String sql1 = ("SELECT DISTINCT IIRTN_Text FROM `"+conta+"_messagereturn_iirtn`");
+            String sql1 = ("SELECT DISTINCT IIRTN_Text FROM `"+conta+"_RETURNMESSAGE_IIRTN`");
             ResultSet rs = stmt.executeQuery(sql1);
             int t=0;
             int i=0;
@@ -694,7 +744,7 @@ public class MacroDao {
                     System.out.println("----------------ENTROU NO IF DO \\---------------");
                     text.replace("\\", " ");
                 }
-                sql1 = ("SELECT * FROM `"+conta+"_messagereturn_iirtn` WHERE IIRTN_Text = '"+rs.getString("IIRTN_Text")+"' ORDER BY `"+conta+"_messagereturn_iirtn`.`IIRTN_PositionTime` ASC LIMIT 1");
+                sql1 = ("SELECT * FROM `"+conta+"_RETURNMESSAGE_IIRTN` WHERE IIRTN_Text = '"+rs.getString("IIRTN_Text")+"' ORDER BY `"+conta+"_RETURNMESSAGE_IIRTN`.`IIRTN_PositionTime` ASC LIMIT 1");
                 ResultSet rs2 = stmt2.executeQuery(sql1);
                 if(rs2.next()){
                     System.out.println("ENTROU NO SEGUNDO WHILE");
@@ -711,7 +761,7 @@ public class MacroDao {
                 if(macros[0][j] == null){
                     j = 200;
                 }else{
-                    String sql3 = ("UPDATE `"+conta+"_messagereturn_iirtn` SET `IIRTN_Text`= '' WHERE IIRTN_Text = '"+ macros[1][j]+"' and idauto <> '"+ macros[0][j]+"'");
+                    String sql3 = ("UPDATE `"+conta+"_RETURNMESSAGE_IIRTN` SET `IIRTN_Text`= '' WHERE IIRTN_Text = '"+ macros[1][j]+"' and idauto <> '"+ macros[0][j]+"'");
                     stmt3.executeUpdate(sql3);
                 }
             }

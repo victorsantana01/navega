@@ -39,7 +39,7 @@
         <link rel="stylesheet" type="text/css" href="css/dragula.css">
         <style>
             .drak{ height: 100%; width: 100%}
-            .equip{ height: 90px; border:solid 1px; background-color: lightslategrey; margin: 5px; border-radius: 10px; text-align: center;}
+            .equip{ height: 90px; border:solid 1px; background-color: blueviolet; margin: 5px; border-radius: 10px; text-align: center;}
             .contBody{margin:5px !important;border-radius: 10px; position: relative !important; background-color: #DFDFDF}
             .cont{margin:5px !important; padding-bottom: 20px !important; position: relative !important; width: 100% !important;}
             .grupo{ }
@@ -74,21 +74,11 @@
                 console.log("change");
                 let child =$('#draktest').children();
                 for(var i=0;i<child.length; i++){
-                    
-                    let name = child[i].children[1].children[0].name;
-                    let ordem = child[i].children[0].children[1].attributes[1].value;
                     child[i].children[0].children[0].remove();
+                    let name = child[i].children[1].children[0].name;
                     n = i+1;
-                    child[i].children[0].innerHTML = "<h4 name='"+i+"'>"+n+"</h4><input type='hidden' ordem='"+ordem+"' name='"+name+"_ordem' value='"+i+"'>";
+                    child[i].children[0].innerHTML = "<h4 name='"+n+"'>"+n+"</h4><input type='hidden' name='"+name+"_ordem' value='"+i+"'>";
                 }
-                child =$('#draktest').children();
-                let ordem = "";
-                for(var i=0;i<child.length; i++){
-                    ordem = ordem+"_"+child[i].children[0].children[1].attributes[1].value;
-                }
-                console.log("ORDEM:  "+ordem);
-                $('#ordem')[0].value = ordem;
-                
             }
         </script>
         
@@ -113,14 +103,6 @@
                     MacroDao macrodao = new MacroDao();
                     String[][] macroSelecionada = macrodao.getMacroById(conta, con, stmt, id);
                     String[][] macroEdit = macrodao.getMacroDef(conta, con, stmt, macroSelecionada[0][0],macroSelecionada[2][0]);
-                    String ordemOriginal = "";
-                    for (int i = 0; i < 100; i++) {
-                            if(macroEdit[i][2] == null){
-                                i = 100;
-                            }else{
-                                ordemOriginal = ordemOriginal+"_"+macroEdit[i][2];
-                            }
-                        }
                     String macroNome = macrodao.getMacroName(conta, con, stmt, macroSelecionada[0][0]);
                     System.out.println("macro");
                     for (int i = 0; i < 10; i++) {
@@ -153,11 +135,11 @@
                                         <input type="text" id="nome" name="nome" required />
                                        <% }%>
                                         <label for="nome" style="left:0px !important">Nome da Macro</label>
-                                        <input type="hidden" name="ordem" id="ordem" value="<%= ordemOriginal %>" />
                                     </div>
                                 </div>
-                                <span class="card-title center"><strong>Nomeie e ordene os campos</strong</span><br>
+                                <span class="card-title center">Nomeie os campos</span><br>
                                 <div id="draktest" class="dragula-container drak s12">
+                                    <div id="draktest2" class="dragula-container drak s12 equip" style="min-height: 50px; padding-bottom: 10px;background:lightblue"></div>
                                 <%
                                     int x=0;
                                     
@@ -175,12 +157,13 @@
                                                     ordem = x+1;
                                                     System.out.println("----------------- NÃO POSSUI ORDEM ---------------");
                                                 }
+//                                                System.out.println("LABEL"+x+" : "+macroEdit[x][1]);
                                                 %>
                                                 
                                                     <div id="Ordem-<%=ordem%>" onmouseup="onUp()" class="equip s12">
                                                         <div class="col s2">
                                                             <h4><%=ordem%></h4>
-                                                            <input type="hidden" ordem="<%=x%>" name="label<%=x%>_ordem" value="<%=ordem%>"/>
+                                                            <input type='hidden' name="label<%=x%>_ordem" value="<%=ordem%>"/>
                                                         </div>
                                                         <div class="input-field col s6">
                                                             <input type="text" id="label<%=x%>" name="label<%=x%>" required value="<%=macroEdit[x][0]%>" />
@@ -221,12 +204,12 @@
                                         
                                         <%
                                             }else{
-                                                int ordem = x;
+                                                int ordem = x+1;
                                         %>
                                         <div id="Ordem-<%=ordem%>" onmouseup="onUp()" class="equip s12">
                                             <div class="col s2">
                                                 <h4><%= ordem%></h4>
-                                                <input type="hidden" ordem="<%=x%>" name="label<%=x%>_ordem" value="<%=ordem%>"/>
+                                                <input type='hidden' name="label<%=x%>_ordem" value="<%=ordem%>"/>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input type="text" id="label<%=x%>" name="label<%=x%>" required />
@@ -254,7 +237,7 @@
                                 </div>
                                 <br>
                                 <div class="card-action col s12">
-                                    <button type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar</button>
+                                    <input type="submit" class="btn col s4 center-align push-s4 z-depth-5 blue ">Salvar />
                                 </div>
                             </form>
                         </div>

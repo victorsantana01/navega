@@ -118,6 +118,7 @@
                 </script>
 
                     <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
+                    <a class="btn btn-primary btn-block" href="tables.jsp">Reset Password</a>
 
                     <div class="text-center" id="div01" name="div01" >
 

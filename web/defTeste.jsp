@@ -226,7 +226,7 @@
                                         <div id="Ordem-<%=ordem%>" onmouseup="onUp()" class="equip s12">
                                             <div class="col s2">
                                                 <h4><%= ordem%></h4>
-                                                <input type="hidden" ordem="<%=x%>" name="label<%=x%>_ordem" value="<%=ordem%>"/>
+                                                <input type='text' name="label<%=x%>_ordem" value="<%=ordem%>"/>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input type="text" id="label<%=x%>" name="label<%=x%>" required />

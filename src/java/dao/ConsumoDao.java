@@ -225,35 +225,39 @@ public class ConsumoDao {
     * @param rpm String - rpm escolhido
     * @return retorna a String com o numero de litros feita na rpm escolhida
     */
-   public String getLitrosPorRpm(String conta, String nomeMotor, String rpm) {
+   public String getLitrosPorRpm(String conta, Statement stmt2, String nomeMotor, String rpm) {
+       System.out.println("================================================="); 
+       System.out.println("ENTROU NO METODO GETLITROSPORRPM");
         String elemento = null ;
+        if(Integer.parseInt(rpm) > 400){
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        }
+        System.out.println("RPM ANTES: "+rpm);
         if(rpm.equals("65535")){
             rpm = "0";
         }   
         int intRpm = Integer.parseInt(rpm);
-
+        System.out.println("intRpm>>>>"+intRpm);
         if (intRpm < 400) {
-           intRpm = 0;
+            intRpm = 0;
            
-           rpm = String.valueOf(intRpm);
-       }
+            rpm = String.valueOf(intRpm);
+        }
  
         try {
-            Connection con = ConexaoMySQL.getConexaoMySQL();
-            Statement stmt = con.createStatement();
 
             //Query sql que vai pro mysql
             String sqlPainel;
 
             sqlPainel=("SELECT  `0`,`400`,`500`, `600`, `700`, `800`, `900`, `1000`, `1100`, `1200`, `1300`, `1400`, `1500`, `1600`, `1700`, `1800`,\n" +
-" `1900`, `2000`,`2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`,\n" +
-" `3000`, descricao FROM exporta.motor_tab where nome_motor ='"+nomeMotor+"' and conta='"+conta+"';");
-            ResultSet rs = stmt.executeQuery(sqlPainel);
+            " `1900`, `2000`,`2100`, `2200`, `2300`, `2400`, `2500`, `2600`, `2700`, `2800`, `2900`,\n" +
+            " `3000`, descricao FROM exporta.motor_tab where nome_motor ='"+nomeMotor+"' and conta='"+conta+"';");
+            ResultSet rs = stmt2.executeQuery(sqlPainel);
    
             int i =0;
             while (rs.next()) {
                 
-               
+                System.out.println("RPM DEPOIS: "+rpm);
                 if (rs.getString(""+rpm+"") != null ) {
                     elemento = rs.getString(""+rpm+"");
                     
@@ -267,16 +271,14 @@ public class ConsumoDao {
                   
             }
           
-            rs.close();
-            stmt.close();
-            con.close();
             
         } catch (Exception e) {
             System.out.println("Falha na coleta de litros...");
             System.out.println("Erro: "+e);
             
         }
-
+        System.out.println("SAIU DO METODO GETLITROSPORRPM");
+        System.out.println("=================================================");
         return elemento;
     }
     

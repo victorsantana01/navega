@@ -50,72 +50,30 @@
             Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
         %>
+        <style>
+            .daterangepicker .drp-calendar .calendar-time select{
+                display:inline !important;
+            }
+            .modal-dialog{
+                margin: 0px !important;
+            }
+            a:hover {text-decoration: none;}
+        </style>
         <script type="text/javascript">
             $(function() {
-                $('.datepicker').datepicker({
-                    i18n: {
-                        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                        monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                        weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
-                        weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-                        weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                        today: 'Hoje',
-                        clear: 'Limpar',
-                        cancel: 'Sair',
-                        done: 'Confirmar',
-                        labelMonthNext: 'Próximo mês',
-                        labelMonthPrev: 'Mês anterior',
-                        labelMonthSelect: 'Selecione um mês',
-                        labelYearSelect: 'Selecione um ano',
-                        selectMonths: true,
-                        selectYears: 15,
-                    },
-                    format: 'dd/mm/yyyy',
-                    container: 'body',
-                    showClearBtn: true,
-                });
-                function ajustaData(xx){
-                    var b = xx.split("/")[2]+"/"+xx.split("/")[1]+"/"+xx.split("/")[0];
-                    b = new Date(b);
-                    return b;
-                }
-                function ajustaData2(xx){
-                    var b = xx.split("/")[1]+"/"+xx.split("/")[0]+"/"+xx.split("/")[2];
-                    b = new Date(b);
-                    return b;
-                }
-                $('.datepicker').change(function(){
-                    let viagens = $('.collapsible-header');
-                    for (var i = 0; i < viagens.length; i++) {
-                        //console.log(viagens[i].attributes[1].value);
-                        let vdata = new Date(ajustaData2(viagens[i].attributes[1].value));
-                        let inicio = new Date(ajustaData2($(".datepicker")[0].value)); 
-                        let fim = new Date(ajustaData2($(".datepicker")[1].value));
-                        if(inicio == "Invalid Date" && fim == "Invalid Date"){
-                            viagens[i].style.display = "block";
-                        }else if(inicio != "Invalid Date" && fim != "Invalid Date"){
-                            if(inicio <= vdata && vdata <= fim){
-                                viagens[i].style.display = "block";
-                            }else{
-                                viagens[i].style.display = "none";
-                            }                            
-                        }else{
-                            if(inicio == "Invalid Date"){
-                                if(inicio == "Invalid Date" && vdata <= fim){
-                                    viagens[i].style.display = "block";
-                                }else{
-                                    viagens[i].style.display = "none";
-                                }                                
-                            }
-                            if(fim == "Invalid Date"){
-                                if(inicio <= vdata && fim == "Invalid Date"){
-                                    viagens[i].style.display = "block";
-                                }else{
-                                    viagens[i].style.display = "none";
-                                }
-                            }
-                        }
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                      cancelLabel: 'Clear'
                     }
+                });
+
+                $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                    $(this).val('');
                 });
             });
         </script>
@@ -124,6 +82,12 @@
         <jsp:include page="navbar.jsp"></jsp:include>
 
         <!-- INICIO Botão de Add -->
+        <div class="container">
+            <div class="input-field col s12">
+                <input type="text" name="datefilter" value="" />
+                <label for="datefilter" class="active">Datas e Horarios</label>
+            </div>
+        </div>
         <div class="container" style="padding-top:20px">
             <div class="row"><!--INCIO DO CORPO DA PAGINA-->
             <% ViagemDao viagem = new ViagemDao(); 
@@ -217,16 +181,6 @@
                 <div class="card-title center"  style="color:#00FF00">
                     <i class="material-icons">check</i><strong> Viagens Finalizadas</strong>
                 </div>
-                <div class="input-field col s12">
-                    <div class="input-field col s6">
-                        <input name="datepicker" type="text" class="datepicker">
-                        <label for="datepicker" class="active">Inicio</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input name="datepicker" type="text" class="datepicker">
-                        <label for="datepicker" class="active">Final</label>
-                    </div>
-                </div>
                 <ul class="collapsible">
                     <%
                         String[][] viagensFinalizadas = viagem.pesquisarViagensPorStatus(conta, con, stmt, "2");
@@ -241,8 +195,7 @@
                     <li>
                     <li>
                     
-                        <div class="collapsible-header" inicio="<%=viagemDataOrigemFormatada%>" fim="<%=viagemDataDestinoFormatada%>">
-                            <i class="material-icons">filter_drama</i><span><%=viagensFinalizadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataOrigemFormatada%></span></div>
+                        <div class="collapsible-header"><i class="material-icons">filter_drama</i><span><%=viagensFinalizadas[1][i].toUpperCase()%></span><span class="badge"><%=viagemDataOrigemFormatada%></span></div>
                                 <div class="collapsible-body">
                                     <b>Nome da Viagem: </b><%=viagensFinalizadas[1][i]%><br>
                                     <b>Empurrador: </b><%=viagensFinalizadas[7][i]%><br>

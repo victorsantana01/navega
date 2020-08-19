@@ -1,4 +1,4 @@
-    <%@page import="java.util.Iterator"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="src.Macros"%>
 <%@page import="dao.MacroDao"%>
@@ -22,10 +22,6 @@
      body { height: 100%; margin: 0; padding: 0 }
      .wrap { max-width: 110em; min-height: 90em; height:100%; width:100%; margin: 0 auto; padding-top: 2.5%;}
      #map-canvas { height: 100%; }
-     div.dataTables_wrapper {
-        width: 1600px;
-        margin: 0 auto;
-    }
         </style>
         <!--Materialize Icones -->  
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -40,10 +36,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
  
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
-        <!-- javascript datatables --><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!-- javascript datatables --><script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-        <script rel="stylesheet" type="text/css" src="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -51,8 +46,6 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
         <!-- Materializecss -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -67,7 +60,6 @@
             $(document).ready(function(){
                 $('.dropdown-trigger').dropdown();
                 $('select').formSelect();
-                $('.collapsible').collapsible();
                 $('.collapsible').collapsible();
 //                table.buttons().container().appendTo( '#example_wrapper .col-sm-6:eq(0)' );
             });
@@ -103,7 +95,6 @@
             <div class="nav-wrapper" style="background-color: #0277bd !important;">
                 <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="equipamentos.jsp">Equipamentos</a></li>
                     <li><a href="macros.jsp">Macros</a></li>
                     <li><a href="listarMacros.jsp">Definição da Macro</a></li>
                     <li><a href="viagens.jsp">Viagens</a></li>
@@ -191,9 +182,9 @@
                             boolean comentarioB = false;
                             boolean manutencaoB = false;
                             int leng = 0;
-                            for (int i = 0; i < 1000; i++) {
+                            for (int i = 0; i < 100; i++) {
                                 if(lista[i][0] == null){
-                                    i=1000;
+                                    i=100;
                                 }else{
                                     if(lista[i][1].equals("4")){
                                         if(comentarioB){
@@ -208,19 +199,18 @@
                                     }
                                 } 
                             }
-                            System.out.println("-------------DEF ---------------");
                             for (int i = 0; i < 100; i++) {
                                     if(lista[i][0] == null){
                                         i=100;
                                     }else{
+                                        System.out.println(i+" - "+lista[i][1]);
                                         
                                         if(lista[i][1].equals("4")){
                                         }else if(lista[i][1].equals("5")){
                                         }else{
                                             %>
-                                                <th><%=lista[Integer.parseInt(lista[i][2])][0]%></th>
+                                                <th><%=lista[i][0]%></th>
                                             <%
-                                                System.out.println(i+" - "+lista[i][2]+" : "+lista[Integer.parseInt(lista[i][2])][0]);
                                             leng++;
                                         }
                                     }
@@ -234,10 +224,10 @@
                         Iterator<Macros> iteratorAsMacros = macros.iterator();
                         int contador = 0;
                         while(iteratorAsMacros.hasNext()){
+                            System.out.println("WHILE LOOP: "+contador);
                             int cont;
                             Macros ma = iteratorAsMacros.next();
-                            String mct = ma.getMct();
-                            System.out.println("mct: "+mct);
+                            String mct = ma.getMct();                            
                             String manutencao = ma.getManutencao();
                             Rpm rpm = new Rpm();
                             %><tr><td><%= mct%></td><%
@@ -245,7 +235,7 @@
                                     %><td><%= ma.getComentario() %></td><%
                             }
                             if(manutencaoB){
-                                %><td><%= manutencao %></td><%
+                                %><td><%= ma.getManutencao() %></td><%
                             }
                             
                                 cont = 0;
@@ -253,7 +243,14 @@
                                 while(iteratorString.hasNext()){
                                     
                                     String mac = iteratorString.next();
-                                    System.out.println("macro "+cont+": "+mac);
+                                    if(lista[cont][1].equals("1")){
+                                    }
+                                    if(lista[cont][1].equals("2")){
+                                        mac = mac.substring(0,2)+"/"+mac.substring(2,4);
+                                    }
+                                    if(lista[cont][1].equals("3")){
+                                        mac = mac.substring(0,2)+":"+mac.substring(2,4);
+                                    }
                                     %><td><%= mac %></td><%
                                     cont++;
                                 }
@@ -289,9 +286,6 @@
         <script>
             $(document).ready(function() {
                 $('#example').DataTable( {
-                    "scrollX": true,
-                    responsive: true,
-                    colReorder: true,
                     dom: 'Bfrtip',
                     pageLength: 20,
                     buttons: [

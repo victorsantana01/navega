@@ -25,7 +25,7 @@
         <!--Materialize CSS -->
         <link rel="stylesheet" type="text/css" href="css/materialize.css">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"><'+'/script>')</script>
         <!--FIM Cabeçalho Para Materialize-->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuUm5AoarbQslI0GK5Q-751SwDNaNJQyM" type="text/javascript"></script>
         <!-- Compiled and minified JavaScript -->
@@ -69,6 +69,7 @@
             <div class="nav-wrapper" style="background-color: #0277bd !important;">
                 <a href="index.jsp" class="brand-logo">NAVEGA GESTOR</a>
                 <ul class="right hide-on-med-and-down">
+                    <li><a href="equipamentos.jsp">Equipamentos</a></li>
                     <li><a href="macros.jsp">Macros</a></li>
                     <li><a href="listarMacros.jsp">Definição da Macro</a></li>
                     <li><a href="viagens.jsp">Viagens</a></li>
@@ -87,10 +88,7 @@
 </div>
 
 <script type="text/javascript">
-            function confirma(form) {
-                form.submit();
-                return false;
-                $(".dropdown-trigger").dropdown();
+    $(".dropdown-trigger").dropdown();
 
 </script>
 

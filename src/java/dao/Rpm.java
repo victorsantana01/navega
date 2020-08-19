@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,9 +36,9 @@ public class Rpm {
      */
     public String [][] getRpm(String conta, String begin, String finish, String mct) {        
             
-        String[][] vetRelatorio = new String[7][10000];
+        String[][] vetRelatorio = new String[7][1000000];
         //SCRIPT IGN
-        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_messagereturn_iirtn WHERE  IIRTN_MessageTime "
+        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_RETURNMESSAGE_IIRTN WHERE  IIRTN_MessageTime "
                 + "BETWEEN ('"+begin+" 00:00:00"+"') "
                 + "AND ('"+finish+" 23:59:00"+"') and IIRTN_RPM > '0' "
                 + "and IIRTN_MctAddress='"+mct+"';");
@@ -116,7 +118,7 @@ public class Rpm {
      * @param finish String - data final a ser pesquisada
      * @param mct String - MCT a ser pesquisado
      * @param rpm String - RPM a ser pesquisado
-     * @return retorna um vetor bidimensional de Strings com os dados de messagereturn_iirtn, mais a latitude e longetude.
+     * @return retorna um vetor bidimensional de Strings com os dados de RETURNMESSAGE_IIRTN, mais a latitude e longetude.
      */
     public String [][] getLatLongRpm(String conta, String begin, String finish, String mct, String rpm) {
          //VisitaDao v =new VisitaDao();v.setNumRow();
@@ -124,7 +126,7 @@ public class Rpm {
             
         String[][] vetRelatorio = new String[7][10000];
         //SCRIPT IGN
-        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_messagereturn_iirtn WHERE  IIRTN_MessageTime "
+        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_RETURNMESSAGE_IIRTN WHERE  IIRTN_MessageTime "
                 + "BETWEEN ('"+begin+" 00:00:00"+"') "
                 + "AND ('"+finish+" 23:59:00"+"') and IIRTN_RPM = '"+rpm+"' "
                 + "and IIRTN_MctAddress='"+mct+"';");
@@ -180,7 +182,7 @@ public class Rpm {
         return numRowRpm;
     }
     /**
-     * Metodo altera a variavel NumRowRpm para o numero total de linhas de uma pesquisa de na tabela messagereturn_iirtn de uma determinada data e mct 
+     * Metodo altera a variavel NumRowRpm para o numero total de linhas de uma pesquisa de na tabela RETURNMESSAGE_IIRTN de uma determinada data e mct 
      * @param conta String - conta do usuario.
      * @param begin String - data inicial da pesquisa
      * @param finish String - data final da pesquisa
@@ -192,7 +194,7 @@ public class Rpm {
             
        
         //SCRIPT IGN
-        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_messagereturn_iirtn WHERE  IIRTN_MessageTime "
+        String SqlQueryIgn = ("SELECT * FROM exporta."+conta+"_RETURNMESSAGE_IIRTN WHERE  IIRTN_MessageTime "
                 + "BETWEEN ('"+begin+" 00:00:00"+"') "
                 + "AND ('"+finish+" 23:59:00"+"') and IIRTN_RPM > '0' "
                 + "and IIRTN_MctAddress='"+mct+"';");
@@ -361,25 +363,21 @@ public class Rpm {
      * @return retorna um vetor bidimensional de Strings com os dados do equimamento.
      */
     public String[][] listarEquipamentos(String conta) {
-        String queryRelatorio;
-         
+        System.out.println("ENTROU NO METODO LISTAREQUIPAMENTOS");
+        String queryRelatorio;        
   
         String[][] vetRelatorio = new String[4][200];
 
         try {
-              Connection con = ConexaoMySQL.getConexaoMySQL();
+            Connection con = ConexaoMySQL.getConexaoMySQL();
             Statement stmt = con.createStatement();
 
-            
-                  queryRelatorio = ("SELECT * FROM exporta."+conta+"_positionhistory_iipos;");
-           
-               ResultSet rs = stmt.executeQuery(queryRelatorio);
+            queryRelatorio = ("SELECT DISTINCT(IIPOS_MctAddress), IIPOS_MctName FROM exporta."+conta+"_positionhistory_iipos order by IIPOS_MctName ASC;");
+            ResultSet rs = stmt.executeQuery(queryRelatorio);
 
             int i =0;
           
             while (rs.next()) {
-                
-                
                 vetRelatorio[0][i] = rs.getString("IIPOS_MctAddress");
                 vetRelatorio[1][i] = rs.getString("IIPOS_MctName");
                 
@@ -394,7 +392,8 @@ public class Rpm {
             
             
         }
-     
+        System.out.println("SAIU DO METODO PESQUISAR EQUIPAMENTO.");
+        
         return vetRelatorio;
     }
     /**
@@ -462,11 +461,11 @@ public class Rpm {
          //VisitaDao v =new VisitaDao();v.setNumRow();
         System.out.println("------------------------ METODO GETPRINCIPALRPM ----------------------");
             
-        String[][] vetRelatorio = new String[7][2000];
+        String[][] vetRelatorio = new String[7][20000];
         //SCRIPT IGN
         String SqlQueryIgn = (" SELECT DISTINCT IIRTN_RPM AS RPM,\n" +
         "COUNT('iIRTN_RPM')*15 AS TEMPO_MIN, COUNT('IIRTN_RPM') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
-        "from "+conta+"_messagereturn_iirtn\n" +
+        "from "+conta+"_RETURNMESSAGE_IIRTN\n" +
         "where IIRTN_MctAddress='"+mct+"'and IIRTN_MessageTime between '"+begin+"' and '"+finish+"' and IIRTN_RPM > '0'\n" +
         "group by IIRTN_RPM ORDER BY IIRTN_RPM DESC;");
         
@@ -535,7 +534,7 @@ public class Rpm {
 " SELECT DISTINCT IIRTN_Velocity AS RPM,\n" +
 "COUNT('IIRTN_Velocity')*15 AS TEMPO_MIN,\n" +
 "COUNT('IIRTN_Velocity') AS N_REG,  IIRTN_Latitude AS LAT,  IIRTN_Longitude AS LON\n" +
-"from "+conta+"_messagereturn_iirtn\n" +
+"from "+conta+"_RETURNMESSAGE_IIRTN\n" +
 "where IIRTN_MctAddress='"+mct+"' and \n" +
 "IIRTN_MessageTime between '"+begin+"' and '"+finish+"' and IIRTN_Velocity > '0'  \n" +
 "group by IIRTN_Velocity ORDER BY IIRTN_Velocity DESC;");
@@ -650,6 +649,7 @@ public class Rpm {
      
         return i;
     }
+        
     /**
      * metodo pesquisa e retorna todas as embarcações ligadas ao usuario.
      * @param conta String - Conta
@@ -659,11 +659,8 @@ public class Rpm {
      */
     public String[][] nomeEmbarcacao(String conta,Connection con, Statement stmt, String idbarco){
         String[][] barcos = new String[2][120];
-        String MctName = "";
-        if(conta.equals("268477387")){
-                MctName = " AND IIPOS_MctName like '%JOSE GUILHERME%'";
-                System.out.println("possui J");
-            }
+        String equips = "";
+        equips = equips(conta, con, stmt);
         if(idbarco != ""){
             idbarco = " AND b.idbarco = "+idbarco+"";
         }
@@ -671,7 +668,7 @@ public class Rpm {
         try {
             String sql =("SELECT distinct(ph.IIPOS_MctAddress) as MCT, ph.IIPOS_MctName as nome, b.nome "
                     + "FROM "+conta+"_positionhistory_iipos ph LEFT JOIN barco b ON ph.IIPOS_MctAddress = b.mct "
-                    + "WHERE 1=1 "+idbarco+" "+MctName);
+                    + "WHERE 1=1 "+idbarco+" "+equips+" order by ph.IIPOS_MctName ASC");
             ResultSet rs = stmt.executeQuery(sql);
             
             int i =0;
@@ -681,7 +678,6 @@ public class Rpm {
                 barcos[0][i] = rs.getString("nome");
                 System.out.println("mct: "+barcos[1][i]+" - "+barcos[0][i]);
                 i++;
-                
             }
             System.out.println("METODO NOMEEMBARCACAO REALIZADO COM SUCESSO");
             
@@ -690,7 +686,37 @@ public class Rpm {
             System.err.println("Erro no painel!!!");
         }
         return barcos;
-            
+    }
+    public String equips(String conta,Connection con, Statement stmt1)  {
+        System.out.println("ENTROU NO METODO EQUIPS");
+        String equips = "";
+        String[] equipsArray;
+        try{
+            String sqlequips =("SELECT * FROM `visibilidade_equipamentos` WHERE usuario = '"+conta+"'");
+            ResultSet rsEquips = stmt1.executeQuery(sqlequips);
+            if(rsEquips.next()){
+                equips = rsEquips.getString("mcts");
+                System.out.println(equips);
+                if(equips.split("_").length >1){
+                    System.out.println("IF LENGTH > 1");
+                    equipsArray = equips.split("_");
+                    equips = "AND (";
+                    for (int i = 1; i < equipsArray.length; i++) {
+                        if(i == 1){
+                            equips = equips+" IIPOS_MctAddress = '"+equipsArray[i]+"' ";
+                        }else{
+                            equips = equips+" OR IIPOS_MctAddress = '"+equipsArray[i]+"' ";
+                        }
+                        System.out.println(i+" equips: "+equips);
+                    }
+                    equips = equips+") ";                    
+                }
+            }
+        }catch(Exception e){
+            System.out.println("ERRO NO METODO EQUIPS");
+            System.out.println(e);
+        }
+     return equips;
     }
     /**
      * Metodo pesquisa o historico de posições das embarcações relacionadas ao cliente e apresenta suas posições.
@@ -702,20 +728,16 @@ public class Rpm {
      * @return retorna um vetor bidimensional de Strings com os dados e posições das embarcações.
      */
     public String[][] painelAtualizado(String conta,Connection con, Statement stmt, Statement stmt1, Statement stmt2) {
-        
+        System.out.println("ENTOU NO METODO PAINELaTUALIZADO ----------------------------");
         String[][] vetRelatorio = new String[12][120];
-        //Conexão
-            String MctName = "";
+        String equips = "";
         try {
-            if(conta.equals("268477387")){
-                MctName = " WHERE IIPOS_MctName like 'J%'";
-                System.out.println("possui J");
-            }
+            equips = equips(conta, con, stmt1);
             String sqlPainel=("select distinct iipos_mctaddress AS MCT, count(*) AS total,\n" +
             "iipos_mctname as NOME, max(IIPOS_TimePosition)as HORA, \n" +
             "MAX(date(iipos_timeposition)) AS DATA, MAX(IIPOS_LATITUDE) AS LAT, \n" +
             "MAX(IIPOS_LONGITUDE) AS LON, IIPOS_Landmark AS LAND  from "+conta+"_positionhistory_iipos "
-                    +MctName+" group by iipos_mctaddress desc;");
+                    +"WHERE 1=1 "+equips+" group by iipos_mctaddress desc;");
 //-----------------------------------------------------------------------------------------------------//  
 
             String r1="0";
@@ -771,7 +793,7 @@ public class Rpm {
            
             //Query sql que vai pro mysql
            
-             String sqlPainel=("SELECT IIRTN_RPM, IIRTN_Velocity, IIRTN_MctAddress, IIRTN_MessageTime FROM exporta."+conta+"_messagereturn_iirtn where IIRTN_MctAddress = \""+mct+"\" order by IIRTN_ID desc limit 1");
+             String sqlPainel=("SELECT IIRTN_RPM, IIRTN_Velocity, IIRTN_MctAddress, IIRTN_MessageTime FROM exporta."+conta+"_RETURNMESSAGE_IIRTN where IIRTN_MctAddress = \""+mct+"\" order by IIRTN_ID desc limit 1");
 
             ResultSet rs = stmt.executeQuery(sqlPainel);
         
@@ -806,7 +828,7 @@ public class Rpm {
            
             //Query sql que vai pro mysql
            
-             String sqlPainel=("SELECT IIRTN_RPM, IIRTN_Velocity, IIRTN_MctAddress, IIRTN_MessageTime FROM exporta."+conta+"_messagereturn_iirtn where IIRTN_MctAddress = \""+mct+"\" order by IIRTN_ID desc limit 1");
+             String sqlPainel=("SELECT IIRTN_RPM, IIRTN_Velocity, IIRTN_MctAddress, IIRTN_MessageTime FROM exporta."+conta+"_RETURNMESSAGE_IIRTN where IIRTN_MctAddress = \""+mct+"\" order by IIRTN_ID desc limit 1");
 
             ResultSet rs = stmt.executeQuery(sqlPainel);
         

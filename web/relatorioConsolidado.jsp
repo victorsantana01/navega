@@ -47,9 +47,11 @@
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
+        Connection con2 = ConexaoMySQL.getConexaoMySQL();
+        Connection con3 = ConexaoMySQL.getConexaoMySQL();
          Statement stmt = con.createStatement();
-         Statement stmt2 = con.createStatement();
-         Statement stmt3 = con.createStatement();
+         Statement stmt2 = con2.createStatement();
+         Statement stmt3 = con3.createStatement();
 %>                
     <script type="text/javascript">
         function printpage(){
@@ -178,28 +180,29 @@
                                             
                                             
                                             <%
-                                                Teste te = new Teste();
-                                                ConsumoDao cons = new ConsumoDao();
-                                                entrada = painel1[0][i];
-                                                String[] vetEntrada = entrada.split("");
-                                                if (vetEntrada.length == 2) {
-                                                    entrada = "0";
-                                                }
-                                                if (vetEntrada.length == 3) {
-                                                    entrada = vetEntrada[0] + "00";
-                                                }
-                                                if (vetEntrada.length == 4) {
-                                                    entrada = vetEntrada[0] + vetEntrada[1] + "00";
-                                                }                                           
-                                                      minuto = Integer.parseInt(painel1[1][i]);
-                                                       if (minuto >maiorMinuto) {
-                                                           maiorMinuto = minuto;
+                                                        Teste te = new Teste();
+                                                        ConsumoDao cons = new ConsumoDao();
+                                                        entrada = painel1[0][i];
+                                                        
+                                                        String[] vetEntrada = entrada.split("");
+                                                        if (vetEntrada.length == 2) {
+                                                            entrada = "0";
+                                                        }
+                                                        if (vetEntrada.length == 3) {
+                                                            entrada = vetEntrada[0] + "00";
+                                                        }
+                                                        if (vetEntrada.length == 4) {
+                                                            entrada = vetEntrada[0] + vetEntrada[1] + "00";
+                                                        }                                           
+                                                        minuto = Integer.parseInt(painel1[1][i]);
+                                                        if (minuto >maiorMinuto) {
+                                                            maiorMinuto = minuto;
                                                             vetPosition = i;   
-                                                           }                                                
-                                                consumo = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem, entrada), painel1[1][i]);
+                                                        }                                                
+                                                        consumo = te.consumo(cons.getLitrosPorRpm(conta,stmt2, dadosMotorViagem, entrada), painel1[1][i]);
 
-                                                consumoDouble = Double.valueOf(consumo);
-                                                total = total + consumoDouble;
+                                                        consumoDouble = Double.valueOf(consumo);
+                                                        total = total + consumoDouble;
 
                                            
                                                     }
@@ -291,15 +294,17 @@
                                                          String kmString = "";
                                                         String[][] painel2;
                                                         painel2 = rpm.getPrincipalRpm2(conta,dadosInicioViagem,dadosFimViagem,dadosMctViagem).clone();
-                                                       System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
+                                                        System.out.println("Valida2 >>>>>>>> "+painel2[0][0]);
                                                         String consumo2 = "";
                                                        
                                                         String entrada2 = null;
                                                         double total2 = 0.0;
                                                         double consumoDouble2;
-                                                             int minuto2 = 0;
-                                                             int vetPosition2 = 0;
-                                                             int maiorMinuto2 = 0;
+                                                        int minuto2 = 0;
+                                                        int vetPosition2 = 0;
+                                                        int maiorMinuto2 = 0;
+                                                        System.out.println("===========================================================================================");
+                                                        System.out.println("MOTOR 2");
                                                         for (int i = 0; i < 2000; i++) {
                                                             if (painel2[0][i] == null || painel2[0][i] == "0") {
                                                                 i = 2000;
@@ -312,6 +317,7 @@
                                                                 Teste te = new Teste();
                                                                 //ConsumoDao cons = new ConsumoDao();
                                                                 entrada2 = painel2[0][i];
+                                                                System.out.println("entrada ---- "+entrada2);
                                                                 String[] vetEntrada2 = entrada2.split("");
                                                                 if (vetEntrada2.length == 2) {
                                                                     entrada = "0";
@@ -322,14 +328,14 @@
                                                                 if (vetEntrada2.length == 4) {
                                                                     entrada2 = vetEntrada2[0] + vetEntrada2[1] + "00";
                                                                 }
-                                                                 minuto2 = Integer.parseInt(painel2[1][i]);
-                                                       if (minuto2 >maiorMinuto2) {
-                                                           maiorMinuto2 = minuto2;
-                                                            vetPosition2 = i;   
-                                                           }
+                                                                minuto2 = Integer.parseInt(painel2[1][i]);
+                                                                if (minuto2 >maiorMinuto2) {
+                                                                    maiorMinuto2 = minuto2;
+                                                                    vetPosition2 = i;   
+                                                                }
                                                                 System.err.println("Valor Arredondado é: " + entrada2);
                                                                 ConsumoDao cons = new ConsumoDao();
-                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, dadosMotorViagem2, entrada), painel1[1][i]);
+                                                                consumo2 = te.consumo(cons.getLitrosPorRpm(conta, stmt3, dadosMotorViagem2, entrada2), painel1[1][i]);
 
                                                                 consumoDouble2 = Double.valueOf(consumo2);
                                                                 total2 = total2 + consumoDouble2;
@@ -366,8 +372,6 @@
                                                                 r2 = Integer.parseInt(painel[4][i]);
                                                                 
                                                                 km = Double.valueOf(painel[6][i]);
-
-                                                                System.out.println(km);
                                                                 
                                                                 soma = soma + r1;
                                                                 soma2 = soma2 + r2;
@@ -587,6 +591,8 @@ console.log(rpm);
                                                                 <%
                                                                     con.close();
                                                                     stmt.close();
+                                                                    stmt2.close();
+                                                                    stmt3.close();
                                                                 %>
        
     </body>

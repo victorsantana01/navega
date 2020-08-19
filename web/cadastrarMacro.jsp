@@ -47,11 +47,10 @@
                         int j=0;
                         String labels = "";
                         String tipos = "";
-                        String ordem = "";
+                        String ordem = request.getParameter("ordem");
                         while(request.getParameter("label"+i) != null){
 //                            System.out.println("label"+i+" :"+request.getParameter("label"+i));
                             labels = labels+"_"+request.getParameter("label"+i);
-                            ordem = ordem+"_"+request.getParameter("label"+i+"_ordem");
                             i++;
                         }
                         while(request.getParameter("tipo"+j) != null){
