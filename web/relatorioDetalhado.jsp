@@ -40,8 +40,11 @@
         String conta = session.getAttribute("conta").toString();
         System.out.println("Numero da conta é >>>>> "+conta);
         Connection con = ConexaoMySQL.getConexaoMySQL();
+        Connection con2 = ConexaoMySQL.getConexaoMySQL();
+        Connection con3 = ConexaoMySQL.getConexaoMySQL();
         Statement stmt = con.createStatement();
-        Statement stmt2 = con.createStatement();
+        Statement stmt2 = con2.createStatement();
+        Statement stmt3 = con3.createStatement();
 %>                
 
     <script>
@@ -281,7 +284,7 @@
                                                 //ConsumoDao cons = new ConsumoDao();
                                                 
                                                 entrada = painel1[0][i];
-                                                String entrada2 = "";
+                                                String entrada2 = entrada;
                                                 String[] vetEntrada = entrada.split("");
                                                 if (vetEntrada.length == 2) {
                                                     entrada2 = "0";
@@ -433,7 +436,7 @@
 
                                                         System.err.println("Valor Arredondado é: " + entrada2);
                                                         ConsumoDao cons = new ConsumoDao();
-                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, stmt2, viagemNomeMotor2, entrada2), painel2[1][i]);
+                                                        consumo2 = te.consumo(cons.getLitrosPorRpm(conta, stmt3, viagemNomeMotor2, entrada2), painel2[1][i]);
 
                                                         consumoDouble2 = Double.valueOf(consumo2);
                                                         total2 = total2 + consumoDouble2;
